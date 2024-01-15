@@ -1,0 +1,23 @@
+.container{
+    width: 90%;
+    background-color: white;
+    display:flex;
+    height:5vh;
+    align-items: start;
+    position: fixed;
+    color: black;
+    justify-content: center;
+    bottom: 0;
+    p{
+    font-size: 14px;
+    font-weight: 500;
+    }
+    :global(a) {
+        text-decoration: none;
+      }
+}
+.category{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
