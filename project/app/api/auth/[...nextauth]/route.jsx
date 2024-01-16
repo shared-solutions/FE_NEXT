@@ -1,5 +1,5 @@
 
-import { useAuthStore } from "@/app/zustand/useAuthStore";
+
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
@@ -58,7 +58,6 @@ const handler = NextAuth({
       if (account) {
         
         token.accessToken = account.access_token;
-        global.accessToken = token.accessToken;
        
       }
       return token;

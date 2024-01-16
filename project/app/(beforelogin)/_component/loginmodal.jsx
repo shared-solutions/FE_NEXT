@@ -1,14 +1,19 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { signIn, signOut } from "next-auth/react"
+import { signIn} from "next-auth/react"
 
 import styles from '@/app/modules/login.module.scss'
 import smile from "@/app/public/image/smile.png"
+import { useRouter } from "next/navigation"
 
 
 export default function Modal(){
     
+    const router = useRouter()
+    const signOut = () =>{
+
+    }
     return (
         <div className={styles.container}>
             <div className={styles.blank}/>
@@ -27,9 +32,8 @@ export default function Modal(){
                 <p>간편하게 로그인하고</p>
                 <p>나의 고민을 공유해보세요.</p>
             </div>
-            <button className={styles.btn} onClick={() => signIn("kakao", { redirect: true, callbackUrl: "/home" })}
+            <button className={styles.btn} onClick={() => signIn("kakao", { redirect: true, callbackUrl: "/" })}
             ><h2>카카오로 3초만에 시작하기</h2></button> 
-            <button onClick={() => signOut()}>로그아웃</button>   
             <div className={styles.option}>
                 <Link href='/signup'>이메일로 로그인</Link>
                 <p>|</p>
