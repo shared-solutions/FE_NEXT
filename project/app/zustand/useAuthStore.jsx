@@ -1,9 +1,11 @@
-import create from 'zustand';
+import { create } from "zustand";
 
-// create our store
-export const useAuthStore = create((set) => ({
-  authenticated: false, // initial value of authenticated property
-  user: {}, // initial value of user property
-  setAuthentication: (val) => set((state) => ({ authenticated: val })), // function to set the authentication status
-  setUser: (user) => set({ user }), // function to set user information
+const useAuthStore = create((set) => ({
+  accessToken: global.accessToken || '', // 초기값은 global.accessToken이 있으면 그 값, 없으면 빈 문자열
+  setAccessToken: (newToken) => {
+    set({ accessToken: newToken });
+    global.accessToken = newToken;
+  },
 }));
+
+export { useAuthStore };
