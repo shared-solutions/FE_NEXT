@@ -1,6 +1,7 @@
 'use client'
 
 import styles from '@/app/modules/review.module.scss'
+import Link from 'next/link';
 
 const Home = ()=> {
     return(
@@ -11,7 +12,9 @@ const Home = ()=> {
                     <button className={styles.button}>최신순</button>
                 </div>
                 <div className={styles.submit_button_container}>
-                    <button className={styles.submit_button}>고민투표 후기 작성하기</button>
+                    <Link href='/write-review'>
+                        <button className={styles.submit_button}>고민투표 후기 작성하기</button>
+                    </Link>
                 </div>
             </div>
             <div className={styles.scrollable_container}>
