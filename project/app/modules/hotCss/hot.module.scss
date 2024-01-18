@@ -9,23 +9,27 @@
   margin-bottom: -2px;
 }
 .title {
-  font-size: 12px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 15px;
+  margin-left: 10px;
   padding-top: 100px;
+  color: black;
 }
 
 .morebtn {
   border: none;
   background-color: transparent;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  color: #898989;
+  color: black;
   float: right;
+  margin-right: 20px;
+  margin-top: 5px;
 }
 
 .boxlay {
-  padding-top: 11px;
+  padding-top: 32px;
   //가로 스크롤 되도록 설정
   display: flex;
   overflow-x: auto;

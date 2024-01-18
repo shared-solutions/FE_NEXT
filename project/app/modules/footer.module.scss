@@ -1,24 +1,24 @@
-.container{
-    width: 100vw;
-    background-color: white;
-    display:flex;
-    height:5vh;
-    align-items: start;
-    position: fixed;
-    color: black;
-    justify-content: center;
-    bottom: 0;
-    left: 0;
-    p{
+.container {
+  width: 100vw;
+  background-color: #ffeb86;
+  display: flex;
+  height: 5vh;
+  align-items: start;
+  position: fixed;
+  color: black;
+  justify-content: center;
+  bottom: 0;
+  left: 0;
+  p {
     font-size: 14px;
     font-weight: 500;
-    }
-    :global(a) {
-        text-decoration: none;
-      }
+  }
+  :global(a) {
+    text-decoration: none;
+  }
 }
-.category{
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
+.category {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }

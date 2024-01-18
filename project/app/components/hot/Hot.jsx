@@ -18,8 +18,8 @@ const Hot = () => {
           src={hotimg}
           alt="핫한 고민투표 이미지"
           className={styles.hotimg}
-          width={15}
-          height={15}
+          width={23}
+          height={23}
         />
         <button className={styles.morebtn} onClick={changePage}>
           더보기 <Image src={vectorimg} alt="벡터" width={5} height={10} />

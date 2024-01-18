@@ -7,7 +7,8 @@ import { PageRendering } from "@/app/zustand/store";
 
 const HotAll = () => {
   const backPage = PageRendering((state) => state.backPage);
-
+  const title = PageRendering((state) => state.title);
+  const img = PageRendering((state) => state.img);
   return (
     <>
       <Image
@@ -19,9 +20,9 @@ const HotAll = () => {
         height={15}
       />
       <div className={styles.title}>
-        지금 가장 핫한 고민투표
+        {title}
         <Image
-          src={hotimg}
+          src={img}
           alt="핫한 고민투표 이미지"
           className={styles.hotimg}
           width={15}
