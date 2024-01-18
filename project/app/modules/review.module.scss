@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    height: 100vh;
+}
+.button_container{
+    position: fixed;
+    top: 6vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sorting_button_container{
+    width: 50%;
+    display: flex;
+}
+.submit_button_container{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    //justify-content: end;
+}
+.button{
+    background-color: #FFC700;
+    border-radius: 30px;
+    border-style: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px;
+    width: 80px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+.submit_button{
+    background-color: #FFC700;
+    border-radius: 30px;
+    border-style: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px;
+    width: 200px;
+    margin-top: 10px;
+}
+.scrollable_container{
+    flex: 1;
+    overflow: auto;
+    margin-top: 6vh;
+    max-height: calc(90vh - 50px);
+}
+.review_box{
+    height: 300px;
+    width: 80vw;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #FFC700;
+    border-radius: 20px;
+}
