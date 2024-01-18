@@ -1,7 +1,9 @@
-export default function Home(){
-    return(
-        <div>
-            홈화면
-        </div>
-    )
+import Hot from "@/app/components/hot/Hot";
+
+export default function Home() {
+  return (
+    <div>
+      <Hot />
+    </div>
+  );
 }
