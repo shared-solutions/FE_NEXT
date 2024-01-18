@@ -1,11 +1,10 @@
 import Image from "next/image";
-import hotimg from "@/app/public/image/hotimg.png";
 import vector from "@/app/public/image/Vector.png";
-import styles from "@/app/modules/hotCss/hotall.module.scss";
-import HotAllBox from "./HotAllBox";
+import styles from "@/app/modules/hotCss/allpage.module.scss";
+import AllPageBox from "./AllPageBox";
 import { PageRendering } from "@/app/zustand/store";
 
-const HotAll = () => {
+const AllPage = () => {
   const backPage = PageRendering((state) => state.backPage);
   const title = PageRendering((state) => state.title);
   const img = PageRendering((state) => state.img);
@@ -23,18 +22,21 @@ const HotAll = () => {
         {title}
         <Image
           src={img}
-          alt="핫한 고민투표 이미지"
+          alt="이미지"
           className={styles.hotimg}
-          width={15}
-          height={15}
+          width={23}
+          height={23}
         />
       </div>
 
       <div>
-        <HotAllBox />
+        <AllPageBox />
+        <AllPageBox />
+        <AllPageBox />
+        <AllPageBox />
       </div>
     </>
   );
 };
 
-export default HotAll;
+export default AllPage;

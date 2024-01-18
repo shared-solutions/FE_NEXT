@@ -1,6 +1,6 @@
 "use client";
 import Hot from "@/app/components/hot/Hot";
-import HotAll from "@/app/components/hot/HotAll";
+import AllPage from "@/app/components/hot/AllPage";
 import WaitingAnswer from "@/app/components/waitinganswer/WaitingAnswer";
 import styles from "@/app/modules/homeCss/home.module.scss";
 import { PageRendering } from "@/app/zustand/store";
@@ -21,7 +21,7 @@ export default function Home() {
         </>
       ) : statePage === "viewPage" ? (
         <div>
-          <HotAll />
+          <AllPage />
         </div>
       ) : null}
     </div>
