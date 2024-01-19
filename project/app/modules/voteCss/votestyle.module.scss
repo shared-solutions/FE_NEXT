@@ -1,0 +1,30 @@
+.container{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 30px;
+    padding: 10px;
+    padding-left: 10px;
+    background-color: #333333;
+    border-radius: 30px;
+}
+.styleButton {
+    width: 25%;
+    background-color: transparent;
+    color: #AFAFAF;
+    font-weight: 700;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.selected {
+    width: 25%;
+    background-color: #FFCD3E !important; // 기존 스타일 덮어쓰기
+    color: black;
+    font-weight: 900;
+    border-radius: 30px !important;
+}
