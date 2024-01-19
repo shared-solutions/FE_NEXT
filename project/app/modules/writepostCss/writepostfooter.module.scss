@@ -1,0 +1,31 @@
+.footer_container{
+    height: 60px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer_add_vote{
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.footer_menu{
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.add_vote_button{
+    background-color: white;
+    border: none;
+    font-weight: 800;
+    margin-left: 10px;
+}
+.save_button{
+    background-color: white;
+    border: none;
+    font-weight: 700;
+    margin-left: 20px;
+}
