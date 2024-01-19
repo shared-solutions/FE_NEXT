@@ -1,0 +1,64 @@
+.container {
+  height: 80%;
+  border-radius: 20px;
+  padding: 40px;
+  background-color: white;
+}
+
+.userlay {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.morebtn {
+  float: right;
+}
+
+.title {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.point {
+  width: 44px;
+  height: 21px;
+  border-radius: 8px;
+  float: right;
+  background-color: black;
+  color: #ffc700;
+}
+
+.content {
+  margin-top: 42px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #343434;
+}
+
+.select {
+  margin-top: 38px;
+}
+
+.taglay {
+  margin-top: 47px;
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ff9c00;
+}
+
+.overtime {
+  font-size: 13px;
+  font-weight: 500;
+  color: black;
+}
