@@ -1,0 +1,47 @@
+.background{
+  background: linear-gradient(to bottom, #FFA800, #FFE895);
+  width: 70%;
+  position: relative;
+  left: 24%;
+  height: 30vh;
+}
+.container{
+  background-image: url("../../public/image/background.png");
+  position: absolute;
+  background-size: cover;
+  top: 60%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center; /* 화면 전체에서 수직 방향으로 가운데 정렬을 추가 */
+  flex-direction: column; 
+}
+.close{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 5rem;
+  left: 50vw;
+}
+.close p{
+ font-size: 1.6rem;
+ font-weight: bolder;
+ margin-right: 15px;
+}
+.grid{
+  width: 70%;
+  display: grid;
+  grid-template-columns: 32vw 1fr;
+  grid-template-rows: repeat(2, 0.5rem);
+  gap: 25px 10px;
+  padding: 1.3rem;
+  margin-left: 14vw;
+  align-items: center;
+  cursor: pointer;
+}
+.grid p{
+  font-size: 1.3rem;
+  font-weight: bold;
+}

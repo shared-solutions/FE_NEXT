@@ -1,0 +1,30 @@
+.rowContainer{
+  width: 70%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 35% 35% 35%;
+  align-items: center;
+  flex-direction:row;
+  padding: 25px;
+}
+.rowContainer a{
+  color: black;
+  text-decoration: none;
+}
+.colContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+.text{
+  width: auto;
+  font-size: 1.2rem;
+  margin: 0.8rem auto;
+}
+.withBorderTop {
+  border-top: 0.1rem solid #cccccc; 
+}

@@ -1,0 +1,16 @@
+.imgContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.imageShadow {
+  border-radius: 50%;
+  margin-top: -3rem;
+  /* 수평 8px, 수직 8px, 30px 흐림, 6px 크기 */
+  box-shadow: 8px 8px 30px 6px rgba(0, 0, 0, 0.3);
+}
+.edit{
+  margin-top: -2.5rem;
+  margin-right: -6.5rem;
+}
