@@ -18,11 +18,6 @@ const VoteStyle = () => {
                 onClick={() => handleButtonClick('일반')}
             />
             <VoteStyleButton
-                text='그래프'
-                selected={selectedButton === '그래프'}
-                onClick={() => handleButtonClick('그래프')}
-            />
-            <VoteStyleButton
                 text='게이지'
                 selected={selectedButton === '게이지'}
                 onClick={() => handleButtonClick('게이지')}
