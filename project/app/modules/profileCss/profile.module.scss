@@ -1,0 +1,48 @@
+.background{
+  background: linear-gradient(to bottom, #FFA800, #FFE895);
+  width: 100%;
+  position: relative;
+  height: 30vh;
+}
+.container{
+  background-image: url("../../public/image/background.png");
+  position: absolute;
+  background-size: cover;
+  top: 60%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+}
+.prev{
+  width: 80%;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 5rem;
+  left: 9%;
+}
+.prev h2{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.name{
+  height: 20%;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.info_edit{
+  margin-top: 0.1rem;
+  font-size: 1.2rem;
+  color: #888888;
+}
