@@ -1,17 +1,37 @@
 'user clinet'
+import React, { useState } from 'react';
 import styles from '@/app/modules/voteCss/votemodal.module.scss';
 import Image from 'next/image'
 
 import VoteStyle from "./VoteStyle"
-import VoteItem from "./VoteItem"
 import Category from "./Category"
 import VoteDeadline from "./VoteDeadline"
 import SelectedPoint from "./SelectedPoint"
 
 import downimg from '../../public/image/down.png'
 import addbutton from '../../public/image/add_button.png'
+import NormalVoteItem from './NormalVoteItem';
+import GaugeVoteItem from './GaugeVoteItem';
+import CardVoteItem from './CardVoteItem';
 
 const VoteModal = ({ onClose }) => {
+    const [selectedStyle, setSelectedStyle] = useState('일반');
+
+    const handleStyleSelect = (style) => {
+        setSelectedStyle(style);
+    };
+
+    const renderVoteItem = () => {
+        switch (selectedStyle) {
+            case '게이지':
+                return <GaugeVoteItem />;
+            case '카드':
+                return <CardVoteItem />;
+            default:
+                return <NormalVoteItem />;
+        }
+    };
+
     return (
         <div className={styles.modal_Overlay}>
             <div className={styles.modal_container}>
@@ -32,24 +52,10 @@ const VoteModal = ({ onClose }) => {
                         <p>투표 제목</p>
                         <input className={styles.write_title} type='text' placeholder='내용을 입력하세요'/>
                         <p>투표 스타일</p>
-                        <VoteStyle />
-                        <p>항목</p>
-                        <VoteItem />
-                        <VoteItem />
-                        <VoteItem />
-                        <div className={styles.add_item}>
-                            <button>
-                                <Image
-                                    src={addbutton}
-                                    style={{
-                                     width: 30,
-                                     height: 30
-                                    }}
-                                    alt='add/'
-                                />
-                            </button>
-                            <div className={styles.add_context}>항목 추가하기</div>
-                        </div>
+                        <VoteStyle onSelectedStyle={handleStyleSelect} /> {/* onSelectedStyle을 prop으로 전달 */}
+                        {/* ---- 항목 시작 ---- */}
+                        {renderVoteItem()} {/* 기본 값으로 일반 스타일의 항목 렌더링 */}
+                        {/* ---- 항목 끝 ---- */}
                         <p>글 카테고리</p>
                         <Category />
                         <p>투표 마감 시간 설정</p>

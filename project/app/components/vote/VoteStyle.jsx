@@ -3,15 +3,17 @@ import React, { useState } from 'react'
 import styles from '@/app/modules/voteCss/votestyle.module.scss';
 import VoteStyleButton from './VoteStyleButton';
 
-const VoteStyle = () => {
+const VoteStyle = ({ onSelectedStyle }) => {
     const [selectedButton, setSelectedButton] = useState('일반');
 
     const handleButtonClick = (text) => {
         setSelectedButton(text);
+        onSelectedStyle(text); // 상위 컴포넌트로 선택된 스타일 전달
     };
 
     return(
-        <div className={styles.container}>
+        <div>
+            <div className={styles.container}>
             <VoteStyleButton
                 text='일반'
                 selected={selectedButton === '일반'}
@@ -27,6 +29,7 @@ const VoteStyle = () => {
                 selected={selectedButton === '카드'}
                 onClick={() => handleButtonClick('카드')}
             />
+            </div>
         </div>
     )
 }
