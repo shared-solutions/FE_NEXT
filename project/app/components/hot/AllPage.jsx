@@ -3,7 +3,7 @@ import vector from "@/app/public/image/Vector.png";
 import styles from "@/app/modules/hotCss/allpage.module.scss";
 import AllPageBox from "./AllPageBox";
 import { PageRendering } from "@/app/zustand/store";
-
+import Link from "next/link";
 const AllPage = () => {
   const backPage = PageRendering((state) => state.backPage);
   const title = PageRendering((state) => state.title);
@@ -29,11 +29,10 @@ const AllPage = () => {
         />
       </div>
 
-      <div>
-        <AllPageBox />
-        <AllPageBox />
-        <AllPageBox />
-        <AllPageBox />
+      <div className={styles.linkContainer}>
+        <Link className={styles.link} href="/viewdetail/1">
+          <AllPageBox />
+        </Link>
       </div>
     </>
   );
