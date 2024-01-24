@@ -1,6 +1,7 @@
 'use client'
 import Header from '@/app/components/reviews/Header'
 import ReviewBox from '@/app/components/reviews/ReviewBox'
+import WriteButton from '@/app/components/reviews/WriteButton'
 
 import styles from '@/app/modules/reviewCss/review.module.scss'
 
@@ -14,6 +15,7 @@ export default function Review(){
                 <ReviewBox />
                 <ReviewBox />
             </div>
+            <WriteButton />
         </div>
     )
 }
