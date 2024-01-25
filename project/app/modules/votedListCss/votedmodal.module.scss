@@ -29,9 +29,7 @@
         z-index: 1;
     }
     .modal_innerContent {
-        overflow: auto;
         margin-top: 30px;
-        max-height: 67vh;
         .header{
             width: 90%;
             margin: 0 auto;
@@ -48,4 +46,9 @@
         font-weight: bold;
         font-size: 17px;
     }
+}
+.box_container{
+    overflow: auto;
+    max-height: 67vh;
+    margin-top: 20px;
 }
