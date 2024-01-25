@@ -1,11 +1,15 @@
 .rowContainer{
-  width: 80%;
+  width: 90%;
   display: flex;
   align-items: center;
-  margin: 2.5rem 0 0.5rem;
+  margin: 1.5rem 0 0;
+}
+.rowContainer h5{
+  font-size: 17px;
+  font-weight: bold;
 }
 .rowContainer2{
-  width: 80%;
+  width: 90%;
   display: flex;
   align-items: center;
 }
@@ -13,7 +17,7 @@
   justify-content: flex-end;
 }
 .container{
-  width: 80%;
+  width: 90%;
   display: flex;
 }
 .text{
@@ -21,20 +25,20 @@
   display: flex;
   align-items: center;
   color: #FF9900;
-  font-size: 1.2rem;
-  font-weight: 590;
+  font-size: 14px;
+  font-weight: 600;
 }
 .title1{
   color: #767676;
-  font-size: 1.2rem;
+  font-size: 14px;
 }
 .title2{
   color: #B2B2B2;
-  font-size: 1.2rem;
+  font-size: 14px;
 }
 .font{
-  margin-left: 0.5rem;
-  font-size: 1.2rem;
+  margin-left: 0.3rem;
+  font-size: 14px;
   font-weight: 590;
 }
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ProfileImage from "@/app/components/profile/ProfileImage";
+import ProfileImage from "@/app/components/profileimage/ProfileImage";
 import Name from "@/app/components/profile/Name";
 import Rank from "@/app/components/profile/Rank";
 import Adopt from "@/app/components/profile/Adopt";
@@ -13,9 +13,9 @@ export default function Profile() {
     <div className={styles.background}>
       <div className={styles.prev}>
         <Link href="/menu">
-          <Image src={arrow2} alt="previous" width={24} height={24} />
+          <Image src={arrow2} alt="previous" />
         </Link>
-        <h2>프로필</h2>
+        <h3>프로필</h3>
       </div>
       <div className={styles.container}>
         <ProfileImage />

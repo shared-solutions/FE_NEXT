@@ -4,7 +4,7 @@ export default function Adopt() {
   return (
     <>
       <div className={styles.rowContainer}>
-        <h2>채택 내역</h2>
+        <h5>채택 내역</h5>
       </div>
       <div className={styles.grid}>
         <p className={styles.font1}>채택 답변</p>

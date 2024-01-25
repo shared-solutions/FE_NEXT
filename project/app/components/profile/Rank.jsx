@@ -9,13 +9,13 @@ export default function Rank() {
   return (
     <>
       <div className={styles.rowContainer}>
-        <h2>내 등급</h2>
+        <h5>내 등급</h5>
         <Image
           src={question}
           alt="question"
-          width={23}
-          height={23}
-          style={{ "margin-left": "0.8rem" }}
+          width={16}
+          height={16}
+          style={{ "margin-left": "0.4rem" }}
         />
       </div>
       <div className={`${styles.rowContainer2} ${styles.alignRight}`}>
@@ -30,10 +30,10 @@ export default function Rank() {
         />
       ))}
       <div className={styles.container}>
-        <p className={styles.text}>베스트 프렌드</p>
+        <p className={styles.text}>Lv.4 초수</p>
         <div className={`${styles.rowContainer2} ${styles.alignRight}`}>
           <p className={styles.title2}>다음등급 : </p>
-          <p className={styles.font}>박사</p>
+          <p className={styles.font}>중수</p>
         </div>
       </div>
     </>
