@@ -1,86 +1,21 @@
 'user client'
-import React, { useState, useEffect } from 'react'
-import styles from '@/app/modules/voteCss/cardvoteitem.module.scss'
-import Image from 'next/image'
+import styles from '@/app/modules/votedListCss/lineViewItem.module.scss'
 
-import oneimg from '../../public/image/oneimage_grey.png'
-import deleteimg from '../../public/image/delete.png'
-import addbutton from '../../public/image/add_button.png'
+import LineBox from './LineBox'
 
-const CardVoteItem = () => {
-    const [voteItems, setVoteItems] = useState([{ id: 1, placeholder: '항목 1' }]);
-
-    useEffect(() => {
-        // 컴포넌트가 처음 마운트될 때 항목 1과 항목 2를 추가
-        setVoteItems([
-            { id: 1, placeholder: '항목 1' },
-            { id: 2, placeholder: '항목 2' },
-        ]);
-    }, []);
-
-    const handleAddItem = () => {
-        const newItemNumber = voteItems.length + 1;
-        const newItemText = `항목 ${newItemNumber}`;
-        setVoteItems([...voteItems, { id: newItemNumber, placeholder: newItemText }]);
-    };
-
-    const handleDeleteItem = (id) => {
-        const updatedItems = voteItems.filter(item => item.id !== id);
-        setVoteItems(updatedItems);
-    };
-
+const LineViewItem = () => {
     return (
         <div className={styles.container}>
-            <p>항목</p>
             <div className={styles.box_container}>
-                {voteItems.map((item) => (
-                    <div className={styles.box}>
-                        <div className={styles.top} key={item.id}>
-                            <input 
-                                className={styles.write_item} 
-                                type='text' 
-                                placeholder={item.placeholder}
-                            />
-                            {/* 삭제 버튼 */}
-                            <Image
-                                src={deleteimg} 
-                                style={{
-                                    width: 18,
-                                    height: 18
-                        }}
-                                alt='delete/'
-                                onClick={() => handleDeleteItem(item.id)}
-                            />
-                        </div>
-                        <div className={styles.bottom}>
-                            {/* 이미지 버튼 */}
-                            <Image 
-                                src={oneimg}
-                                style={{
-                                    width: 18,
-                                    height: 18
-                        }}
-                                alt='img/'
-                            />
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div className={styles.add_item}>
-                <button onClick={handleAddItem}>
-                    <Image
-                        src={addbutton}
-                        style={{
-                            width: 30,
-                            height: 30
-                        }}
-                        alt='add/'
-                    />
-                </button>
-                <div className={styles.add_context}>항목 추가하기긱</div>
+                <LineBox top="1일전" title="배고프네요 뭐 먹을까요?" content="먹을 것 추천 좀 해주세요 두개 중에 골라주세요 ㅋ" goodCount={34} messageCount={24} />
+                <LineBox top="2일전" title="제목1" content="내용1" goodCount={15} messageCount={8} />
+                <LineBox top="3일전" title="제목2" content="내용2" goodCount={15} messageCount={8} />
+                <LineBox top="4일전" title="제목3" content="내용3" goodCount={15} messageCount={8} />
+                <LineBox top="5일전" title="제목4" content="내용4" goodCount={15} messageCount={8} />
+                <LineBox top="6일전" title="제목5" content="내용5" goodCount={15} messageCount={8} />
             </div>
         </div>
     );
 };
 
-export default CardVoteItem;
+export default LineViewItem;

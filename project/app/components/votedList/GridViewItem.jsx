@@ -1,5 +1,4 @@
 'user client'
-import React, { useState, useEffect } from 'react'
 import styles from '@/app/modules/votedListCss/gridViewItem.module.scss'
 
 import GridBox from './GridBox'
