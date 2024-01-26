@@ -6,6 +6,7 @@ import Image from 'next/image'
 import oneimg from '../../public/image/oneimage_grey.png'
 import deleteimg from '../../public/image/delete.png'
 import addbutton from '../../public/image/add_button.png'
+import check from '../../public/image/check.png'
 
 const CardVoteItem = () => {
     const [voteItems, setVoteItems] = useState([{ id: 1, placeholder: '항목 1' }]);
@@ -31,7 +32,20 @@ const CardVoteItem = () => {
 
     return (
         <div className={styles.container}>
-            <p>항목</p>
+            <div className={styles.top}>
+                <span>항목</span>
+                <div className={styles.check_container}>
+                    <Image
+                        src={check}
+                        style={{
+                            width: 18,
+                            height: 18
+                        }}
+                        alt='check/'
+                    />
+                    <div>복수 선택</div>
+                </div>
+            </div>
             <div className={styles.box_container}>
                 {voteItems.map((item) => (
                     <div className={styles.box}>

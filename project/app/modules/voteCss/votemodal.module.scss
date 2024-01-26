@@ -59,13 +59,12 @@
     outline: none;
     border: 2px solid #FFC700;
 }
-.complete_button_container{
-    button{
-        width: 95%;
-        height: 45px;
-        margin-top: 5px;
-        background-color: black;
-        color: white;
-        border-radius: 30px;
-    }
+.complete_button{
+    width: 95%;
+    height: 45px;
+    margin-top: 5px;
+    color: #FFCD3E;
+    background-color: black;
+    font-weight: 800;
+    border-radius: 30px;
 }

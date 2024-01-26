@@ -8,6 +8,20 @@ import plusbutton from '../../public/image/add_button.png'
 const SelectedPoint = () => {
     return (
         <div className={styles.container}>
+            <div className={styles.top}>
+                <span>채택 포인트</span>
+                <div className={styles.point_container}>
+                    <div className={styles.current_point}>
+                        <div style={{ color: '#9B9B9B', marginRight: '2px' }}>현재 보유 포인트 :</div>
+                        <div>1,350p</div>
+                    </div>
+                    <div className={styles.after_usage_point}>
+                        <div style={{ color: '#9B9B9B', marginRight: '2px' }}>사용 후 포인트 :</div>
+                        <div>1,050p</div>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.button_container}>
             <button>
                 <Image
                     src={minusbutton}
@@ -29,6 +43,7 @@ const SelectedPoint = () => {
                     alt='plus/'
                 />
             </button>
+        </div>
         </div>
     )
 }

@@ -60,13 +60,11 @@ const VoteModal = ({ onClose }) => {
                         <Category />
                         <p>투표 마감 시간 설정</p>
                         <VoteDeadline />
-                        <p>채택 포인트</p>
+                        {/* 채택 포인트 */}
                         <SelectedPoint />
                     </div>
                     {/* ---- 투표 내용 입력 끝 ---- */}
-                    <div className={styles.complete_button_container}>
-                        <button>완료</button>
-                    </div>
+                    <button className={styles.complete_button}>완료</button>
                 </div>
             </div>
         </div>
