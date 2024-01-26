@@ -5,9 +5,13 @@ import Image from 'next/image';
 import goodImg from '../../public/image/good.png'
 import messageImg from '../../public/image/message.png'
 
-const LineBox = ({ top, title, content, goodCount, messageCount }) => {
+const LineBox = ({ top, title, content, goodCount, messageCount, isSelected, onClick }) => {
+    const boxStyles = {
+        backgroundColor: isSelected ? '#E0E0E0' : 'white',
+      };
+    
     return (
-        <div className={styles.box}>
+        <div className={styles.box} style={boxStyles} onClick={onClick}>
             <div className={styles.top}>{top}</div>
             <div className={styles.title}>{title}</div>
             <div className={styles.content}>{content}</div>

@@ -4,7 +4,7 @@ import styles from '@/app/modules/writepostCss/writepost.module.scss'
 import WriteReviewHeader from "./WriteReviewHeader"
 import WriteReviewFooter from "./WriteReviewFooter"
 
-const WritePost = () => {
+const WriteReview = () => {
     return (
         <div>
             <div className={styles.container}>
@@ -20,4 +20,4 @@ const WritePost = () => {
     )
 }
 
-export default WritePost;
+export default WriteReview;
