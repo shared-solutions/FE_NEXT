@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/app/modules/profileImageCss/profileImage.module.scss";
+import styles from "@/app/modules/profileCss/profile.module.scss";
 import default_image from "../../public/image/default_image.png";
 import edit from "../../public/image/edit.png";
 
@@ -17,8 +17,8 @@ export default function Profile() {
         src={edit}
         alt="edit"
         className={styles.edit}
-        width={45}
-        height={45}
+        width={40}
+        height={40}
       />
     </div>
   );
