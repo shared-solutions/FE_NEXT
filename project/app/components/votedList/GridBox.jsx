@@ -5,9 +5,13 @@ import Image from 'next/image';
 import goodImg from '../../public/image/good.png'
 import messageImg from '../../public/image/message.png'
 
-const Box = ({ top, title, content, goodCount, messageCount }) => {
+function Box({ top, title, content, goodCount, messageCount, isSelected, onClick }) {
+    const boxStyles = {
+        backgroundColor: isSelected ? '#E0E0E0' : 'white'
+    };
+
     return (
-        <div className={styles.box}>
+        <div className={styles.box} style={boxStyles} onClick={onClick}>
             <div className={styles.top}>{top}</div>
             <div className={styles.title}>{title}</div>
             <div className={styles.content}>{content}</div>
@@ -18,8 +22,7 @@ const Box = ({ top, title, content, goodCount, messageCount }) => {
                         width: 15,
                         height: 13
                     }}
-                    alt='good/'
-                />
+                    alt='good/' />
                 <span className={styles.good}>{goodCount}</span>
                 <Image
                     src={messageImg}
@@ -27,12 +30,11 @@ const Box = ({ top, title, content, goodCount, messageCount }) => {
                         width: 13,
                         height: 13
                     }}
-                    alt='message/'
-                />
+                    alt='message/' />
                 <span className={styles.message}>{messageCount}</span>
             </div>
         </div>
     );
-};
+}
 
 export default Box;

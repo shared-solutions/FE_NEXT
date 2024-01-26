@@ -30,6 +30,7 @@
     }
     .modal_innerContent {
         margin-top: 30px;
+        //max-height: 66vh;
         .header{
             width: 90%;
             margin: 0 auto;
@@ -49,6 +50,16 @@
 }
 .box_container{
     overflow: auto;
-    max-height: 67vh;
+    max-height: 61vh;
     margin-top: 20px;
+    
+}
+.complete_button{
+    width: 95%;
+    height: 45px;
+    margin-top: 5px;
+    color: #FFCD3E;
+    background-color: black;
+    font-weight: 800;
+    border-radius: 30px;
 }
