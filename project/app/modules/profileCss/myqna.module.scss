@@ -1,0 +1,34 @@
+.rowContainer{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  margin: 2.2rem 0 0;
+}
+.rowContainer h5{
+  font-size: 17px;
+  font-weight: bold;
+}
+.rowContainer p{
+  font-size: 14px;
+  font-weight: 900;
+}
+.selectContainer{
+  width: 78%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  padding: 0 0 0.7rem;
+  border-bottom: 2px solid #FFC700;
+  font-size: 14px;
+  font-weight: 800;
+}
+.disabled{
+  border:none;
+  color: #8B8B8B
+}
+.grid{
+  display: grid;
+  margin-left: 0.3rem;
+  grid-template-columns: 2.9rem 14.7rem 3.6rem;
+}
