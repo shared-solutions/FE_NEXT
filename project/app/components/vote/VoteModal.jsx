@@ -63,8 +63,11 @@ const VoteModal = ({ onClose }) => {
                         {/* 채택 포인트 */}
                         <SelectedPoint />
                     </div>
+                    <div className={styles.complete_button}>
+                        <button>완료</button>
+                    </div>
+                    
                     {/* ---- 투표 내용 입력 끝 ---- */}
-                    <button className={styles.complete_button}>완료</button>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@
     .modal_innerContent {
         overflow: auto;
         margin-top: 30px;
-        max-height: 67vh;
+        max-height: 65vh;
     }
     p{
         margin-top: 30px;
@@ -63,8 +63,10 @@
     width: 95%;
     height: 45px;
     margin-top: 5px;
-    color: #FFCD3E;
     background-color: black;
-    font-weight: 800;
     border-radius: 30px;
+    button{
+        color: #FFCD3E;
+        font-weight: 800;
+    }
 }
