@@ -11,6 +11,13 @@ const LineViewItem = () => {
         setSelectedBoxIndex(index);
     };
 
+    const handleCompleteClick = () => {
+        if (selectedBoxIndex !== null) {
+            // 완료 버튼을 눌렀을 때 선택한 GridBox의 index로 이동
+            window.location.href = `/writereview/${selectedBoxIndex}`;
+        }
+    };
+
     const boxes = [
         { top: "1일전", title: "배고프네요 뭐 먹을까요?", content: "먹을 것 추천 좀 해주세요 두개 중에 골라주세요 ㅋ", goodCount: 34, messageCount: 24 },
         { top: "2일전", title: "제목2", content: "내용2", goodCount: 15, messageCount: 8 },
@@ -24,18 +31,21 @@ const LineViewItem = () => {
         <div className={styles.container}>
             <div className={styles.box_container}>
             {boxes.map((box, index) => (
-                <LineBox
-                    key={index}
-                    top={box.top}
-                    title={box.title}
-                    content={box.content}
-                    goodCount={box.goodCount}
-                    messageCount={box.messageCount}
-                    isSelected={selectedBoxIndex === index}
-                    onClick={() => handleBoxClick(index)}
-                />
+                <div key={box.index} onClick={() => handleBoxClick(index)}>
+                    <LineBox
+                        key={index}
+                        top={box.top}
+                        title={box.title}
+                        content={box.content}
+                        goodCount={box.goodCount}
+                        messageCount={box.messageCount}
+                        isSelected={selectedBoxIndex === index}
+                        onClick={() => handleBoxClick(index)}
+                    />
+                </div>
             ))}
             </div>
+            <button className={styles.complete_button} onClick={handleCompleteClick}>완료</button>
         </div>
     );
 };

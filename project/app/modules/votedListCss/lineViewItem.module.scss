@@ -1,14 +1,15 @@
 .box_container{
-    margin-top: 10px;
+    overflow-y: auto;
+    max-height: 62vh;
+    margin-top: 20px;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px 10px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
 }
 .box{
-    width: 90%;
     height: 110px;
     margin-bottom: 20px;
     padding: 12px 20px 12px 20px;
@@ -46,4 +47,13 @@
             color: #343434;
         }
     }
+}
+.complete_button{
+    width: 95%;
+    height: 45px;
+    margin-top: 5px;
+    color: #FFCD3E;
+    background-color: black;
+    font-weight: 800;
+    border-radius: 30px;
 }

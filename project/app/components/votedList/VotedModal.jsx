@@ -69,7 +69,6 @@ const VotedModal = ({ onClose }) => {
                             {renderViewItem()} {/* 기본 값으로 그리드 스타일의 항목 렌더링 */}
                         </div>
                     </div>
-                    <button className={styles.complete_button}>완료</button>
                     {/* ---- 컨텐츠 끝 ---- */}
                 </div>
             </div>
