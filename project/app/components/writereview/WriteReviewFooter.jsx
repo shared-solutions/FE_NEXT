@@ -1,4 +1,3 @@
-'user client'
 'use client'
 import React, { useState } from 'react'
 import styles from '@/app/modules/writepostCss/writepostfooter.module.scss'
