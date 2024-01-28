@@ -1,0 +1,25 @@
+.prev{
+  width: 98vw;
+  height: 13.5vh;
+  display: flex;
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../public/image/header.png");
+  background-size: cover;
+}
+.prev a {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-left: 2rem;
+}
+.prev h3 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-right: 2.4rem;
+}
