@@ -1,7 +1,9 @@
-export default function Home(){
+import WritePost from '@/app/components/writepost/WritePost'
+
+export default function Vote(){
     return(
         <div>
-            고민투표
+            <WritePost />                        
         </div>
     )
 }

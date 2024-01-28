@@ -1,7 +1,21 @@
-export default function Home(){
+'use client'
+import Header from '@/app/components/reviews/Header'
+import ReviewBox from '@/app/components/reviews/ReviewBox'
+import WriteButton from '@/app/components/reviews/WriteButton'
+
+import styles from '@/app/modules/reviewCss/review.module.scss'
+
+export default function Review(){
     return(
-        <div>
-            고민후기
+        <div className={styles.container}>
+            <Header />
+            <div className={styles.scrollable_container}>
+                <ReviewBox />
+                <ReviewBox />
+                <ReviewBox />
+                <ReviewBox />
+            </div>
+            <WriteButton />
         </div>
     )
 }
