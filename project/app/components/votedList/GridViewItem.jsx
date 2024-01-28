@@ -1,21 +1,25 @@
-'user client'
+'use client'
 import React, { useState } from 'react'
 import styles from '@/app/modules/votedListCss/gridViewItem.module.scss'
 import Link from 'next/link'
 
 import GridBox from './GridBox'
+import { useRouter } from 'next/navigation'
+import useSelectedBox from '@/app/zustand/selectionStore'
 
 const GridViewItem = () => {
+
+    const router = useRouter();
     const [selectedBoxIndex, setSelectedBoxIndex] = useState(null);
 
     const handleBoxClick = (index) => {
         setSelectedBoxIndex(index);
     };
-
+    
     const handleCompleteClick = () => {
         if (selectedBoxIndex !== null) {
             // 완료 버튼을 눌렀을 때 선택한 GridBox의 index로 이동
-            window.location.href = `/writereview/${selectedBoxIndex}`;
+              router.push(`/writereview/${selectedBoxIndex}`);
         }
     };
 
@@ -33,6 +37,7 @@ const GridViewItem = () => {
             <div className={styles.box_container}>
             {boxes.map((box, index) => (
                 <div key={box.index} onClick={() => handleBoxClick(index)}>
+                    
                     <GridBox
                         key={box.index}
                         top={box.top}
