@@ -7,8 +7,6 @@ import styles from '@/app/modules/footer.module.scss'
 
 const Footer = ()=> {
     const segment = useSelectedLayoutSegments()
-    console.log(segment[1])
-    
     return(
         <div className={styles.container} >
             <div className={styles.category}>
@@ -37,10 +35,7 @@ const Footer = ()=> {
                 }
             </Link>
             </div>
-            
         </div>
     )
-    
 }
-
 export default Footer;
