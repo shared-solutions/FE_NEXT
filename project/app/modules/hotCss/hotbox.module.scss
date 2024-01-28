@@ -1,0 +1,8 @@
+.mainbox {
+  width: 179px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: #ffc700;
+  //크기가 flex container에 영향을 받지 않도록
+  flex: 0 0 auto;
+}
