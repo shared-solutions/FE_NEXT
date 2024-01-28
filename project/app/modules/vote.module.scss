@@ -1,0 +1,23 @@
+.votecontainer{
+  width: 40%;
+  border-radius: 22px;
+  margin: 1rem 0.2rem;
+  padding: 1rem 1.3rem;
+}
+.shadow{
+  // margin-bottom: -0.1rem;
+  /* 수평 8px, 수직 8px, 30px 흐림, 6px 크기 */
+  box-shadow: 3px 3px 20px 2px rgba(0, 0, 0, 0.1);
+}
+.rowContainer{
+  display: grid;
+  margin-bottom: 0.8rem;
+  grid-template-columns: 35px 75% 15%;
+}
+.rightContainer{
+  width: 29%;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-left: 73%
+}
