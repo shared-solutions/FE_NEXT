@@ -1,3 +1,4 @@
+"use client";
 import styles from "@/app/modules/viewdetailCss/detail.module.scss";
 import userimg from "@/app/public/image/userimg.png";
 import moreimg from "@/app/public/image/moreimg.png";
@@ -10,8 +11,13 @@ import rerenderimg from "@/app/public/image/rerender.png";
 import likeunclickimg from "@/app/public/image/likeunclick.png";
 import chatclickimg from "@/app/public/image/chatclick.png";
 import Image from "next/image";
+import { useState } from "react";
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "react-spring-bottom-sheet/dist/style.css";
+import { CommentSort } from "../comment/CommentSort";
 
 const Detail = () => {
+  const [setting, setSetting] = useState(false);
   return (
     <div className={styles.container}>
       <div className={styles.userlay}>
@@ -95,7 +101,23 @@ const Detail = () => {
           width={37}
           height={35}
         />
-        <Image src={chatclickimg} alt="채팅 클릭" width={35} height={35} />
+        <Image
+          onClick={() => {
+            setSetting(!setting);
+            console.log("클릭");
+          }}
+          src={chatclickimg}
+          alt="채팅 클릭"
+          width={35}
+          height={35}
+        />
+        {setting && (
+          <CommentSort
+            onClose={() => {
+              setSetting(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );
