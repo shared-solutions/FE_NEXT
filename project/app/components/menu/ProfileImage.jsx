@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/app/modules/profileImageCss/profileImage.module.scss";
+import styles from "@/app/modules/menuCss/profileImage.module.scss";
 import default_image from "../../public/image/default_image.png";
 import edit from "../../public/image/edit.png";
 
@@ -10,15 +10,15 @@ export default function ProfileImage() {
         src={default_image}
         alt="default image"
         className={styles.imageShadow}
-        width={120}
-        height={120}
+        width={85}
+        height={85}
       />
       <Image
         src={edit}
         alt="edit"
         className={styles.edit}
-        width={60}
-        height={60}
+        width={27}
+        height={27}
       />
     </div>
   );

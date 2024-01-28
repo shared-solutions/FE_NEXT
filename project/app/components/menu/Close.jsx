@@ -11,9 +11,8 @@ export default function Close() {
         <Image
           src={close}
           alt="close"
-          width={40}
-          height={40}
-          padding={8}
+          width={25}
+          height={25}
           style={{ cursor: "pointer" }}
         />
       </Link>

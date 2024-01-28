@@ -3,7 +3,7 @@ import styles from "@/app/modules/menuCss/menu.module.scss";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import ProfileImage from "@/app/components/ProfileImage/ProfileImage";
+import ProfileImage from "@/app/components/menu/ProfileImage";
 import Info from "@/app/components/menu/Info";
 import Category from "@/app/components/menu/Category";
 import Features from "@/app/components/menu/Features";

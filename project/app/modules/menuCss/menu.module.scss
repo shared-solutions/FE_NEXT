@@ -8,50 +8,48 @@
   z-index: 1;
 }
 .background{
-  background: linear-gradient(to bottom, #FFA800, #FFE895);
-  width: 70%;
+  background-image: url("../../public/image/background_menu.png");
+  width: 74%;
+  top: 0;
   position: absolute;
   right: 0;
-  height: 35vh;
+  height: 92vh;
   z-index: 2;
+  background-size: cover;
 }
 .container{
-  background-image: url("../../public/image/background.png");
   position: absolute;
-  background-size: cover;
-  top: 60%;
+  top: 22%;
   width: 100%;
-  height: 71vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
-  z-index: 3;
+  z-index: 4;
 }
 .close{
   width: 100%;
   display: flex;
   align-items: center;
   position: absolute;
-  top: 5rem;
-  left: 50vw;
+  top: 3.7rem;
+  left: 54vw;
 }
 .close p{
- font-size: 1.6rem;
- font-weight: bolder;
- margin-right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+  margin-bottom: 0.2rem;
 }
 .grid{
   width: 70%;
-  display: grid;
-  grid-template-columns: 34.5vw 1fr;
-  grid-template-rows: repeat(2, 0.5rem);
-  gap: 25px 10px;
-  padding: 1.3rem;
-  margin-left: 14vw;
+  display: flex;
+  padding: 1rem;
+  margin-left: 4vw;
   align-items: center;
   cursor: pointer;
 }
 .grid p{
-  font-size: 1.3rem;
+  font-size: 14px;
   font-weight: bold;
 }

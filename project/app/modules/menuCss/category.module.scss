@@ -1,11 +1,12 @@
 .rowContainer{
-  width: 70%;
+  width: 60%;
   height: auto;
   display: grid;
-  grid-template-columns: 35% 35% 35%;
+  grid-template-columns: 65% 65%;
   align-items: center;
-  flex-direction:row;
-  padding: 25px;
+  justify-content: space-around;
+  flex-direction: row;
+  padding: 1rem 20px 0.3rem;
 }
 .rowContainer a{
   color: black;
@@ -22,7 +23,7 @@
 }
 .text{
   width: auto;
-  font-size: 1.2rem;
+  font-size: 12px;
   margin: 0.8rem auto;
 }
 .withBorderTop {
