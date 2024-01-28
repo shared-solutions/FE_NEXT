@@ -3,14 +3,17 @@
     width:95%;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid; 
+    grid-template-columns: repeat(2, 45%); // 각 열이 전체 너비의 45% 차지하도록 설정
+    gap: 30px; // 열 사이의 간격 설정
+}
+.box_container a{
+    text-decoration: none;
+    color: black;
 }
 .box{
-    width: 40%;
     height: 160px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     padding: 12px;
     background-color: white;
     box-shadow: 0px 0px 13px #cfcfcf;
