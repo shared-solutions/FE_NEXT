@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import styles from '@/app/modules/voteCss/category.module.scss'
 import Image from 'next/image'
 

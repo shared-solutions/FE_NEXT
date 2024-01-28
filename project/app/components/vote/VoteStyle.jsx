@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import React, { useState } from 'react' 
 import styles from '@/app/modules/voteCss/votestyle.module.scss';
 import VoteStyleButton from './VoteStyleButton';

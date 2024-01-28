@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import React, { useState } from 'react'
 import styles from '@/app/modules/votedListCss/lineViewItem.module.scss'
 

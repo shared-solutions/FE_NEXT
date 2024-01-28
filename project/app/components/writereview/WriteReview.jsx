@@ -1,4 +1,3 @@
-'user clinet'
 import styles from '@/app/modules/writepostCss/writepost.module.scss'
 
 import WriteReviewHeader from "./WriteReviewHeader"

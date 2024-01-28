@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import styles from '@/app/modules/reviewCss/reviewBox.module.scss'
 
 const ReviewBox = () => {
