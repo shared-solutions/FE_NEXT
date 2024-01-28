@@ -1,5 +1,3 @@
-
-
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
@@ -55,22 +53,21 @@ const handler = NextAuth({
     async jwt({ token, account }) {
       console.log("jwt callback called");
       // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        
+      if (account && account.access_token) {
         token.accessToken = account.access_token;
-       
       }
       return token;
     },
-
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      return session;
-    },
   },
+
+  async session({ session, token, user }) {
+    // Send properties to the client, like an access_token from a provider.
+    session.accessToken = token.accessToken;
+    return session;
+  },
+
   pages: {
-   signIn: "/i/login",
+    signIn: "/i/login",
   },
 });
 
