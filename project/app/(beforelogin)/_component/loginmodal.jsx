@@ -10,10 +10,6 @@ import { useRouter } from "next/navigation"
 
 export default function Modal(){
     
-    const router = useRouter()
-    const signOut = () =>{
-
-    }
     return (
         <div className={styles.container}>
             <div className={styles.blank}/>
@@ -35,9 +31,9 @@ export default function Modal(){
             <button className={styles.btn} onClick={() => signIn("kakao", { redirect: true, callbackUrl: "/" })}
             ><h2>카카오로 3초만에 시작하기</h2></button> 
             <div className={styles.option}>
-                <Link href='/signup'>이메일로 로그인</Link>
+                <Link href='/i/signin' scroll={false}>이메일로 로그인</Link>
                 <p>|</p>
-                <Link href='/signup'>회원가입</Link>
+                <Link href='/i/signup' scroll={false}>회원가입</Link>
             </div>
             
             
