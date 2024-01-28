@@ -21,18 +21,21 @@
 }
 .box_container{
     height: 190px;
-    width: 90%;
+    max-width: 85vw;
     display: flex;
     flex-direction: row;
     overflow: scroll; // 가로 스크롤 적용
-    overflow: auto;
-    white-space: nowrap;
+    overflow-x: scroll;
 }
+.centered {
+    justify-content: center;
+  }
 .box{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
     height: 140px;
     margin: 7px;
     padding: 10px;

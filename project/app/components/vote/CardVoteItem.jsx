@@ -46,7 +46,7 @@ const CardVoteItem = () => {
                     <div>복수 선택</div>
                 </div>
             </div>
-            <div className={styles.box_container}>
+            <div className={`${styles.box_container} ${voteItems.length === 2 ? styles.centered : ''}`}>
                 {voteItems.map((item) => (
                     <div className={styles.box}>
                         <div className={styles.top} key={item.id}>
