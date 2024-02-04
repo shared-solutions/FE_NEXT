@@ -1,5 +1,8 @@
 .container{
     min-height: calc(90vh - 120px);
+    width: 90%;
+    z-index: 4;
+    position: absolute;
 }
 .content_container{
     min-height: calc(75vh - 20px); // tag 하단 고정을 위함
