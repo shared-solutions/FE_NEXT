@@ -25,7 +25,7 @@ const WriteReview = () => {
     }, [selectedBoxData]);
     return (
         <div>
-          <div className={styles.full_container}>
+          <div className={styles.container}>
             <WriteReviewHeader />
             <div className={styles.content_footer_container}>
               <div className={styles.content_container}>

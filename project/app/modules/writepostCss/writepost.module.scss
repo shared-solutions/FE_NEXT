@@ -1,15 +1,11 @@
-.full_container{
-    // display: flex;
-    // flex-direction: column;
-}
-.content_footer_container{
-  height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.container{
+  min-height: calc(90vh - 120px);
+  width: 90%;
+  z-index: 4;
+  position: absolute;
 }
 .content_container{
-    height: 78vh;
+    min-height: calc(75vh - 20px); // tag 하단 고정을 위함
     display: flex;
     flex-direction: column;
 }
@@ -34,6 +30,7 @@
 }
 .content{
     width: 90%;
+    height: 55vh;
     padding-left: 10px;
     margin-top: 15px;
     font-size: 15px;
