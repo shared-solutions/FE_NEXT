@@ -5,7 +5,7 @@ import styles from '@/app/modules/votedListCss/gridViewItem.module.scss'
 import GridBox from './GridBox'
 import useSelectedBox from '@/app/zustand/selectionStore'
 
-const GridViewItem = () => {
+const GridViewItem = ({ onClose }) => {
     const { selectedBoxIndex, setSelectedBox, setSelectedBoxData } = useSelectedBox();
   
     const handleBoxClick = (index) => {
@@ -16,6 +16,9 @@ const GridViewItem = () => {
       const selectedBoxData = selectedBoxIndex !== null ? boxes[selectedBoxIndex] : null;
       console.log(selectedBoxData);
       setSelectedBoxData(selectedBoxData); // Zustand에 데이터 저장
+
+      // 완료 버튼 클릭 시, onClose 함수 호출
+      onClose();
     };
   
     const boxes = [

@@ -10,6 +10,7 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
+
     async jwt({ token, account,user }) {
       console.log("jwt callback called",account,token);
       try{
@@ -29,7 +30,6 @@ const handler = NextAuth({
           //       token,
           //     }),
           //   });
-
           //   const backendData = await backendRes.json();
           //   console.log("Backend response:", backendData);
           // } catch (error) {
