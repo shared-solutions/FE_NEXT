@@ -117,7 +117,7 @@ export default function Nickname(){
                 </div>
             </div>
             <div className={styles.btn_container}>
-                3단계 중 <p>3단계</p>
+                마지막 <p>단계</p>
                 <button
                 disabled={!isRequiredChecked}
                 onClick={handleNext}
