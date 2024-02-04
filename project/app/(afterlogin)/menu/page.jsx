@@ -14,7 +14,7 @@ export default function MyPage() {
   const data = useSession;
   const Logout = () => {
     signOut({ redirect: false }).then(() => {
-      router.replace("/");
+      router.replace("/login");
     });
   };
   const openModal = true;

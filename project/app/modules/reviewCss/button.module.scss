@@ -1,14 +1,16 @@
 .container{
     position: fixed;
-    top: 4vh;
-    width: 100%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    top: 50px;
+    height: 50px;
 }
 .sorting_button_container{
-    width: 30%;
     display: flex;
+    height: 100%;
+    align-items: center;
 }
 .submit_button_container{
     width: 70%;
@@ -25,6 +27,7 @@
     padding: 8px 11px 8px 11px;
     width: 50px;
     margin-left: 5px;
+    text-align: center;
 }
 .submit_button{
     background-color: #FFC700;
