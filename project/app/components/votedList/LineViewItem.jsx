@@ -1,21 +1,24 @@
 'use client'
-import React, { useState } from 'react'
+//import React, { useState } from 'react'
 import styles from '@/app/modules/votedListCss/lineViewItem.module.scss'
 
 import LineBox from './LineBox'
+import useSelectedBox from '@/app/zustand/selectionStore'
 
-const LineViewItem = () => {
-    const [selectedBoxIndex, setSelectedBoxIndex] = useState(null);
-
+const LineViewItem = ({ onClose }) => {
+    const { selectedBoxIndex, setSelectedBox, setSelectedBoxData } = useSelectedBox();
+  
     const handleBoxClick = (index) => {
-        setSelectedBoxIndex(index);
+      setSelectedBox(index);
     };
-
+  
     const handleCompleteClick = () => {
-        if (selectedBoxIndex !== null) {
-            // 완료 버튼을 눌렀을 때 선택한 GridBox의 index로 이동
-            window.location.href = `/writereview/${selectedBoxIndex}`;
-        }
+      const selectedBoxData = selectedBoxIndex !== null ? boxes[selectedBoxIndex] : null;
+      console.log(selectedBoxData);
+      setSelectedBoxData(selectedBoxData); // Zustand에 데이터 저장
+
+      // 완료 버튼 클릭 시, onClose 함수 호출
+      onClose();
     };
 
     const boxes = [

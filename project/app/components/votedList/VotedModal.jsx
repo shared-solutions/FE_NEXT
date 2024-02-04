@@ -18,7 +18,7 @@ const VotedModal = ({ onClose }) => {
     const renderViewItem = () => {
         switch (selectedStyle) {
             case 'line':
-                return <LineViewItem />; // LineViewItem 컴포넌트를 렌더링
+                return <LineViewItem onClose={onClose}/>; // LineViewItem 컴포넌트를 렌더링
             default:
                 return <GridViewItem onClose={onClose}/>; // GridViewItem 컴포넌트를 렌더링
         }
