@@ -15,6 +15,8 @@ import { useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
+import backimg from "@/app/public/image/Vector.png";
+import Link from "next/link";
 
 const Detail = ({
   userimg,
@@ -34,6 +36,9 @@ const Detail = ({
   const [setting, setSetting] = useState(false);
   return (
     <div className={styles.container}>
+      <Link href="/">
+        <Image src={backimg} alt="back" width={5} height={10} />
+      </Link>
       <div className={styles.userlay}>
         <Image
           className={styles.userimg}
