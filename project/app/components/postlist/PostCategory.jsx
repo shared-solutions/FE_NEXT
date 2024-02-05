@@ -1,8 +1,8 @@
-// postcategory.js
+"use client";
+import { useState } from "react";
 import styles from "@/app/modules/postListCss/postcategory.module.scss";
 
 const PostCategory = () => {
-  // 가상의 카테고리 데이터 배열
   const categories = [
     "가장 핫한 🔥",
     "교육",
@@ -12,12 +12,23 @@ const PostCategory = () => {
     "쇼핑",
     "기타",
   ];
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
+  const handleCategoryClick = (index) => {
+    setSelectedCategory(index);
+  };
 
   return (
     <div className={styles.scrollableContainer}>
       <div className={styles.categoryWrapper}>
         {categories.map((category, index) => (
-          <div key={index} className={styles.category}>
+          <div
+            key={index}
+            className={`${styles.category} ${
+              selectedCategory === index ? styles.selected : ""
+            }`}
+            onClick={() => handleCategoryClick(index)}
+          >
             {category}
           </div>
         ))}
