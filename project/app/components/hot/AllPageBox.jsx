@@ -1,12 +1,9 @@
 import styles from "@/app/modules/hotCss/allpagebox.module.scss";
-import userimg from "@/app/public/image/userimg.png";
-import selectimg1 from "@/app/public/image/select1.png";
-import selectimg2 from "@/app/public/image/select2.png";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 
-const AllPageBox = () => {
+const AllPageBox = ({ userimg, nickname, title, content, selectImgList }) => {
   return (
     <div className={styles.box}>
       <div className={styles.userinfo}>
@@ -17,16 +14,22 @@ const AllPageBox = () => {
           width={24}
           height={24}
         />
-        <div className={styles.nickname}>nickname</div>
+        <div className={styles.nickname}>{nickname}</div>
       </div>
       <div className={styles.container}>
-        <div className={styles.title}>에어포스 어떤 색 살까요?</div>
-        <div className={styles.content}>
-          옷은 캐쥬얼한 스타일을 좋아하는 편입니다. 어떤 색이 더 잘어울릴까요?
-        </div>
-        <div>
-          <Image src={selectimg1} alt="선택지 1" width={98} height={124} />
-          <Image src={selectimg2} alt="선택지 2" width={98} height={124} />
+        <div className={styles.title}>{title}</div>
+        <div className={styles.content}>{content}</div>
+        <div className={styles.imgSlide}>
+          {selectImgList &&
+            selectImgList.map((selectImg, index) => (
+              <Image
+                key={index}
+                src={selectImg}
+                alt={`선택지 ${index + 1}`}
+                width={98}
+                height={124}
+              />
+            ))}
         </div>
 
         <div className={styles.footer}>

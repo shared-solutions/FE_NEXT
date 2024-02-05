@@ -51,9 +51,9 @@
 }
 
 .title {
-  margin-top: 16px;
+  margin-top: 30px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 900;
   display: flex;
   align-items: center;
   color: black;
@@ -72,16 +72,18 @@
 }
 
 .content {
-  margin-top: 42px;
+  margin-top: 30px;
   font-size: 14px;
   font-weight: 500;
   line-height: 22px;
   color: #343434;
 }
 
-.select {
+.imgSlide {
   margin-top: 38px;
-  text-align: center;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .taglay {
@@ -102,6 +104,8 @@
   align-items: center;
   font-size: 13px;
   color: #6f6f6f;
+  margin-top: 10px;
+  gap: 7px;
 }
 
 .minititle {
@@ -110,6 +114,7 @@
   font-size: 15px;
   font-weight: 200;
   margin-top: 54px;
+  white-space: nowrap;
 }
 
 .line {
@@ -135,6 +140,7 @@
   align-items: center;
   font-size: 13px;
   padding-top: 25px;
+  gap: 2px;
 }
 
 .countview {
@@ -159,4 +165,8 @@
   align-items: center;
   margin-top: 25px;
   gap: 15px;
+}
+
+.img {
+  margin-right: 4px;
 }
