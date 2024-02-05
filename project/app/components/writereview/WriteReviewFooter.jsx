@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import add_button from '../../public/image/add_button.png'
 import imageicon from '../../public/image/imageicon.png'
+import barimg from '../../public/image/bar.png'
 import VotedModal from '../votedList/VotedModal'
 
 const WriteReviewFooter = () => {
@@ -43,7 +44,14 @@ const WriteReviewFooter = () => {
                             margin: 20
                         }}
                     />
-                    <div>|</div>
+                    <Image
+                        src={barimg}
+                        style={{
+                            width: 2,
+                            height: 23,
+                            margin: 7
+                        }}
+                    />
                     <button className={styles.save_button}>임시저장</button>
                 </div>
                 {/* 모달이 열려있을 때 VoteModal 컴포넌트를 렌더링 */}

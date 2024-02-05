@@ -18,9 +18,9 @@ const VotedModal = ({ onClose }) => {
     const renderViewItem = () => {
         switch (selectedStyle) {
             case 'line':
-                return <LineViewItem />; // LineViewItem 컴포넌트를 렌더링
+                return <LineViewItem onClose={onClose}/>; // LineViewItem 컴포넌트를 렌더링
             default:
-                return <GridViewItem />; // GridViewItem 컴포넌트를 렌더링
+                return <GridViewItem onClose={onClose}/>; // GridViewItem 컴포넌트를 렌더링
         }
     };
 
@@ -66,7 +66,8 @@ const VotedModal = ({ onClose }) => {
                             </div>
                         </div>
                         <div className={styles.box_container}>
-                            {renderViewItem()} {/* 기본 값으로 그리드 스타일의 항목 렌더링 */}
+                            {/* 기본 값으로 그리드 스타일의 항목 렌더링 */}
+                            {renderViewItem()}
                         </div>
                     </div>
                     {/* ---- 컨텐츠 끝 ---- */}

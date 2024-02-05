@@ -16,13 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className='container'>
-          <AuthSession>
-            <Header/>
+        <AuthSession>
+          <Header/>
+          <div className='container'>
             <div>{children}</div>
-            <Footer/>
+          </div>
+          <Footer/>
           </AuthSession>
-        </div>
+        
       </body>
     </html>
   )
