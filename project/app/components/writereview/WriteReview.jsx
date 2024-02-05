@@ -25,8 +25,8 @@ const WriteReview = () => {
     }, [selectedBoxData]);
     return (
         <div>
-          <div className={styles.container}>
-            <WriteReviewHeader />
+          <div className={styles.container} style={{ background: 'white' }}>
+          <WriteReviewHeader />
             <div className={styles.content_footer_container}>
               <div className={styles.content_container}>
                 <input className={styles.title} type="text" placeholder="제목" />
