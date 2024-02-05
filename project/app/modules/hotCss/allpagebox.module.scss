@@ -58,3 +58,9 @@
   color: #343434;
   margin-left: 9px;
 }
+
+.imgSlide {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}

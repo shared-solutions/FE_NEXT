@@ -3,7 +3,15 @@ import styles from "@/app/modules/postListCss/postcategory.module.scss";
 
 const PostCategory = () => {
   // 가상의 카테고리 데이터 배열
-  const categories = ["가장 핫한", "교육", "엔터테인먼트", "생활", "경제"];
+  const categories = [
+    "가장 핫한 🔥",
+    "교육",
+    "엔터테인먼트",
+    "생활",
+    "경제",
+    "쇼핑",
+    "기타",
+  ];
 
   return (
     <div className={styles.scrollableContainer}>
