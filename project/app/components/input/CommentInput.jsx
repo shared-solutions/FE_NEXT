@@ -22,7 +22,8 @@ const CommentInput = ({ onButtonClick }) => {
         value={inputValue}
         onChange={handleInputChange}
         placeholder="댓글을 입력해주세요"
-        rows={1} // 원하는 초기 행 수를 설정하세요
+        //행수 설정
+        rows={1} 
       />
       <button className={styles.inputbtn} onClick={handleButtonClick}>
         입력
