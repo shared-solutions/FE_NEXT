@@ -36,7 +36,8 @@ const Detail = ({
   const [setting, setSetting] = useState(false);
   return (
     <div className={styles.container}>
-      <Link href="/">
+      {/* 추후에 경로 수정 필요 */}
+      <Link href="/vote">
         <Image src={backimg} alt="back" width={5} height={10} />
       </Link>
       <div className={styles.userlay}>
