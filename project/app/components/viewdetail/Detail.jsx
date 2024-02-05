@@ -16,7 +16,21 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
 
-const Detail = () => {
+const Detail = ({
+  userimg,
+  username,
+  date,
+  time,
+  title,
+  content,
+  minititle,
+  point,
+  lefttime,
+  selectImgList,
+  viewCount,
+  likeCount,
+  commentCount,
+}) => {
   const [setting, setSetting] = useState(false);
   return (
     <div className={styles.container}>
@@ -28,7 +42,7 @@ const Detail = () => {
           width={34}
           height={34}
         />
-        <div className={styles.username}>김태영</div>
+        <div className={styles.username}>{username}</div>
         <br />
 
         <div className={styles.morebtn}>
@@ -43,25 +57,22 @@ const Detail = () => {
         </div>
       </div>
       <div className={styles.usertext}>
-        <div className={styles.date}>5월 4일</div>
+        <div className={styles.date}>{date}</div>
         <div className={styles.line}> | </div>
-        <div className={styles.time}>12:33</div>
+        <div className={styles.time}>{time}</div>
       </div>
 
-      <div className={styles.title}>에어포스 어떤 색 살까요?</div>
+      <div className={styles.title}>{title}</div>
 
-      <div className={styles.content}>
-        옷은 캐쥬얼한 스타일을 좋아하는 편입니다. 어떤 색이 더 잘어울릴까요?
-        화이트? 블랙?
-      </div>
+      <div className={styles.content}>{content}</div>
 
       <div className={styles.vote}>
         <div className={styles.minititle}>
-          <div className={styles.mini}>화이트? 블랙?</div>
+          <div className={styles.mini}>{minititle}</div>
           <div className={styles.point}>투표하기</div>
         </div>
         <div className={styles.timer}>
-          <div className={styles.pointnum}>채택 포인트: 30</div>
+          <div className={styles.pointnum}>채택 포인트: {point}</div>
           <div>|</div>
           <Image
             className={styles.timeimg}
@@ -70,27 +81,53 @@ const Detail = () => {
             width={13}
             height={13}
           />
-          <div>마감 5분전</div>
+          <div>마감 {lefttime}분전</div>
         </div>
 
-        <div className={styles.select}>
-          <Image src={select1} alt="선택지 1" width={130} height={160} />
-          <Image src={select1} alt="선택지 1" width={130} height={160} />
+        <div className={styles.imgSlide}>
+          {selectImgList &&
+            selectImgList.map((selectImg, index) => (
+              <Image
+                key={index}
+                src={selectImg}
+                alt={`선택지 ${index + 1}`}
+                width={98}
+                height={124}
+              />
+            ))}
         </div>
       </div>
 
       <div className={styles.footer}>
         <div className={styles.countview}>
-          <Image src={countview} alt="조회수" width={14} height={10} />
-          135
+          <Image
+            className={styles.img}
+            src={countview}
+            alt="조회수"
+            width={14}
+            height={10}
+          />
+          {viewCount}
         </div>
         <div className={styles.like}>
-          <Image src={likeimg} alt="좋아요수" width={14} height={10} />
-          60
+          <Image
+            className={styles.img}
+            src={likeimg}
+            alt="좋아요수"
+            width={14}
+            height={10}
+          />
+          {likeCount}
         </div>
         <div className={styles.comment}>
-          <Image src={commentimg} alt="댓글수" width={14} height={10} />
-          35
+          <Image
+            className={styles.img}
+            src={commentimg}
+            alt="댓글수"
+            width={14}
+            height={10}
+          />
+          {commentCount}
         </div>
       </div>
 

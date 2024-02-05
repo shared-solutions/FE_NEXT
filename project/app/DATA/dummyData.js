@@ -36,3 +36,21 @@ export const voteData = [
     selectImgList: [selectimg1, selectimg2],
   },
 ];
+
+export const detailData = [
+  {
+    userimg: userimg,
+    username: "김태영",
+    date: "2024-1-23",
+    time: "11:59",
+    title: "에어포스 색 추천좀",
+    content: "에어포스 색 살건데 추천좀 해주세요",
+    minititle: "화이트 or 블랙",
+    point: "30",
+    lefttime: "5",
+    selectImgList: [selectimg1, selectimg2, selectimg1, selectimg2],
+    viewCount: "234",
+    likeCount: "65",
+    commentCount: "23",
+  },
+];
