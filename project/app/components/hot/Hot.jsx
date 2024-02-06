@@ -5,6 +5,7 @@ import vectorimg from "../../public/image/Vector.png";
 import Image from "next/image";
 import HotBox from "./HotBox";
 import { PageRendering } from "@/app/zustand/store";
+import { hotData } from "@/app/DATA/dummyData";
 
 const Hot = () => {
   const changePage = PageRendering((state) => state.changePage);
@@ -27,11 +28,14 @@ const Hot = () => {
       </div>
 
       <div className={styles.boxlay}>
-        <HotBox />
-        <HotBox />
-        <HotBox />
-        <HotBox />
-        <HotBox />
+        {hotData.map((hot, index) => (
+          <HotBox
+            key={index}
+            image={hot.image}
+            title={hot.title}
+            content={hot.content}
+          />
+        ))}
       </div>
     </>
   );

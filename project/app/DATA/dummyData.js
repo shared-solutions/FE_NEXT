@@ -1,6 +1,7 @@
 import userimg from "@/app/public/image/userimg.png";
 import selectimg1 from "@/app/public/image/select1.png";
 import selectimg2 from "@/app/public/image/select2.png";
+import hotImg from "@/app/public/image/hotback.png";
 
 export const voteData = [
   {
@@ -140,5 +141,28 @@ export const detailData = [
     viewCount: "234",
     likeCount: "65",
     commentCount: "23",
+  },
+];
+
+export const hotData = [
+  {
+    image: hotImg,
+    title: "부먹 vs 찍먹",
+    content: "부어먹는게 나아요 찍어먹는게 나아요?",
+  },
+  {
+    image: hotImg,
+    title: "흰색 vs 검정",
+    content: "흰색이 나아요 검정이 나아요?",
+  },
+  {
+    image: hotImg,
+    title: "낮잠 vs 꿀잠",
+    content: "그냥 잘까요 살짝 잘까여?",
+  },
+  {
+    image: hotImg,
+    title: "고백 vs 대기",
+    content: "선배가 저한테 초콜릿을 줬는데 이거뭐죠?",
   },
 ];
