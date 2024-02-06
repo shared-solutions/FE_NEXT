@@ -1,0 +1,27 @@
+.category {
+  border-radius: 20px;
+  display: inline-block;
+  padding: 5px 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  background-color: #ffc045;
+  color: white;
+}
+
+.scrollableContainer {
+  margin-top: 23px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+
+.categoryWrapper {
+  display: inline-block;
+}
+
+.selected {
+  background-color: black;
+  color: white;
+}

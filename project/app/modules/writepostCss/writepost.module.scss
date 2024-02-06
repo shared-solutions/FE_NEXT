@@ -1,21 +1,30 @@
 .container{
-  min-height: calc(90vh - 120px);
-  width: 90%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  //min-height: calc(90vh - 120px);
   z-index: 4;
-  position: absolute;
+  //position: absolute;
+  position: fixed;
+}
+.content_footer_container{
+  //height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .content_container{
-    min-height: calc(75vh - 20px); // tag 하단 고정을 위함
+    //min-height: calc(75vh - 20px); // tag 하단 고정을 위함
     display: flex;
     flex-direction: column;
 }
 .title{
-    width: 90%;
+    width: 85%;
     height: 30px;
     padding-left: 10px;
     padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin: 20px;
     font-size: 20px;
     font-weight: 700;
     outline: 0;
@@ -29,10 +38,10 @@
   justify-content: space-between;
 }
 .content{
-    width: 90%;
-    height: 55vh;
+    width: 85%;
+    height: 25vh;
     padding-left: 10px;
-    margin-top: 15px;
+    margin: 20px;
     font-size: 15px;
     font-weight: 500;
     outline: 0;
@@ -50,12 +59,12 @@
 // 수정
 .pull_review{
     .box {
-        margin: 10px;
+        margin: 23px;
         padding-bottom: 5px;
         height: 330px; 
         border-radius: 20px;
         background-color: white;
-        box-shadow: 0 4px 6px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0px 6px 3px rgb(0 0 0 / 5%);
       }
       
       .pull_review_header {
@@ -123,7 +132,4 @@
         margin-left: 9px;
       }
       
-}
-.write_review_footer_container{
-
 }
