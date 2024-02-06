@@ -2,9 +2,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 92%;
+  height: 91%;
   position: fixed;
-  background-color: transparent;
+  background-color: rgba(0,0,0,0.5);
   z-index: 1;
 }
 .background{
@@ -13,13 +13,13 @@
   top: 0;
   position: absolute;
   right: 0;
-  height: 100vh;
+  height: 90.5vh;
   z-index: 2;
   background-size: cover;
 }
 .container{
   position: absolute;
-  top: 10%;
+  top: 22%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -31,8 +31,8 @@
   display: flex;
   align-items: center;
   position: absolute;
-  top: 1.7rem;
-  left: 54vw;
+  top: 3.7rem;
+  left: 55vw;
 }
 .close p{
   font-size: 14px;
