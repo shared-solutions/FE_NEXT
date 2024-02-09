@@ -20,7 +20,6 @@ export const CommentSort = () => {
             component={
               <>
                 <CommentBody />
-
                 <CommentBody />
                 <RecommentBody />
                 <CommentBody />

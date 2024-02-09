@@ -6,7 +6,7 @@ import select1 from "@/app/public/image/select1.png";
 import timerimg from "@/app/public/image/timer.png";
 import countview from "@/app/public/image/countview.png";
 import likeimg from "@/app/public/image/like.png";
-import likeClickimg from "@/app/public/image/likeclick.png";
+import good from "@/app/public/image/yellogood.png";
 import commentimg from "@/app/public/image/comment.png";
 import rerenderimg from "@/app/public/image/rerender.png";
 import likeunclickimg from "@/app/public/image/likeunclick.png";
@@ -46,10 +46,8 @@ const Detail = ({
 
     if (isLiked) {
       deleteLike();
-      console.log("좋아요 취소");
     } else {
       postLike();
-      console.log("좋아요 등록");
     }
   };
 
@@ -157,13 +155,15 @@ const Detail = ({
       </div>
 
       <div className={styles.underlay}>
-        <Image
-          src={isLiked ? likeClickimg : likeunclickimg}
-          alt="좋아요"
-          width={37}
-          height={35}
-          onClick={handleLikeClick}
-        />
+        <div key={isLiked ? "like" : "unlike"}>
+          <Image
+            src={isLiked ? good : likeunclickimg}
+            alt={isLiked ? "좋아요누름" : "좋아요 취소"}
+            width={37}
+            height={35}
+            onClick={handleLikeClick}
+          />
+        </div>
 
         <Image
           onClick={() => {
