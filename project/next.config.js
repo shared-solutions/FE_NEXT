@@ -5,12 +5,12 @@ const nextConfig = {
 
 module.exports = {
   nextConfig,
-  // async rewrites() {
-  //     return [
-  //       {
-  //         source: '/user/:path*',
-  //         destination: 'http://dev.gomin-chingu.site/user/:path*', // 프록시할 서버 주소
-  //       },
-  //     ];
-  //   },
+  async rewrites() {
+    return [
+      {
+        source: "/user/:path*",
+        destination: "http://dev.gomin-chingu.site/user/:path*", // 프록시할 서버 주소
+      },
+    ];
+  },
 };

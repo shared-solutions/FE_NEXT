@@ -6,6 +6,7 @@ import select1 from "@/app/public/image/select1.png";
 import timerimg from "@/app/public/image/timer.png";
 import countview from "@/app/public/image/countview.png";
 import likeimg from "@/app/public/image/like.png";
+import likeClickimg from "@/app/public/image/likeclick.png";
 import commentimg from "@/app/public/image/comment.png";
 import rerenderimg from "@/app/public/image/rerender.png";
 import likeunclickimg from "@/app/public/image/likeunclick.png";
@@ -17,6 +18,8 @@ import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
 import backimg from "@/app/public/image/Vector.png";
 import Link from "next/link";
+import { postLike } from "@/app/api/api/like";
+import { deleteLike } from "@/app/api/api/like";
 
 const Detail = ({
   userimg,
@@ -34,6 +37,22 @@ const Detail = ({
   commentCount,
 }) => {
   const [setting, setSetting] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  // 글 좋아요 api
+
+  const handleLikeClick = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+
+    if (isLiked) {
+      deleteLike();
+      console.log("좋아요 취소");
+    } else {
+      postLike();
+      console.log("좋아요 등록");
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -139,11 +158,13 @@ const Detail = ({
 
       <div className={styles.underlay}>
         <Image
-          src={likeunclickimg}
-          alt="좋아요 클릭 아직 안함"
+          src={isLiked ? likeClickimg : likeunclickimg}
+          alt="좋아요"
           width={37}
           height={35}
+          onClick={handleLikeClick}
         />
+
         <Image
           onClick={() => {
             setSetting(!setting);

@@ -5,7 +5,13 @@ import api from "./index";
 export const postLike = async () => {
   console.log("좋아요 누름");
   try {
-    const response = await api.post("/posts/{post-id}/like");
+    const accessToken = localStorage.getItem("accesstoken");
+
+    const response = await api.post("/posts/3/like", null, {
+      headers: {
+        atk: `${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log("에러남", error);
@@ -17,7 +23,13 @@ export const postLike = async () => {
 export const deleteLike = async () => {
   console.log("좋아요 취소");
   try {
-    const response = await api.delete("/posts/{post-id}/like/del");
+    const accessToken = localStorage.getItem("accesstoken");
+
+    const response = await api.delete("/posts/3/like/del", {
+      headers: {
+        atk: `${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log("에러", error);
