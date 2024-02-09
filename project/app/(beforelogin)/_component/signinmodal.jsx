@@ -46,30 +46,16 @@ export default function Modal() {
       localStorage.setItem("accesstoken", response.data.result[0].token);
       setCookie("refreshToken", response.data.result[1].token, 14);
       console.log(getCookie("refreshToken"));
+      if (response.ok) {
+        console.log("로그인 성공");
+        router.push("/home");
+        console.log(response);
+      } else {
+        console.log("로그인 정보 에러", error);
+      }
     } catch (error) {
       console.log(error);
     }
-    // try {
-    //   const response = await fetch("/user/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password: pw }),
-    //   });
-
-    //   if (response.ok) {
-    //     // Handle successful login here
-    //     console.log("login successful");
-    //     router.push("/home");
-    //     console.log(response);
-    //   } else {
-    //     // Handle unsuccessful login here
-    //     console.error("Login failed");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    // }
   };
   return (
     <div className={styles.container}>
