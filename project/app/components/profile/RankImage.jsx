@@ -12,7 +12,7 @@ export default function Profile() {
         className={styles.imageShadow}
         width={68}
         height={68}
-        style={{ "margin-top": "1.4rem" }}
+        style={{ marginTop: "1.4rem" }}
       />
     </div>
   );
