@@ -15,7 +15,7 @@ export default function Rank({ clickHandler }) {
           alt="question"
           width={18}
           height={18}
-          style={{ "margin-left": "0.4rem" }}
+          style={{ marginLeft: "0.4rem" }}
           onClick={clickHandler}
         />
       </div>

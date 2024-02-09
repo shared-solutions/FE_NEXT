@@ -46,12 +46,16 @@
   z-index: 10; 
 }
 .name {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.name h3 {
+  margin-right: 0.5rem;
 }
 .name p {
   color: #FFC700;
-  margin-left: 0.5rem;
   font-weight: bold;
 }
 .profile {
@@ -79,4 +83,7 @@
 }
 .yellow {
   color: #FFC700;
+}
+.input1 {
+  width: 100%;
 }

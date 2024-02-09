@@ -1,13 +1,13 @@
-import create from "zustand";
+import { create } from "zustand";
 
 const useStore = create((set) => ({
   user: {
     nickname: "psward73님",
-    name: "곽지열",
-    email: "p******3@gmail.com",
-    phone: "010-7***-0***",
-    password: "********",
-    security: "p******3@gmail.com",
+    name: "사용자",
+    email: "komg00@naver.com",
+    phone: "010-1234-5678",
+    password: "12345678",
+    security: "komg00@naver.com",
   },
   isEditing: {
     nickname: false,

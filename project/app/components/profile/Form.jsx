@@ -12,7 +12,7 @@ export default function Form({ name, time, text }) {
         <p>{name}</p>
         <p>{time}</p>
       </div>
-      <p style={{ "line-height": "150%" }}>{text}</p>
+      <p style={{ lineHeight: "150%" }}>{text}</p>
       <div className={styles.rightContainer}>
         <Image src={like} alt="like" width={16} height={16} />
         <p style={{ color: "#F9C81C" }}>3</p>

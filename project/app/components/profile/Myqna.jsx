@@ -25,7 +25,7 @@ export default function Myqna() {
             content === "question" ? "" : styles.disabled
           }`}
           onClick={() => handleClickButton("question")}
-          style={{ "margin-right": "4%" }}
+          style={{ marginRight: "4%" }}
         >
           질문
         </div>
@@ -41,13 +41,11 @@ export default function Myqna() {
       <div className={styles.rowContainer}>
         {content === "question" ? (
           <div className={styles.grid}>
-            <p style={{ "font-weight": "900" }}>총 14건 </p>
-            <p style={{ color: "#8E8E8E", "font-weight": "normal" }}>
+            <p style={{ fontWeight: "900" }}>총 14건 </p>
+            <p style={{ color: "#8E8E8E", fontWeight: "normal" }}>
               (채택 100%)
             </p>
-            <p style={{ color: "#FFC600", "font-weight": "normal" }}>
-              관리하기
-            </p>
+            <p style={{ color: "#FFC600", fontWeight: "normal" }}>관리하기</p>
           </div>
         ) : (
           ""

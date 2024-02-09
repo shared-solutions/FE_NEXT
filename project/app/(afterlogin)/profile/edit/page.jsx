@@ -11,7 +11,12 @@ import profile from "@/app/public/image/profile.png";
 import mail from "@/app/public/image/mail.png";
 import phone from "@/app/public/image/phone.png";
 import password from "@/app/public/image/password.png";
-import close_round from "@/app/public/image/close_round.png";
+import CloseImg from "@/app/components/edit/CloseImg";
+import EditNickName from "@/app/components/edit/EditNickname";
+import EditInfo from "@/app/components/edit/EditInfo";
+import EditPhone from "@/app/components/edit/EditPhone";
+import EditSecuritypw from "@/app/components/edit/EditSecuritypw";
+import EditSecurityEmail from "@/app/components/edit/EditSecurityEmail";
 
 export default function Edit() {
   const { user, isEditing, toggleEditing, updateField } = useStore();
@@ -49,13 +54,7 @@ export default function Edit() {
         <div className={styles.name}>
           <h3>{user.nickname}</h3>
           {isEditing.nickname ? (
-            <Image
-              src={close_round}
-              alt="close"
-              width={18}
-              height={18}
-              onClick={() => toggleEditing("nickname")}
-            />
+            <CloseImg onClick={() => toggleEditing("nickname")} />
           ) : (
             <p
               className={styles.yellow}
@@ -64,15 +63,12 @@ export default function Edit() {
               수정
             </p>
           )}
-          {isEditing.nickname && (
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={user.nickname}
-              onChange={(e) => updateField("nickname", e.target.value)}
-            />
-          )}
         </div>
+        {isEditing.nickname && (
+          <EditNickName
+            onChange={(e) => updateField("nickname", e.target.value)}
+          />
+        )}
         <div className={styles.profile}>
           <h4>프로필</h4>
           <div className={styles.profile_content}>
@@ -80,13 +76,7 @@ export default function Edit() {
               <Image src={profile} alt="profile" />
               <p>{user.name}</p>
               {isEditing.name ? (
-                <Image
-                  src={close_round}
-                  alt="close"
-                  width={18}
-                  height={18}
-                  onClick={() => toggleEditing("name")}
-                />
+                <CloseImg onClick={() => toggleEditing("name")} />
               ) : (
                 <p
                   className={styles.yellow}
@@ -96,25 +86,22 @@ export default function Edit() {
                 </p>
               )}
               {isEditing.name && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={user.name}
-                  onChange={(e) => updateField("name", e.target.value)}
-                />
+                <>
+                  <EditInfo
+                    veri_type="phon"
+                    verification="휴대폰 번호"
+                    text="이름"
+                    type="text"
+                    onChange={(e) => updateField("name", e.target.value)}
+                  />
+                </>
               )}
             </div>
             <div className={styles.grid}>
               <Image src={mail} alt="mail" />
               <p>{user.email}</p>
               {isEditing.email ? (
-                <Image
-                  src={close_round}
-                  alt="close"
-                  width={18}
-                  height={18}
-                  onClick={() => toggleEditing("email")}
-                />
+                <CloseImg onClick={() => toggleEditing("email")} />
               ) : (
                 <p
                   className={styles.yellow}
@@ -124,10 +111,11 @@ export default function Edit() {
                 </p>
               )}
               {isEditing.email && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={user.email}
+                <EditInfo
+                  veri_type="email"
+                  verification="현 이메일 주소"
+                  text="메일"
+                  type="email"
                   onChange={(e) => updateField("email", e.target.value)}
                 />
               )}
@@ -140,13 +128,7 @@ export default function Edit() {
               />
               <p>{user.phone}</p>
               {isEditing.phone ? (
-                <Image
-                  src={close_round}
-                  alt="close"
-                  width={18}
-                  height={18}
-                  onClick={() => toggleEditing("phone")}
-                />
+                <CloseImg onClick={() => toggleEditing("phone")} />
               ) : (
                 <p
                   className={styles.yellow}
@@ -156,10 +138,7 @@ export default function Edit() {
                 </p>
               )}
               {isEditing.phone && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={user.phone}
+                <EditPhone
                   onChange={(e) => updateField("phone", e.target.value)}
                 />
               )}
@@ -175,15 +154,9 @@ export default function Edit() {
                 alt="password"
                 style={{ marginLeft: "0.08rem" }}
               />
-              <p>{user.password}</p>
+              <p>비밀번호</p>
               {isEditing.password ? (
-                <Image
-                  src={close_round}
-                  alt="close"
-                  width={18}
-                  height={18}
-                  onClick={() => toggleEditing("password")}
-                />
+                <CloseImg onClick={() => toggleEditing("password")} />
               ) : (
                 <p
                   className={styles.yellow}
@@ -193,11 +166,8 @@ export default function Edit() {
                 </p>
               )}
               {isEditing.password && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={user.password}
-                  onChange={(e) => updateField("email", e.target.password)}
+                <EditSecuritypw
+                  onChange={(e) => updateField("password", e.target.value)}
                 />
               )}
             </div>
@@ -205,13 +175,7 @@ export default function Edit() {
               <Image src={mail} alt="mail" width={18} height={18} />
               <p>보안 인증 메일</p>
               {isEditing.security ? (
-                <Image
-                  src={close_round}
-                  alt="close"
-                  width={18}
-                  height={18}
-                  onClick={() => toggleEditing("security")}
-                />
+                <CloseImg onClick={() => toggleEditing("security")} />
               ) : (
                 <p
                   className={styles.yellow}
@@ -220,14 +184,7 @@ export default function Edit() {
                   수정
                 </p>
               )}
-              {isEditing.security && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={user.security}
-                  onChange={(e) => updateField("security", e.target.password)}
-                />
-              )}
+              {isEditing.security && <EditSecurityEmail />}
             </div>
           </div>
         </div>
