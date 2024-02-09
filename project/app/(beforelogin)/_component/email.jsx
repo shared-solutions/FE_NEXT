@@ -3,11 +3,11 @@ import styles from '@/app/modules/signup.module.scss';
 import useSignUpStore from '@/app/zustand/policyStore'
 import { useState } from 'react';
 export default function Email(){
-    const {isSucceed,setIsSucceed,setCurrentStage,} = useSignUpStore();
+    const {isSucceed,setIsSucceed,setCurrentStage, userInfo, setUserInfo} = useSignUpStore();
     const [isValidKey, setIsValidKey] = useState(false)
     const [email, setEmail] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);
-    const [validKey, setValidKey] = useState('')
+    const [authNum, setValidKey] = useState('')
     const handleEmailChange = (e) => {
         const emailInput = e.target.value;
         setEmail(emailInput);
@@ -18,57 +18,49 @@ export default function Email(){
         const emailInput = e.target.value;
         setValidKey(emailInput);
     } 
-    const isRequiredChecked = validKey !==''
-    const handleNext = async () => {
-        if (!isSucceed.email) {
-          setIsSucceed({ ...isSucceed, email: true });
-          setCurrentStage('password'); // 다음 스테이지로 설정하거나 필요에 따라 처리
-        }
-      }
-      /*const handleNext = async () => {
+    const isRequiredChecked = authNum !==''
+  
+      const handleNext = async () => {
         try {
-          const response = await fetch('http://localhost:8080/api/verify-verification-code', {
+          const response = await fetch('/user/mailauthCheck', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, verificationCode: validKey }),
+            body: JSON.stringify({ email, authNum }),
           });
           if (response.ok) {
             const data = await response.json();
     
-            if (data.isValid) {
-              // 인증 번호가 일치할 경우
-              if (!isSucceed.email) {
-                setIsSucceed({ ...isSucceed, email: true });
-                setCurrentStage('password');
-              }
-            } else {
-              // 인증 번호가 일치하지 않을 경우
+            if (data) 
+            {
+              setIsSucceed({ ...isSucceed, email: true });
+              setUserInfo('email', email);
+              setCurrentStage('password');
+              console.log("객체확인:", useSignUpStore.getState().userInfo);
+            } 
+            else 
+            {
               console.error('Invalid verification code');
             }
           } else {
-            // 서버에서 오류 응답을 받은 경우
-            console.error('Server error');
+            alert('틀')
           }
         } catch (error) {
           console.error('Error during API request', error);
         }
       };
-      */
-    const ValidKeyHandler = () => {
-        setIsValidKey(true)
-    }
-    /*const ValidKeyHandler = async () => {
+      
+      const ValidKeyHandler = async () => {
         try {
-          const response = await fetch('http://localhost:8080/api/generate-verification-code', {
+          const response = await fetch('/user/mailSend', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ email }), // Assuming email is a variable holding the email string
           });
-    
+      
           if (response.ok) {
             console.log('Verification code sent successfully');
             setIsValidKey(true);
@@ -80,7 +72,7 @@ export default function Email(){
           console.error('Error during API request', error);
         }
       };
-    */
+
     return(
         <div className={styles.emailInput}>
             <strong>이메일을 입력해주세요.</strong>
@@ -92,7 +84,7 @@ export default function Email(){
                 <div className={styles.hiddenDiv}>
                     <strong>이메일로 전송된 인증번호를 입력해주세요</strong>
                     <div className={styles.emailValid}>
-                    <input type="text" placeholder='필수 입력' onChange={handleValidKeyChange} value={validKey}/>
+                    <input type="text" placeholder='필수 입력' onChange={handleValidKeyChange} value={authNum}/>
                 </div>
                 </div>
             }
