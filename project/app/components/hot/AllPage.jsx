@@ -5,6 +5,8 @@ import styles from "@/app/modules/hotCss/allpage.module.scss";
 import AllPageBox from "./AllPageBox";
 import { PageRendering } from "@/app/zustand/store";
 import Link from "next/link";
+import { voteData } from "@/app/DATA/dummyData";
+
 const AllPage = () => {
   const backPage = PageRendering((state) => state.backPage);
   const title = PageRendering((state) => state.title);
@@ -31,9 +33,18 @@ const AllPage = () => {
       </div>
 
       <div className={styles.linkContainer}>
-        <Link className={styles.link} href="/viewdetail/1">
-          <AllPageBox />
-        </Link>
+        {voteData.map((vote, index) => (
+          <Link className={styles.link} href={`/viewdetail/${vote.reviewId}`}>
+            <AllPageBox
+              key={index}
+              userimg={vote.userimg}
+              nickname={vote.nickname}
+              title={vote.title}
+              content={vote.content}
+              selectImgList={vote.selectImgList}
+            />
+          </Link>
+        ))}
       </div>
     </>
   );

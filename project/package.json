@@ -1,1 +1,38 @@
-{"name":"project","version":"0.1.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"next lint"},"proxy":"http://dev.gomin-chingu.site","dependencies":{"lucide-react":"^0.312.0","next":"^14.1.0","next-auth":"^4.24.5","react":"^18","react-dom":"^18","react-spring-bottom-sheet":"^3.4.1","sass":"^1.69.7","zustand":"^4.4.7"},"devDependencies":{"@types/react":"18.2.55","autoprefixer":"^10.0.1","eslint":"^8.56.0","eslint-config-airbnb":"^19.0.4","eslint-config-next":"14.0.4","eslint-config-prettier":"^9.1.0","eslint-plugin-import":"^2.29.1","eslint-plugin-jsx-a11y":"^6.8.0","eslint-plugin-prettier":"^5.1.2","eslint-plugin-react":"^7.33.2","eslint-plugin-react-hooks":"^4.6.0","postcss":"^8","prettier":"^3.1.1"}}
+
+{
+  "name": "project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "^11.0.3",
+    "lucide-react": "^0.312.0",
+    "next": "^14.1.0",
+    "next-auth": "^4.24.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-spring-bottom-sheet": "^3.4.1",
+    "sass": "^1.69.7",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8",
+    "prettier": "^3.1.1"
+  }
+}
+

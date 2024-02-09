@@ -1,5 +1,3 @@
-
-
 import NextAuth from "next-auth/next";
 import KakaoProvider from "next-auth/providers/kakao";
 const handler = NextAuth({
@@ -10,6 +8,7 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
+
 
     async jwt({ token, account,user }) {
       console.log("jwt callback called",account,token);
@@ -44,9 +43,11 @@ const handler = NextAuth({
       }
     },
     
+
   },
+
   pages: {
-   signIn: "/i/login",
+    signIn: "/i/login",
   },
 });
 

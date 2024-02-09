@@ -3,6 +3,27 @@
   height: 210px;
   border-radius: 20px;
   background-color: #ffc700;
-  //크기가 flex container에 영향을 받지 않도록
   flex: 0 0 auto;
+  padding: 15px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content {
+  margin-top: 20px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

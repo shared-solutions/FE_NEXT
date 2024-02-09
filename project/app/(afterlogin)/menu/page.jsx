@@ -17,22 +17,17 @@ export default function MyPage() {
       router.replace("/login");
     });
   };
-  const openModal = true;
   return (
-    <>
-      {openModal && (
-        <div className={styles.modal}>
-          <div className={styles.background}>
-            <Close />
-            <div className={styles.container}>
-              <ProfileImage />
-              <Info />
-              <Category />
-              <Features logout={Logout} />
-            </div>
-          </div>
+    <div className={styles.modal}>
+      <div className={styles.background}>
+        <Close />
+        <div className={styles.container}>
+          <ProfileImage />
+          <Info />
+          <Category />
+          <Features logout={Logout} />
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
