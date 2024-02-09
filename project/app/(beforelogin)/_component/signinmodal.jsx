@@ -46,7 +46,7 @@ export default function Modal() {
       localStorage.setItem("accesstoken", response.data.result[0].token);
       setCookie("refreshToken", response.data.result[1].token, 14);
       console.log(getCookie("refreshToken"));
-      if (response.ok) {
+      if (response.data.isSuccess === true) {
         console.log("로그인 성공");
         router.push("/home");
         console.log(response);
