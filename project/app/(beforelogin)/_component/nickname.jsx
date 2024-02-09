@@ -1,22 +1,43 @@
 'use client'
 import styles from '@/app/modules/signup.module.scss';
 import useSignUpStore from '@/app/zustand/policyStore'
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 export default function Nickname(){
+    const router = useRouter()
     const {
         isSucceed,
         setIsSucceed,
         setCurrentStage,
+        userInfo, 
+        setUserInfo 
       } = useSignUpStore();
     const [nick, setNick] = useState('');
     const [isValid, setIsValid] = useState(false)
+    const [selectedGender, setSelectedGender] = useState('선택안함');
+    const [genderNum, setGenderNum] = useState(0)
+    const [birthYear, setBirthYear] = useState('');
+    const [birthMonth, setBirthMonth] = useState('');
+    const [birthDay, setBirthDay] = useState('');
+    useEffect(() => {
+        if (selectedGender === '남') {
+            setGenderNum(0);
+            console.log(genderNum);
+        } else if (selectedGender === '여') {
+            setGenderNum(1);
+            console.log(genderNum);
+        } else {
+            setGenderNum(2);
+            console.log(genderNum);
+        }
+    }, [selectedGender]);
     const handleNickChange = (e) => {
           const nickInput = e.target.value;
           setNick(nickInput);
           const nickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/
           setIsValid(nickRegex.test(nickInput));
     }
-
     let [isDupli, setIsDupli] = useState('')
     const CheckDupli = () => {
          if(isValid){
@@ -26,23 +47,64 @@ export default function Nickname(){
             setIsDupli(isDupli='false')
         }
     }
+    
     const isRequiredChecked = isDupli
-    const handleNext = () => {
-          if (!isSucceed.nickname) {
-            setIsSucceed({ ...isSucceed, nickname: true });
-            setCurrentStage('nickname'); // 다음 스테이지로 설정하거나 필요에 따라 처리
-          }
-    }
 
-    const [selectedGender, setSelectedGender] = useState('선택안함');
+    const requestBody = {
+        email: userInfo.email,
+        password: userInfo.password,
+        nickname: nick,
+        phone: "",
+        gender: genderNum,
+        agree_info: userInfo.agree_info,
+        agree_marketing: userInfo.agree_marketing,
+        birth: `${birthYear}-${birthMonth}-${birthDay}`,
+        image: "",
+        point: 0,
+        kakao: "",
+        like: 0,
+        is_deleted: false
+    };
+    const handleNext = async () => {
+        try {
+          const response = await fetch('/user/join', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({requestBody}),
+          });
+          if (response.ok) {
+            const data = await response.json();
+    
+            if (data) 
+            {
+                setIsSucceed({ ...isSucceed, nickname: true });
+                console.log("객체확인:", useSignUpStore.getState().userInfo);
+                alert("회원가입 완료")
+                router.replace('/i/signin')
+            } 
+            else 
+            {
+
+              console.error('Invalid verification code');
+            }
+          } else {
+            alert('Invalid verification code')
+          }
+          console.log("Request Body:", requestBody);
+        } catch (error) {
+          console.error('Error during API request', error);
+        }
+      };
+
+    
 
     const handleGenderClick = (gender) => {
         setSelectedGender((prevGender) => (prevGender === gender ? null : gender));
     };
 
-    const [birthYear, setBirthYear] = useState('');
-    const [birthMonth, setBirthMonth] = useState('');
-    const [birthDay, setBirthDay] = useState('');
+    
 
     return(
         <div className={styles.emailInput}>

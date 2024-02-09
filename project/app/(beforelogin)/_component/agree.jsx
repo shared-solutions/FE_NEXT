@@ -9,6 +9,8 @@ export default function Agree(){
         isSucceed,
         setIsSucceed,
         setCurrentStage,
+        userInfo, 
+        setUserInfo 
       } = useSignUpStore();
       const [isCheckedAll, setIsCheckedAll] = useState(false);
       const [isChecked, setIsChecked] = useState({
@@ -20,7 +22,7 @@ export default function Agree(){
       });
     
       const isRequiredChecked = isChecked.service && isChecked.personalInfo && isChecked.over14;
-    
+      
       const handleIconAllClick = () => {
         const newValue = !isCheckedAll;
         setIsCheckedAll(newValue);
@@ -37,17 +39,23 @@ export default function Agree(){
         setIsChecked((prev) => ({ ...prev, [field]: !prev[field] }));
       };
     
-      const handleNext = () => {
-        if (!isSucceed.agree) {
-          setIsSucceed({ ...isSucceed, agree: true });
-          setCurrentStage('email'); // 다음 스테이지로 설정하거나 필요에 따라 처리
-        }
-      };
-    
+      
     
       useEffect(() => {
         setIsCheckedAll(isChecked.service && isChecked.personalInfo && isChecked.over14 && isChecked.optionalInfo && isChecked.marketing);
       }, [isChecked]);
+      const handleNext = () => {
+        if (!isSucceed.agree) {
+          setUserInfo('agree_info', isChecked.optionalInfo);
+          setUserInfo('agree_marketing', isChecked.marketing);
+            
+            setIsSucceed('agree', true);
+            setCurrentStage('email'); // 다음 스테이지로 설정하거나 필요에 따라 처리
+    
+            // Zustand에 저장된 값을 확인합니다.
+            console.log("객체확인:", useSignUpStore.getState().userInfo);
+        }
+    };
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>회원가입</h1>

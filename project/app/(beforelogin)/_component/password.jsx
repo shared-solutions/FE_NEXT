@@ -5,7 +5,7 @@ import { Eye } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Password() {
-  const { isSucceed, setIsSucceed, setCurrentStage } = useSignUpStore();
+  const { isSucceed, setIsSucceed, setCurrentStage,userInfo, setUserInfo } = useSignUpStore();
 
   const [pw, setPw] = useState('');
   const [pwValid, setPwValid] = useState('');
@@ -22,7 +22,9 @@ export default function Password() {
   const handleNext = () => {
     if (!isSucceed.password) {
       setIsSucceed((prev) => ({ ...prev, password: true }));
+      setUserInfo('password', pw);
       setCurrentStage('nickname');
+      console.log("객체확인:", useSignUpStore.getState().userInfo);
     }
   };
   const handleShow = (setter) => {
