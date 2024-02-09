@@ -31,7 +31,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: white; 
+  background-color: white;
+  z-index: 100; 
+}
+.container a {
+  text-decoration: none;
 }
 .name{
   height: 20%;

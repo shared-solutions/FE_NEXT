@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+import Link from "next/link";
 import styles from "@/app/modules/profileCss/profile.module.scss";
 
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
@@ -19,11 +19,13 @@ export default function Profile() {
 
   return (
     <div className={!rank ? styles.background : styles.rank_image}>
-      <ProfileHeader />
+      <ProfileHeader header="프로필" />
       <div className={styles.container}>
         {!rank ? <ProfileImage /> : <RankImage />}
         <p className={!rank ? styles.name : styles.name_bold}>psward73님</p>
-        {!rank ? <p className={styles.info_edit}>회원정보 수정</p> : ""}
+        <Link href="/profile/edit">
+          {!rank ? <p className={styles.info_edit}>회원정보 수정</p> : ""}
+        </Link>
         <Rank clickHandler={handleRankButton} />
         <Adopt />
         <Myqna />

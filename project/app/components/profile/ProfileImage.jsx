@@ -10,15 +10,15 @@ export default function Profile() {
         src={default_image}
         alt="default image"
         className={styles.imageShadow}
-        width={95}
-        height={95}
+        width={105}
+        height={105}
       />
       <Image
         src={edit}
         alt="edit"
         className={styles.edit}
-        width={40}
-        height={40}
+        width={32}
+        height={32}
       />
     </div>
   );

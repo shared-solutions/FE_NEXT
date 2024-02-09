@@ -14,10 +14,12 @@ export default function Menu() {
           <p className={styles.text}>나의 프로필</p>
         </div>
       </Link>
-      <div className={styles.colContainer}>
-        <Image src={save} alt="save" width={18} height={22} />
-        <p className={styles.text}>저장한 게시물</p>
-      </div>
+      <Link href="/saved">
+        <div className={styles.colContainer}>
+          <Image src={save} alt="save" width={18} height={22} />
+          <p className={styles.text}>저장한 게시물</p>
+        </div>
+      </Link>
     </div>
   );
 }
