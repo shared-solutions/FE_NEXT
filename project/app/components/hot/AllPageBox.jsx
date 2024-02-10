@@ -3,7 +3,7 @@ import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 
-const AllPageBox = ({ userimg, nickname, title, content, selectImgList }) => {
+const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comment }) => {
   return (
     <div className={styles.box}>
       <div className={styles.userinfo}>
@@ -20,11 +20,11 @@ const AllPageBox = ({ userimg, nickname, title, content, selectImgList }) => {
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
         <div className={styles.imgSlide}>
-          {selectImgList &&
-            selectImgList.map((selectImg, index) => (
+          {pollOption &&
+            pollOption.map((option, index) => (
               <Image
                 key={index}
-                src={selectImg}
+                src={option.optionImgUrl}
                 alt={`선택지 ${index + 1}`}
                 width={98}
                 height={124}
@@ -34,10 +34,10 @@ const AllPageBox = ({ userimg, nickname, title, content, selectImgList }) => {
 
         <div className={styles.footer}>
           <div className={styles.like}>
-            <Image src={likeimg} alt="좋아요" width={15} height={13} /> 34
+            <Image src={likeimg} alt="좋아요" width={15} height={13} /> {like}
           </div>
           <div className={styles.comment}>
-            <Image src={commentimg} alt="댓글" width={15} height={13} /> 23
+            <Image src={commentimg} alt="댓글" width={15} height={13} /> {comment}
           </div>
         </div>
       </div>
