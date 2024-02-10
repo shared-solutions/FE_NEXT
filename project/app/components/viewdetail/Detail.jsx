@@ -21,21 +21,7 @@ import Link from "next/link";
 import { postLike } from "@/app/api/api/like";
 import { deleteLike } from "@/app/api/api/like";
 
-const Detail = ({
-  userimg,
-  username,
-  date,
-  time,
-  title,
-  content,
-  minititle,
-  point,
-  lefttime,
-  selectImgList,
-  viewCount,
-  likeCount,
-  commentCount,
-}) => {
+const Detail = () => {
   const [setting, setSetting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -65,7 +51,7 @@ const Detail = ({
           width={34}
           height={34}
         />
-        <div className={styles.username}>{username}</div>
+        <div className={styles.username}>김태영</div>
         <br />
 
         <div className={styles.morebtn}>
@@ -80,22 +66,22 @@ const Detail = ({
         </div>
       </div>
       <div className={styles.usertext}>
-        <div className={styles.date}>{date}</div>
+        <div className={styles.date}>날짜</div>
         <div className={styles.line}> | </div>
-        <div className={styles.time}>{time}</div>
+        <div className={styles.time}>시간</div>
       </div>
 
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>제목</div>
 
-      <div className={styles.content}>{content}</div>
+      <div className={styles.content}>콘텐트</div>
 
       <div className={styles.vote}>
         <div className={styles.minititle}>
-          <div className={styles.mini}>{minititle}</div>
+          <div className={styles.mini}>미니타이틀</div>
           <div className={styles.point}>투표하기</div>
         </div>
         <div className={styles.timer}>
-          <div className={styles.pointnum}>채택 포인트: {point}</div>
+          <div className={styles.pointnum}>채택 포인트: 채택 포인트</div>
           <div>|</div>
           <Image
             className={styles.timeimg}
@@ -104,11 +90,11 @@ const Detail = ({
             width={13}
             height={13}
           />
-          <div>마감 {lefttime}분전</div>
+          <div>마감 3분전</div>
         </div>
 
         <div className={styles.imgSlide}>
-          {selectImgList &&
+          {/* {selectImgList &&
             selectImgList.map((selectImg, index) => (
               <Image
                 key={index}
@@ -117,7 +103,7 @@ const Detail = ({
                 width={98}
                 height={124}
               />
-            ))}
+            ))} */}
         </div>
       </div>
 
@@ -130,7 +116,7 @@ const Detail = ({
             width={14}
             height={10}
           />
-          {viewCount}
+          조회수
         </div>
         <div className={styles.like}>
           <Image
@@ -140,7 +126,7 @@ const Detail = ({
             width={14}
             height={10}
           />
-          {likeCount}
+          좋아요수
         </div>
         <div className={styles.comment}>
           <Image
@@ -150,7 +136,7 @@ const Detail = ({
             width={14}
             height={10}
           />
-          {commentCount}
+          댓글수
         </div>
       </div>
 
