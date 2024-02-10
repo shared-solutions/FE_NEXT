@@ -175,6 +175,7 @@ const Detail = ({
           width={35}
           height={35}
         />
+
         {setting && (
           <CommentSort
             onClose={() => {
