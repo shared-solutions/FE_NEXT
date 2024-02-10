@@ -10,7 +10,12 @@ export const postComment = async (content, Long) => {
 
   try {
     // 추후에 경로 수정해야됨 하드코딩되어있음
-    const response = await api.post("/posts/{post-id}/comment", requestBody);
+    const atkToken = localStorage.getItem("accesstoken");
+    const response = await api.post("/posts/3/comment", requestBody, {
+      headers: {
+        atk: `${atkToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log("에러", error);
@@ -21,11 +26,11 @@ export const postComment = async (content, Long) => {
 // 댓글 전체조회 api
 export const lookupComment = async () => {
   //   아마 전체 조회라 리퀘스트 바디 안필요할거같긴함
-  const requestBody = {};
+
   console.log("댓글 전체조회");
 
   try {
-    const response = await api.get("/posts/{post-id}/comments", requestBody);
+    const response = await api.get("/posts/3/comments");
     return response.data;
   } catch (error) {
     console.log("에러", error);

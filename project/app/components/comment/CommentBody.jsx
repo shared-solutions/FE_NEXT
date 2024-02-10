@@ -4,7 +4,7 @@ import likeimg from "@/app/public/image/like.png";
 import recommentimg from "@/app/public/image/recomment.png";
 import moreimg from "@/app/public/image/morebtncomment.png";
 import Image from "next/image";
-const CommentBody = () => {
+const CommentBody = ({ onReplyClick }) => {
   return (
     <>
       <div className={styles.commentbody}>
@@ -25,6 +25,7 @@ const CommentBody = () => {
         <div className={styles.commentdata}>
           캐쥬얼한 느낌은dsdfjknkvjefnvjkefnbkjnbkjfnbjkefnj 이게 어울려요
         </div>
+        <div onClick={() => onReplyClick()}>답글달기</div>
       </div>
     </>
   );
