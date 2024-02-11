@@ -23,10 +23,8 @@ export const postComment = async (content, Long) => {
   }
 };
 
-// 댓글 전체조회 api
+// 댓글 전체조회 api(완료)
 export const lookupComment = async () => {
-  //   아마 전체 조회라 리퀘스트 바디 안필요할거같긴함
-
   console.log("댓글 전체조회");
 
   try {

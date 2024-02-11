@@ -21,7 +21,7 @@ import good from "@/app/public/image/finger.png";
 import { postLike } from "@/app/api/api/like";
 import { deleteLike } from "@/app/api/api/like";
 
-const Detail = ({
+export default function Detail({
   userimg,
   username,
   date,
@@ -35,7 +35,7 @@ const Detail = ({
   viewCount,
   likeCount,
   commentCount,
-}) => {
+}) {
   const [setting, setSetting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -182,5 +182,4 @@ const Detail = ({
       </div>
     </div>
   );
-};
-export default Detail;
+}

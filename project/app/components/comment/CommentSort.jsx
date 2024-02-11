@@ -4,12 +4,35 @@ import CommentBody from "./CommentBody";
 import RecommentBody from "./RecommentBody";
 import CommentInput from "../input/CommentInput";
 import { ReCommentInput } from "../input/CommentInput";
-import { postComment } from "@/app/api/api/comment";
+import { lookupComment, postComment } from "@/app/api/api/comment";
+import { useEffect } from "react";
+import styles from "@/app/modules/commentCss/commentBody.module.scss";
+import likeimg from "@/app/public/image/like.png";
+import recommentimg from "@/app/public/image/recomment.png";
+import moreimg from "@/app/public/image/morebtncomment.png";
+import Image from "next/image";
+import user from "@/app/public/image/userimg.png";
 
 export const CommentSort = () => {
   const [bottom, setBottom] = useState(true);
   const [replyToComment, setReplyToComment] = useState(null);
   const [isReComment, setIsReComment] = useState(false);
+  const [comments, setComments] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await lookupComment();
+      console.log(response);
+      const commentData = response.result || [];
+      setComments(commentData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleCommentClick = (inputValue) => {
     console.log("댓글 등록", inputValue);
@@ -32,6 +55,38 @@ export const CommentSort = () => {
     setIsReComment(true);
   };
 
+  // 시간계산 함수
+
+  const calculateTimeDifference = (createdAt) => {
+    const now = new Date();
+    const createdDate = new Date(createdAt);
+
+    const timeDifference = now - createdDate;
+    const secondsAgo = Math.floor(timeDifference / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+
+    if (secondsAgo < 60) {
+      return `${secondsAgo}초 전`;
+    } else if (minutesAgo < 60) {
+      return `${minutesAgo}분 전`;
+    } else if (hoursAgo < 24) {
+      return `${hoursAgo}시간 전`;
+    } else if (daysAgo < 30) {
+      return `${daysAgo}일 전`;
+    } else {
+      const formatter = new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+      return formatter.format(createdDate);
+    }
+  };
+
   return (
     <>
       {bottom && (
@@ -45,8 +100,106 @@ export const CommentSort = () => {
             }}
             component={
               <>
-                <CommentBody onReplyClick={handleReplyClick} />
-                <RecommentBody onReplyClick={handleReplyClick} />
+                {comments.map((comment) => (
+                  <div key={comment.commentId}>
+                    <CommentBody
+                      onReplyClick={handleReplyClick}
+                      name={comment.userNickname}
+                      time={calculateTimeDifference(comment.createdAt)}
+                      likecount={comment.commentLike}
+                      content={comment.content}
+                      userImg={comment.userImage ? comment.userImage : null}
+                      isDeleted={comment.isDeleted}
+                    />
+
+                    {/* Additional details as needed */}
+
+                    {comment.childrenComments &&
+                      comment.childrenComments.length > 0 && (
+                        <>
+                          {comment.childrenComments.map((childComment) => (
+                            <div key={childComment.commentId}>
+                              <div className={styles.recommentbody}>
+                                <div className={styles.userlay}>
+                                  {childComment.userImg ? (
+                                    <Image
+                                      src={userImg}
+                                      alt=""
+                                      width={25}
+                                      height={25}
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={user}
+                                      alt=""
+                                      width={25}
+                                      height={25}
+                                    />
+                                  )}
+                                  <div className={styles.name}>
+                                    {childComment.userNickname}
+                                  </div>
+                                  <div className={styles.when}>
+                                    {calculateTimeDifference(
+                                      childComment.createdAt
+                                    )}
+                                  </div>
+                                  <div className={styles.line}>|</div>
+                                  <Image
+                                    src={likeimg}
+                                    alt="좋아요"
+                                    width={10}
+                                    height={9}
+                                  />
+                                  <div className={styles.likecount}>
+                                    {childComment.commentLike}
+                                  </div>
+
+                                  <div className={styles.recommentshared}>
+                                    <Image
+                                      src={likeimg}
+                                      alt="좋아요"
+                                      width={11}
+                                      height={9}
+                                    />
+
+                                    <Image
+                                      src={moreimg}
+                                      alt="더보기"
+                                      width={2}
+                                      height={8}
+                                    />
+                                  </div>
+                                </div>
+                                {!childComment.isDeleted && (
+                                  <>
+                                    <div className={styles.recommentdata}>
+                                      {childComment.content}
+                                    </div>
+                                  </>
+                                )}
+
+                                {childComment.isDeleted && (
+                                  <div className={styles.deletedComment}>
+                                    삭제된 댓글입니다
+                                  </div>
+                                )}
+                              </div>
+                              {/* <RecommentBody
+                                name={childComment.userNickname}
+                                time={childComment.createdAt}
+                                likeCount={childComment.commentLike}
+                                content={childComment.content}
+                                userImg={childComment.userImage}
+                                isDeleted={childComment.isDeleted}
+                              /> */}
+                            </div>
+                          ))}
+                        </>
+                      )}
+                  </div>
+                ))}
+
                 {isReComment ? (
                   <ReCommentInput onButtonClick={handleReCommentClick} />
                 ) : (
@@ -58,5 +211,30 @@ export const CommentSort = () => {
         </>
       )}
     </>
+    // <>
+    //   {bottom && (
+    //     <>
+    //       <Bottom
+    //         title="댓글"
+    //         onClose={() => {
+    //           setBottom(false);
+    //           setReplyToComment(null);
+    //           setIsReComment(false);
+    //         }}
+    //         component={
+    //           <>
+    //             <CommentBody onReplyClick={handleReplyClick} />
+    //             <RecommentBody onReplyClick={handleReplyClick} />
+    //             {isReComment ? (
+    //               <ReCommentInput onButtonClick={handleReCommentClick} />
+    //             ) : (
+    //               <CommentInput onButtonClick={handleCommentClick} />
+    //             )}
+    //           </>
+    //         }
+    //       />
+    //     </>
+    //   )}
+    // </>
   );
 };

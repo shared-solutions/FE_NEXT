@@ -1,6 +1,19 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode:false,
-}
+  reactStrictMode: false,
+};
 
-module.exports = nextConfig
+module.exports = {
+  images: {
+    domains: ["solution-friend-bucket.s3.ap-northeast-2.amazonaws.com"],
+    // domains: ["solution-friend-bucket.s3.ap-northeast-2.amazonaws.com/users"],
+  },
+  ...nextConfig,
+  async rewrites() {
+    return [
+      {
+        source: "/user/:path*",
+        destination: "http://dev.gomin-chingu.site/user/:path*", // 프록시할 서버 주소
+      },
+    ];
+  },
+};
