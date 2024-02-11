@@ -1,17 +1,16 @@
 import { Bottom } from "./Bottom";
 import { useState } from "react";
 import CommentBody from "./CommentBody";
-import RecommentBody from "./RecommentBody";
 import CommentInput from "../input/CommentInput";
 import { ReCommentInput } from "../input/CommentInput";
 import { lookupComment, postComment } from "@/app/api/api/comment";
 import { useEffect } from "react";
 import styles from "@/app/modules/commentCss/commentBody.module.scss";
 import likeimg from "@/app/public/image/like.png";
-import recommentimg from "@/app/public/image/recomment.png";
 import moreimg from "@/app/public/image/morebtncomment.png";
 import Image from "next/image";
 import user from "@/app/public/image/userimg.png";
+import { deleteComment } from "@/app/api/api/comment";
 
 export const CommentSort = () => {
   const [bottom, setBottom] = useState(true);
@@ -45,7 +44,7 @@ export const CommentSort = () => {
     console.log("답글 등록", inputValue);
     // 답글 등록 api
     // 저기서 1은 상위 댓글 Id인데 우선 저렇게 하드코딩
-    const response = postComment(inputValue, 1);
+    const response = postComment(inputValue, replyToComment);
     console.log(response);
     setIsReComment(false);
   };
@@ -110,6 +109,7 @@ export const CommentSort = () => {
                       content={comment.content}
                       userImg={comment.userImage ? comment.userImage : null}
                       isDeleted={comment.isDeleted}
+                      commentId={comment.commentId}
                     />
 
                     {/* Additional details as needed */}
@@ -164,6 +164,9 @@ export const CommentSort = () => {
                                     />
 
                                     <Image
+                                      onClick={() =>
+                                        deleteComment(childComment.commentId)
+                                      }
                                       src={moreimg}
                                       alt="더보기"
                                       width={2}
@@ -185,14 +188,6 @@ export const CommentSort = () => {
                                   </div>
                                 )}
                               </div>
-                              {/* <RecommentBody
-                                name={childComment.userNickname}
-                                time={childComment.createdAt}
-                                likeCount={childComment.commentLike}
-                                content={childComment.content}
-                                userImg={childComment.userImage}
-                                isDeleted={childComment.isDeleted}
-                              /> */}
                             </div>
                           ))}
                         </>
@@ -211,30 +206,5 @@ export const CommentSort = () => {
         </>
       )}
     </>
-    // <>
-    //   {bottom && (
-    //     <>
-    //       <Bottom
-    //         title="댓글"
-    //         onClose={() => {
-    //           setBottom(false);
-    //           setReplyToComment(null);
-    //           setIsReComment(false);
-    //         }}
-    //         component={
-    //           <>
-    //             <CommentBody onReplyClick={handleReplyClick} />
-    //             <RecommentBody onReplyClick={handleReplyClick} />
-    //             {isReComment ? (
-    //               <ReCommentInput onButtonClick={handleReCommentClick} />
-    //             ) : (
-    //               <CommentInput onButtonClick={handleCommentClick} />
-    //             )}
-    //           </>
-    //         }
-    //       />
-    //     </>
-    //   )}
-    // </>
   );
 };

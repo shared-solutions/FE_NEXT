@@ -4,7 +4,7 @@ import api from "./index";
 export const postComment = async (content, Long) => {
   const requestBody = {
     content: content,
-    Long: Long,
+    parentId: Long,
   };
   console.log("댓글 api 연동");
 
@@ -35,31 +35,38 @@ export const lookupComment = async () => {
     throw error;
   }
 };
-// 댓글 수정 api
-export const modifyComment = async (content) => {
-  const requestBody = {
-    content: content,
-  };
-  console.log("댓글 수정");
+// 댓글 수정 api(안하기로함)
+// export const modifyComment = async (content) => {
+//   const requestBody = {
+//     content: content,
+//   };
+//   console.log("댓글 수정");
 
-  try {
-    const response = await api.patch(
-      "/posts/{post-id}/comment/{comment-id}/edit",
-      requestBody
-    );
-    return response.data;
-  } catch (error) {
-    console.log("에러", error);
-    throw error;
-  }
-};
+//   try {
+//     const response = await api.patch(
+//       "/posts/{post-id}/comment/{comment-id}/edit",
+//       requestBody
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.log("에러", error);
+//     throw error;
+//   }
+// };
 
 // 댓글 삭제 api
-export const deleteComment = async () => {
+export const deleteComment = async (commentid) => {
   console.log("댓글 삭제");
   try {
+    const atkToken = localStorage.getItem("accesstoken");
     const response = await api.patch(
-      "/posts/{post-id}/comment/{comment-id}/del"
+      `/posts/3/comment/${commentid}/like/del`,
+      null,
+      {
+        headers: {
+          atk: `${atkToken}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {

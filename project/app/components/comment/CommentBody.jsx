@@ -4,6 +4,8 @@ import recommentimg from "@/app/public/image/recomment.png";
 import moreimg from "@/app/public/image/morebtncomment.png";
 import user from "@/app/public/image/userimg.png";
 import Image from "next/image";
+import { deleteComment } from "@/app/api/api/comment";
+
 const CommentBody = ({
   onReplyClick,
   name,
@@ -12,8 +14,8 @@ const CommentBody = ({
   content,
   userImg,
   isDeleted,
+  commentId,
 }) => {
-  console.log(userImg !== null);
   return (
     <div className={styles.commentbody}>
       <div className={styles.userlay}>
@@ -23,13 +25,6 @@ const CommentBody = ({
           <Image src={user} alt="" width={25} height={25} />
         )}
 
-        {/* <Image
-          src={userImg !== null ? userImg : user}
-          alt="유저 이미지"
-          width={25}
-          height={25}
-        /> */}
-
         <div className={styles.name}>{name}</div>
         <div className={styles.when}>{time}</div>
         <div className={styles.line}>|</div>
@@ -38,13 +33,19 @@ const CommentBody = ({
         <div className={styles.shared}>
           <Image src={likeimg} alt="좋아요" width={11} height={9} />
           <Image
-            onClick={() => onReplyClick()}
+            onClick={() => onReplyClick(commentId)}
             src={recommentimg}
             alt="댓글"
             width={9}
             height={9}
           />
-          <Image src={moreimg} alt="더보기" width={2} height={8} />
+          <Image
+            onClick={() => deleteComment(commentId)}
+            src={moreimg}
+            alt="삭제버튼"
+            width={2}
+            height={8}
+          />
         </div>
       </div>
 
