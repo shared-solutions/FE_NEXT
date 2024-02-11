@@ -23,8 +23,8 @@ const PostList = () => {
       const url = `https://dev.gomin-chingu.site/posts/poll-post/${category}`;
       const params = new URLSearchParams();
       params.append("page", "0");
-      params.append("size", "5");
-      params.append("category", "생활");
+      params.append("size", "3");
+      params.append("category", "쇼핑");
   
       const response = await axios.get(url, {
         params: params,
@@ -61,16 +61,15 @@ const PostList = () => {
         <Link
           className={styles.link}
           key={index}
-          href={`/viewdetail/${userData.postId}`} // <- 백엔드 - postId ??
+          href={`/viewdetail/${userData.postId}`} // 글 상세보기로 이동
         >
           <AllPageBox
-            // 프로필 이미지 <- 백엔드 - X
-            //userimg={vote.userimg}
+            // 프로필 이미지
+            userimg={userData.userImg}
             nickname={userData.nickname}
             title={userData.title}
             content={userData.content}
-            // 투표 사항 <- 이미지 - 아마존에서 받아오는 것 때문에 에러 나는 듯
-            //pollOption={userData.pollOption}
+            pollOption={userData.pollOption}
             like={userData.like}
             comment={userData.comment}
           />

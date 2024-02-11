@@ -21,15 +21,19 @@ const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comme
         <div className={styles.content}>{content}</div>
         <div className={styles.imgSlide}>
           {pollOption &&
-            pollOption.map((option, index) => (
-              <Image
-                key={index}
-                src={option.optionImgUrl}
-                alt={`선택지 ${index + 1}`}
-                width={98}
-                height={124}
-              />
-            ))}
+              pollOption.map((option, index) => (
+                <div key={index} className={styles.option}>
+                  {option.optionImgUrl && (
+                    <Image
+                      src={option.optionImgUrl}
+                      alt={`선택지 ${index + 1}`}
+                      width={98}
+                      height={124}
+                    />
+                  )}
+                  <span>{option.optionString}</span>
+                </div>
+              ))}
         </div>
 
         <div className={styles.footer}>
