@@ -13,8 +13,26 @@ export default function Features({ logout }) {
       >
         <Icon text="설정" />
       </Link>
-      <Icon text="문의하기" />
-      <Icon text="로그아웃" onClick={logout} />
+      <Link
+        href="/setting/ask"
+        style={{
+          textDecoration: "none",
+          color: "black",
+          width: "86%",
+        }}
+      >
+        <Icon text="문의하기" />
+      </Link>
+      <Link
+        href="/setting/logout"
+        style={{
+          textDecoration: "none",
+          color: "black",
+          width: "86%",
+        }}
+      >
+        <Icon text="로그아웃" />
+      </Link>
     </>
   );
 }
