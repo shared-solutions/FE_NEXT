@@ -5,7 +5,9 @@ import moreimg from "@/app/public/image/morebtncomment.png";
 import user from "@/app/public/image/userimg.png";
 import Image from "next/image";
 import { deleteComment } from "@/app/api/api/comment";
-
+import { likeComment } from "@/app/api/api/like";
+import { deleteCommentLike } from "@/app/api/api/like";
+import unlike from "@/app/public/image/unlike.png";
 const CommentBody = ({
   onReplyClick,
   name,
@@ -15,6 +17,7 @@ const CommentBody = ({
   userImg,
   isDeleted,
   commentId,
+  // islikeComment,
 }) => {
   return (
     <div className={styles.commentbody}>
@@ -31,7 +34,28 @@ const CommentBody = ({
         <Image src={likeimg} alt="좋아요" width={10} height={9} />
         <div className={styles.likecount}>{likecount}</div>
         <div className={styles.shared}>
-          <Image src={likeimg} alt="좋아요" width={11} height={9} />
+          {/* 서버에서 내가 댓글에 좋아요를 눌렀는지 안눌렀는지에 대한 정보를 주면 boolean으로 판별하여서
+          만약 좋아요를 눌렀으면 likeimg라고 뜨게하고 이걸 눌렀을때 좋아요가 취소되게함
+          만약 좋아요를 안눌렀으면 unlick이미지를 뜨게하고 이걸 누르면 좋아요가 달리게함 */}
+          {/* {islikeComment ? (
+            <Image
+              onClick={() => deleteComment(commentId)}
+              src={likeimg}
+              alt="좋아요"
+              width={11}
+              height={9}
+            />
+          ) : (
+            likeComment(commentId)
+            <Image
+              onClick={() => likeComment(commentId)}
+              src={unlike}
+              alt="좋아요"
+              width={11}
+              height={9}
+            />
+          )} */}
+
           <Image
             onClick={() => onReplyClick(commentId)}
             src={recommentimg}

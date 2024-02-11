@@ -1,7 +1,7 @@
 import api from "./index";
 
 // 경로 하드코딩 되어있어서 추후에 변경
-// 좋아요 등록
+// 좋아요 등록(연동 성공)
 export const postLike = async () => {
   console.log("좋아요 누름");
   try {
@@ -19,7 +19,7 @@ export const postLike = async () => {
   }
 };
 
-// 좋아요 취소
+// 좋아요 취소(서버문제)
 export const deleteLike = async () => {
   console.log("좋아요 취소");
   try {
@@ -37,11 +37,18 @@ export const deleteLike = async () => {
 };
 
 // 댓글 좋아요 api
-export const likeComment = async () => {
+export const likeComment = async (commentid) => {
   console.log("댓글 좋아요");
   try {
+    const atkToken = localStorage.getItem("accesstoken");
     const response = await api.post(
-      "/posts/{post-id}/comment/{comment-id}/like"
+      `/posts/3/comment/${commentid}/like`,
+      null,
+      {
+        headers: {
+          atk: `${atkToken}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -49,12 +56,19 @@ export const likeComment = async () => {
     throw error;
   }
 };
-
-export const deleteCommentLike = async () => {
+// 댓글 좋아요 취소
+export const deleteCommentLike = async (commentid) => {
   console.log("댓글 좋아요 취소");
   try {
+    const atkToken = localStorage.getItem("accesstoken");
     const response = await api.delete(
-      "/posts/{post-id}/comment/{comment-id}/like/del"
+      `/posts/3/comment/${commentid}/like/del`,
+      null,
+      {
+        headers: {
+          atk: `${atkToken}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {

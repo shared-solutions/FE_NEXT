@@ -22,6 +22,7 @@ export const CommentSort = () => {
     try {
       const response = await lookupComment();
       console.log(response);
+
       const commentData = response.result || [];
       setComments(commentData);
     } catch (error) {
@@ -33,20 +34,32 @@ export const CommentSort = () => {
     fetchData();
   }, []);
 
-  const handleCommentClick = (inputValue) => {
-    console.log("댓글 등록", inputValue);
-    // 댓글 등록 api
-    const response = postComment(inputValue, null);
-    console.log(response);
+  const handleCommentClick = async (inputValue) => {
+    try {
+      // 댓글 등록 api
+      const response = await postComment(inputValue, null);
+      console.log(response);
+
+      // 댓글 등록 후 최신 데이터 다시 가져오기
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleReCommentClick = (inputValue) => {
-    console.log("답글 등록", inputValue);
-    // 답글 등록 api
-    // 저기서 1은 상위 댓글 Id인데 우선 저렇게 하드코딩
-    const response = postComment(inputValue, replyToComment);
-    console.log(response);
-    setIsReComment(false);
+  const handleReCommentClick = async (inputValue) => {
+    try {
+      // 답글 등록 api
+      // 저기서 1은 상위 댓글 Id인데 우선 저렇게 하드코딩
+      const response = await postComment(inputValue, replyToComment);
+      console.log(response);
+
+      // 답글 등록 후 최신 데이터 다시 가져오기
+      fetchData();
+      setIsReComment(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleReplyClick = (commentId) => {
@@ -98,7 +111,7 @@ export const CommentSort = () => {
               setIsReComment(false);
             }}
             component={
-              <>
+              <div className={styles.all}>
                 {comments.map((comment) => (
                   <div key={comment.commentId}>
                     <CommentBody
@@ -110,6 +123,7 @@ export const CommentSort = () => {
                       userImg={comment.userImage ? comment.userImage : null}
                       isDeleted={comment.isDeleted}
                       commentId={comment.commentId}
+                      // islikeComment = {comment.islikeComment}
                     />
 
                     {/* Additional details as needed */}
@@ -200,7 +214,7 @@ export const CommentSort = () => {
                 ) : (
                   <CommentInput onButtonClick={handleCommentClick} />
                 )}
-              </>
+              </div>
             }
           />
         </>
