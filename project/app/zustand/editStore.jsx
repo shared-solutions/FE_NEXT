@@ -2,12 +2,12 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
   user: {
-    nickname: "psward73님",
+    nickname: "abcd",
     name: "사용자",
-    email: "komg00@naver.com",
+    email: "abc@naver.com",
     phone: "010-1234-5678",
     password: "12345678",
-    security: "komg00@naver.com",
+    security: "abc@naver.com",
   },
   isEditing: {
     nickname: false,

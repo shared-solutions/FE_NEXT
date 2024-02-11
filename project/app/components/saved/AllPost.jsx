@@ -1,64 +1,82 @@
 "use client";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import styles from "../../modules/savedCss/allpost.module.scss";
 import Post from "../../components/saved/Post";
-const savedPost = {
-  results: [
-    {
-      id: "1",
-      day: "6",
-      header: "가위바위보 할 때 어떤 게 승률이 젤 높나요?",
-      text: "내일 중요한 가위바위보 경기가 있습니다. 추천해주세요.",
-      like: "24",
-      comment: "11",
-    },
-    {
-      id: "2",
-      day: "8",
-      header: "배고프네요 뭐 먹을까요?",
-      text: "먹을 것 추천 좀 해주세요 두개 중에 골라주세요 ㅋ",
-      like: "24",
-      comment: "18",
-    },
-    {
-      id: "1",
-      day: "3",
-      header: "햄버거가 먹고 싶은데.....",
-      text: "빅맥이랑 상하이버거 중에 뭘 먹을까요?",
-      like: "13",
-      comment: "35",
-    },
-    {
-      id: "4",
-      day: "7",
-      header: "노래 추천해주세요 여러분들~",
-      text: "그냥 댓글로 아무나 좀 남겨주세요~",
-      like: "13",
-      comment: "16",
-    },
-  ],
-};
+
 export default function AllPost() {
-  const [sortBy, setSortBy] = useState("like");
+  const [sortBy, setSortBy] = useState(0);
+  const [userData, setUserData] = useState([]);
 
-  const sortedResults = savedPost.results.slice().sort((a, b) => {
-    if (sortBy === "like") {
-      return parseInt(b.like) - parseInt(a.like);
-    } else if (sortBy === "day") {
-      return parseInt(a.day) - parseInt(b.day);
+  const handleLogin = async () => {
+    try {
+      const endpoint = "https://dev.gomin-chingu.site/user/login";
+      const requestBody = {
+        email: process.env.NEXT_PUBLIC_USER_EMAIL,
+        password: process.env.NEXT_PUBLIC_USER_PASSWORD,
+      };
+      const response = await axios.post(endpoint, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.result[0].token) {
+        localStorage.setItem("token", response.data.result[0].token);
+        console.log();
+        //alert("성공적으로 로그인했습니다!");
+      }
+      console.log(response.data.result);
+    } catch (error) {
+      console.log(error);
+      //alert("ID 또는 비밀번호가 틀립니다.");
     }
-    return 0;
-  });
+  };
+  const atkToken = localStorage.getItem("token");
 
+  const getMyPage = async () => {
+    try {
+      const page = 0;
+      const sort = sortBy;
+
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/post/all"
+      ); // API 엔드포인트 URL로 교체
+      url.searchParams.append("page", page);
+      url.searchParams.append("sort", sort);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.result.postList);
+        console.log("MyPage data:", data);
+      } else {
+        console.error("Failed to get MyPage data:", response);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    handleLogin();
+    getMyPage();
+  }, [sortBy]);
   return (
     <>
       <div className={styles.container}>
         <motion.button
           className={`${styles.select_button} ${
-            sortBy === "like" ? "" : styles.disabled
+            sortBy === 0 ? "" : styles.disabled
           }`}
-          onClick={() => setSortBy("like")}
+          onClick={() => setSortBy(0)}
           whileTap={{
             scale: 0.5,
             opacity: 0.6,
@@ -68,9 +86,9 @@ export default function AllPost() {
         </motion.button>
         <motion.button
           className={`${styles.select_button} ${
-            sortBy === "day" ? "" : styles.disabled
+            sortBy === 1 ? "" : styles.disabled
           }`}
-          onClick={() => setSortBy("day")}
+          onClick={() => setSortBy(1)}
           whileTap={{
             scale: 0.5,
             opacity: 0.6,
@@ -80,14 +98,14 @@ export default function AllPost() {
         </motion.button>
       </div>
       <div className={styles.post_container}>
-        {sortedResults.map((post) => {
+        {userData.map((post) => {
           return (
             <Post
-              key={post.id}
-              day={post.day}
-              header={post.header}
-              text={post.text}
-              like_num={post.like}
+              key={post.title}
+              day={post.ago}
+              header={post.title}
+              text={post.content}
+              like_num={post.postLike}
               comment_num={post.comment}
             />
           );

@@ -1,128 +1,135 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import star_gray from "@/app/public/image/star_gray.png";
 import star_yellow from "@/app/public/image/star_yellow.png";
 import styles from "../../modules/savedCss/mycategory.module.scss";
 import Category from "./Category";
 
-const daily = {
-  results: [
-    {
-      id: "1",
-      day: "3",
-      header: "햄버거가 먹고 싶은데.....",
-      text: "빅맥이랑 상하이버거 중에 뭘 먹을까요?",
-      like: "13",
-      comment: "35",
-    },
-    {
-      id: "2",
-      day: "6",
-      header: "가위바위보 할 때 어떤 게 승률이 젤 높나요?",
-      text: "내일 중요한 가위바위보 경기가 있습니다. 추천해주세요.",
-      like: "24",
-      comment: "11",
-    },
-    {
-      id: "3",
-      day: "7",
-      header: "노래 추천해주세요 여러분들~",
-      text: "그냥 댓글로 아무나 좀 남겨주세요~",
-      like: "13",
-      comment: "16",
-    },
-  ],
-};
-const funny = {
-  results: [
-    {
-      id: "1",
-      day: "7",
-      header: "노래 추천해주세요 여러분들~",
-      text: "그냥 댓글로 아무나 좀 남겨주세요~",
-      like: "13",
-      comment: "16",
-    },
-    {
-      id: "2",
-      day: "6",
-      header: "가위바위보 할 때 어떤 게 승률이 젤 높나요?",
-      text: "내일 중요한 가위바위보 경기가 있습니다. 추천해주세요.",
-      like: "24",
-      comment: "11",
-    },
-  ],
-};
-const vote = {
-  results: [
-    {
-      id: "1",
-      day: "3",
-      header: "햄버거가 먹고 싶은데.....",
-      text: "빅맥이랑 상하이버거 중에 뭘 먹을까요?",
-      like: "13",
-      comment: "35",
-    },
-  ],
-};
 export default function MyCategory() {
-  const [dailyClicked, setDailyClicked] = useState(false);
-  const [funnyClicked, setFunnyClicked] = useState(false);
-  const [voteClicked, setVoteClicked] = useState(false);
+  const [educationClicked, setEducationClicked] = useState(false);
+  const [entertainmentClicked, setEntertainmentClicked] = useState(false);
+  const [lifeClicked, setLifeClicked] = useState(false);
+  const [economyClicked, setEconomyClicked] = useState(false);
+  const [shoppingClicked, setShoppingClicked] = useState(false);
+  const [etcClicked, setEtcClicked] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
 
+  const atkToken = localStorage.getItem("token");
+
+  const getCategoryClicked = (index) => {
+    switch (index) {
+      case 0:
+        return educationClicked;
+      case 1:
+        return entertainmentClicked;
+      case 2:
+        return lifeClicked;
+      case 3:
+        return economyClicked;
+      case 4:
+        return shoppingClicked;
+      case 5:
+        return etcClicked;
+      default:
+        return false;
+    }
+  };
+
+  const handleCategoryClick = (index) => {
+    switch (index) {
+      case 0:
+        setEducationClicked(!educationClicked);
+        break;
+      case 1:
+        setEntertainmentClicked(!entertainmentClicked);
+        break;
+      case 2:
+        setLifeClicked(!lifeClicked);
+        break;
+      case 3:
+        setEconomyClicked(!economyClicked);
+        break;
+      case 4:
+        setShoppingClicked(!shoppingClicked);
+        break;
+      case 5:
+        setEtcClicked(!etcClicked);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const getMyPage = async () => {
+    try {
+      const promises = categories.map(async (category) => {
+        const url = new URL(
+          `https://dev.gomin-chingu.site/posts/poll-post/${category}`
+        );
+        url.searchParams.append("page", "0");
+        url.searchParams.append("size", "3");
+        url.searchParams.append("category", category);
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            atk: atkToken,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserData((prevUserData) => [
+            ...prevUserData,
+            data.result.pollPostList,
+          ]);
+        } else {
+          console.error("Failed to get MyPage data:", response);
+        }
+      });
+      await Promise.all(promises);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    getMyPage();
+  }, []);
+
+  console.log("1:", userData[0]);
+  console.log("2:", userData[1]);
+  console.log("3:", userData[2]);
+  console.log("4:", userData[3]);
+  console.log("5:", userData[4]);
+  console.log("6:", userData[5]);
   return (
     <>
-      <div
-        className={styles.list}
-        style={{ backgroundColor: dailyClicked ? "#FFF9BF" : "#F4F4F4" }}
-      >
-        <Image
-          src={dailyClicked ? star_yellow : star_gray}
-          alt="star"
-          onClick={() => setDailyClicked(!dailyClicked)}
-          style={{
-            marginBottom: "80%",
-            marginLeft: "83%",
-          }}
-        />
-        <Category content={daily} name="일상" />
-      </div>
-      <div
-        className={styles.list}
-        style={{
-          marginLeft: "52%",
-          backgroundColor: funnyClicked ? "#FFF9BF" : "#F4F4F4",
-        }}
-      >
-        <Image
-          src={funnyClicked ? star_yellow : star_gray}
-          alt="star"
-          onClick={() => setFunnyClicked(!funnyClicked)}
-          style={{
-            marginBottom: "80%",
-            marginLeft: "83%",
-          }}
-        />
-        <Category content={funny} name="재밌는 거" />
-      </div>
-      <div
-        className={styles.list}
-        style={{
-          marginTop: "60%",
-          backgroundColor: voteClicked ? "#FFF9BF" : "#F4F4F4",
-        }}
-      >
-        <Image
-          src={voteClicked ? star_yellow : star_gray}
-          alt="star"
-          onClick={() => setVoteClicked(!voteClicked)}
-          style={{
-            marginBottom: "80%",
-            marginLeft: "83%",
-          }}
-        />
-        <Category content={vote} name="투표" />
+      <div className={styles.scrollContainer}>
+        {userData.map((categoryData, index) => (
+          <div
+            key={index}
+            className={styles.list}
+            style={{
+              backgroundColor: getCategoryClicked(index)
+                ? "#FFF9BF"
+                : "#F4F4F4",
+            }}
+          >
+            <Image
+              src={getCategoryClicked(index) ? star_yellow : star_gray}
+              alt="star"
+              onClick={() => handleCategoryClick(index)}
+              style={{
+                marginBottom: "80%",
+                marginLeft: "83%",
+              }}
+            />
+            <Category posts={categoryData} name={categories[index]} />
+          </div>
+        ))}
       </div>
     </>
   );

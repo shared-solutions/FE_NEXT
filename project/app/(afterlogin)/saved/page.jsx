@@ -31,7 +31,7 @@ export default function Saved() {
             content === "allpost" ? "" : styles.disabled
           }`}
           onClick={() => handleClickButton("allpost")}
-          style={{ "margin-right": "4%" }}
+          style={{ marginRight: "4%" }}
         >
           모든 게시물
         </div>
