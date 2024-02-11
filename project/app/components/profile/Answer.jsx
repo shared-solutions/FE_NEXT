@@ -1,48 +1,25 @@
 import Form from "./Form";
-export default function Answer() {
-  const answers = {
-    results: [
-      {
-        id: "1",
-        name: "psward7733",
-        time: "17:52",
-        text: "그냥 편하게 생각하시면 될 듯 합니다 가족들과 대화를 시작해보고 해결방법을 찾아보세요.",
-      },
-      {
-        id: "2",
-        name: "psward7733",
-        time: "17:52",
-        text: "그냥 편하게 생각하시면 될 듯 합니다 가족들과 대화를 시작해보고 해결방법을 찾아보세요.",
-      },
-      {
-        id: "3",
-        name: "psward7733",
-        time: "17:52",
-        text: "그냥 편하게 생각하시면 될 듯 합니다 가족들과 대화를 시작해보고 해결방법을 찾아보세요.",
-      },
-      {
-        id: "4",
-        name: "psward7733",
-        time: "17:52",
-        text: "그냥 편하게 생각하시면 될 듯 합니다 가족들과 대화를 시작해보고 해결방법을 찾아보세요.",
-      },
-      {
-        id: "5",
-        name: "psward7733",
-        time: "17:52",
-        text: "그냥 편하게 생각하시면 될 듯 합니다 가족들과 대화를 시작해보고 해결방법을 찾아보세요.",
-      },
-    ],
+
+export default function Answer({ data }) {
+  const formatTime = (time) => {
+    const formattedTime = new Date(time).toLocaleString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    return formattedTime;
   };
   return (
     <div>
-      {answers.results.map((item) => {
+      {data.map((item) => {
         return (
           <Form
-            key={item.id}
-            name={item.name}
-            time={item.time}
-            text={item.text}
+            key={item.createdAt}
+            name={item.nickName}
+            time={formatTime(item.createdAt)}
+            text={item.content}
+            like_num={item.commentLike}
+            comment_num={item.reComment}
           />
         );
       })}

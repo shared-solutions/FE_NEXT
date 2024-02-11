@@ -4,15 +4,15 @@ import Answer from "@/app/components/profile/Answer";
 import Question from "@/app/components/profile/Question";
 import styles from "../../modules/profileCss/myqna.module.scss";
 
-export default function Myqna() {
+export default function Myqna({ questionData, answerData, adoptPost }) {
   const [content, setContent] = useState("question");
 
   const handleClickButton = (value) => {
     setContent(value);
   };
   const selectComponent = {
-    question: <Question />,
-    answer: <Answer />,
+    question: <Question data={questionData} />,
+    answer: <Answer data={answerData} />,
   };
   return (
     <>
@@ -41,9 +41,9 @@ export default function Myqna() {
       <div className={styles.rowContainer}>
         {content === "question" ? (
           <div className={styles.grid}>
-            <p style={{ fontWeight: "900" }}>총 14건 </p>
+            <p style={{ fontWeight: "900" }}>총 {questionData.length}건 </p>
             <p style={{ color: "#8E8E8E", fontWeight: "normal" }}>
-              (채택 100%)
+              (채택 {adoptPost}%)
             </p>
             <p style={{ color: "#FFC600", fontWeight: "normal" }}>관리하기</p>
           </div>

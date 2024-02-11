@@ -19,8 +19,11 @@
 }
 .post_container {
   width: 100vw;
+  height: 72vh;
   display: grid;
   justify-content: center;
   grid-template-columns: 47% 47%;
+  overflow-y: auto;
+  margin-top: 0.5rem;
 }
 

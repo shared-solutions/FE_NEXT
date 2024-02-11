@@ -52,7 +52,7 @@ export default function Edit() {
       </div>
       <div className={styles.content}>
         <div className={styles.name}>
-          <h3>{user.nickname}</h3>
+          <h3>{user.nickname}님</h3>
           {isEditing.nickname ? (
             <CloseImg onClick={() => toggleEditing("nickname")} />
           ) : (

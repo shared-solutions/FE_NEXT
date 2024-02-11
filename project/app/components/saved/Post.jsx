@@ -10,7 +10,7 @@ export default function Form({ day, header, text, like_num, comment_num }) {
         <p>{day}일전</p>
       </div>
       <h1>{header}</h1>
-      <p>{text}</p>
+      <p style={{ minHeight: "7vh" }}>{text}</p>
       <div className={styles.imgContainer}>
         <Image src={like} alt="like" width={16} height={16} />
         <p style={{ color: "#F9C81C" }}>{like_num}</p>
