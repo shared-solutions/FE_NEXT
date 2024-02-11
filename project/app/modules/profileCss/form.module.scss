@@ -1,25 +1,26 @@
 .container{
-  width: 80%;
+  min-width: 76vw;
   border-radius: 22px;
   margin: 1rem 0.8rem;
   padding: 1rem 1.3rem;
 }
 .container:last-child {
-  margin-bottom: 120px;
+  margin-bottom: 65px;
 }
 .shadow{
   /* 수평 8px, 수직 8px, 30px 흐림, 6px 크기 */
   box-shadow: 3px 3px 20px 2px rgba(0, 0, 0, 0.1);
 }
 .rowContainer{
+  min-width: 100%;
   display: grid;
   margin-bottom: 0.8rem;
   grid-template-columns: 35px 75% 15%;
 }
 .rightContainer{
-  width: 29%;
+  min-width: 32%;
   display: flex;
   justify-content:space-evenly;
   align-items: center;
-  margin-left: 73%
+  margin-left: 70%
 }
