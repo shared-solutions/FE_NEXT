@@ -28,7 +28,12 @@ export const lookupComment = async () => {
   console.log("댓글 전체조회");
 
   try {
-    const response = await api.get("/posts/3/comments");
+    const atkToken = localStorage.getItem("accesstoken");
+    const response = await api.get("/posts/3/comments", {
+      headers: {
+        atk: `${atkToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log("에러", error);
@@ -60,7 +65,7 @@ export const deleteComment = async (commentid) => {
   try {
     const atkToken = localStorage.getItem("accesstoken");
     const response = await api.patch(
-      `/posts/3/comment/${commentid}/like/del`,
+      `/posts/3/comment/${commentid}/del`,
       null,
       {
         headers: {

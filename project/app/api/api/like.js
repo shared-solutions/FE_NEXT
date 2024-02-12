@@ -63,7 +63,6 @@ export const deleteCommentLike = async (commentid) => {
     const atkToken = localStorage.getItem("accesstoken");
     const response = await api.delete(
       `/posts/3/comment/${commentid}/like/del`,
-      null,
       {
         headers: {
           atk: `${atkToken}`,

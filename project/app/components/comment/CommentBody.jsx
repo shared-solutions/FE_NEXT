@@ -8,6 +8,9 @@ import { deleteComment } from "@/app/api/api/comment";
 import { likeComment } from "@/app/api/api/like";
 import { deleteCommentLike } from "@/app/api/api/like";
 import unlike from "@/app/public/image/unlike.png";
+import { lookupComment } from "@/app/api/api/comment";
+import { useEffect } from "react";
+import { render } from "react-dom";
 const CommentBody = ({
   onReplyClick,
   name,
@@ -17,8 +20,48 @@ const CommentBody = ({
   userImg,
   isDeleted,
   commentId,
-  // islikeComment,
+  isPushedLike,
+  isMyComment,
+  isOwnerOfPost,
 }) => {
+  console.log(isPushedLike);
+  const fetchData = async () => {
+    try {
+      const response = await lookupComment();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteLike = async (commentId) => {
+    try {
+      // 댓글 등록 api
+      const response = await deleteCommentLike(commentId);
+      console.log(response);
+
+      // 댓글 등록 후 최신 데이터 다시 가져오기
+      fetchData();
+      render();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLike = async (commentId) => {
+    try {
+      // 댓글 등록 api
+      const response = await likeComment(commentId);
+      console.log(response);
+
+      // 댓글 등록 후 최신 데이터 다시 가져오기
+      fetchData();
+      render();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.commentbody}>
       <div className={styles.userlay}>
@@ -36,25 +79,28 @@ const CommentBody = ({
         <div className={styles.shared}>
           {/* 서버에서 내가 댓글에 좋아요를 눌렀는지 안눌렀는지에 대한 정보를 주면 boolean으로 판별하여서
           만약 좋아요를 눌렀으면 likeimg라고 뜨게하고 이걸 눌렀을때 좋아요가 취소되게함
-          만약 좋아요를 안눌렀으면 unlick이미지를 뜨게하고 이걸 누르면 좋아요가 달리게함 */}
-          {/* {islikeComment ? (
-            <Image
-              onClick={() => deleteComment(commentId)}
-              src={likeimg}
-              alt="좋아요"
-              width={11}
-              height={9}
-            />
+          만약 좋아요를 안눌렀으면 unlick이미지를 뜨게하고 이걸 누르면 좋아요가 달리게함 
+          대댓글도 이러한 방식으로 구현*/}
+
+          {isPushedLike ? (
+            // <Image
+            //   onClick={() => deleteComment(commentId)}
+            //   src={likeimg}
+            //   alt="좋아요"
+            //   width={11}
+            //   height={9}
+            // />
+            <div onClick={() => handleDeleteLike(commentId)}>o</div>
           ) : (
-            likeComment(commentId)
-            <Image
-              onClick={() => likeComment(commentId)}
-              src={unlike}
-              alt="좋아요"
-              width={11}
-              height={9}
-            />
-          )} */}
+            // <Image
+            //   onClick={() => likeComment(commentId)}
+            //   src={unlike}
+            //   alt="좋아요"
+            //   width={11}
+            //   height={9}
+            // />
+            <div onClick={() => handleLike(commentId)}>x</div>
+          )}
 
           <Image
             onClick={() => onReplyClick(commentId)}
@@ -63,13 +109,17 @@ const CommentBody = ({
             width={9}
             height={9}
           />
-          <Image
-            onClick={() => deleteComment(commentId)}
-            src={moreimg}
-            alt="삭제버튼"
-            width={2}
-            height={8}
-          />
+
+          {isMyComment && (
+            <Image
+              onClick={() => deleteComment(commentId)}
+              src={moreimg}
+              alt="삭제버튼"
+              width={2}
+              height={8}
+            />
+          )}
+          {isOwnerOfPost && <>채택</>}
         </div>
       </div>
 

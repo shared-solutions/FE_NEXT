@@ -123,10 +123,10 @@ export const CommentSort = () => {
                       userImg={comment.userImage ? comment.userImage : null}
                       isDeleted={comment.isDeleted}
                       commentId={comment.commentId}
-                      // islikeComment = {comment.islikeComment}
+                      isPushedLike={comment.isPushedLike}
+                      isMyComment={comment.isMyComment}
+                      isOwnerOfPost={comment.isOwnerOfPost}
                     />
-
-                    {/* Additional details as needed */}
 
                     {comment.childrenComments &&
                       comment.childrenComments.length > 0 && (
