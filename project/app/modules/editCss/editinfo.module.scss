@@ -4,15 +4,15 @@
   margin-top: 0.5rem;
 }
 .name {
-  width: 100%;
   display: flex;
   align-items: center;
 }
 .name h3 {
   margin-right: 0.5rem;
-  padding-left: 10.3rem;
 }
 .name p {
+  position: absolute;
+  left: 61%;
   color: #FFC700;
   font-weight: bold;
 }
@@ -71,6 +71,7 @@
   border-radius: 30px;
   font-size: 13px;
   font-weight: bold;
+  cursor: pointer;
 }
 .grid {
   display: grid;

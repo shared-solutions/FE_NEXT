@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import styles from "@/app/modules/editCss/edit.module.scss";
 import { handleLogin } from "@/app/api/user/login/login";
 import { getMyInfo } from "@/app/api/user/modify/modify";
-import { mailSend } from "@/app/api/user/login/login";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
 import Image from "next/image";
 import default_image from "@/app/public/image/default_image.png";
 import edit from "@/app/public/image/edit.png";
 import EditImage from "@/app/components/edit/EditImage";
-import EditNickName from "@/app/components/edit/EditNickName";
-import EditEmail from "@/app/components/edit/EditEmail";
+import EditInfo from "@/app/components/edit/EditInfo";
 import EditPhone from "@/app/components/edit/EditPhone";
 import EditPassword from "@/app/components/edit/EditPassword";
 import EditSecurityEmail from "@/app/components/edit/EditSecurityEmail";
@@ -71,8 +69,8 @@ export default function Edit() {
         <div className={styles.profile}>
           <h4>프로필</h4>
           <div className={styles.profile_content}>
-            <EditNickName userData={userData}/>
-            <EditEmail userData={userData}/>
+            <EditInfo userData={userData} type="닉네임"/>
+            <EditInfo userData={userData} type="메일"/>
             <EditPhone userData={userData}/>
           </div>
         </div>

@@ -28,10 +28,72 @@ export const getMyInfo = async () => {
 };
 
 // 회원정보 수정(이름변경)
+export const modifyNickName = async (email, authNum, nickName) => {
+  try {
+    const url = "https://dev.gomin-chingu.site/user/my-page/profile/modify/name";
 
+    const requestBody ={ 
+      'email': email,
+      'certification': authNum,
+      'nickName': nickName,
+    }
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "atk": atkToken,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Nickname modified successfully:", data);
+      alert("닉네임을 성공적으로 변경했습니다.")
+      window.location.reload();
+    } else {
+      console.error("Failed to modify profile image:", response);
+    }
+  } catch (error) {
+    alert("닉네임을 변경하는 데 실패했습니다.")
+    console.error("Error modifying profile image:", error);
+  }
+};
 
 // 회원정보 수정(메일변경)
+export const modifyEmail = async (email, authNum, changeEmail) => {
+  try {
+    const url = "https://dev.gomin-chingu.site/user/my-page/profile/modify/email";
 
+    const requestBody ={ 
+      'curEmail': email,
+      'certification': authNum,
+      'changeEmail': changeEmail,
+    }
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "atk": atkToken,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Email modified successfully:", data);
+      alert("이메일을 성공적으로 변경했습니다.")
+      window.location.reload();
+    } else {
+      console.error("Failed to modify profile image:", response);
+    }
+  } catch (error) {
+    alert("이메일을 변경하는 데 실패했습니다.")
+    console.error("Error modifying profile image:", error);
+  }
+};
 
 // 회원정보 수정(번호변경)
 
@@ -56,7 +118,7 @@ export const modifyProfileImage = async (file) => {
     if (response.ok) {
       const data = await response.json();
       console.log("Profile image modified successfully:", data);
-      alert("이미지를 성공적으로 수정했습니다!")
+      alert("이미지를 성공적으로 변경했습니다.")
       window.location.reload();
     } else {
       console.error("Failed to modify profile image:", response);

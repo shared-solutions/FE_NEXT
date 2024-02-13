@@ -26,23 +26,42 @@ export const handleLogin = async () => {
 };
 
 // 이메일 인증 코드 발송
-export const mailSend = async (changeEmail) => {
+export const mailSend = async (email) => {
   try {
-    const endpoint = "https://dev.gomin-chingu.site/user/mailSend";
-    const requestBody = {
-      email: changeEmail,
-    };
-    const response = await axios.post(endpoint, requestBody, {
+    const response = await fetch("https://dev.gomin-chingu.site/user/mailSend", {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ email }),
     });
-    if (response.data.isSuccess === true) {
-      alert("인증 코드를 전송했습니다.");
+
+    if (response.ok) {
+      //alert("인증 코드를 전송했습니다.");
+    } else {
+      console.error('Failed to send verification code');
     }
-    console.log(response.data.result);
   } catch (error) {
-    console.log(error);
-    alert("잘못된 입력입니다.");
+    console.error('Error during API request', error);
+  }
+};
+
+// 이메일 인증 코드 체크
+export const checkAuthNum = async (email, authNum) => {
+  try {
+    const response = await fetch("https://dev.gomin-chingu.site/user/mailauthCheck", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, authNum }),
+    });
+    if (response.ok) {
+      alert("인증되었습니다.");
+    } else {
+      alert("잘못된 인증번호입니다.")
+    }
+  } catch (error) {
+    console.error('Error during API request', error);
   }
 };
