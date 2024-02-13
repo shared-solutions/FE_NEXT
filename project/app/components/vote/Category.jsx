@@ -20,7 +20,9 @@ const Category = () => {
 
     return(
         <div className={`${styles.container} ${isDropdownOpen ? styles['with-dropdown'] : ''}`}>
-            <div className={styles.text}>{selectedCategory || '분야 선택'}</div>
+            <div className={`${styles.text} ${selectedCategory ? styles.selectedText : ''}`}>
+                {selectedCategory || '분야 선택'}
+            </div>
             <button 
                 className={`${styles.button} ${isDropdownOpen ? styles.active : ''}`}
                 onClick={toggleDropdown}
@@ -37,7 +39,7 @@ const Category = () => {
             {isDropdownOpen && (
                 <div className={styles.dropdown_container}>
                     <div
-                        className={`${styles.category} ${selectedCategory === '교육' ? styles.selected : ''}`}
+                        className={`${styles.category} ${selectedCategory === '교육' ? styles.selected : ''} ${selectedCategory === '교육' ? styles.selectedEducation : ''}`}
                         onClick={() => handleCategorySelect('교육')}
                     >
                         교육
@@ -67,7 +69,7 @@ const Category = () => {
                         쇼핑
                     </div>
                     <div
-                        className={`${styles.category} ${selectedCategory === '기타' ? styles.selected : ''}`}
+                        className={`${styles.category} ${selectedCategory === '기타' ? styles.selected : ''} ${selectedCategory === '기타' ? styles.selectedEtc : ''}`}
                         onClick={() => handleCategorySelect('기타')}
                     >
                         기타
