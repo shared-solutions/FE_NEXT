@@ -96,7 +96,8 @@ const PostList = () => {
             title={userData.title}
             content={userData.content}
             like={userData.like}
-            comment={userData.comment}  
+            comment={userData.comment}
+            pollTitle={userData.pollTitle}
           />
           }
         </Link>
