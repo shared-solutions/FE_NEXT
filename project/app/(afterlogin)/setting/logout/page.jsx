@@ -10,7 +10,7 @@ export default function Logout() {
   const data = useSession;
   const Logout = () => {
     signOut({ redirect: false }).then(() => {
-      router.replace("/login");
+      router.replace("/i/login");
     });
   };
   return (

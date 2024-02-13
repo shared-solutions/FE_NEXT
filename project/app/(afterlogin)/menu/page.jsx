@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import styles from "@/app/modules/menuCss/menu.module.scss";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
-
+import { handleLogin } from "@/app/api/user/login/login";
+import { getMyPage } from "@/app/api/user/profile/my-profile";
 import ProfileImage from "@/app/components/menu/ProfileImage";
 import Info from "@/app/components/menu/Info";
 import Category from "@/app/components/menu/Category";
@@ -12,8 +12,7 @@ import Features from "@/app/components/menu/Features";
 import Close from "@/app/components/menu/Close";
 
 export default function MyPage() {
-  const userEmail = process.env.NEXT_PUBLIC_USER_EMAIL;
-  const userPassword = process.env.NEXT_PUBLIC_USER_PASSWORD;
+  
   const router = useRouter();
   const data = useSession;
   const Logout = () => {
@@ -21,61 +20,20 @@ export default function MyPage() {
       router.replace("/login");
     });
   };
+  
   const [userData, setUserData] = useState([]);
 
-  const handleLogin = async () => {
-    try {
-      const endpoint = "https://dev.gomin-chingu.site/user/login";
-      const requestBody = {
-        email: userEmail,
-        password: userPassword,
-      };
-      const response = await axios.post(endpoint, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data.result[0].token) {
-        localStorage.setItem("token", response.data.result[0].token);
-        console.log();
-        //alert("성공적으로 로그인했습니다!");
-      }
-      console.log(response.data.result);
-    } catch (error) {
-      console.log(userEmail);
-      console.log(userPassword);
-      console.log(error);
-      //alert("ID 또는 비밀번호가 틀립니다.");
-    }
-  };
-  const atkToken = localStorage.getItem("token");
-
-  const getMyPage = async () => {
-    try {
-      const url = "https://dev.gomin-chingu.site/user/my-page"; // API 엔드포인트 URL로 교체
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          atk: atkToken,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data.result);
-        console.log("MyPage data:", data);
-      } else {
-        console.error("Failed to get MyPage data:", response);
-      }
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
-
   useEffect(() => {
-    handleLogin();
-    getMyPage();
+    const fetchData = async () => {
+      try {
+        await handleLogin();
+        const profile = await getMyPage();
+        setUserData(profile);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -83,7 +41,7 @@ export default function MyPage() {
       <div className={styles.background}>
         <Close />
         <div className={styles.container}>
-          <ProfileImage />
+          <ProfileImage image={userData.userPhoto}/>
           <Info userData={userData} />
           <Category />
           <Features logout={Logout} />
