@@ -80,8 +80,8 @@ const VoteDeadline = () => {
                 {selectedDateTime && (
                     <>
                         {selectedDateTime.getMonth() + 1}월 {selectedDateTime.getDate()}일 {' '}
-                        {selectedDateTime.getHours()} :{' '}
-                        {selectedDateTime.getMinutes()}
+                        {String(selectedDateTime.getHours()).padStart(2, '0')} :{' '}
+                        {String(selectedDateTime.getMinutes()).padStart(2, '0')}
                     </>
                 )}
                 {!selectedDateTime && '날짜, 시간 선택'}
