@@ -1,4 +1,3 @@
-
 {
   "name": "project",
   "version": "0.1.0",
@@ -17,6 +16,7 @@
     "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-mobile-datepicker": "^4.0.2",
     "react-spring-bottom-sheet": "^3.4.1",
     "sass": "^1.69.7",
     "zustand": "^4.4.7"
@@ -36,4 +36,3 @@
     "prettier": "^3.1.1"
   }
 }
-
