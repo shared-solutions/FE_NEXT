@@ -20,8 +20,8 @@ const SelectedPoint = () => {
         const value = e.target.value;
         // 입력 값이 숫자인지 확인
         if (!isNaN(value)) {
-            // 현재 보유 포인트에서 입력된 숫자를 빼서 사용 후 포인트 계산
-            const usagePoint = parseInt(value, 10);
+            // 현재 보유 포인트에서 입력된 숫자를 빼서 사용 후 포인트 계산 / 입력 값 비어있는 경우 0으로 처리
+            const usagePoint = value === '' ? 0 : parseInt(value, 10);
             const newAfterUsagePoint = currentPoint - usagePoint;
             setAfterUsagePoint(newAfterUsagePoint);
             setInputValue(value);
@@ -46,11 +46,11 @@ const SelectedPoint = () => {
         // 현재 입력된 값에서 5 감소
         const newValue = parseInt(inputValue, 10) - 5;
         setInputValue(String(newValue));
-        const newAfterUsagePoint = currentPoint - newValue; // 수정된 부분
-        setAfterUsagePoint(newAfterUsagePoint); // 수정된 부분
+        const newAfterUsagePoint = currentPoint - newValue;
+        setAfterUsagePoint(newAfterUsagePoint);
 
         // 사용 후 포인트가 0 미만이면 메시지 표시
-        setInsufficientPoints(newAfterUsagePoint < 0); // 수정된 부분
+        setInsufficientPoints(newAfterUsagePoint < 0);
     };
 
     useEffect(() => {
@@ -64,10 +64,10 @@ const SelectedPoint = () => {
             });
     
             if (response.data.isSuccess) {
-              setCurrentPoint(response.data.result.point);
-              setCurrentPoint(point);
-              setAfterUsagePoint(point);
-              setInsufficientPoints(false);
+                const point = response.data.result.point;
+                setCurrentPoint(point);
+                setAfterUsagePoint(point); // 현재 보유 포인트로 사용 후 포인트 초기값 설정
+                setInsufficientPoints(false);
             } else {
               console.error('Failed to fetch point:', response.data.message);
             }
@@ -77,7 +77,7 @@ const SelectedPoint = () => {
         };
     
         fetchPoint();
-      }, []); // 컴포넌트가 마운트될 때 한 번만 실행하도록 합니다.
+      }, []);
 
     return (
         <div className={styles.container}>
