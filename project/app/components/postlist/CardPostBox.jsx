@@ -1,9 +1,9 @@
-import styles from "@/app/modules/hotCss/allpagebox.module.scss";
+import styles from "@/app/modules/postListCss/cardPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 
-const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comment }) => {
+const CardPostBox = ({ userimg, nickname, title, content, pollOption, like, comment }) => {
   return (
     <div className={styles.box}>
       <div className={styles.userinfo}>
@@ -23,6 +23,7 @@ const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comme
           {pollOption &&
               pollOption.map((option, index) => (
                 <div key={index} className={styles.option}>
+                  <span>{option.optionString}</span>  
                   {option.optionImgUrl && (
                     <Image
                       src={option.optionImgUrl}
@@ -31,7 +32,6 @@ const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comme
                       height={124}
                     />
                   )}
-                  <span>{option.optionString}</span>
                 </div>
               ))}
         </div>
@@ -49,4 +49,4 @@ const AllPageBox = ({ userimg, nickname, title, content, pollOption, like, comme
   );
 };
 
-export default AllPageBox;
+export default CardPostBox;

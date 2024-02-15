@@ -21,6 +21,7 @@ export default function MyPage() {
       router.replace("/login");
     });
   };
+
   const [userData, setUserData] = useState([]);
 
   const handleLogin = async () => {
@@ -29,6 +30,7 @@ export default function MyPage() {
       const requestBody = {
         email: userEmail,
         password: userPassword,
+
       };
       const response = await axios.post(endpoint, requestBody, {
         headers: {
@@ -38,6 +40,7 @@ export default function MyPage() {
       if (response.data.result[0].token) {
         localStorage.setItem("token", response.data.result[0].token);
         console.log();
+
         //alert("성공적으로 로그인했습니다!");
       }
       console.log(response.data.result);
@@ -78,6 +81,7 @@ export default function MyPage() {
     getMyPage();
   }, []);
 
+
   return (
     <div className={styles.modal}>
       <div className={styles.background}>
@@ -87,6 +91,7 @@ export default function MyPage() {
           <Info userData={userData} />
           <Category />
           <Features logout={Logout} />
+          <button onClick={handleLogin}>Login</button>
         </div>
       </div>
     </div>

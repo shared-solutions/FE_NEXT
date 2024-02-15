@@ -1,9 +1,13 @@
+
 // next.config.js
 const nextConfig = {
     reactStrictMode: false,
   };
   
   module.exports = {
+    images: {
+      domains: ['solution-friend-bucket.s3.ap-northeast-2.amazonaws.com'],
+    },
     ...nextConfig,
     async rewrites() {
         return [
@@ -15,3 +19,4 @@ const nextConfig = {
       },
   };
   
+

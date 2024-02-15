@@ -15,10 +15,13 @@ import { useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
-import backimg from "@/app/public/image/Vector.png";
+import backimg from "@/app/public/image/arrow3.png";
 import Link from "next/link";
+import good from "@/app/public/image/finger.png";
+import { postLike } from "@/app/api/api/like";
+import { deleteLike } from "@/app/api/api/like";
 
-const Detail = ({
+export default function Detail({
   userimg,
   username,
   date,
@@ -32,13 +35,25 @@ const Detail = ({
   viewCount,
   likeCount,
   commentCount,
-}) => {
+}) {
   const [setting, setSetting] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+
+    if (isLiked) {
+      deleteLike();
+    } else {
+      postLike();
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
       <Link href="/vote">
-        <Image src={backimg} alt="back" width={5} height={10} />
+        <Image src={backimg} alt="back" width={18} height={18} />
       </Link>
       <div className={styles.userlay}>
         <Image
@@ -138,12 +153,15 @@ const Detail = ({
       </div>
 
       <div className={styles.underlay}>
-        <Image
-          src={likeunclickimg}
-          alt="좋아요 클릭 아직 안함"
-          width={37}
-          height={35}
-        />
+        <div key={isLiked ? "like" : "unlike"}>
+          <Image
+            src={isLiked ? good : likeunclickimg}
+            alt={isLiked ? "좋아요누름" : "좋아요 취소"}
+            width={37}
+            height={35}
+            onClick={handleLikeClick}
+          />
+        </div>
         <Image
           onClick={() => {
             setSetting(!setting);
@@ -164,5 +182,4 @@ const Detail = ({
       </div>
     </div>
   );
-};
-export default Detail;
+}
