@@ -3,7 +3,7 @@ import styles from '@/app/modules/signup.module.scss';
 import useSignUpStore from '@/app/zustand/policyStore'
 import { useState } from 'react';
 export default function Email(){
-    const {isSucceed,setIsSucceed,setCurrentStage, userInfo, setUserInfo} = useSignUpStore();
+    const {isSucceed,setIsSucceed,setCurrentStage, setUserInfo} = useSignUpStore();
     const [isValidKey, setIsValidKey] = useState(false)
     const [email, setEmail] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);

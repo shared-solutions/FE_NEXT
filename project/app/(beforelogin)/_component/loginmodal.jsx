@@ -1,15 +1,18 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { signIn} from "next-auth/react"
 
 import styles from '@/app/modules/login.module.scss'
 import smile from "@/app/public/image/smile.png"
-import { useRouter } from "next/navigation"
+
+//import { ForKakao } from "@/app/api/auth/route"
+import { signIn } from "next-auth/react"
 
 
 export default function Modal(){
-    
+    //const ForKakao = ()=>{
+    //    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}`
+    //  } 
     return (
         <div className={styles.container}>
             <div className={styles.blank}/>
@@ -28,7 +31,7 @@ export default function Modal(){
                 <p>간편하게 로그인하고</p>
                 <p>나의 고민을 공유해보세요.</p>
             </div>
-            <button className={styles.btn} onClick={() => signIn("kakao", { redirect: true, callbackUrl: "/" })}
+            <button className={styles.btn} onClick={() => ForKakao()}
             ><h2>카카오로 3초만에 시작하기</h2></button> 
             <div className={styles.option}>
                 <Link href='/i/signin' scroll={false}>이메일로 로그인</Link>

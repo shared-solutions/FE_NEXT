@@ -1,15 +1,16 @@
 'use client'
 import styles from '@/app/modules/signin.module.scss';
 import bglogo from '@/app/public/image/bglogo.png'
+import useAuthStore from '@/app/zustand/useAuthStore';
 import { Eye } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 export default function Modal() {
+  const {setToken}=  useAuthStore()
   const router = useRouter()
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
-
   const handleEmailChange = (e) => {
     const emailInput = e.target.value;
     setEmail(emailInput);
@@ -39,11 +40,13 @@ export default function Modal() {
       });
 
       if (response.ok) {
-        // Handle successful login here
-        console.log('login successful');
+        const data = await response.json();
+        const token = data.result[0].token;
+        setToken(token);
+        localStorage.setItem('token',token)
+        
         router.push('/home')
       } else {
-        // Handle unsuccessful login here
         console.error('Login failed');
       }
     } catch (error) {

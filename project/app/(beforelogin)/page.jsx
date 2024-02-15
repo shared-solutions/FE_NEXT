@@ -1,26 +1,19 @@
 'use client'
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useAuthStore from "../zustand/useAuthStore";
 import { useEffect } from "react";
 
-export default function Home() {
+export default async function home() {
   const router = useRouter();
-  const { data: session, status } = useSession();
-
+  const token = useAuthStore.getState().token
   useEffect(() => {
-    if (status === "authenticated") {
-      // 이미 인증된 사용자인 경우
-      router.replace('/home');
-    } else if (status === "loading") {
-      // 세션 로딩 중인 경우, 아무 작업 안 함
-    } else {
-      // 로그인되지 않은 경우
+    // 페이지 전환 시 미들웨어 로직을 실행합니다.
+    if (token==='' && router.pathname !== '/i/:path*') {
       router.replace('/i/login');
     }
-  }, [session, status, router]);
-  
-  return (
-    <div>
-    </div>
-  );
-}
+  }, [token, router]);
+    return (
+      <div>
+      </div>
+    )
+  }
