@@ -1,0 +1,36 @@
+.container {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 91vh;
+  z-index: 4;
+  position: fixed;
+  background-color: white;
+}
+.contentContainer {
+  width: 100%;
+  position: absolute;
+  top: 18%;
+}
+.content {
+  width: 100%;
+  position: relative;
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+  box-shadow: 2px 2px 20px 10px rgba(211, 211, 211, 0.096);
+}
+.content_text {
+  width: 80%;
+  margin: 0 1rem;
+}
+.content_text p {
+  font-size: 13px;
+  margin: 0.3rem 0;
+}
+.text_container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
