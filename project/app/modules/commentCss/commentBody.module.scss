@@ -8,8 +8,8 @@
   margin-left: 25px;
 }
 .recommentshared {
-  margin-left: 50px;
-  width: 88px;
+  margin-left: 30px;
+  width: 60px;
   height: 25px;
   border-radius: 28px;
   background-color: black;
@@ -34,7 +34,6 @@
   align-items: center;
   margin-left: 28px;
 }
-
 .name {
   color: #b2b2b2;
   font-size: 12px;
@@ -42,8 +41,12 @@
   font-weight: 600;
   line-height: 22px;
   margin-left: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 70px;
+  max-width: 200px; /* 너비 조절을 위한 최대 너비 설정 */
 }
-
 .when {
   color: #b2b2b2;
   font-size: 12px;
@@ -51,6 +54,7 @@
   font-weight: 300;
   line-height: 22px;
   margin-left: 15px;
+  width: 50px;
 }
 
 .line {
@@ -81,7 +85,7 @@
 }
 
 .shared {
-  margin-left: 75px;
+  margin-left: 45px;
   width: 88px;
   height: 25px;
   border-radius: 28px;
@@ -91,4 +95,19 @@
   align-items: center;
   gap: 20px;
   padding-left: 20px;
+  margin-right: 10px;
+}
+
+.deletedComment {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-left: 65px;
+  width: 80%;
+  color: gray;
+}
+
+.all {
+  margin-bottom: 55px;
 }

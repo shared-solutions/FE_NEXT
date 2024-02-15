@@ -1,12 +1,19 @@
 import api from "./index";
 
 // 댓글 채택 api
-export const choiceComment = async () => {
+export const choiceComment = async (commentid) => {
   console.log("댓글 채택");
 
   try {
+    const atkToken = localStorage.getItem("accesstoken");
     const response = await api.post(
-      "/posts/{post-id}/comment/{comment-id}/choice"
+      `/posts/3/comment/${commentid}/choice`,
+      null,
+      {
+        headers: {
+          atk: `${atkToken}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {

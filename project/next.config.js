@@ -1,3 +1,4 @@
+
 // next.config.js
 const nextConfig = {
     reactStrictMode: false,
@@ -18,3 +19,4 @@ const nextConfig = {
       },
   };
   
+
