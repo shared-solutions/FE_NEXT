@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styles from "@/app/modules/postListCss/postcategory.module.scss";
 
-const PostCategory = () => {
+const PostCategory = ({ selectedCategory, onCategoryChange }) => {
   const categories = [
     "가장 핫한 🔥",
     "교육",
@@ -12,12 +12,8 @@ const PostCategory = () => {
     "쇼핑",
     "기타",
   ];
-  const [selectedCategory, setSelectedCategory] = useState(0);
 
-  const handleCategoryClick = (index) => {
-    setSelectedCategory(index);
-  };
-
+ 
   return (
     <div className={styles.scrollableContainer}>
       <div className={styles.categoryWrapper}>
@@ -25,9 +21,9 @@ const PostCategory = () => {
           <div
             key={index}
             className={`${styles.category} ${
-              selectedCategory === index ? styles.selected : ""
+              selectedCategory === category ? styles.selected : ""
             }`}
-            onClick={() => handleCategoryClick(index)}
+            onClick={() => onCategoryChange(category)}
           >
             {category}
           </div>
