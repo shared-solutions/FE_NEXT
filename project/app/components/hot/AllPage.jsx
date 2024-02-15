@@ -6,14 +6,14 @@ import styles from "@/app/modules/hotCss/allpage.module.scss";
 import AllPageBox from "./AllPageBox";
 import { PageRendering } from "@/app/zustand/store";
 import { useState, useEffect } from "react";
-import GeneralPostBox from "../postlist/GeneralPostBox";
-import CardPostBox from "../postlist/CardPostBox";
-import GaugePostBox from "../postlist/GaugePostBox";
 import defaultUserImg from "@/app/public/image/userimg.png";
 import Link from "next/link";
+import GeneralP from "../postlist/GeneralP";
+import CardP from "../postlist/CardP";
+import GaugeP from "../postlist/GaugeP";
 const AllPage = () => {
   const backPage = PageRendering((state) => state.backPage);
-  const title = PageRendering((state) => state.title);
+  const titlelogo = PageRendering((state) => state.title);
   const img = PageRendering((state) => state.img);
   const [userData, setUserData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("모두");
@@ -26,7 +26,14 @@ const AllPage = () => {
   const getData = async () => {
     try {
       setLoading(true); // 데이터를 불러오는 중임을 표시
-      const url = `https://dev.gomin-chingu.site/posts/best`;
+      let url;
+
+      if (titlelogo === "지금 가장 핫한 고민투표") {
+        url = "https://dev.gomin-chingu.site/posts/best";
+      } else {
+        url = "https://dev.gomin-chingu.site/posts/recent";
+      }
+
       const params = {
         page: page,
         size: 7,
@@ -91,56 +98,104 @@ const AllPage = () => {
     const {
       postId,
       postVoteType,
-      userImg,
-      nickname,
+      user,
       title,
       content,
-      pollOption,
       like,
-      comment,
-      pollTitle,
       gauge,
+      candidateList,
+      comment_cnt,
+      file,
     } = userDataItem;
 
     // 기본값 설정
-    const defaultPostProps = {
-      userimg: userImg || defaultUserImg,
-      nickname: nickname || "",
+    // const defaultPostProps = {
+    //   userimg: user.image || defaultUserImg,
+    //   nickname: user.nickname || "",
+    //   title: title || "",
+    //   content: content || "",
+    //   pollOption: candidateList || [],
+    //   like: like || 0,
+    //   comment: comment_cnt || 0,
+    // };
+
+    const generalProps = {
+      userimg: user.image || defaultUserImg,
+      nickname: user.nickname || "",
       title: title || "",
       content: content || "",
-      pollOption: pollOption || [],
+      candidateList: candidateList || [],
       like: like || 0,
-      comment: comment || 0,
+      comment_cnt: comment_cnt || 0,
+      file: file || [],
+    };
+
+    const cardProps = {
+      userimg: user.image || defaultUserImg,
+      nickname: user.nickname || "",
+      title: title || "",
+      content: content || "",
+      candidateList: candidateList || [],
+      like: like || 0,
+      comment_cnt: comment_cnt || 0,
+      file: file || [],
+    };
+
+    const gaugeProps = {
+      userimg: user.image || defaultUserImg,
+      nickname: user.nickname || "",
+      title: title || "",
+      content: content || "",
+      like: like || 0,
+      comment_cnt: comment_cnt || 0,
+      file: file || [],
     };
 
     return (
-      <div key={index}>
-        <Link
-          className={styles.link}
-          key={index}
-          href={`/viewdetail/${postId}`}
-        >
-          {postVoteType === "GENERAL" ? (
-            <GeneralPostBox {...defaultPostProps} />
-          ) : postVoteType === "CARD" ? (
-            <CardPostBox {...defaultPostProps} />
-          ) : postVoteType === "GAUGE" ? (
-            <GaugePostBox
-              {...defaultPostProps}
-              pollTitle={pollTitle || ""}
-              gauge={gauge || 0}
-            />
-          ) : null}
-        </Link>
-      </div>
+      <>
+        <div key={index}>
+          <Link
+            className={styles.link}
+            key={index}
+            href={`/viewdetail/${postId}`}
+          >
+            {postVoteType === "GENERAL" ? (
+              <GeneralP {...generalProps} />
+            ) : postVoteType === "CARD" ? (
+              <CardP {...cardProps} />
+            ) : postVoteType === "GAUGE" ? (
+              <GaugeP {...gaugeProps} gauge={gauge || 0} />
+            ) : null}
+          </Link>
+        </div>
+      </>
     );
   };
 
   return (
-    <div className={styles.cover}>
-      {userData.map(renderPostBox)}
-      {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}
-    </div>
+    <>
+      <Image
+        src={vector}
+        style={{ marginTop: "10px" }}
+        onClick={backPage}
+        alt="돌아가기"
+        width={10}
+        height={15}
+      />
+      <div className={styles.title}>{titlelogo}</div>
+      <Image
+        src={img}
+        alt="이미지"
+        className={styles.hotimg}
+        width={23}
+        height={23}
+      />
+
+      <div className={styles.cover}>
+        {userData.map(renderPostBox)}
+        {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}
+      </div>
+    </>
   );
 };
 
