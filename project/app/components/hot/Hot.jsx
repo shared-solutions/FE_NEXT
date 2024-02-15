@@ -8,6 +8,7 @@ import { PageRendering } from "@/app/zustand/store";
 import { hotData } from "@/app/DATA/dummyData";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 const Hot = () => {
   const changePage = PageRendering((state) => state.changePage);
@@ -128,6 +129,8 @@ const Hot = () => {
       file: file || [],
     };
 
+    // 여기 무한스크롤 데이터 받아와서 저렇게 포스트타입별로 allpage에 있는 로직처럼
+    // 구현해야함
     return (
       <>
         <div key={index}>
