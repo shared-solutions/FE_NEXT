@@ -9,8 +9,10 @@ import { likeComment } from "@/app/api/api/like";
 import { deleteCommentLike } from "@/app/api/api/like";
 import unlike from "@/app/public/image/unlike.png";
 import { lookupComment } from "@/app/api/api/comment";
-import { useEffect } from "react";
-import { render } from "react-dom";
+import { choiceComment } from "@/app/api/api/choice";
+
+import trash from "@/app/public/image/trash.svg";
+
 const CommentBody = ({
   onReplyClick,
   name,
@@ -42,7 +44,6 @@ const CommentBody = ({
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
       fetchData();
-      render();
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +57,15 @@ const CommentBody = ({
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
       fetchData();
-      render();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChoice = async (commentId) => {
+    try {
+      const response = await choiceComment(commentId);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -83,23 +92,23 @@ const CommentBody = ({
           대댓글도 이러한 방식으로 구현*/}
 
           {isPushedLike ? (
-            // <Image
-            //   onClick={() => deleteComment(commentId)}
-            //   src={likeimg}
-            //   alt="좋아요"
-            //   width={11}
-            //   height={9}
-            // />
-            <div onClick={() => handleDeleteLike(commentId)}>o</div>
+            <Image
+              onClick={() => handleDeleteLike(commentId)}
+              src={likeimg}
+              alt="좋아요"
+              width={11}
+              height={9}
+            />
           ) : (
-            // <Image
-            //   onClick={() => likeComment(commentId)}
-            //   src={unlike}
-            //   alt="좋아요"
-            //   width={11}
-            //   height={9}
-            // />
-            <div onClick={() => handleLike(commentId)}>x</div>
+            //<div onClick={() => handleDeleteLike(commentId)}>o</div>
+            <Image
+              onClick={() => handleLike(commentId)}
+              src={unlike}
+              alt="좋아요"
+              width={11}
+              height={9}
+            />
+            //<div onClick={() => handleLike(commentId)}>x</div>
           )}
 
           <Image
@@ -113,13 +122,15 @@ const CommentBody = ({
           {isMyComment && (
             <Image
               onClick={() => deleteComment(commentId)}
-              src={moreimg}
+              src={trash}
               alt="삭제버튼"
               width={2}
               height={8}
             />
           )}
-          {isOwnerOfPost && <>채택</>}
+          {isOwnerOfPost && (
+            <div onClick={() => handleChoice(commentId)}>채택</div>
+          )}
         </div>
       </div>
 
