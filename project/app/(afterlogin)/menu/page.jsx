@@ -2,6 +2,7 @@
 import styles from "@/app/modules/menuCss/menu.module.scss";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 import ProfileImage from "@/app/components/menu/ProfileImage";
 import Info from "@/app/components/menu/Info";
@@ -17,6 +18,32 @@ export default function MyPage() {
       router.replace("/login");
     });
   };
+
+  const handleLogin = async () => {
+    try {
+      const endpoint = "http://localhost:3000/user/login";
+      const requestBody = {
+        email: "yingo24655@gmail.com",
+        password: "asdfasdf",
+      };
+      const response = await axios.post(endpoint, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.result[0].token) {
+        localStorage.setItem("token", response.data.result[0].token);
+        console.log();
+        alert("성공적으로 로그인했습니다!");
+      }
+      console.log(response.data.result);
+    } catch (error) {
+      console.log(error);
+      alert("ID 또는 비밀번호가 틀립니다.");
+    }
+  };
+
+
   return (
     <div className={styles.modal}>
       <div className={styles.background}>
@@ -26,6 +53,7 @@ export default function MyPage() {
           <Info />
           <Category />
           <Features logout={Logout} />
+          <button onClick={handleLogin}>Login</button>
         </div>
       </div>
     </div>

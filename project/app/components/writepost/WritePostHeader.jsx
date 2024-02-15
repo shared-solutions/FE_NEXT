@@ -6,7 +6,7 @@ import Link from "next/link"
 
 import close from '../../public/image/close.ico'
 
-const WritePostHeader = () => {
+const WritePostHeader = ({ onSubmit }) => {
     return (
         <div className={styles.header_container}>
             <Link href="/vote">
@@ -19,7 +19,7 @@ const WritePostHeader = () => {
                 />
             </Link>
             <h4>고민 작성하기</h4>
-            <button className={styles.complete_button}>완료</button>
+            <button className={styles.complete_button} onClick={onSubmit}>완료</button>
         </div>
     )
 }
