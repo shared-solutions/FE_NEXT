@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const GeneralPostBox = ({ userimg, nickname, title, content, pollOption, like, comment }) => {
   // 옵션의 개수에 따라서 box의 height를 동적으로 계산
-  const boxHeight = 250 + (pollOption.length - 2) * 50;
+  const boxHeight = 270 + (pollOption.length - 2) * 50;
 
   return (
     <div className={`${styles.box}`} style={{height: `${boxHeight}px`}}>

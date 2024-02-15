@@ -68,7 +68,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 260px;
+    width: 290px;
     height: 26px;
     padding-left: 12px;
     padding-right: 12px;
@@ -87,6 +87,6 @@
 
   .gaugeImageContainer{
     position: absolute;
-    //left: 0;
+    top: -12px;
   }
 

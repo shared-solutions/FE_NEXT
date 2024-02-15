@@ -13,6 +13,14 @@ const GaugePostBox = ({ userimg, nickname, title, content, like, comment, pollTi
     background: `linear-gradient(to right, black ${gaugePercentage}, #eeeeee ${gaugePercentage})`
   };
 
+  // gaugePercentage에서 왼쪽으로 25px만큼 이동한 크기 계산
+  const leftMargin = `calc(${gaugePercentage} - 25px)`;
+
+  // gaugePercentage에 따라 gaugeImageContainer의 left 값 조정
+  const gaugeImageStyle = {
+    left: leftMargin
+  };
+
   return (
     <div className={styles.box}>
       <div className={styles.userinfo}>
@@ -29,8 +37,8 @@ const GaugePostBox = ({ userimg, nickname, title, content, like, comment, pollTi
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
         <div className={styles.gaugeContainer}>
-          <div className={styles.gaugeImageContainer}>
-            <Image src={gaugeImg} alt="게이지 이미지" width={45} height={45} />
+          <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
+            <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
           </div>
           <div className={styles.pollTitleContainer} style={gradientStyle}>
             {/* <div className={styles.pollTitle}>{pollTitle}</div> */}
