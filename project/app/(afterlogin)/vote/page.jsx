@@ -10,7 +10,8 @@ import CardPostBox from '@/app/components/postlist/CardPostBox';
 import GaugePostBox from '@/app/components/postlist/GaugePostBox';
 import Image from "next/image";
 
-import defaultUserImg from "@/app/public/image/userimg.png";
+import defaultUserImg from "@/app/public/image/defaultUserImg.png";
+import pencilImg from "@/app/public/image/pencil.png";
 
 const PostList = () => {
   const [selectedCategory, setSelectedCategory] = useState("모두");
@@ -146,6 +147,15 @@ const PostList = () => {
       />
       {userData.map(renderPostBox)}
       {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}
+      <Link className={styles.link} href="/vote/write">
+        <button className={styles.writebtn}>
+          <div>글 작성</div>
+          <Image
+            src={pencilImg}
+            className={styles.pencil_img}
+          />
+        </button>
+      </Link>
     </div>
   );
 };
