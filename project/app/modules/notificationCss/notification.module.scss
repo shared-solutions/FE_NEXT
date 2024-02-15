@@ -1,0 +1,54 @@
+.container {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 91vh;
+  z-index: 4;
+  position: fixed;
+  background-color: white;
+}
+.prev {
+  width: 98vw;
+  height: 13.5vh;
+  display: flex;
+  position: fixed;
+  align-items: baseline;
+  margin-top: 2rem;
+}
+.prev a {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-left: 2rem;
+}
+.prev h3 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-right: 2.2rem;
+}
+.moreImg {
+  position: absolute;
+  top: 4.3rem;
+  left: 87%;
+}
+.contentContainer {
+  width: 100%;
+  position: absolute;
+  top: 21%;
+}
+.more_container {
+  position: absolute;
+  top: 4.8rem;
+  left: 60.7%;
+  padding: 5px;
+  background-color: #6D6D6D;
+  color: white;
+  border-radius: 20px;
+}
+.more_container p {
+  margin: 13px;
+  font-size: 13px;
+  font-weight: 500;
+}

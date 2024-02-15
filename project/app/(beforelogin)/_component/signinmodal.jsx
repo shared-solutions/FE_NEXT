@@ -35,13 +35,24 @@ export default function Modal() {
       password: pw,
     };
     try {
-      const response = await axios.post(
-        "https://dev.gomin-chingu.site/user/login",
-        requestBody
-      );
-      localStorage.setItem("accesstoken", response.data.result[0].token);
-      localStorage.setItem("refreshtoken", response.data.result[1].token);
-      router.push("/home");
+
+      const response = await fetch('/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password: pw }),
+      });
+
+      if (response.ok) {
+        // Handle successful login here
+        console.log('login successful');
+        router.push('/home')
+      } else {
+        // Handle unsuccessful login here
+        console.error('Login failed');
+      }
+
     } catch (error) {
       console.error("Error during login:", error);
     }

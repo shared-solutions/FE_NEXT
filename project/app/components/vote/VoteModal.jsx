@@ -32,12 +32,16 @@ const VoteModal = ({ onClose }) => {
         }
     };
 
+    const handleClose = () => {
+        onClose(); // 닫기 함수 호출
+    };
+
     return (
         <div className={styles.modal_Overlay}>
             <div className={styles.modal_container}>
                 <div className={styles.modal_content}>
                     {/* 상단 바 고정 */}
-                    <button onClick={onClose} className={styles.closeButton}>
+                    <button onClick={handleClose} className={styles.closeButton}>
                         <Image
                             src={downimg}
                             style={{
@@ -64,9 +68,8 @@ const VoteModal = ({ onClose }) => {
                         <SelectedPoint />
                     </div>
                     <div className={styles.complete_button}>
-                        <button>완료</button>
+                        <button onClick={handleClose}>완료</button>
                     </div>
-                    
                     {/* ---- 투표 내용 입력 끝 ---- */}
                 </div>
             </div>

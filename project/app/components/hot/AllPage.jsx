@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import vector from "@/app/public/image/Vector.png";
+import vector from "@/app/public/image/arrow3.png";
 import styles from "@/app/modules/hotCss/allpage.module.scss";
 import AllPageBox from "./AllPageBox";
 import { PageRendering } from "@/app/zustand/store";
@@ -84,8 +84,8 @@ const AllPage = () => {
         style={{ marginTop: "10px" }}
         onClick={backPage}
         alt="돌아가기"
-        width={10}
-        height={15}
+        width={18}
+        height={18}
       />
       <div className={styles.title}>
         {title}

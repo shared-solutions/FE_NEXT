@@ -15,7 +15,7 @@ import { useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
-import backimg from "@/app/public/image/Vector.png";
+import backimg from "@/app/public/image/arrow3.png";
 import Link from "next/link";
 import good from "@/app/public/image/finger.png";
 import { postLike } from "@/app/api/api/like";
@@ -53,7 +53,7 @@ export default function Detail({
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
       <Link href="/vote">
-        <Image src={backimg} alt="back" width={5} height={10} />
+        <Image src={backimg} alt="back" width={18} height={18} />
       </Link>
       <div className={styles.userlay}>
         <Image

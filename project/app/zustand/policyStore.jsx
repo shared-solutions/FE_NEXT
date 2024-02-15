@@ -8,6 +8,17 @@ const useSignUpStore = create((set) => ({
     password: false,
     nickname: false,
   },
+  userInfo: {
+    email: "",
+    password: "",
+    nickname: "",
+    gender: 0,
+    agree_info: false,
+    agree_marketing: false,
+    birth: "",
+  },
+  setUserInfo: (key,value) => set(state => ({ 
+    userInfo: { ...state.userInfo, [key]: value  } })),
   setCurrentStage: (stage) => set({ currentStage: stage }),
   setIsSucceed: (key) => set((state) => ({ 
     isSucceed: { ...state.isSucceed, [key]: true } 

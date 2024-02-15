@@ -1,0 +1,24 @@
+.content {
+  width: 100%;
+  position: relative;
+  background-color: #FFFBEB;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+}
+.white {
+  background-color: white;
+}
+.content_text {
+  width: 80%;
+  margin: 0 1rem;
+}
+.content_text p {
+  font-size: 13px;
+  margin: 0.5rem 0;
+}
+.text_container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
