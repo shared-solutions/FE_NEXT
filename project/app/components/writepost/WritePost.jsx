@@ -13,7 +13,7 @@ const WritePost = () => {
     const [content, setContent] = useState(''); // 내용 상태 변수
     const [file, setFile] = useState(null);
     const voteTitle = useVoteStore(state => state.voteTitle); // Zustand에서 투표 제목 가져오기
-    // const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 선택한 카테고리 가져오기
+    const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 카테고리 가져오기
 
     const authToken = localStorage.getItem("token");
 
@@ -33,7 +33,7 @@ const WritePost = () => {
                 title: title,
                 content: content,
                 // ----- 하드코딩 시작 -----
-                category: "교육",
+                category: selectedCategory,
                 postType: 1,
                 postVoteType: 2,
                 pollTitle : voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
@@ -89,7 +89,7 @@ const WritePost = () => {
                 {/* --- 임시 코드 시작 --- */}
                 <input type="file" onChange={handleFileChange} />
                 {/* --- 임시 코드 끝 --- */}
-                <WritePostHeader onSubmit={handleSubmit} />
+                <WritePostHeader voteTitle={voteTitle} selectedCategory={selectedCategory} onSubmit={handleSubmit} />
                 <div className={styles.content_container}>
                     <input 
                         className={styles.title} 

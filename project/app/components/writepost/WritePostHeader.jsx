@@ -7,12 +7,15 @@ import useVoteStore from '@/app/zustand/voteStore';
 
 import close from '../../public/image/close.ico'
 
-const WritePostHeader = ({ onSubmit, voteTitle }) => {
-    const resetVoteTitle = useVoteStore(state => state.resetVoteTitle); // 투표 제목 초기화 액션 가져오기
+const WritePostHeader = ({ onSubmit, voteTitle, selectedCategory }) => {
+    const resetVoteTitle = useVoteStore(state => state.resetVoteTitle); // 투표 제목 초기화 함수 가져오기
+    const resetSelectedCategory = useVoteStore(state => state.resetSelectedCategory); // 선택된 카테고리 초기화 함수 가져오기
+
 
     const handleComplete = () => {
         onSubmit(voteTitle); // 완료 버튼 클릭 시 onSubmit 함수 호출하여 voteTitle 전달
         resetVoteTitle(); // 투표 제목 초기화
+        resetSelectedCategory(); // 선택된 카테고리 초기화
     };
 
     return (

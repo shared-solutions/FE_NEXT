@@ -17,8 +17,7 @@ import CardVoteItem from './CardVoteItem';
 
 const VoteModal = ({ onClose }) => {
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
-    const {voteTitle, setVoteTitle } = useVoteStore();
-    //const [voteTitle, setVoteTitle] = useVoteStore(state => [state.voteTitle, state.setVoteTitle]);
+    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory } = useVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
 
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
@@ -83,7 +82,7 @@ const VoteModal = ({ onClose }) => {
                         <SelectedPoint />
                     </div>
                     <div className={styles.complete_button}>
-                        <button onClick={handleClose}>완료</button>
+                        <button voteTitle={voteTitle} selectedCategory={selectedCategory} onClick={handleClose} >완료</button>
                     </div>
                     {/* ---- 투표 내용 입력 끝 ---- */}
                 </div>
