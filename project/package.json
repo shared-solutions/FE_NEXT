@@ -16,12 +16,10 @@
     "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
-
     "react-mobile-datepicker": "^4.0.2",
-
     "react-spring-bottom-sheet": "^3.4.1",
     "sass": "^1.69.7",
-    "zustand": "^4.4.7"
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
