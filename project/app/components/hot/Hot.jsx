@@ -9,6 +9,7 @@ import { hotData } from "@/app/DATA/dummyData";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { GeneralBox, GaugeBox, CardBox } from "./HotBox";
 
 const Hot = () => {
   const changePage = PageRendering((state) => state.changePage);
@@ -62,27 +63,15 @@ const Hot = () => {
   }, [page]);
 
   // 스크롤 이벤트를 감지하여 새로운 데이터를 불러옴
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!loading) {
-        // 로딩 중이 아닐 때만 스크롤 이벤트 핸들러를 실행
-        if (
-          window.innerWidth + window.scrollX ===
-          document.documentElement.scrollWidth
-        ) {
-          // userData의 길이가 0이 아니고 loading이 false일 때만 데이터를 가져옴
-          if (userData.length > 0 && !loading) {
-            setPage((prevPage) => prevPage + 1);
-          }
-        }
-      }
-    };
+  const handleScroll = (e) => {
+    const { scrollLeft, scrollWidth, clientWidth } = e.target;
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [userData, loading]);
+    if (scrollLeft + clientWidth >= scrollWidth - 50) {
+      if (userData.length > 0 && !loading) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    }
+  };
 
   const renderBox = (userDataItem, index) => {
     const {
@@ -96,37 +85,32 @@ const Hot = () => {
       candidateList,
       comment_cnt,
       file,
+      created_at,
     } = userDataItem;
 
     const generalProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
       title: title || "",
       content: content || "",
       candidateList: candidateList || [],
       like: like || 0,
       comment_cnt: comment_cnt || 0,
-      file: file || [],
+      date: created_at || 0,
     };
     const cardProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
       title: title || "",
       content: content || "",
-      candidateList: candidateList || [],
+      // candidateList: candidateList || [],
       like: like || 0,
       comment_cnt: comment_cnt || 0,
-      file: file || [],
+      date: created_at || 0,
     };
 
     const gaugeProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
       title: title || "",
       content: content || "",
       like: like || 0,
       comment_cnt: comment_cnt || 0,
-      file: file || [],
+      date: created_at || 0,
     };
 
     // 여기 무한스크롤 데이터 받아와서 저렇게 포스트타입별로 allpage에 있는 로직처럼
@@ -134,13 +118,17 @@ const Hot = () => {
     return (
       <>
         <div key={index}>
-          <Link key={index} href={`/viewdetail/${postId}`}>
+          <Link
+            className={styles.link}
+            key={index}
+            href={`/viewdetail/${postId}`}
+          >
             {postVoteType === "GENERAL" ? (
-              <HotBox1 {...generalProps} />
+              <GeneralBox {...generalProps} />
             ) : postVoteType === "CARD" ? (
-              <HotBox2 {...cardProps} />
+              <CardBox {...cardProps} />
             ) : postVoteType === "GAUGE" ? (
-              <HotBox3 {...gaugeProps} gauge={gauge || 0} />
+              <GaugeBox {...gaugeProps} gauge={gauge || 0} />
             ) : null}
           </Link>
         </div>
@@ -165,7 +153,7 @@ const Hot = () => {
         </button>
       </div>
 
-      <div className={styles.boxlay}>
+      <div className={styles.boxlay} onScroll={handleScroll}>
         {/* {hotData.map((hot, index) => (
           <HotBox
             key={index}
