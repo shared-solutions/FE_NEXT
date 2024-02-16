@@ -1,8 +1,7 @@
 import styles from "@/app/modules/waitCss/point.module.scss";
 import sunglass from "@/app/public/image/sunglass.png";
-import vectorimg from "@/app/public/image/Vector.png";
 import Image from "next/image";
-
+import Link from "next/link";
 const HomePoint = () => {
   return (
     <div className={styles.container}>
@@ -15,9 +14,6 @@ const HomePoint = () => {
           width={21}
           height={21}
         />
-        <button className={styles.morebtn}>
-          더보기 <Image src={vectorimg} alt="벡터" width={5} height={10} />
-        </button>
       </div>
       <ul className={styles.list}>
         <li>
@@ -34,8 +30,10 @@ const HomePoint = () => {
         </li>
       </ul>
       <div className={styles.footer}>
-        <button className={styles.btn}>투표 참여하기</button>
-        <button className={styles.btn}>포인트 결제하기</button>
+        <Link className={styles.link} href={`/vote`}>
+          <button className={styles.btn}>투표 참여하기</button>
+        </Link>
+        {/* <button className={styles.btn}>포인트 결제하기</button> */}
       </div>
     </div>
   );
