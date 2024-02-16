@@ -99,7 +99,7 @@ const Hot = () => {
     const cardProps = {
       title: title || "",
       content: content || "",
-      // candidateList: candidateList || [],
+      candidateList: candidateList || [],
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       date: created_at || 0,

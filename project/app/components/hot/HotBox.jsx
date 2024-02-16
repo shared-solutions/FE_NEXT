@@ -82,6 +82,11 @@ export const GaugeBox = ({ title, content, like, comment_cnt, gauge }) => {
           <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
             <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
           </div>
+          <div className={styles.pollTitleContainer} style={gradientStyle}>
+            {/* <div className={styles.pollTitle}>{pollTitle}</div> */}
+            {/* 퍼센티지 하드코딩 수정해야 함 */}
+            <div className={styles.pollTitlePercentage}>{gaugeValue}%</div>
+          </div>
         </div>
 
         <div className={styles.footer}>
@@ -98,13 +103,35 @@ export const GaugeBox = ({ title, content, like, comment_cnt, gauge }) => {
   );
 };
 
-export const CardBox = ({ title, content, image, like, comment_cnt }) => {
+export const CardBox = ({
+  title,
+  content,
+  image,
+  like,
+  comment_cnt,
+  candidateList,
+}) => {
   return (
     <>
       <div className={styles.mainbox}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
-
+        <div className={styles.imgSlide}>
+          {candidateList &&
+            candidateList.map((option, index) => (
+              <div key={index} className={styles.optionCard}>
+                <span>{option.candidate_name}</span>
+                {option.candidate_image && (
+                  <Image
+                    src={option.candidate_image}
+                    alt={`선택지 ${index + 1}`}
+                    width={98}
+                    height={124}
+                  />
+                )}
+              </div>
+            ))}
+        </div>
         <div className={styles.footer}>
           <div className={styles.like}>
             <Image src={likeimg} alt="좋아요" width={15} height={13} /> {like}

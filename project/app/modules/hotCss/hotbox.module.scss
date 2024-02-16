@@ -11,7 +11,7 @@
   overflow: hidden;
   color: rgb(108, 93, 93);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: 3px;
+  margin: 5px;
 }
 
 .title {
@@ -93,4 +93,61 @@
   font-weight: 400;
   border-radius: 9px;
   background-color: #eeeeee;
+}
+
+.pollTitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 290px;
+  height: 26px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 9px;
+  background-color: #eeeeee;
+  border-radius: 40px;
+}
+
+.gaugeContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.gaugeImageContainer {
+  position: absolute;
+  top: -12px;
+}
+
+.imgSlide {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 7px;
+  padding: 5px;
+}
+
+.optionCard {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgb(0 0 0 / 13%);
+  padding: 7px;
+  height: 150px;
+}
+
+.optionCard img {
+  border-radius: 10px;
+}
+
+.optionCard span {
+  margin-bottom: 5px;
+  font-weight: 700;
 }
