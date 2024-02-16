@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styles from '@/app/modules/voteCss/votemodal.module.scss';
 import Image from 'next/image'
+import useVoteStore from '@/app/zustand/voteStore';
 
 import VoteStyle from "./VoteStyle"
 import Category from "./Category"
@@ -15,7 +16,7 @@ import GaugeVoteItem from './GaugeVoteItem';
 import CardVoteItem from './CardVoteItem';
 
 const VoteModal = ({ onClose }) => {
-    const [selectedStyle, setSelectedStyle] = useState('일반');
+    const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
 
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
@@ -54,7 +55,12 @@ const VoteModal = ({ onClose }) => {
                     {/* ---- 투표 내용 입력 시작 ---- */}
                     <div className={styles.modal_innerContent}>
                         <p>투표 제목</p>
-                        <input className={styles.write_title} type='text' placeholder='내용을 입력하세요'/>
+                        <input 
+                            className={styles.write_title} 
+                            type='text' 
+                            placeholder='내용을 입력하세요'
+                            // onChange={handleTitleChange} // 제목 변경 핸들러 추가
+                        />
                         <p>투표 스타일</p>
                         <VoteStyle onSelectedStyle={handleStyleSelect} /> {/* onSelectedStyle을 prop으로 전달 */}
                         {/* ---- 항목 시작 ---- */}

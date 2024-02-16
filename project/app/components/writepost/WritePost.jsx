@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Image from "next/image"
 import styles from '@/app/modules/writepostCss/writepost.module.scss'
+// import useVoteStore from '@/app/zustand/voteStore';
 
 import WritePostHeader from "./WritePostHeader"
 import WritePostFooter from "./WritePostFooter"
@@ -28,27 +29,51 @@ const WritePost = () => {
                 category: "교육",
                 postType: 1,
                 postVoteType: 1,
-                pollTitle: "투표제목",
+                pollTitle: "투표제목입니다.",
                 multipleChoice: true,
-                parent_id : 0, // 후기글일때는 1
-                deadline: "2024-02-15T02:16:56.811Z",
+                parent_id : 0,
+                deadline: "2024-02-18T02:16:56.811Z",
                 point: 0
                 // ----- 하드코딩 끝 -----
             }));
             formData.append('file', file);
 
+            // 첫 번째 POST 요청
             const response = await axios.post('https://dev.gomin-chingu.site/posts/', formData, {
                 headers: {
                     atk : authToken,
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log('Post 요청 성공:', response.data);
+            console.log('첫 번째 POST 요청 성공:', response.data);
+
+            // postId 추출
+            const postId = response.data.result.postId;
+            console.log('postId 추출 성공:', postId);
+
+            // 두 번째 POST 요청 시작 => postId를 받아서 -> 후보 개수만큼 후보 생성 api POST 
+            const candidateCount = 3; // 후보 개수 받아오기
+            const defaultImgUrl = "https://solution-friend-bucket.s3.ap-northeast-2.amazonaws.com/candidates/f7b1258a-076c-4818-a79c-8dfdf7056d43";
+            for (let i = 0; i < candidateCount; i++) {
+                const candidateFormData = new FormData();
+                candidateFormData.append('post-id', postId);
+                candidateFormData.append('optionString', `후보 ${i+1}`); // optionString 받아오기
+                candidateFormData.append('optionImgUrl', defaultImgUrl); // optionImgUrl 받아오기
+                candidateFormData.append('atk', authToken);
+    
+                const candidateResponse = await axios.post(`https://dev.gomin-chingu.site/posts/${postId}`, candidateFormData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        atk : authToken,
+                    },
+                });
+                console.log(`후보 ${i+1} 생성 요청 성공:`, candidateResponse.data);
+            }
+    
         } catch (error) {
-            console.error('Post 요청 실패:', error);
+            console.error('요청 실패:', error);
         }
     };
-
     return (
         <div>
             <div className={styles.container} style={{ background: 'white' }}>
