@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from "next/image"
 import styles from '@/app/modules/writepostCss/writepost.module.scss'
-// import useVoteStore from '@/app/zustand/voteStore';
+import useVoteStore from '@/app/zustand/voteStore';
 
 import WritePostHeader from "./WritePostHeader"
 import WritePostFooter from "./WritePostFooter"
@@ -12,12 +12,19 @@ const WritePost = () => {
     const [title, setTitle] = useState(''); // 제목 상태 변수
     const [content, setContent] = useState(''); // 내용 상태 변수
     const [file, setFile] = useState(null);
+    const voteTitle = useVoteStore(state => state.voteTitle); // Zustand에서 투표 제목 가져오기
+    // const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 선택한 카테고리 가져오기
 
     const authToken = localStorage.getItem("token");
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
       };
+
+    // voteTitle 잘 들어가는지 확인
+    useEffect(() => {
+        console.log("voteTitle:", voteTitle);
+    }, [voteTitle]);
 
     const handleSubmit = async () => {
         try {
@@ -28,8 +35,8 @@ const WritePost = () => {
                 // ----- 하드코딩 시작 -----
                 category: "교육",
                 postType: 1,
-                postVoteType: 1,
-                pollTitle: "투표제목입니다.",
+                postVoteType: 2,
+                pollTitle : voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
                 multipleChoice: true,
                 parent_id : 0,
                 deadline: "2024-02-18T02:16:56.811Z",
@@ -68,6 +75,8 @@ const WritePost = () => {
                     },
                 });
                 console.log(`후보 ${i+1} 생성 요청 성공:`, candidateResponse.data);
+                console.log("voteTitle: ", voteTitle);
+                console.log("title:", title);
             }
     
         } catch (error) {

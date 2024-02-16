@@ -17,9 +17,15 @@ import CardVoteItem from './CardVoteItem';
 
 const VoteModal = ({ onClose }) => {
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
+    const {voteTitle, setVoteTitle } = useVoteStore();
+    //const [voteTitle, setVoteTitle] = useVoteStore(state => [state.voteTitle, state.setVoteTitle]);
 
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
+    };
+
+    const handleTitleChange = (e) => {
+        setVoteTitle(e.target.value); // 투표 제목 변경 시 Zustand 업데이트
     };
 
     const renderVoteItem = () => {
@@ -34,6 +40,8 @@ const VoteModal = ({ onClose }) => {
     };
 
     const handleClose = () => {
+        setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
+
         onClose(); // 닫기 함수 호출
     };
 
@@ -59,7 +67,8 @@ const VoteModal = ({ onClose }) => {
                             className={styles.write_title} 
                             type='text' 
                             placeholder='내용을 입력하세요'
-                            // onChange={handleTitleChange} // 제목 변경 핸들러 추가
+                            value={voteTitle} // Zustand에 저장된 투표 제목 사용
+                            onChange={handleTitleChange} // 사용자가 입력한 내용으로 투표 제목 업데이트
                         />
                         <p>투표 스타일</p>
                         <VoteStyle onSelectedStyle={handleStyleSelect} /> {/* onSelectedStyle을 prop으로 전달 */}
