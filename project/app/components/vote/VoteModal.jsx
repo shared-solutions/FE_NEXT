@@ -14,11 +14,12 @@ import addbutton from '../../public/image/add_button.png'
 import NormalVoteItem from './NormalVoteItem';
 import GaugeVoteItem from './GaugeVoteItem';
 import CardVoteItem from './CardVoteItem';
+import { useEffect } from 'react';
 
 const VoteModal = ({ onClose }) => {
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
-    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory } = useVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
-
+    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType} = useVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
+    
     const voteDeadline = useVoteStore((state) => state.voteDeadline);
     const setVoteDeadline = useVoteStore((state) => state.setVoteDeadline);
 
@@ -40,10 +41,21 @@ const VoteModal = ({ onClose }) => {
                 return <NormalVoteItem />;
         }
     };
-
+    useEffect (() => {
+        if(selectedStyle ==='일반'){
+            setSelectedVoteType(1)
+        }
+        else if(selectedStyle ==='게이지'){
+            setSelectedVoteType(2)
+        }
+        else {setSelectedVoteType(3)}
+    },[selectedStyle])
+    const test = useVoteStore.getState().selectedVoteType
     const handleClose = () => {
         setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
         setVoteDeadline(voteDeadline); // Zustand 업데이트
+        setSelectedVoteType(selectedStyle);
+        console.log(test)
         onClose(); // 닫기 함수 호출
     };
 

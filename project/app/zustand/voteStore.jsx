@@ -13,14 +13,19 @@ const useVoteStore = create((set) => ({
   resetSelectedCategory: () => set(() => ({ selectedCategory: null })), // 선택된 카테고리 초기화
 
   // ----- 투표 스타일 ------
-  selectedVoteStyle: '일반', // 기본값은 '일반'으로 설정
-  setSelectedVoteStyle: (style) => set({ selectedVoteStyle: style }), // 투표 스타일 선택 함수
-  resetSelectedVoteStyle: () => set({ selectedVoteStyle: '일반' }), // 투표 스타일 초기화 함수
+  // selectedVoteStyle: '일반', // 기본값은 '일반'으로 설정
+  // setSelectedVoteStyle: (style) => set({ selectedVoteStyle: style }), // 투표 스타일 선택 함수
+  // resetSelectedVoteStyle: () => set({ selectedVoteStyle: '일반' }), // 투표 스타일 초기화 함수
+  selectedVoteType : 1,
+  setSelectedVoteType: (type) => set({ selectedVoteType : type}),
 
   // ----- 투표 마감 시간 -----
   voteDeadline: null,
   setVoteDeadline: (deadline) => set({ voteDeadline: deadline }),
   
+  // ----- 채택 포인트 -----
+  selectedPoint: null,
+  setSelectedPoint: (point) => set({ selectedPoint: point }),
 }));
 
 export default useVoteStore;
