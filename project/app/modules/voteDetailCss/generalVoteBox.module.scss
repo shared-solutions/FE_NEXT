@@ -1,6 +1,6 @@
 .box {
   position: relative;
-  height: 340px;
+  height: 320px;
   border-radius: 20px;
   background-color: white;
   margin-top: 20px;
@@ -68,28 +68,46 @@
   overflow-x: auto;
   white-space: nowrap;
   margin-bottom: 7px;
-  padding: 5px;
 }
 
 .option {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  margin-right: 20px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgb(0 0 0 / 13%);
-  padding: 7px;
+  margin-bottom: 15px; // 각 옵션 사이의 간격
+  
+  span {
+    display: block;
+    margin-left: 20%;
+  }
+
+  &.topCandidate {
+    border: 2px solid black; 
+  }
 }
 
 .option img {
   border-radius: 10px;
 }
 
-.option span {
-  margin-bottom: 5px;
-  font-weight: 700;
+.optionStringBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 290px;
+  height: 35px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 9px;
+  background-color: #eeeeee;
 }
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
 .date {
   margin-left: 240px;
   margin-top: -10px;

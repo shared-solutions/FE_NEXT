@@ -25,6 +25,7 @@ import CardVoteBox from "@/app/components/postlist/CardVoteBox";
 import GaugeVoteBox from "@/app/components/postlist/GaugeVoteBox";
 import defaultUserImg from "@/app/public/image/userimg.png";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
+import useSelectVoteStore from "@/app/zustand/selectVote";
 
 export default function Detail({
   userImg,
@@ -103,9 +104,9 @@ export default function Detail({
   }
   console.log(postVoteType);
 
-  const [selectList, setSelectList] = useState([]);
+  const { selectList } = useSelectVoteStore();
   const authToken = localStorage.getItem("token");
-
+ 
   // 투표하기 api selectedList 저장 필요
   const handleVote = async () => {
     try {

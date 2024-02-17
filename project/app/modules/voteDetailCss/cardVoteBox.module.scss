@@ -87,15 +87,14 @@
 
   span {
     display: block;
-  }
-
-  &.userVoted {
-    border: 2px solid blue; 
+    margin-left: 20%;
   }
 
   &.topCandidate {
     border: 2px solid black; 
   }
+
+  
 }
 
 .option img {
