@@ -6,7 +6,7 @@ export default function Login(){
     const router = useRouter();
 
     useEffect(() => {
-        router.replace('/i/login');
+        router.replace('/i/signin/findpw');
     }, []);
     return null
 }

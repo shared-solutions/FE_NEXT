@@ -44,6 +44,7 @@ const WritePost = () => {
                 },
             });
             console.log('Post 요청 성공:', response.data);
+            axios.post()
         } catch (error) {
             console.error('Post 요청 실패:', error);
         }

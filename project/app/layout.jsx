@@ -1,4 +1,4 @@
-import AuthSession from "./components/AuthSession";
+
 import Footer from "./components/footer";
 import Header from "./components/header";
 import "./globals.css";
@@ -14,13 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AuthSession>
           <Header />
           <div className="container">
             <div>{children}</div>
           </div>
           <Footer />
-        </AuthSession>
       </body>
     </html>
   );
