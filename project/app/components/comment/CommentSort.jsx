@@ -139,8 +139,6 @@ export const CommentSort = (postId) => {
     }
   };
 
-  // 시간계산 함수
-
   return (
     <>
       {bottom && (
@@ -168,6 +166,7 @@ export const CommentSort = (postId) => {
                       isPushedLike={comment.isPushedLike}
                       isMyComment={comment.isMyComment}
                       isOwnerOfPost={comment.isOwnerOfPost}
+                      isSelected={comment.isSelected}
                       postId={postId.postId}
                       onDDDClick={fetchData}
                     />

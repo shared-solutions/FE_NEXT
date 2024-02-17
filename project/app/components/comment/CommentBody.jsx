@@ -26,6 +26,7 @@ const CommentBody = ({
   isMyComment,
   isOwnerOfPost,
   postId,
+  isSelected,
   onDDDClick,
 }) => {
   const handleDeleteLike = async (commentId) => {
@@ -131,13 +132,12 @@ const CommentBody = ({
             />
           )}
           {isOwnerOfPost && (
-            // <div onClick={() => handleChoice(commentId)}>채택</div>
             <Image
               onClick={() => handleChoice(commentId)}
               src={checkmate}
               alt="채택버튼"
-              width={8}
-              height={14}
+              width={10}
+              height={10}
             />
           )}
         </div>
@@ -152,6 +152,8 @@ const CommentBody = ({
       {isDeleted && (
         <div className={styles.deletedComment}>삭제된 댓글입니다</div>
       )}
+      {/* 여기 채택된 댓글 작업해야됌 */}
+      <div className={styles.select}>{isSelected ? <div>채택</div> : null}</div>
     </div>
   );
 };
