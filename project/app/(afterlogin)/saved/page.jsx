@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import arrow2 from "../../public/image/arrow2.png";
+import arrow2 from "@/app/public/image/arrow2.png";
 import styles from "@/app/modules/savedCss/saved.module.scss";
 import AllPost from "@/app/components/saved/AllPost";
 import MyCategory from "@/app/components/saved/MyCategory";

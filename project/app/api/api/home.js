@@ -18,7 +18,10 @@ export const getRecent = async () => {
   // 쿼리파라미터로 GET /posts/recent?page=0&size=3 이런식으로 사용자가 아래로 스크롤 할 수록 page 값을 +1 해서 진행
   console.log("답변 기다리는 고민 조회");
   try {
-    const response = await api.get("/posts/recent");
+    const authToken = localStorage.getItem("token");
+    const response = await api.get(`/posts/recent?page=0&size=10`, {
+      headers: { atk: authToken },
+    });
     return response.data;
   } catch (error) {
     console.log("에러", error);

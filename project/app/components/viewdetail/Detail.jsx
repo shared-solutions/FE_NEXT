@@ -20,9 +20,15 @@ import Link from "next/link";
 import good from "@/app/public/image/finger.png";
 import { postLike } from "@/app/api/api/like";
 import { deleteLike } from "@/app/api/api/like";
+import GeneralVoteBox from "@/app/components/postlist/GeneralVoteBox";
+import CardVoteBox from "@/app/components/postlist/CardVoteBox";
+import GaugeVoteBox from "@/app/components/postlist/GaugeVoteBox";
+import defaultUserImg from "@/app/public/image/userimg.png";
+import voteDetailStore from "@/app/zustand/voteDetailStore";
+import useSelectVoteStore from "@/app/zustand/selectVote";
 
 export default function Detail({
-  userimg,
+  userImg,
   username,
   date,
   time,
@@ -30,15 +36,38 @@ export default function Detail({
   content,
   minititle,
   point,
-  lefttime,
   selectImgList,
   viewCount,
   likeCount,
   commentCount,
+  deadline,
+  pollTitle,
+  postVoteType,
+  pollOption,
+  gauge,
+  postId,
 }) {
   const [setting, setSetting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-
+  const {
+    allCandidatePercent,
+    topCandidatePercent,
+    topCandidate,
+    topVoteResult,
+    userVote,
+    userVotePercent,
+    isVoted,
+    onGoing,
+  } = voteDetailStore();
+  const defaultPostProps = {
+    userimg: userImg || defaultUserImg,
+    nickname: username || "",
+    title: title || "",
+    content: content || "",
+    pollOption: pollOption || [],
+    like: likeCount || 0,
+    comment: commentCount || 0,
+  };
   const handleLikeClick = () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
 
@@ -48,7 +77,63 @@ export default function Detail({
       postLike();
     }
   };
+  const dateObject = new Date(date);
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObject.getDate()).padStart(2, "0");
+  const datePart = `${year}-${month}-${day}`;
 
+  const timeePart = dateObject.toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  let lefttime;
+  const timeDifference = new Date(deadline) - new Date();
+  let daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  let hoursDifference = Math.floor(
+    (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  let minutesDifference = Math.floor(timeDifference / (1000 * 60));
+  if (daysDifference >= 1) {
+    lefttime = daysDifference + "일";
+  } else if (hoursDifference >= 1) {
+    lefttime = hoursDifference + "시간";
+  } else {
+    lefttime = minutesDifference + "분";
+  }
+  console.log(postVoteType);
+
+  const { selectList } = useSelectVoteStore();
+  const authToken = localStorage.getItem("token");
+ 
+  // 투표하기 api selectedList 저장 필요
+  const handleVote = async () => {
+    try {
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/generalVote`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            atk: authToken,
+          },
+          body: JSON.stringify({
+            selectList: selectList,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Voting success:", result);
+      } else {
+        console.error("Voting failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -58,10 +143,11 @@ export default function Detail({
       <div className={styles.userlay}>
         <Image
           className={styles.userimg}
-          src={userimg}
+          src={userImg == null ? userimg : userImg}
           alt="유저 이미지"
           width={34}
           height={34}
+          style={{ borderRadius: "50%" }}
         />
         <div className={styles.username}>{username}</div>
         <br />
@@ -78,19 +164,23 @@ export default function Detail({
         </div>
       </div>
       <div className={styles.usertext}>
-        <div className={styles.date}>{date}</div>
+        <div className={styles.date}>{datePart}</div>
         <div className={styles.line}> | </div>
-        <div className={styles.time}>{time}</div>
+        <div className={styles.time}>{timeePart}</div>
       </div>
-
       <div className={styles.title}>{title}</div>
-
       <div className={styles.content}>{content}</div>
 
       <div className={styles.vote}>
         <div className={styles.minititle}>
-          <div className={styles.mini}>{minititle}</div>
-          <div className={styles.point}>투표하기</div>
+          <div className={styles.mini}>{pollTitle}</div>
+          <div
+            className={styles.point}
+            disabled={timeDifference <= 0}
+            onClick={() => timeDifference > 0 && handleVote()}
+          >
+            투표하기
+          </div>
         </div>
         <div className={styles.timer}>
           <div className={styles.pointnum}>채택 포인트: {point}</div>
@@ -102,20 +192,59 @@ export default function Detail({
             width={13}
             height={13}
           />
-          <div>마감 {lefttime}분전</div>
+          <div>
+            {timeDifference <= 0 ? "마감되었습니다" : `마감 ${lefttime}전`}
+          </div>
         </div>
 
         <div className={styles.imgSlide}>
-          {selectImgList &&
-            selectImgList.map((selectImg, index) => (
-              <Image
-                key={index}
-                src={selectImg}
-                alt={`선택지 ${index + 1}`}
-                width={98}
-                height={124}
-              />
-            ))}
+          {postVoteType === "GENERAL" ? (
+            <GeneralVoteBox
+              {...defaultPostProps}
+              postId={postId}
+              topCandidate={topCandidate}
+              topCandidatePercent={topCandidatePercent}
+              userVote={userVote}
+              userVotePercent={userVotePercent}
+              onGoing={onGoing}
+              topVoteResult={topVoteResult}
+            />
+          ) : postVoteType === "CARD" ? (
+            <CardVoteBox
+              {...defaultPostProps}
+              postId={postId}
+              topCandidate={topCandidate}
+              topCandidatePercent={topCandidatePercent}
+              userVote={userVote}
+              userVotePercent={userVotePercent}
+              onGoing={onGoing}
+            />
+          ) : postVoteType === "GAUGE" ? (
+            <GaugeVoteBox
+              {...defaultPostProps}
+              pollTitle={pollTitle || ""}
+              gauge={gauge || 0}
+              postId={postId}
+              topCandidate={topCandidate}
+              topCandidatePercent={topCandidatePercent}
+              userVote={userVote}
+              userVotePercent={userVotePercent}
+              onGoing={onGoing}
+            />
+          ) : null}
+          {/*pollOption &&
+            pollOption.map((optionImgUrl, optionString, index) => (
+              <>
+                <Image
+                  key={index}
+                  src={optionImgUrl && optionImgUrl}
+                  alt={`선택지 ${index + 1}`}
+                  width={98}
+                  height={124}
+                />
+                <p>{optionString}</p>
+              </>
+            ))*/}
         </div>
       </div>
 
@@ -174,6 +303,7 @@ export default function Detail({
         />
         {setting && (
           <CommentSort
+            postId={postId}
             onClose={() => {
               setSetting(false);
             }}

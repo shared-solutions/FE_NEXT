@@ -37,12 +37,12 @@ export const deleteLike = async () => {
 };
 
 // 댓글 좋아요 api
-export const likeComment = async (commentid) => {
+export const likeComment = async (commentid, postId) => {
   console.log("댓글 좋아요");
   try {
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.post(
-      `/posts/3/comment/${commentid}/like`,
+      `/posts/${postId}/comment/${commentid}/like`,
       null,
       {
         headers: {
@@ -57,12 +57,12 @@ export const likeComment = async (commentid) => {
   }
 };
 // 댓글 좋아요 취소
-export const deleteCommentLike = async (commentid) => {
+export const deleteCommentLike = async (commentid, postId) => {
   console.log("댓글 좋아요 취소");
   try {
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.delete(
-      `/posts/3/comment/${commentid}/like/del`,
+      `/posts/${postId}/comment/${commentid}/like/del`,
       {
         headers: {
           atk: `${atkToken}`,
