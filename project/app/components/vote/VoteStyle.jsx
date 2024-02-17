@@ -9,6 +9,12 @@ const VoteStyle = ({ onSelectedStyle }) => {
     const handleButtonClick = (text) => {
         setSelectedButton(text);
         onSelectedStyle(text); // 상위 컴포넌트로 선택된 스타일 전달
+        // let convertedStyle = 1;
+        // if (text === '게이지') {
+        //     convertedStyle = 2;
+        // } else if (text === '카드') {
+        //     convertedStyle = 3;
+        // }
     };
 
     return(

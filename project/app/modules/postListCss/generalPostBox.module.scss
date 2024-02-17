@@ -12,6 +12,38 @@
   border-radius: 50%;
 }
 
+
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ===== 0216 추가 시작 =====
+  // Case 1: onGoing이 true이고, isVoted가 false인 경우
+.onGoingTrueIsVotedFalse {
+  .optionPercentage {
+    display: none;
+  }
+}
+
+// Case 2: onGoing이 true이고, isVoted가 true인 경우
+.onGoingTrueIsVotedTrue {
+  // userVote인 것에 체크 표시 ??
+
+}
+
+// Case 3: onGoing이 false이고, isVoted가 false인 경우
+.onGoingFalseIsVotedFalse {
+  
+}
+
+// Case 4: onGoing이 false이고, isVoted가 true인 경우
+.onGoingFalseIsVotedTrue {
+  // .topCandidate .optionStringBox {
+  //   background-color: black;
+  //   color: white; // 텍스트 색상을 흰색으로 설정
+  // }
+
 .userinfo {
   display: flex;
   align-items: center;
@@ -94,10 +126,6 @@
   background-color: #eeeeee;
 }
 
-.options {
-  display: flex;
-  flex-direction: column;
-}
 
 .date {
   margin-left: 240px;
@@ -105,4 +133,5 @@
   padding-bottom: 10px;
   color: rgb(108, 93, 93);
   font-size: 15px;
+
 }

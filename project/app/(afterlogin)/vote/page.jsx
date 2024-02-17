@@ -10,7 +10,8 @@ import CardPostBox from '@/app/components/postlist/CardPostBox';
 import GaugePostBox from '@/app/components/postlist/GaugePostBox';
 import Image from "next/image";
 
-import defaultUserImg from "@/app/public/image/userimg.png";
+import defaultUserImg from "@/app/public/image/defaultUserImg.png";
+import pencilImg from "@/app/public/image/pencil.png";
 
 const PostList = () => {
   const [selectedCategory, setSelectedCategory] = useState("모두");
@@ -101,7 +102,19 @@ const PostList = () => {
       like,
       comment,
       pollTitle,
-      gauge
+      gauge,
+      // ===== 0216 추가 시작 ====
+      onGoing, // 마감 여부
+      isVoted, // 사용자 투표 여부
+      topCanditate, // 1등인 후보 리스트
+      topCandidatePercent, // 1등 후보 퍼센트 리스트
+      userVote, // 사용자가 투표한 후보 리스트,
+      userVotePercent, // 사용자가 투표한 후보 퍼센트 리스트
+      allCandidatePercent, // 모든 후보의 퍼센트 리스트
+      userGauge, // 사용자가 투표한 항목의 퍼센트
+      totalGauge, // 평균 게이지
+      // ===== 0216 추가 끝 ====
+      
     } = userDataItem;
 
     // 기본값 설정
@@ -112,7 +125,18 @@ const PostList = () => {
       content: content || "",
       pollOption: pollOption || [],
       like: like || 0,
-      comment: comment || 0
+      comment: comment || 0,
+      // ===== 0216 추가 시작 ====
+      onGoing: onGoing || true, // 기본값 : 마감 X
+      isVoted: isVoted || false, // 기본값 : 사용자 투표 X
+      topCanditate: topCanditate || [],
+      userVote: userVote || [],
+      userVotePercent: userVotePercent || [],
+      topCandidatePercent: topCandidatePercent || [],
+      allCandidatePercent: allCandidatePercent || [],
+      userGauge: userGauge || 0,
+      totalGauge: totalGauge || 0,
+      // ===== 0216 추가 끝 ====
     };
 
     return (
@@ -146,6 +170,15 @@ const PostList = () => {
       />
       {userData.map(renderPostBox)}
       {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}
+      <Link className={styles.link} href="/vote/write">
+        <button className={styles.writebtn}>
+          <div>글 작성</div>
+          <Image
+            src={pencilImg}
+            className={styles.pencil_img}
+          />
+        </button>
+      </Link>
     </div>
   );
 };
