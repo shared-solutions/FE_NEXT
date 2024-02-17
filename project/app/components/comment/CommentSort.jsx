@@ -12,6 +12,35 @@ import Image from "next/image";
 import user from "@/app/public/image/userimg.png";
 import { deleteComment } from "@/app/api/api/comment";
 
+export const calculateTimeDifference = (createdAt) => {
+  const now = new Date();
+  const createdDate = new Date(createdAt);
+
+  const timeDifference = now - createdDate;
+  const secondsAgo = Math.floor(timeDifference / 1000);
+  const minutesAgo = Math.floor(secondsAgo / 60);
+  const hoursAgo = Math.floor(minutesAgo / 60);
+  const daysAgo = Math.floor(hoursAgo / 24);
+
+  if (secondsAgo < 60) {
+    return `${secondsAgo}초 전`;
+  } else if (minutesAgo < 60) {
+    return `${minutesAgo}분 전`;
+  } else if (hoursAgo < 24) {
+    return `${hoursAgo}시간 전`;
+  } else if (daysAgo < 30) {
+    return `${daysAgo}일 전`;
+  } else {
+    const formatter = new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+    return formatter.format(createdDate);
+  }
+};
 export const CommentSort = () => {
   const [bottom, setBottom] = useState(true);
   const [replyToComment, setReplyToComment] = useState(null);
@@ -68,36 +97,6 @@ export const CommentSort = () => {
   };
 
   // 시간계산 함수
-
-  const calculateTimeDifference = (createdAt) => {
-    const now = new Date();
-    const createdDate = new Date(createdAt);
-
-    const timeDifference = now - createdDate;
-    const secondsAgo = Math.floor(timeDifference / 1000);
-    const minutesAgo = Math.floor(secondsAgo / 60);
-    const hoursAgo = Math.floor(minutesAgo / 60);
-    const daysAgo = Math.floor(hoursAgo / 24);
-
-    if (secondsAgo < 60) {
-      return `${secondsAgo}초 전`;
-    } else if (minutesAgo < 60) {
-      return `${minutesAgo}분 전`;
-    } else if (hoursAgo < 24) {
-      return `${hoursAgo}시간 전`;
-    } else if (daysAgo < 30) {
-      return `${daysAgo}일 전`;
-    } else {
-      const formatter = new Intl.DateTimeFormat("en", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
-      return formatter.format(createdDate);
-    }
-  };
 
   return (
     <>
