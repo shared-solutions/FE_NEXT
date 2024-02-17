@@ -11,6 +11,9 @@ import Link from "next/link";
 import GeneralP from "../postlist/GeneralP";
 import CardP from "../postlist/CardP";
 import GaugeP from "../postlist/GaugeP";
+import GeneralPostBox from "@/app/components/postlist/GeneralPostBox";
+import CardPostBox from "@/app/components/postlist/CardPostBox";
+import GaugePostBox from "@/app/components/postlist/GaugePostBox";
 const AllPage = () => {
   const backPage = PageRendering((state) => state.backPage);
   const titlelogo = PageRendering((state) => state.title);
@@ -50,10 +53,10 @@ const AllPage = () => {
         const data = response.data;
         if (page === 0) {
           // 페이지가 0이면 새로운 데이터로 대체
-          setUserData(data.result.content);
+          setUserData(data.result.pollPostList);
         } else {
           // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
-          setUserData((prevData) => [...prevData, ...data.result.content]);
+          setUserData((prevData) => [...prevData, ...data.result.pollPostList]);
         }
         console.log("글 전체보기 데이터:", data);
       } else {
@@ -95,7 +98,7 @@ const AllPage = () => {
 
   const renderPostBox = (userDataItem, index) => {
     const {
-      post_id,
+      postId,
       postVoteType,
       user,
       title,
@@ -103,9 +106,24 @@ const AllPage = () => {
       like,
       gauge,
       candidateList,
-      comment_cnt,
+      comment,
       file,
       created_at,
+      userImg,
+      nickname,
+      pollOption,
+      pollTitle,
+      // ===== 0216 추가 시작 ====
+      onGoing, // 마감 여부
+      isVoted, // 사용자 투표 여부
+      topCanditate, // 1등인 후보 리스트
+      topCandidatePercent, // 1등 후보 퍼센트 리스트
+      userVote, // 사용자가 투표한 후보 리스트,
+      userVotePercent, // 사용자가 투표한 후보 퍼센트 리스트
+      allCandidatePercent, // 모든 후보의 퍼센트 리스트
+      userGauge, // 사용자가 투표한 항목의 퍼센트
+      totalGauge, // 평균 게이지
+      // ===== 0216 추가 끝 ====
     } = userDataItem;
 
     // 기본값 설정
@@ -119,59 +137,94 @@ const AllPage = () => {
     //   comment: comment_cnt || 0,
     // };
 
-    const generalProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
+    const defaultPostProps = {
+      userimg: userImg || defaultUserImg,
+      nickname: nickname || "",
       title: title || "",
       content: content || "",
-      candidateList: candidateList || [],
+      pollOption: pollOption || [],
       like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      file: file || [],
-      date: created_at || 0,
+      comment: comment || 0,
+
+      // ===== 0216 추가 시작 ====
+      onGoing: onGoing || true, // 기본값 : 마감 X
+      isVoted: isVoted || false, // 기본값 : 사용자 투표 X
+      topCanditate: topCanditate || [],
+      userVote: userVote || [],
+      userVotePercent: userVotePercent || [],
+      topCandidatePercent: topCandidatePercent || [],
+      allCandidatePercent: allCandidatePercent || [],
+      userGauge: userGauge || 0,
+      totalGauge: totalGauge || 0,
+      // ===== 0216 추가 끝 ====
     };
 
-    const cardProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
-      title: title || "",
-      content: content || "",
-      candidateList: candidateList || [],
-      like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      file: file || [],
-      date: created_at || 0,
-    };
+    // const generalProps = {
+    //   userimg: user.image || defaultUserImg,
+    //   nickname: user.nickname || "",
+    //   title: title || "",
+    //   content: content || "",
+    //   candidateList: candidateList || [],
+    //   like: like || 0,
+    //   comment_cnt: comment_cnt || 0,
+    //   file: file || [],
+    //   date: created_at || 0,
+    //      // ===== 0216 추가 시작 ====
+    //      onGoing: onGoing || true, // 기본값 : 마감 X
+    //      isVoted: isVoted || false, // 기본값 : 사용자 투표 X
+    //      topCanditate: topCanditate || [],
+    //      userVote: userVote || [],
+    //      userVotePercent: userVotePercent || [],
+    //      topCandidatePercent: topCandidatePercent || [],
+    //      allCandidatePercent: allCandidatePercent || [],
+    //      userGauge: userGauge || 0,
+    //      totalGauge: totalGauge || 0,
+    //      // ===== 0216 추가 끝 ====
+    // };
 
-    const gaugeProps = {
-      userimg: user.image || defaultUserImg,
-      nickname: user.nickname || "",
-      title: title || "",
-      content: content || "",
-      like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      file: file || [],
-      date: created_at || 0,
-    };
+    // const cardProps = {
+    //   userimg: user.image || defaultUserImg,
+    //   nickname: user.nickname || "",
+    //   title: title || "",
+    //   content: content || "",
+    //   candidateList: candidateList || [],
+    //   like: like || 0,
+    //   comment_cnt: comment_cnt || 0,
+    //   file: file || [],
+    //   date: created_at || 0,
+    // };
+
+    // const gaugeProps = {
+    //   userimg: user.image || defaultUserImg,
+    //   nickname: user.nickname || "",
+    //   title: title || "",
+    //   content: content || "",
+    //   like: like || 0,
+    //   comment_cnt: comment_cnt || 0,
+    //   file: file || [],
+    //   date: created_at || 0,
+    // };
 
     return (
-      <>
-        <div key={index}>
-          <Link
-            className={styles.link}
-            key={index}
-            href={`/viewdetail/${post_id}`}
-          >
-            {postVoteType === "GENERAL" ? (
-              <GeneralP {...generalProps} />
-            ) : postVoteType === "CARD" ? (
-              <CardP {...cardProps} />
-            ) : postVoteType === "GAUGE" ? (
-              <GaugeP {...gaugeProps} gauge={gauge || 0} />
-            ) : null}
-          </Link>
-        </div>
-      </>
+      <div key={index}>
+        <Link
+          className={styles.link}
+          key={index}
+          href={`/viewdetail/${postId}`}
+        >
+          {postVoteType === "GENERAL" ? (
+            <GeneralPostBox {...defaultPostProps} />
+          ) : postVoteType === "CARD" ? (
+            <CardPostBox {...defaultPostProps} />
+          ) : postVoteType === "GAUGE" ? (
+            <GaugePostBox
+              {...defaultPostProps}
+              pollTitle={pollTitle || ""}
+              gauge={gauge || 0}
+            />
+          ) : null}
+        </Link>
+      </div>
     );
   };
 

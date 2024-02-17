@@ -1,7 +1,9 @@
 "use client";
 import styles from "@/app/modules/hotCss/hot.module.scss";
-import hotimg from "../../public/image/hotimg.png";
-import vectorimg from "../../public/image/Vector.png";
+import hotimg from "@/app/public/image/hotimg.png";
+
+import vectorimg from "@/app/public/image/Vector.png";
+
 import Image from "next/image";
 import HotBox from "./HotBox";
 import { PageRendering } from "@/app/zustand/store";
@@ -42,10 +44,10 @@ const Hot = () => {
         const data = response.data;
         if (page === 0) {
           // 페이지가 0이면 새로운 데이터로 대체
-          setUserData(data.result.content);
+          setUserData(data.result.pollPostList);
         } else {
           // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
-          setUserData((prevData) => [...prevData, ...data.result.content]);
+          setUserData((prevData) => [...prevData, ...data.result.pollPostList]);
         }
         console.log("글 전체보기 데이터:", data);
       } else {
@@ -83,34 +85,35 @@ const Hot = () => {
       like,
       gauge,
       pollOption,
-      comment_cnt,
+      comment,
       file,
-      created_at,
+      uploadDate,
+      pollPostList,
     } = userDataItem;
 
     const generalProps = {
       title: title || "",
       content: content || "",
-      candidateList: pollOption || [],
+      candidateList: pollPostList || [],
       like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      date: created_at || 0,
+      comment_cnt: comment || 0,
+      date: uploadDate || 0,
     };
     const cardProps = {
       title: title || "",
       content: content || "",
-      candidateList: pollOption || [],
+      candidateList: pollPostList || [],
       like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      date: created_at || 0,
+      comment_cnt: comment || 0,
+      date: uploadDate || 0,
     };
 
     const gaugeProps = {
       title: title || "",
       content: content || "",
       like: like || 0,
-      comment_cnt: comment_cnt || 0,
-      date: created_at || 0,
+      comment_cnt: comment || 0,
+      date: uploadDate || 0,
     };
 
     // 여기 무한스크롤 데이터 받아와서 저렇게 포스트타입별로 allpage에 있는 로직처럼
