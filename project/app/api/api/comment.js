@@ -10,7 +10,7 @@ export const postComment = async (content, Long) => {
 
   try {
     // 추후에 경로 수정해야됨 하드코딩되어있음
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.post("/posts/3/comment", requestBody, {
       headers: {
         atk: `${atkToken}`,
@@ -28,7 +28,7 @@ export const lookupComment = async () => {
   console.log("댓글 전체조회");
 
   try {
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.get("/posts/3/comments", {
       headers: {
         atk: `${atkToken}`,
@@ -63,7 +63,7 @@ export const lookupComment = async () => {
 export const deleteComment = async (commentid) => {
   console.log("댓글 삭제");
   try {
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.patch(
       `/posts/3/comment/${commentid}/del`,
       null,
