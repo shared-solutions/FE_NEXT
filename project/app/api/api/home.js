@@ -19,7 +19,7 @@ export const getRecent = async () => {
   console.log("답변 기다리는 고민 조회");
   try {
     const authToken = localStorage.getItem("token");
-    const response = await api.get(`/posts/recent?page=1&size=10`, null, {
+    const response = await api.get(`/posts/recent?page=0&size=10`, {
       headers: { atk: authToken },
     });
     return response.data;

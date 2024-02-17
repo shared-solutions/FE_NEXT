@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/app/modules/notificationCss/notification.module.scss";
 import arrow2 from "../../public/image/arrow2.png";
-import more_button from "../../public/image/more_button.png";
+import more_button from "@/app/public/image/more_button.png";
+
 import Content from "@/app/components/notification/Content";
 export default function Home() {
   const [userData, setUserData] = useState(false);

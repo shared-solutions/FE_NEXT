@@ -27,19 +27,21 @@ export const GeneralBox = ({
         {candidateList &&
           candidateList.map((option, index) => (
             <div key={index} className={styles.option}>
-              {option.optionImgUrl && (
+              {option.pollOption.optionImgUrl && (
                 <Image
-                  src={option.optionImgUrl}
+                  src={option.pollOption.optionImgUrl}
                   alt={`선택지 ${index + 1}`}
                   width={35}
                   height={35}
                 />
               )}
               <div className={styles.optionStringBox}>
-                <div className={styles.optionString}>{option.optionString}</div>
+                <div className={styles.optionString}>
+                  {option.pollOption.optionString}
+                </div>
 
                 <div className={styles.optionPercentage}>
-                  {isNaN(option.ratio) ? 0 : option.ratio}
+                  {option.allCandidatePercent[index]}
                 </div>
               </div>
             </div>
@@ -132,10 +134,10 @@ export const CardBox = ({
           {candidateList &&
             candidateList.map((option, index) => (
               <div key={index} className={styles.optionCard}>
-                <span>{option.candidate_name}</span>
-                {option.candidate_image && (
+                <span>{option.pollOption.optionString}</span>
+                {option.pollOption.optionImgUrl && (
                   <Image
-                    src={option.candidate_image}
+                    src={option.pollOption.optionImgUrl}
                     alt={`선택지 ${index + 1}`}
                     width={98}
                     height={124}
