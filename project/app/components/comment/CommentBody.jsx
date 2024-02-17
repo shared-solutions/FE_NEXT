@@ -10,8 +10,8 @@ import { deleteCommentLike } from "@/app/api/api/like";
 import unlike from "@/app/public/image/unlike.png";
 import { lookupComment } from "@/app/api/api/comment";
 import { choiceComment } from "@/app/api/api/choice";
-
-import trash from "@/app/public/image/trash.svg";
+import trash from "@/app/public/image/cotrash.png";
+import checkmate from "@/app/public/image/checkmate.png";
 
 const CommentBody = ({
   onReplyClick,
@@ -28,22 +28,12 @@ const CommentBody = ({
   postId,
   onDDDClick,
 }) => {
-  console.log(isPushedLike);
-  const fetchData = async () => {
-    try {
-      const response = await lookupComment();
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleDeleteLike = async (commentId) => {
     try {
-      const response = await deleteCommentLike(commentId);
+      const response = await deleteCommentLike(commentId, postId);
       console.log(response);
 
-      fetchData();
+      onDDDClick();
     } catch (error) {
       console.log(error);
     }
@@ -63,11 +53,11 @@ const CommentBody = ({
 
   const handleLike = async (commentId) => {
     try {
-      const response = await likeComment(commentId);
+      const response = await likeComment(commentId, postId);
       console.log(response);
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
-      fetchData();
+      onDDDClick();
     } catch (error) {
       console.log(error);
     }
@@ -75,8 +65,9 @@ const CommentBody = ({
 
   const handleChoice = async (commentId) => {
     try {
-      const response = await choiceComment(commentId);
+      const response = await choiceComment(commentId, postId);
       console.log(response);
+      onDDDClick();
     } catch (error) {
       console.log(error);
     }
@@ -135,12 +126,19 @@ const CommentBody = ({
               onClick={() => handleDelete(commentId)}
               src={trash}
               alt="삭제버튼"
-              width={2}
-              height={8}
+              width={8}
+              height={14}
             />
           )}
           {isOwnerOfPost && (
-            <div onClick={() => handleChoice(commentId)}>채택</div>
+            // <div onClick={() => handleChoice(commentId)}>채택</div>
+            <Image
+              onClick={() => handleChoice(commentId)}
+              src={checkmate}
+              alt="채택버튼"
+              width={8}
+              height={14}
+            />
           )}
         </div>
       </div>

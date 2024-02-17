@@ -82,7 +82,7 @@ const Hot = () => {
       content,
       like,
       gauge,
-      candidateList,
+      pollOption,
       comment_cnt,
       file,
       created_at,
@@ -91,7 +91,7 @@ const Hot = () => {
     const generalProps = {
       title: title || "",
       content: content || "",
-      candidateList: candidateList || [],
+      candidateList: pollOption || [],
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       date: created_at || 0,
@@ -99,7 +99,7 @@ const Hot = () => {
     const cardProps = {
       title: title || "",
       content: content || "",
-      candidateList: candidateList || [],
+      candidateList: pollOption || [],
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       date: created_at || 0,

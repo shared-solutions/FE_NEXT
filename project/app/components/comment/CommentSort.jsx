@@ -11,7 +11,10 @@ import moreimg from "@/app/public/image/morebtncomment.png";
 import Image from "next/image";
 import user from "@/app/public/image/userimg.png";
 import { deleteComment } from "@/app/api/api/comment";
-
+import trash from "@/app/public/image/cotrash.png";
+import unlike from "@/app/public/image/unlike.png";
+import { deleteCommentLike } from "@/app/api/api/like";
+import { likeComment } from "@/app/api/api/like";
 export const calculateTimeDifference = (createdAt) => {
   const now = new Date();
   const createdDate = new Date(createdAt);
@@ -113,6 +116,29 @@ export const CommentSort = (postId) => {
     }
   };
 
+  const handleDeleteLike = async (commentId) => {
+    try {
+      const response = await deleteCommentLike(commentId, postId.postId);
+      console.log(response);
+
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLike = async (commentId) => {
+    try {
+      const response = await likeComment(commentId, postId.postId);
+      console.log(response);
+
+      // 댓글 등록 후 최신 데이터 다시 가져오기
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // 시간계산 함수
 
   return (
@@ -188,21 +214,38 @@ export const CommentSort = (postId) => {
                                   </div>
 
                                   <div className={styles.recommentshared}>
-                                    <Image
-                                      src={likeimg}
-                                      alt="좋아요"
-                                      width={11}
-                                      height={9}
-                                    />
+                                    {childComment.isPushedLike ? (
+                                      <Image
+                                        onClick={() =>
+                                          handleDeleteLike(
+                                            childComment.commentId
+                                          )
+                                        }
+                                        src={likeimg}
+                                        alt="좋아요"
+                                        width={11}
+                                        height={9}
+                                      />
+                                    ) : (
+                                      <Image
+                                        onClick={() =>
+                                          handleLike(childComment.commentId)
+                                        }
+                                        src={unlike}
+                                        alt="좋아요취소"
+                                        width={11}
+                                        height={9}
+                                      />
+                                    )}
 
                                     <Image
                                       onClick={() => {
                                         handleDelete(childComment.commentId);
                                       }}
-                                      src={moreimg}
+                                      src={trash}
                                       alt="더보기"
-                                      width={2}
-                                      height={8}
+                                      width={8}
+                                      height={14}
                                     />
                                   </div>
                                 </div>

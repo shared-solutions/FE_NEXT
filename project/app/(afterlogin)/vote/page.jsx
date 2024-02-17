@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import PostCategory from "@/app/components/postlist/PostCategory";
 import axios from "axios";
-import GeneralPostBox from '@/app/components/postlist/GeneralPostBox';
-import CardPostBox from '@/app/components/postlist/CardPostBox';
-import GaugePostBox from '@/app/components/postlist/GaugePostBox';
+import GeneralPostBox from "@/app/components/postlist/GeneralPostBox";
+import CardPostBox from "@/app/components/postlist/CardPostBox";
+import GaugePostBox from "@/app/components/postlist/GaugePostBox";
 import Image from "next/image";
 
 import defaultUserImg from "@/app/public/image/userimg.png";
@@ -34,7 +34,7 @@ const PostList = () => {
         size: 7,
         category: selectedCategory,
       };
-  
+
       const response = await axios.get(url, {
         params: params,
         headers: {
@@ -42,7 +42,7 @@ const PostList = () => {
           atk: authToken,
         },
       });
-  
+
       if (response.status === 200) {
         const data = response.data;
         if (page === 0) {
@@ -50,7 +50,7 @@ const PostList = () => {
           setUserData(data.result.pollPostList);
         } else {
           // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
-          setUserData(prevData => [...prevData, ...data.result.pollPostList]);
+          setUserData((prevData) => [...prevData, ...data.result.pollPostList]);
         }
         console.log("글 전체보기 데이터:", data);
       } else {
@@ -62,7 +62,7 @@ const PostList = () => {
       setLoading(false); // 데이터 불러오기가 완료되면 로딩 플래그를 해제
     }
   };
-  
+
   useEffect(() => {
     getData();
   }, [selectedCategory, page]);
@@ -70,19 +70,20 @@ const PostList = () => {
   // 스크롤 이벤트를 감지하여 새로운 데이터를 불러옴
   useEffect(() => {
     const handleScroll = () => {
-      if (!loading) { // 로딩 중이 아닐 때만 스크롤 이벤트 핸들러를 실행
+      if (!loading) {
+        // 로딩 중이 아닐 때만 스크롤 이벤트 핸들러를 실행
         if (
           window.innerHeight + document.documentElement.scrollTop ===
           document.documentElement.offsetHeight
         ) {
           // userData의 길이가 0이 아니고 loading이 false일 때만 데이터를 가져옴
           if (userData.length > 0 && !loading) {
-            setPage(prevPage => prevPage + 1);
+            setPage((prevPage) => prevPage + 1);
           }
         }
       }
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -101,7 +102,17 @@ const PostList = () => {
       like,
       comment,
       pollTitle,
-      gauge
+      gauge,
+      // onGoing, // 마감 여부
+      // isVoted, // 사용자 투표 여부
+      // topCanditate, // 1등인 후보 리스트
+      // topCandidatePercent, // 1등 후보 퍼센트 리스트
+      // userVote, // 사용자가 투표한 후보 리스트,
+      // userVotePercent, // 사용자가 투표한 후보 퍼센트 리스트
+      // allCandidatePercent, // 모든 후보의 퍼센트 리스트
+      // userGauge, // 사용자가 투표한 항목의 퍼센트
+      // totalGauge, // 평균 게이지
+      // ===== 0216 추가 끝 ====
     } = userDataItem;
 
     // 기본값 설정
@@ -112,7 +123,7 @@ const PostList = () => {
       content: content || "",
       pollOption: pollOption || [],
       like: like || 0,
-      comment: comment || 0
+      comment: comment || 0,
     };
 
     return (
