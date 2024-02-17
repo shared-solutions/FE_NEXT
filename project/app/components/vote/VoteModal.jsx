@@ -19,6 +19,9 @@ const VoteModal = ({ onClose }) => {
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
     const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory } = useVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
 
+    const voteDeadline = useVoteStore((state) => state.voteDeadline);
+    const setVoteDeadline = useVoteStore((state) => state.setVoteDeadline);
+
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
     };
@@ -40,7 +43,7 @@ const VoteModal = ({ onClose }) => {
 
     const handleClose = () => {
         setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
-
+        setVoteDeadline(voteDeadline); // Zustand 업데이트
         onClose(); // 닫기 함수 호출
     };
 
@@ -77,7 +80,7 @@ const VoteModal = ({ onClose }) => {
                         <p>글 카테고리</p>
                         <Category />
                         <p>투표 마감 시간 설정</p>
-                        <VoteDeadline />
+                        <VoteDeadline voteDeadline={voteDeadline} setVoteDeadline={setVoteDeadline} />
                         {/* 채택 포인트 */}
                         <SelectedPoint />
                     </div>

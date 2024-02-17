@@ -14,12 +14,18 @@ const WritePost = () => {
     const [file, setFile] = useState(null);
     const voteTitle = useVoteStore(state => state.voteTitle); // Zustand에서 투표 제목 가져오기
     const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 카테고리 가져오기
+    const voteDeadline = useVoteStore((state) => state.voteDeadline);
 
     const authToken = localStorage.getItem("token");
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
       };
+
+    // 원하는 형식으로 날짜와 시간을 포맷하는 함수
+    // const formatDateTimeForServer = (dateTime) => {
+    //     return dateTime.toISOString(); // 예시: "2024-02-18T02:16:56.811Z"
+    // };  
 
     // voteTitle 잘 들어가는지 확인
     useEffect(() => {
@@ -39,7 +45,10 @@ const WritePost = () => {
                 pollTitle : voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
                 multipleChoice: true,
                 parent_id : 0,
-                deadline: "2024-02-18T02:16:56.811Z",
+                // deadline: "2024-02-18T02:16:56.811Z",
+                // deadline: voteDeadline.toISOString(),
+                // deadline: formatDateTimeForServer(voteDeadline), 
+                deadline: voteDeadline ? voteDeadline.toISOString() : null,
                 point: 0
                 // ----- 하드코딩 끝 -----
             }));
