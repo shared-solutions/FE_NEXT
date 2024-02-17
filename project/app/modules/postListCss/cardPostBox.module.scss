@@ -80,6 +80,21 @@
   border-radius: 10px;
   box-shadow: 0 0 12px rgb(0 0 0 / 13%);
   padding: 7px;
+  // 추가 시작
+  position: relative;
+
+  span {
+    display: block;
+  }
+
+  &.userVoted {
+    border: 2px solid blue; 
+  }
+
+  &.topCandidate {
+    border: 2px solid black; 
+  }
+  // 추가 끝
 }
 
 .option img {

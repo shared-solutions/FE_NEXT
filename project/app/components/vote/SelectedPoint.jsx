@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import styles from '@/app/modules/voteCss/selectedpoint.module.scss'
 import Image from 'next/image'
+import useVoteStore from '@/app/zustand/voteStore';
 
 import minusbutton from '../../public/image/delete.png'
 import plusbutton from '../../public/image/add_button.png'
