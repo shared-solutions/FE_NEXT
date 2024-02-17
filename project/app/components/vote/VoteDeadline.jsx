@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-mobile-datepicker'
 import styles from '@/app/modules/voteCss/votedeadline.module.scss'
 import Image from 'next/image'
+import useVoteStore from '@/app/zustand/voteStore';
 
 import downimg from '../../public/image/down.png'
 
@@ -14,19 +15,27 @@ const VoteDeadline = () => {
     const [maxDate, setMaxDate] = useState(new Date());
     const [isToday, setIsToday] = useState(false);
 
+    const deadline = useVoteStore((state) => state.deadline);
+    const setVoteDeadline = useVoteStore((state) => state.setVoteDeadline);
+
 	const handleClick = () => {
         setIsOpen(true);
     }
 
-    // ---- 버튼을 다시 누르면 close됨 시작 ---
-    // const handleClick = () => {
-    //     setIsOpen(!isOpen); // 
-    // }
-    // ---- 버튼을 다시 누르면 close됨 끝 ---
-
     const handleCancel = () => {
         setIsOpen(false);
     }
+
+    const handleConfirm = () => {
+        if (time) {
+            const utcTime = time.toISOString(); // 선택한 시간을 UTC 형식으로 변환
+            console.log('변환된 시간 (UTC):', utcTime); // 변환된 시간 콘솔에 출력
+            setVoteDeadline(utcTime); // UTC 형식으로 변환한 시간을 Zustand의 deadline에 저장
+            setIsOpen(false);
+          } else {
+            console.error('선택한 시간이 유효하지 않습니다.');
+          }
+        };
 
     const handleSelect = (selectedTime) => {
         setTime(selectedTime);
@@ -52,6 +61,11 @@ const VoteDeadline = () => {
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         setIsToday(today.getTime() === time.getTime());
     }, [time]);
+
+    useEffect(() => {
+        console.log('선택한 날짜와 시간:', time); // 선택한 날짜와 시간을 콘솔에 출력
+        console.log('Zustand에 저장된 시간 (UTC):', deadline); // Zustand에 저장된 시간 콘솔에 출력
+      }, [time]);
 
     const datePickerConfig = {
         date: {
@@ -104,6 +118,7 @@ const VoteDeadline = () => {
                     cancelText="취소"
                     onSelect={handleSelect}
                     onCancel={handleCancel} 
+                    onConfirm={handleConfirm}
                     dateConfig={datePickerConfig}
                     min={minDate}
                     max={maxDate}

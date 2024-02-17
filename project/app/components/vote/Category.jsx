@@ -2,19 +2,21 @@
 import { useState } from 'react';
 import styles from '@/app/modules/voteCss/category.module.scss'
 import Image from 'next/image'
+import useVoteStore from '@/app/zustand/voteStore';
 
 import downimg from '../../public/image/down.png'
 
 const Category = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 선택된 카테고리 가져오기
+    const setSelectedCategory = useVoteStore(state => state.setSelectedCategory); // Zustand에서 선택된 카테고리 업데이트 함수 가져오기
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const handleCategorySelect = (category) => {
-        setSelectedCategory(category); // 선택한 카테고리 업데이트
+        setSelectedCategory(category); // Zustand를 통해 선택된 카테고리 업데이트
         setIsDropdownOpen(false); // dropdown 닫기
     };
 
