@@ -8,8 +8,8 @@
   margin-left: 25px;
 }
 .recommentshared {
-  margin-left: 30px;
-  width: 60px;
+  margin-left: 40px;
+
   height: 25px;
   border-radius: 28px;
   background-color: black;
@@ -18,6 +18,7 @@
   align-items: center;
   gap: 20px;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .recommentdata {
@@ -44,24 +45,30 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 70px;
-  max-width: 200px; /* 너비 조절을 위한 최대 너비 설정 */
+  width: 60px;
+  max-width: 100px; /* 너비 조절을 위한 최대 너비 설정 */
 }
 .when {
   color: #b2b2b2;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
-  line-height: 22px;
-  margin-left: 15px;
   width: 50px;
 }
 
+.whenc {
+  color: #b2b2b2;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 22px;
+
+  width: 50px;
+}
 .line {
   width: 0px;
   height: 11px;
   flex-shrink: 0;
-  margin-left: 11px;
   padding-right: 12px;
   padding-bottom: 6px;
 }
@@ -72,7 +79,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
-  margin-left: 6px;
+  margin-left: 3px;
+  padding-right: 10px;
 }
 
 .commentdata {
@@ -85,8 +93,6 @@
 }
 
 .shared {
-  margin-left: 45px;
-  width: 88px;
   height: 25px;
   border-radius: 28px;
   background-color: black;
@@ -94,8 +100,9 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding-left: 20px;
-  margin-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 5px;
 }
 
 .deletedComment {
@@ -113,9 +120,19 @@
 }
 
 .select {
-  width: 50px;
+  width: 80px;
   height: 20px;
-  border: 1px solid black;
-  margin-left: 320px;
-  margin-top: -20px;
+  //border: 1px solid black;
+  margin-right: 5px;
+}
+
+.chooseText {
+  color: #ffe24d;
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.choose {
+  display: flex;
+  align-items: center;
 }

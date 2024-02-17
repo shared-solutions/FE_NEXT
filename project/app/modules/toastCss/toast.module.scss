@@ -1,0 +1,23 @@
+.toast {
+  position: fixed;
+  bottom: 102%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(225, 219, 42);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  width: 290px;
+  text-align: center;
+}
+
+.toastContent {
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
+.visible {
+  opacity: 1;
+}

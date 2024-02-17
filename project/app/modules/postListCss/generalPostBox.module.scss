@@ -12,14 +12,13 @@
   border-radius: 50%;
 }
 
+.options {
+  display: flex;
+  flex-direction: column;
+}
 
-  .options {
-    display: flex;
-    flex-direction: column;
-  }
-
-  // ===== 0216 추가 시작 =====
-  // Case 1: onGoing이 true이고, isVoted가 false인 경우
+// ===== 0216 추가 시작 =====
+// Case 1: onGoing이 true이고, isVoted가 false인 경우
 .onGoingTrueIsVotedFalse {
   .optionPercentage {
     display: none;
@@ -29,12 +28,10 @@
 // Case 2: onGoing이 true이고, isVoted가 true인 경우
 .onGoingTrueIsVotedTrue {
   // userVote인 것에 체크 표시 ??
-
 }
 
 // Case 3: onGoing이 false이고, isVoted가 false인 경우
 .onGoingFalseIsVotedFalse {
-  
 }
 
 // Case 4: onGoing이 false이고, isVoted가 true인 경우
@@ -43,7 +40,7 @@
   //   background-color: black;
   //   color: white; // 텍스트 색상을 흰색으로 설정
   // }
-
+}
 .userinfo {
   display: flex;
   align-items: center;
@@ -126,12 +123,10 @@
   background-color: #eeeeee;
 }
 
-
 .date {
   margin-left: 240px;
   margin-top: -10px;
   padding-bottom: 10px;
   color: rgb(108, 93, 93);
   font-size: 15px;
-
 }

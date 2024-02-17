@@ -12,6 +12,9 @@ import { lookupComment } from "@/app/api/api/comment";
 import { choiceComment } from "@/app/api/api/choice";
 import trash from "@/app/public/image/cotrash.png";
 import checkmate from "@/app/public/image/checkmate.png";
+import selectCheck from "@/app/public/image/selectCheck.png";
+import Toast from "../toast/Toast";
+import { useState } from "react";
 
 const CommentBody = ({
   onReplyClick,
@@ -29,6 +32,8 @@ const CommentBody = ({
   isSelected,
   onDDDClick,
 }) => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const handleDeleteLike = async (commentId) => {
     try {
       const response = await deleteCommentLike(commentId, postId);
@@ -45,8 +50,9 @@ const CommentBody = ({
     try {
       const response = await deleteComment(commentid, postId);
       console.log(response);
-
       onDDDClick();
+      setToastMessage("댓글이 삭제되었습니다.");
+      setShowToast(true);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +77,15 @@ const CommentBody = ({
       onDDDClick();
     } catch (error) {
       console.log(error);
+      if (error.response.data.code == "COMMENT4003") {
+        setToastMessage("댓글 채택은 1개 댓글에 대해서만 가능합니다.");
+        setShowToast(true);
+      }
     }
+  };
+
+  const handleToastClose = () => {
+    setShowToast(false);
   };
 
   return (
@@ -88,6 +102,14 @@ const CommentBody = ({
         <div className={styles.line}>|</div>
         <Image src={likeimg} alt="좋아요" width={10} height={9} />
         <div className={styles.likecount}>{likecount}</div>
+        <div className={styles.select}>
+          {isSelected ? (
+            <div className={styles.choose}>
+              <Image src={selectCheck} alt="채택" width={15} height={17} />
+              <div className={styles.chooseText}>채택된 댓글</div>
+            </div>
+          ) : null}
+        </div>
         <div className={styles.shared}>
           {/* 서버에서 내가 댓글에 좋아요를 눌렀는지 안눌렀는지에 대한 정보를 주면 boolean으로 판별하여서
           만약 좋아요를 눌렀으면 likeimg라고 뜨게하고 이걸 눌렀을때 좋아요가 취소되게함
@@ -152,8 +174,7 @@ const CommentBody = ({
       {isDeleted && (
         <div className={styles.deletedComment}>삭제된 댓글입니다</div>
       )}
-      {/* 여기 채택된 댓글 작업해야됌 */}
-      <div className={styles.select}>{isSelected ? <div>채택</div> : null}</div>
+      {showToast && <Toast message={toastMessage} onClose={handleToastClose} />}
     </div>
   );
 };
