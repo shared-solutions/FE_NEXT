@@ -116,8 +116,6 @@ const PostList = () => {
       userGauge, // 사용자가 투표한 항목의 퍼센트
       totalGauge, // 평균 게이지
       // ===== 0216 추가 끝 ====
-      
-
     } = userDataItem;
 
     // 기본값 설정
@@ -141,7 +139,6 @@ const PostList = () => {
       userGauge: userGauge || 0,
       totalGauge: totalGauge || 0,
       // ===== 0216 추가 끝 ====
-
     };
 
     return (
@@ -178,10 +175,7 @@ const PostList = () => {
       <Link className={styles.link} href="/vote/write">
         <button className={styles.writebtn}>
           <div>글 작성</div>
-          <Image
-            src={pencilImg}
-            className={styles.pencil_img}
-          />
+          <Image src={pencilImg} className={styles.pencil_img} alt="이미지" />
         </button>
       </Link>
     </div>
