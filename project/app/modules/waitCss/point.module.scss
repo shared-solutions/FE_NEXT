@@ -1,0 +1,62 @@
+.container {
+  height: 170px;
+  border-radius: 20px;
+  background-color: white;
+  padding: 30px;
+  margin-top: 34px;
+  margin-bottom: 100px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+}
+
+.sun {
+  margin-left: 5px;
+  margin-bottom: -2px;
+}
+
+.list {
+  list-style: none;
+  margin-top: 19px;
+}
+
+.list.list li {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: black;
+  font-weight: 400;
+}
+
+.list.list b {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.footer {
+  gap: 49px;
+  margin-top: 25px;
+  text-align: center;
+}
+.btn {
+  width: 300px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.morebtn {
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}

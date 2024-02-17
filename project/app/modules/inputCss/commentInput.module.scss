@@ -1,0 +1,31 @@
+.input {
+  width: 77%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.inputbtn {
+  height: 40px;
+  width: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: black;
+  color: white;
+  margin-left: 5px;
+}
+
+.inputlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-left: 5px;
+  gap: 2px;
+}
+
+.disabled {
+  background-color: grey;
+}

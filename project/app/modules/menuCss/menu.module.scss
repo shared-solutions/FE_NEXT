@@ -1,0 +1,58 @@
+.modal{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 91%;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+.background{
+  background-image: url("../../public/image/background_menu.png");
+  width: 74%;
+  top: 0;
+  position: absolute;
+  right: 0;
+  height: 90.5vh;
+  z-index: 2;
+  background-size: cover;
+}
+.container{
+  position: absolute;
+  top: 22%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 4;
+}
+.close{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 3.7rem;
+  left: 55vw;
+}
+.close p{
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+  margin-bottom: 0.2rem;
+}
+.grid{
+  width: 70%;
+  display: flex;
+  padding: 1rem;
+  margin-left: 4vw;
+  align-items: center;
+  cursor: pointer;
+}
+.grid p{
+  font-size: 14px;
+  font-weight: bold;
+}
+.grid a {
+  color: black;
+  text-decoration: none;
+}

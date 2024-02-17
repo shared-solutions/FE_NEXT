@@ -1,0 +1,42 @@
+.container {
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 97px;
+}
+
+.hotimg {
+  padding-left: 4px;
+  margin-bottom: -2px;
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 15px;
+  margin-left: 10px;
+  padding-top: 100px;
+  color: black;
+}
+
+.morebtn {
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+  float: right;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.boxlay {
+  padding-top: 32px;
+  //가로 스크롤 되도록 설정
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 20px;
+}
+.link {
+  text-decoration: none;
+  color: black;
+}

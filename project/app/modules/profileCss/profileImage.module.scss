@@ -1,0 +1,29 @@
+.imgContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -8rem;
+}
+.imageShadow {
+  border-radius: 50%;
+  margin-top: -3rem;
+  /* 수평 8px, 수직 8px, 30px 흐림, 6px 크기 */
+  box-shadow: 8px 8px 30px 6px rgba(0, 0, 0, 0.3);
+}
+.edit{
+  margin-top: -1.8rem;
+  margin-right: -4.8rem;
+}
+.rank{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.3rem;
+  height: 2.8rem;
+  background-color: #222222;
+  color: #FFC700;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: 590;
+}

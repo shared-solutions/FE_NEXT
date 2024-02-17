@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  display: flex;
+  margin: 0 1.6rem;
+}
+.select_button{
+  width: 4.2rem;
+  height: 2rem;
+  background-color: #000000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 0.8rem;
+}
+.disabled {
+  background-color: #FFC045;
+}
+.post_container {
+  width: 100vw;
+  height: 72vh;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 47% 47%;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+}
+

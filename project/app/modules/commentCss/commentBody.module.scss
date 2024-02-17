@@ -1,0 +1,138 @@
+.commentbody {
+  width: 100%;
+  margin-top: 15px;
+}
+.recommentbody {
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 25px;
+}
+.recommentshared {
+  margin-left: 40px;
+
+  height: 25px;
+  border-radius: 28px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.recommentdata {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-left: 65px;
+  width: 70%;
+}
+
+.userlay {
+  display: flex;
+  align-items: center;
+  margin-left: 28px;
+}
+.name {
+  color: #b2b2b2;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+  margin-left: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 60px;
+  max-width: 100px; /* 너비 조절을 위한 최대 너비 설정 */
+}
+.when {
+  color: #b2b2b2;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  width: 50px;
+}
+
+.whenc {
+  color: #b2b2b2;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 22px;
+
+  width: 50px;
+}
+.line {
+  width: 0px;
+  height: 11px;
+  flex-shrink: 0;
+  padding-right: 12px;
+  padding-bottom: 6px;
+}
+
+.likecount {
+  color: #ffeb86;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-left: 3px;
+  padding-right: 10px;
+}
+
+.commentdata {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-left: 65px;
+  width: 80%;
+}
+
+.shared {
+  height: 25px;
+  border-radius: 28px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 5px;
+}
+
+.deletedComment {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-left: 65px;
+  width: 80%;
+  color: gray;
+}
+
+.all {
+  margin-bottom: 55px;
+}
+
+.select {
+  width: 80px;
+  height: 20px;
+  //border: 1px solid black;
+  margin-right: 5px;
+}
+
+.chooseText {
+  color: #ffe24d;
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.choose {
+  display: flex;
+  align-items: center;
+}

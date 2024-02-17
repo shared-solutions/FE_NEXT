@@ -1,0 +1,240 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 0;
+    z-index: 99;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.title{
+    padding: 20px;
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    display: flex;
+    font-size: 25px;
+    width: 100%;
+    z-index: 100;
+    align-items: center;
+}
+.main{
+    width: 90%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center; 
+    p{
+        
+        font-weight: 700;
+        font-size: 20px;
+        text-align: left;
+    }
+    hr{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    label{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+    }
+    span{
+        width: 70%;
+        white-space: normal;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.policy{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 30%;
+    height: 60vh;
+    
+}
+.agree_all{
+    display: flex;
+    justify-content: space-between;
+    h2{
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+    }
+    
+    align-items: center;
+}
+.main_p{
+    width: 60%;
+    white-space: normal;
+    position: fixed;
+    top: 15%;
+    left: 10%;
+}
+.btn_container{
+    width: 80%;
+    position: fixed;
+    bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+   
+    button{
+        width: 100%;
+        height: 50px;
+        border: none;
+        background-color: #FFCD3E;
+        border-radius: 10px;
+        p{
+            text-align: center;
+        } 
+        &:disabled{
+        background-color: gray;
+        color: white;
+        }
+    }
+}
+
+.emailInput, .passwordInput, .nicknameInput{
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+    strong{
+        font-size: 20px;
+    }
+    input{
+        border: none;
+        border-bottom: 3.5px solid #FFE497;
+        height: 50px;
+        &:focus {
+            outline: none;
+        }
+    }
+    overflow: scroll;
+    
+}
+.emailInput{
+    width: 80%;
+    height: 50%;
+    
+}
+.hiddenDiv{
+    margin-top: 20px;
+    width: 100%;
+}
+.emailValid {
+    width: 100%;
+    display: flex;
+    height: 50px;
+    border-bottom: 3.5px solid #FFE497;
+    align-items: center;
+    justify-content: space-between;
+}
+.validKey{
+    font-weight: 700;
+    font-size: 12px; 
+    border: none;
+    background-color: white;
+    &:disabled{
+        color: gray;
+    }
+}
+.gender_container{
+    margin-top: 10px;
+}
+.gender{
+    margin-top: 20px;
+    width: 100%;
+    background-color: black;
+    height: 50px;
+    display: flex;
+    border-radius: 105px;
+    justify-content: space-around;
+    align-items: center;
+    p{
+        cursor: pointer;
+        height: 100%;
+        border-radius: 5px;
+        color: #ADADAD;
+    }
+}
+.gender p {
+    cursor: pointer;
+    border-radius: 105px;
+    display: flex;
+    align-items: center;
+    width: 30%;
+    justify-content: center;
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+}
+  
+.gender p.selected {
+background-color: #FFCD3E;
+color: black;
+border-color: #FFCD3E;
+}
+.birth_container{
+    margin-top: 20px;
+    width: 100%;
+    border-bottom: 3.5px solid #FFCD3E;
+}
+.birthday_inputs {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #9C9C9C;
+}
+  
+.birthday_inputs input {
+margin-right: 10px;
+padding: 5px;
+width: 60px;
+border: none;
+text-align: center;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

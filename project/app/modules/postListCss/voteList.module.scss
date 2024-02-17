@@ -1,0 +1,31 @@
+.cover {
+  background-color: #ffeb86;
+  margin-bottom: 100px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.writebtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50px;
+  width: 127px;
+  border-radius: 50px;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  color: white;
+  padding-left: 10px;
+}
+
+.pencil_img{
+  height: 21px;
+  width: 21px;
+  margin-left: 8px;
+}

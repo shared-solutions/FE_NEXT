@@ -1,0 +1,10 @@
+.container{
+    display: flex;
+    height: 80vh;
+    flex-direction: column;
+}
+.scrollable_container{
+    overflow: auto;
+    margin-top: 6vh;
+    max-height: calc(90vh - 50px);
+}

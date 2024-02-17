@@ -1,0 +1,173 @@
+.container {
+  height: 80%;
+  border-radius: 20px;
+  padding: 40px;
+  background-color: white;
+  padding-bottom: 100px;
+}
+
+.userimg {
+  margin-bottom: -10px;
+}
+.userlay {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.usertext {
+  display: flex;
+  text-align: center;
+  margin-left: 35px;
+  margin-top: -5px;
+}
+
+.username {
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+  margin-top: -10px;
+  width: 200px;
+}
+
+.time {
+  font-size: 13px;
+  color: #8f8f8f;
+  font-weight: 500;
+}
+
+.date {
+  font-size: 13px;
+  color: #8f8f8f;
+  font-weight: 500;
+}
+
+.morebtn {
+  padding-left: 180px;
+  display: flex;
+  align-items: center;
+}
+.rerender {
+  padding-right: 15px;
+}
+
+.title {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.point {
+  width: 76px;
+  height: 21px;
+  border-radius: 8px;
+  font-size: 12px;
+  background-color: black;
+  color: #ffc700;
+  padding-top: 4px;
+  margin-top: -3px;
+  margin-left: 150px;
+}
+
+.content {
+  margin-top: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #343434;
+}
+
+.imgSlide {
+  margin-top: 38px;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.taglay {
+  margin-top: 47px;
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ff9c00;
+  padding-right: 160px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #6f6f6f;
+  margin-top: 10px;
+  gap: 7px;
+}
+
+.minititle {
+  display: flex;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 200;
+  margin-top: 54px;
+  white-space: nowrap;
+}
+
+.line {
+  font-size: 13px;
+  color: #969696;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.vote {
+  background-color: #fffbeb;
+}
+.pointnum {
+  padding-right: 5px;
+}
+.timeimg {
+  padding-left: 5px;
+  padding-right: 2px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding-top: 25px;
+  gap: 2px;
+}
+
+.countview {
+  color: #000000;
+  padding-right: 10px;
+}
+.like {
+  color: #f9c81c;
+  padding-right: 10px;
+}
+.comment {
+  color: #4f4f4f;
+}
+
+.mini {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.underlay {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  gap: 15px;
+}
+
+.img {
+  margin-right: 4px;
+}

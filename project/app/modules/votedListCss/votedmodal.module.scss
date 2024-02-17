@@ -1,0 +1,60 @@
+.modal_Overlay{
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; // 맨 아래에서부터 시작하도록 함
+}
+.modal_container{
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 78%; // 아래에서부터 78%를 차지함
+    .closeButton {
+        position: absolute;
+        top: 2%;
+        left: 50%; /* 가운데 정렬을 위해 50%로 설정 */
+        transform: translateX(-50%); /* 가운데 정렬을 위해 이동 */
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .modal_innerContent {
+        margin-top: 30px;
+        //max-height: 66vh;
+        .header{
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .choice_container{
+                display: flex;
+                justify-content: space-evenly;
+            }
+        }
+    }
+    p{
+        font-weight: bold;
+        font-size: 17px;
+    }
+}
+.complete_button{
+    width: 95%;
+    height: 45px;
+    margin-top: 5px;
+    color: #FFCD3E;
+    background-color: black;
+    font-weight: 800;
+    border-radius: 30px;
+}

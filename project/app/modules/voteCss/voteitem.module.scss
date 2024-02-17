@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    align-items: center;
+    width: 93%;
+    height: 23px;
+    padding: 10px;
+    padding-left: 10px;
+    background-color: #F5F5F5;
+    border-radius: 30px;
+    margin-bottom: 15px;
+}
+.write_item{
+    width: 77%;
+    background-color: transparent;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    color: #A5A5A5;
+    caret-color: #A5A5A5;
+}
+.write_item::placeholder{
+    color: #A5A5A5;
+    font-weight: 200;
+}
+.menu_container{
+    display: flex;
+    width: 23%;
+    justify-content: space-evenly;
+}
