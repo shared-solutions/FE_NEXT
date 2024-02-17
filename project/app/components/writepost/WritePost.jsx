@@ -61,6 +61,7 @@ const WritePost = () => {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
             console.log('첫 번째 POST 요청 성공:', response.data);
 
             // postId 추출
