@@ -27,18 +27,16 @@ export const GeneralBox = ({
         {candidateList &&
           candidateList.map((option, index) => (
             <div key={index} className={styles.option}>
-              {option.candidate_image && (
+              {option.optionImgUrl && (
                 <Image
-                  src={option.candidate_image}
+                  src={option.optionImgUrl}
                   alt={`선택지 ${index + 1}`}
                   width={35}
                   height={35}
                 />
               )}
               <div className={styles.optionStringBox}>
-                <div className={styles.optionString}>
-                  {option.candidate_name}
-                </div>
+                <div className={styles.optionString}>{option.optionString}</div>
 
                 <div className={styles.optionPercentage}>
                   {isNaN(option.ratio) ? 0 : option.ratio}

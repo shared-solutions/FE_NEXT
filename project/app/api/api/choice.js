@@ -1,13 +1,13 @@
 import api from "./index";
 
 // 댓글 채택 api
-export const choiceComment = async (commentid) => {
+export const choiceComment = async (commentid, postId) => {
   console.log("댓글 채택");
 
   try {
-    const atkToken = localStorage.getItem("accesstoken");
+    const atkToken = localStorage.getItem("token");
     const response = await api.post(
-      `/posts/3/comment/${commentid}/choice`,
+      `/posts/${postId}/comment/${commentid}/choice`,
       null,
       {
         headers: {
