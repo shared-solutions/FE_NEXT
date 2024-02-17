@@ -2,7 +2,7 @@ import styles from "@/app/modules/postListCss/cardPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
-
+import { calculateTimeDifference } from "../comment/CommentSort";
 const CardP = ({
   userimg,
   nickname,
@@ -12,6 +12,7 @@ const CardP = ({
   like,
   comment_cnt,
   file,
+  date,
 }) => {
   return (
     <div className={styles.box}>
@@ -28,6 +29,7 @@ const CardP = ({
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
         <div className={styles.imgSlide}>
           {candidateList &&
             candidateList.map((option, index) => (

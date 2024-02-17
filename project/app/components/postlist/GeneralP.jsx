@@ -2,7 +2,7 @@ import styles from "@/app/modules/postListCss/generalPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
-
+import { calculateTimeDifference } from "../comment/CommentSort";
 const GeneralP = ({
   userimg,
   nickname,
@@ -12,6 +12,7 @@ const GeneralP = ({
   like,
   comment_cnt,
   file,
+  date,
 }) => {
   // 옵션의 개수에 따라서 box의 height를 동적으로 계산
   const boxHeight = 270 + (candidateList.length - 2) * 50;
@@ -31,6 +32,7 @@ const GeneralP = ({
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
         <div className={styles.options}>
           {candidateList &&
             candidateList.map((option, index) => (
@@ -48,7 +50,9 @@ const GeneralP = ({
                     {option.candidate_name}
                   </div>
 
-                  <div className={styles.optionPercentage}>{option.ratio}</div>
+                  <div className={styles.optionPercentage}>
+                    {isNaN(option.ratio) ? 0 : option.ratio}
+                  </div>
                 </div>
               </div>
             ))}

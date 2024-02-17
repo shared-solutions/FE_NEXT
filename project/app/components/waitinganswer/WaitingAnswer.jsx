@@ -32,7 +32,7 @@ const WaitingAnswer = () => {
 
   const renderPostBox = (userDataItem, index) => {
     const {
-      postId,
+      post_id,
       postVoteType,
       user,
       title,
@@ -42,6 +42,7 @@ const WaitingAnswer = () => {
       candidateList,
       comment_cnt,
       file,
+      created_at,
     } = userDataItem;
 
     const generalProps = {
@@ -53,6 +54,7 @@ const WaitingAnswer = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
 
     const cardProps = {
@@ -64,6 +66,7 @@ const WaitingAnswer = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
 
     const gaugeProps = {
@@ -74,7 +77,18 @@ const WaitingAnswer = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
+
+    // const waitingProps = {
+    //   userimg: user.image || defaultUserImg,
+    //   nickname: user.nickname || "",
+    //   title: title || "",
+    //   content: content || "",
+    //   like: like || 0,
+    //   comment_cnt: comment_cnt || 0,
+    //   time: created_at || "",
+    // };
 
     return (
       <>
@@ -82,7 +96,7 @@ const WaitingAnswer = () => {
           <Link
             className={styles.link}
             key={index}
-            href={`/viewdetail/${postId}`}
+            href={`/viewdetail/${post_id}`}
           >
             {postVoteType === "GENERAL" ? (
               <GeneralP {...generalProps} />

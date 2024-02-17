@@ -40,7 +40,9 @@ export const GeneralBox = ({
                   {option.candidate_name}
                 </div>
 
-                <div className={styles.optionPercentage}>{option.ratio}</div>
+                <div className={styles.optionPercentage}>
+                  {isNaN(option.ratio) ? 0 : option.ratio}
+                </div>
               </div>
             </div>
           ))}
@@ -59,7 +61,14 @@ export const GeneralBox = ({
   );
 };
 
-export const GaugeBox = ({ title, content, like, comment_cnt, gauge }) => {
+export const GaugeBox = ({
+  title,
+  content,
+  like,
+  comment_cnt,
+  gauge,
+  date,
+}) => {
   const gaugeValue = 0;
   const gaugeValuePercent = gaugeValue + "%";
 
@@ -78,6 +87,8 @@ export const GaugeBox = ({ title, content, like, comment_cnt, gauge }) => {
       <div className={styles.mainbox}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
+
         <div className={styles.gaugeContainer}>
           <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
             <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
@@ -110,12 +121,15 @@ export const CardBox = ({
   like,
   comment_cnt,
   candidateList,
+  date,
 }) => {
   return (
     <>
       <div className={styles.mainbox}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
+
         <div className={styles.imgSlide}>
           {candidateList &&
             candidateList.map((option, index) => (

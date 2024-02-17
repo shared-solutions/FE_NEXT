@@ -16,7 +16,6 @@ const AllPage = () => {
   const titlelogo = PageRendering((state) => state.title);
   const img = PageRendering((state) => state.img);
   const [userData, setUserData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("모두");
 
   const [page, setPage] = useState(0); // 현재 페이지
   const [loading, setLoading] = useState(false); // 데이터를 불러오는 중인지 여부
@@ -96,7 +95,7 @@ const AllPage = () => {
 
   const renderPostBox = (userDataItem, index) => {
     const {
-      postId,
+      post_id,
       postVoteType,
       user,
       title,
@@ -106,6 +105,7 @@ const AllPage = () => {
       candidateList,
       comment_cnt,
       file,
+      created_at,
     } = userDataItem;
 
     // 기본값 설정
@@ -128,6 +128,7 @@ const AllPage = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
 
     const cardProps = {
@@ -139,6 +140,7 @@ const AllPage = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
 
     const gaugeProps = {
@@ -149,6 +151,7 @@ const AllPage = () => {
       like: like || 0,
       comment_cnt: comment_cnt || 0,
       file: file || [],
+      date: created_at || 0,
     };
 
     return (
@@ -157,7 +160,7 @@ const AllPage = () => {
           <Link
             className={styles.link}
             key={index}
-            href={`/viewdetail/${postId}`}
+            href={`/viewdetail/${post_id}`}
           >
             {postVoteType === "GENERAL" ? (
               <GeneralP {...generalProps} />

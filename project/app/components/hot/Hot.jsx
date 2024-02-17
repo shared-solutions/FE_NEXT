@@ -75,7 +75,7 @@ const Hot = () => {
 
   const renderBox = (userDataItem, index) => {
     const {
-      postId,
+      post_id,
       postVoteType,
       user,
       title,
@@ -121,7 +121,7 @@ const Hot = () => {
           <Link
             className={styles.link}
             key={index}
-            href={`/viewdetail/${postId}`}
+            href={`/viewdetail/${post_id}`}
           >
             {postVoteType === "GENERAL" ? (
               <GeneralBox {...generalProps} />

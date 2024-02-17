@@ -3,7 +3,7 @@ import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import gaugeImg from "@/app/public/image/gauge_img.png";
 import Image from "next/image";
-
+import { calculateTimeDifference } from "../comment/CommentSort";
 const GaugeP = ({
   userimg,
   nickname,
@@ -13,6 +13,7 @@ const GaugeP = ({
   comment_cnt,
   gauge,
   file,
+  date,
 }) => {
   const gaugeValue = gauge === null ? 0 : gauge;
   const gaugePercentage = gaugeValue + "%";
@@ -45,6 +46,7 @@ const GaugeP = ({
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
         <div className={styles.gaugeContainer}>
           <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
             <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
