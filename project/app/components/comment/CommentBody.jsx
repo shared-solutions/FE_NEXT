@@ -25,6 +25,8 @@ const CommentBody = ({
   isPushedLike,
   isMyComment,
   isOwnerOfPost,
+  postId,
+  onDDDClick,
 }) => {
   console.log(isPushedLike);
   const fetchData = async () => {
@@ -38,12 +40,22 @@ const CommentBody = ({
 
   const handleDeleteLike = async (commentId) => {
     try {
-      // 댓글 등록 api
       const response = await deleteCommentLike(commentId);
       console.log(response);
 
-      // 댓글 등록 후 최신 데이터 다시 가져오기
       fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (commentid) => {
+    console.log(postId.postId);
+    try {
+      const response = await deleteComment(commentid, postId);
+      console.log(response);
+
+      onDDDClick();
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +63,6 @@ const CommentBody = ({
 
   const handleLike = async (commentId) => {
     try {
-      // 댓글 등록 api
       const response = await likeComment(commentId);
       console.log(response);
 
@@ -121,7 +132,7 @@ const CommentBody = ({
 
           {isMyComment && (
             <Image
-              onClick={() => deleteComment(commentId)}
+              onClick={() => handleDelete(commentId)}
               src={trash}
               alt="삭제버튼"
               width={2}

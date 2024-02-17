@@ -302,6 +302,7 @@ export default function Detail({
         />
         {setting && (
           <CommentSort
+            postId={postId}
             onClose={() => {
               setSetting(false);
             }}
