@@ -5,6 +5,7 @@ import bglogo from '@/app/public/image/bglogo.png'
 import useAuthStore from '@/app/zustand/useAuthStore';
 import { Eye } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 export default function Modal() {
@@ -32,10 +33,7 @@ export default function Modal() {
   const isRequiredChecked = email !== "" && pw !== "";
 
   const loginUser = async () => {
-    const requestBody = {
-      email: email,
-      password: pw,
-    };
+
     try {
 
       const response = await fetch('/user/login', {
@@ -49,9 +47,14 @@ export default function Modal() {
       if (response.ok) {
         const data = await response.json();
         const token = data.result[0].token;
+        const expire = data.result[0].tokenExpriresTime;
+        const expirationDate = new Date(expire);
+        const rtk =  data.result[1].token;
+        
         setToken(token);
         localStorage.setItem('token',token)
-        
+        localStorage.setItem('rtk',rtk)
+        document.cookie = `token=${token}; path=/; expires=${expirationDate.toUTCString()}`;
         router.push('/home')
       } else {
         console.error('Login failed');
@@ -111,7 +114,12 @@ export default function Modal() {
               <p>로그인</p>
             </button>
           </div>
+          <div className={styles.find_pw}>
+            <Link href = '/i/signin/findpw'><p>비밀번호가 생각나지 않으신가요?</p></Link>
+          </div>
+          
         </div>
+        
       </div>
     </div>
   );

@@ -1,17 +1,17 @@
 import api from "./index";
 
 // 댓글 생성 api
-export const postComment = async (content, Long) => {
+export const postComment = async (content, parentId, postId) => {
   const requestBody = {
     content: content,
-    parentId: Long,
+    parentId: parentId || null,
   };
   console.log("댓글 api 연동");
 
   try {
     // 추후에 경로 수정해야됨 하드코딩되어있음
     const atkToken = localStorage.getItem("token");
-    const response = await api.post("/posts/3/comment", requestBody, {
+    const response = await api.post(`/posts/${postId}/comment`, requestBody, {
       headers: {
         atk: `${atkToken}`,
       },
@@ -24,12 +24,12 @@ export const postComment = async (content, Long) => {
 };
 
 // 댓글 전체조회 api(완료)
-export const lookupComment = async () => {
+export const lookupComment = async ({ postId }) => {
   console.log("댓글 전체조회");
 
   try {
     const atkToken = localStorage.getItem("token");
-    const response = await api.get("/posts/3/comments", {
+    const response = await api.get(`/posts/${postId}/comments`, {
       headers: {
         atk: `${atkToken}`,
       },
@@ -60,12 +60,12 @@ export const lookupComment = async () => {
 // };
 
 // 댓글 삭제 api
-export const deleteComment = async (commentid) => {
+export const deleteComment = async (commentid, postId) => {
   console.log("댓글 삭제");
   try {
     const atkToken = localStorage.getItem("token");
     const response = await api.patch(
-      `/posts/3/comment/${commentid}/del`,
+      `/posts/${postId}/comment/${commentid}/del`,
       null,
       {
         headers: {
