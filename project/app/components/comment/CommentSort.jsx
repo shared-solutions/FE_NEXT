@@ -15,6 +15,8 @@ import trash from "@/app/public/image/cotrash.png";
 import unlike from "@/app/public/image/unlike.png";
 import { deleteCommentLike } from "@/app/api/api/like";
 import { likeComment } from "@/app/api/api/like";
+import Toast from "../toast/Toast";
+
 export const calculateTimeDifference = (createdAt) => {
   const now = new Date();
   const createdDate = new Date(createdAt);
@@ -49,6 +51,8 @@ export const CommentSort = (postId) => {
   const [replyToComment, setReplyToComment] = useState(null);
   const [isReComment, setIsReComment] = useState(false);
   const [comments, setComments] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const fetchData = async () => {
     try {
@@ -111,6 +115,8 @@ export const CommentSort = (postId) => {
       console.log(response);
 
       fetchData();
+      setToastMessage("댓글이 삭제되었습니다.");
+      setShowToast(true);
     } catch (error) {
       console.log(error);
     }
@@ -137,6 +143,9 @@ export const CommentSort = (postId) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleToastClose = () => {
+    setShowToast(false);
   };
 
   return (
@@ -196,7 +205,7 @@ export const CommentSort = (postId) => {
                                   <div className={styles.name}>
                                     {childComment.userNickname}
                                   </div>
-                                  <div className={styles.when}>
+                                  <div className={styles.whenc}>
                                     {calculateTimeDifference(
                                       childComment.createdAt
                                     )}
@@ -237,15 +246,17 @@ export const CommentSort = (postId) => {
                                       />
                                     )}
 
-                                    <Image
-                                      onClick={() => {
-                                        handleDelete(childComment.commentId);
-                                      }}
-                                      src={trash}
-                                      alt="더보기"
-                                      width={8}
-                                      height={14}
-                                    />
+                                    {childComment.isMyComment && (
+                                      <Image
+                                        onClick={() => {
+                                          handleDelete(childComment.commentId);
+                                        }}
+                                        src={trash}
+                                        alt="더보기"
+                                        width={8}
+                                        height={14}
+                                      />
+                                    )}
                                   </div>
                                 </div>
                                 {!childComment.isDeleted && (
@@ -266,6 +277,12 @@ export const CommentSort = (postId) => {
                           ))}
                         </>
                       )}
+                    {showToast && (
+                      <Toast
+                        message={toastMessage}
+                        onClose={handleToastClose}
+                      />
+                    )}
                   </div>
                 ))}
 
