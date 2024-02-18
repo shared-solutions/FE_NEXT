@@ -24,6 +24,17 @@
   text-overflow: ellipsis;
 }
 
+.cardtitle {
+  font-size: 20px;
+  font-weight: 900;
+  color: black;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -10px;
+}
+
 .content {
   margin-top: 8px;
   width: 100%;
@@ -141,7 +152,7 @@
   border-radius: 10px;
   box-shadow: 0 0 12px rgb(0 0 0 / 13%);
   padding: 7px;
-  height: 150px;
+  height: 130px;
 }
 
 .optionCard img {

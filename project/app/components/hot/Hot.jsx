@@ -20,10 +20,10 @@ const Hot = () => {
   const [page, setPage] = useState(0); // 현재 페이지
   const [loading, setLoading] = useState(false); // 데이터를 불러오는 중인지 여부
 
-  const authToken = localStorage.getItem("token");
-
   const getData = async () => {
     try {
+      const authToken = localStorage.getItem("token");
+
       setLoading(true); // 데이터를 불러오는 중임을 표시
       let url = "https://dev.gomin-chingu.site/posts/best";
 
@@ -89,20 +89,24 @@ const Hot = () => {
       file,
       uploadDate,
       pollPostList,
+      allCandidatePercent,
+      totalGauge,
+      userGauge,
     } = userDataItem;
 
     const generalProps = {
       title: title || "",
       content: content || "",
-      candidateList: pollPostList || [],
+      candidateList: pollOption || [],
       like: like || 0,
       comment_cnt: comment || 0,
       date: uploadDate || 0,
+      allCandidatePercent: allCandidatePercent || [],
     };
     const cardProps = {
       title: title || "",
       content: content || "",
-      candidateList: pollPostList || [],
+      candidateList: pollOption || [],
       like: like || 0,
       comment_cnt: comment || 0,
       date: uploadDate || 0,
@@ -114,6 +118,8 @@ const Hot = () => {
       like: like || 0,
       comment_cnt: comment || 0,
       date: uploadDate || 0,
+      totalGauge: totalGauge || 0,
+      userGauge: userGauge || 0,
     };
 
     // 여기 무한스크롤 데이터 받아와서 저렇게 포스트타입별로 allpage에 있는 로직처럼

@@ -22,6 +22,55 @@ export default function Profile() {
     setRank(true);
   };
 
+  
+  const getMyQuestion = async () => {
+    try {
+      const page = 0;
+const atkToken =localStorage.getItem("token");
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/profile/question"
+      ); // API 엔드포인트 URL로 교체
+      url.searchParams.append("page", page);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.result);
+        setMyQuestion(data.result.postList);
+        console.log("MyPage data:", data);
+      } else {
+        console.error("Failed to get MyPage data:", response);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const getMyAnswer = async () => {
+    try {
+      const page = 0;
+
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/profile/answer"
+      ); // API 엔드포인트 URL로 교체
+      url.searchParams.append("page", page);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {

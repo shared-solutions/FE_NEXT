@@ -13,20 +13,37 @@ import EditInfo from "@/app/components/edit/EditInfo";
 import EditPassword from "@/app/components/edit/EditPassword";
 
 export default function Edit() {
-  const [userData, setUserData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await handleLogin();
-        const result = await getMyInfo();
-        setUserData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  const { user, isEditing, toggleEditing, updateField } = useStore();
+  const [userData, setUserData] = useState(user);
+
+  
+  const getMyPage = async () => {
+    try {
+       const atkToken =localStorage.getItem("token")
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/profile/modify"
+      );
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.result);
+        console.log("MyPage data:", data);
+      } else {
+        console.error("MyPage 데이터를 가져오지 못했습니다:", response);
       }
-    };
-    fetchData();
-  }, [userData.userImage]);
+    } catch (error) {
+      console.error("에러", error);
+    }
+  };
 
   return (
     <>

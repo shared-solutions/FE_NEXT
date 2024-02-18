@@ -7,13 +7,17 @@ import arrow2 from "../../public/image/arrow2.png";
 import more_button from "@/app/public/image/more_button.png";
 
 import Content from "@/app/components/notification/Content";
+
 import { getAlarmList } from "@/app/api/user/alarm/alarm";
+
 
 export default function Home() {
   const [alarmList, setAlarmList] = useState([]);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [readAllAlarm, setReadAllAlarm] = useState(false);
 
+
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

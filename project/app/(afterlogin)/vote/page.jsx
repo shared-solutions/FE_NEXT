@@ -24,38 +24,42 @@ const PostList = () => {
     setPage(0); // 카테고리가 변경될 때마다 페이지 리셋
   };
 
-  const authToken = localStorage.getItem("token");
-
   const getData = async () => {
     try {
-      setLoading(true); // 데이터를 불러오는 중임을 표시
-      const url = `https://dev.gomin-chingu.site/posts/poll-post/${selectedCategory}`;
-      const params = {
-        page: page,
-        size: 7,
-        category: selectedCategory,
-      };
+      if (typeof window !== "undefined") {
+        // 클라이언트 환경에서만 실행
+        setLoading(true); // 데이터를 불러오는 중임을 표시
+        const url = `https://dev.gomin-chingu.site/posts/poll-post/${selectedCategory}`;
+        const params = {
+          page: page,
+          size: 7,
+          category: selectedCategory,
+        };
 
-      const response = await axios.get(url, {
-        params: params,
-        headers: {
-          "Content-Type": "application/json",
-          atk: authToken,
-        },
-      });
+        const response = await axios.get(url, {
+          params: params,
+          headers: {
+            "Content-Type": "application/json",
+            atk: localStorage.getItem("token"), // localStorage에서 직접 가져옴
+          },
+        });
 
-      if (response.status === 200) {
-        const data = response.data;
-        if (page === 0) {
-          // 페이지가 0이면 새로운 데이터로 대체
-          setUserData(data.result.pollPostList);
+        if (response.status === 200) {
+          const data = response.data;
+          if (page === 0) {
+            // 페이지가 0이면 새로운 데이터로 대체
+            setUserData(data.result.pollPostList);
+          } else {
+            // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
+            setUserData((prevData) => [
+              ...prevData,
+              ...data.result.pollPostList,
+            ]);
+          }
+          console.log("글 전체보기 데이터:", data);
         } else {
-          // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
-          setUserData((prevData) => [...prevData, ...data.result.pollPostList]);
+          console.error("Failed to get data:", response);
         }
-        console.log("글 전체보기 데이터:", data);
-      } else {
-        console.error("Failed to get data:", response);
       }
     } catch (error) {
       console.error("Error", error);

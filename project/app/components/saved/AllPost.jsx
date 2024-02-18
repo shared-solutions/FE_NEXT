@@ -1,4 +1,8 @@
+
 "use client";
+
+import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { getMyPost } from "@/app/api/user/profile/saved-post";
@@ -8,6 +12,7 @@ import Post from "../../components/saved/Post";
 export default function AllPost() {
   const [sortBy, setSortBy] = useState(0);
   const [userData, setUserData] = useState([]);
+
 
   useEffect(() => {  
     const fetchData = async () => {
@@ -19,6 +24,44 @@ export default function AllPost() {
       }
     };
     fetchData();
+
+
+  const getMyPage = async () => {
+    try {
+      const atkToken =localStorage.getItem("token")
+      const page = 0;
+      const sort = sortBy;
+
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/post/all"
+      );
+      url.searchParams.append("page", page);
+      url.searchParams.append("sort", sort);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.result.postList);
+        console.log("MyPage data:", data);
+      } else {
+        console.error("Failed to get MyPage data:", response);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+   
+    getMyPage();
+
   }, [sortBy]);
 
   return (

@@ -12,12 +12,18 @@ import Close from "@/app/components/menu/Close";
 export default function MyPage() {
 
 
+
+
   const [userData, setUserData] = useState([]);
 
-  const atkToken = localStorage.getItem("token");
+
+
 
   const getMyPage = async () => {
     try {
+
+
+      const atkToken = localStorage.getItem("token");
       const url = "https://dev.gomin-chingu.site/user/my-page"; // API 엔드포인트 URL로 교체
       const response = await fetch(url, {
         method: "GET",
@@ -43,7 +49,6 @@ export default function MyPage() {
     getMyPage();
   }, []);
 
-
   return (
     <div className={styles.modal}>
       <div className={styles.background}>
@@ -52,7 +57,9 @@ export default function MyPage() {
           <ProfileImage image={userData.userPhoto}/>
           <Info userData={userData} />
           <Category />
+
           <Features />
+
         </div>
       </div>
     </div>

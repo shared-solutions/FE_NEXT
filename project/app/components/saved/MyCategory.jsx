@@ -17,7 +17,7 @@ export default function MyCategory() {
   // const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
 
   const [categoryList, setCategoryList] = useState([]);
-  const atkToken = localStorage.getItem("token");
+ 
 
   const getCategoryClicked = (index) => {
     switch (index) {
@@ -65,6 +65,7 @@ export default function MyCategory() {
 
   const getMyCategory = async () => {
     try {
+       const atkToken = localStorage.getItem("token");
       const url = new URL("https://dev.gomin-chingu.site/user/my-page/post");
       const response = await fetch(url, {
         method: "GET",
@@ -89,6 +90,7 @@ export default function MyCategory() {
   };
   const fetchDataForCategoryIds = async () => {
     try {
+       const atkToken = localStorage.getItem("token");
       // Array to store promises for each API call
       const fetchPromises = Array.from({ length: 6 }, (_, index) => {
         const categoryId = index + 1;
