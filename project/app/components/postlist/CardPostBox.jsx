@@ -1,5 +1,5 @@
 import styles from "@/app/modules/postListCss/cardPostBox.module.scss";
-import checkImg from "@/app/public/image/checkGaeun.png";
+import checkImg from "@/app/public/image/checkcheck.png";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
@@ -46,31 +46,36 @@ const CardPostBox = ({
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
         <div className={styles.imgSlide}>
-          {pollOption &&
-              pollOption.map((option, index) => (
-                <div key={index} className={styles.option}>
-                  <span>
-                    {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && ( 
-                        // userVote에 해당 옵션이 포함되어 있는지 확인하여 체크 이미지 표시
-                        <Image
-                          src={checkImg}
-                          alt="체크"
-                          width={15}
-                          height={15}
-                          className={styles.checkImage}
-                        />
-                      )}
-                  </span>
-                  {option.optionImgUrl && (
-                    <Image
-                      src={option.optionImgUrl}
-                      alt={`선택지 ${index + 1}`}
-                      width={98}
-                      height={124}
-                    />
-                  )}
-                </div>
-              ))}
+        {pollOption &&
+  pollOption.map((option, index) => {
+    const isTopCandidate = topCandidate && topCandidate.length > 0 && topCandidate.some(candidate => candidate.optionId === option.optionId);
+    return (
+      <div
+        key={index}
+        className={`${styles.option} ${userVote && userVote.map(vote => vote.optionId).includes(option.optionId) ? styles.userVoted : ''} ${isTopCandidate ? styles.topCandidate : ''}`}
+      >
+        <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
+          {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
+            <Image
+              src={checkImg}
+              alt="체크"
+              width={25}
+              height={25}
+              className={styles.checkImage}
+            />
+          )}
+        </div>
+        {option.optionImgUrl && (
+          <Image
+            src={option.optionImgUrl}
+            alt={`선택지 ${index + 1}`}
+            width={98}
+            height={124}
+          />
+        )}
+      </div>
+    );
+  })}
         </div>
 
         <div className={styles.footer}>
