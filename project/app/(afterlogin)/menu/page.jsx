@@ -12,8 +12,6 @@ import Features from "@/app/components/menu/Features";
 import Close from "@/app/components/menu/Close";
 
 export default function MyPage() {
-  const userEmail = process.env.NEXT_PUBLIC_USER_EMAIL;
-  const userPassword = process.env.NEXT_PUBLIC_USER_PASSWORD;
   const router = useRouter();
   const data = useSession;
   const Logout = () => {
@@ -24,37 +22,9 @@ export default function MyPage() {
 
   const [userData, setUserData] = useState([]);
 
-  const handleLogin = async () => {
-    try {
-      const endpoint = "https://dev.gomin-chingu.site/user/login";
-      const requestBody = {
-        email: userEmail,
-        password: userPassword,
-
-      };
-      const response = await axios.post(endpoint, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data.result[0].token) {
-        localStorage.setItem("token", response.data.result[0].token);
-        console.log();
-
-        //alert("성공적으로 로그인했습니다!");
-      }
-      console.log(response.data.result);
-    } catch (error) {
-      console.log(userEmail);
-      console.log(userPassword);
-      console.log(error);
-      //alert("ID 또는 비밀번호가 틀립니다.");
-    }
-  };
-  const atkToken = localStorage.getItem("token");
-
   const getMyPage = async () => {
     try {
+      const atkToken = localStorage.getItem("token");
       const url = "https://dev.gomin-chingu.site/user/my-page"; // API 엔드포인트 URL로 교체
       const response = await fetch(url, {
         method: "GET",
@@ -77,10 +47,8 @@ export default function MyPage() {
   };
 
   useEffect(() => {
-    handleLogin();
     getMyPage();
   }, []);
-
 
   return (
     <div className={styles.modal}>
@@ -91,7 +59,7 @@ export default function MyPage() {
           <Info userData={userData} />
           <Category />
           <Features logout={Logout} />
-          <button onClick={handleLogin}>Login</button>
+          <button>Login</button>
         </div>
       </div>
     </div>

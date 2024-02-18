@@ -15,10 +15,12 @@ export default function Profile() {
   const [userData, setUserData] = useState([]);
   const [myQuestion, setMyQuestion] = useState([]);
   const [myAnswer, setMyAnswer] = useState([]);
+
   const handleRankButton = () => {
     console.log(rank);
     setRank(true);
   };
+
   const handleLogin = async () => {
     try {
       const endpoint = "https://dev.gomin-chingu.site/user/login";
@@ -32,18 +34,20 @@ export default function Profile() {
         },
       });
       if (response.data.result[0].token) {
-        localStorage.setItem("token", response.data.result[0].token);
-        console.log();
-        //alert("성공적으로 로그인했습니다!");
+        if (typeof window !== "undefined") {
+          localStorage.setItem("token", response.data.result[0].token);
+        }
+        //alert("Successfully logged in!");
       }
       console.log(response.data.result);
     } catch (error) {
-      console.log(error);
-      //alert("ID 또는 비밀번호가 틀립니다.");
+      console.error(error);
+      //alert("Incorrect ID or password.");
     }
   };
-  const atkToken = localStorage.getItem("token");
 
+  const atkToken =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const getMyQuestion = async () => {
     try {
       const page = 0;

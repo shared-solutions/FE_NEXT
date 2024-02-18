@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import star_gray from "@/app/public/image/star_gray.png";
@@ -15,8 +14,6 @@ export default function MyCategory() {
   const [etcClicked, setEtcClicked] = useState(false);
   const [userData, setUserData] = useState([]);
   const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
-
-  const atkToken = localStorage.getItem("token");
 
   const getCategoryClicked = (index) => {
     switch (index) {
@@ -62,49 +59,46 @@ export default function MyCategory() {
     }
   };
 
-  const getMyPage = async () => {
-    try {
-      const promises = categories.map(async (category) => {
-        const url = new URL(
-          `https://dev.gomin-chingu.site/posts/poll-post/${category}`
-        );
-        url.searchParams.append("page", "0");
-        url.searchParams.append("size", "3");
-        url.searchParams.append("category", category);
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            atk: atkToken,
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUserData((prevUserData) => [
-            ...prevUserData,
-            data.result.pollPostList,
-          ]);
-        } else {
-          console.error("Failed to get MyPage data:", response);
-        }
-      });
-      await Promise.all(promises);
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
-
   useEffect(() => {
+    // 클라이언트 측에서만 실행되도록 보장
+    const atkToken = localStorage.getItem("token");
+
+    const getMyPage = async () => {
+      try {
+        const promises = categories.map(async (category) => {
+          const url = new URL(
+            `https://dev.gomin-chingu.site/posts/poll-post/${category}`
+          );
+          url.searchParams.append("page", "0");
+          url.searchParams.append("size", "3");
+          url.searchParams.append("category", category);
+
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              atk: atkToken,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setUserData((prevUserData) => [
+              ...prevUserData,
+              data.result.pollPostList,
+            ]);
+          } else {
+            console.error("Failed to get MyPage data:", response);
+          }
+        });
+        await Promise.all(promises);
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
+
     getMyPage();
   }, []);
 
-  console.log("1:", userData[0]);
-  console.log("2:", userData[1]);
-  console.log("3:", userData[2]);
-  console.log("4:", userData[3]);
-  console.log("5:", userData[4]);
-  console.log("6:", userData[5]);
   return (
     <>
       <div className={styles.scrollContainer}>

@@ -1,4 +1,3 @@
-"use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -22,17 +21,21 @@ export default function AllPost() {
         },
       });
       if (response.data.result[0].token) {
-        localStorage.setItem("token", response.data.result[0].token);
-        console.log();
-        //alert("성공적으로 로그인했습니다!");
+        // 클라이언트 측에서만 localStorage에 접근
+        if (typeof window !== "undefined") {
+          localStorage.setItem("token", response.data.result[0].token);
+        }
+        console.log("로그인 성공");
       }
       console.log(response.data.result);
     } catch (error) {
       console.log(error);
-      //alert("ID 또는 비밀번호가 틀립니다.");
+      console.log("로그인 실패");
     }
   };
-  const atkToken = localStorage.getItem("token");
+
+  const atkToken =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const getMyPage = async () => {
     try {
@@ -41,7 +44,7 @@ export default function AllPost() {
 
       const url = new URL(
         "https://dev.gomin-chingu.site/user/my-page/post/all"
-      ); // API 엔드포인트 URL로 교체
+      );
       url.searchParams.append("page", page);
       url.searchParams.append("sort", sort);
 
@@ -69,6 +72,7 @@ export default function AllPost() {
     handleLogin();
     getMyPage();
   }, [sortBy]);
+
   return (
     <>
       <div className={styles.container}>
