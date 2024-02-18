@@ -9,60 +9,68 @@ import WritePostHeader from "./WritePostHeader";
 import WritePostFooter from "./WritePostFooter";
 
 const WritePost = () => {
+  const [title, setTitle] = useState(""); // 제목 상태 변수
+  const [content, setContent] = useState(""); // 내용 상태 변수
+  const [file, setFile] = useState(null);
+  const voteTitle = useVoteStore((state) => state.voteTitle); // Zustand에서 투표 제목 가져오기
+  const selectedCategory = useVoteStore((state) => state.selectedCategory); // Zustand에서 카테고리 가져오기
+  const voteDeadline = useVoteStore((state) => state.voteDeadline);
+  const typeNum = useVoteStore.getState().selectedVoteType;
+  const authToken = localStorage.getItem("token");
+  console.log(typeNum);
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
-    const [title, setTitle] = useState(''); // 제목 상태 변수
-    const [content, setContent] = useState(''); // 내용 상태 변수
-    const [file, setFile] = useState(null);
-    const voteTitle = useVoteStore(state => state.voteTitle); // Zustand에서 투표 제목 가져오기
-    const selectedCategory = useVoteStore(state => state.selectedCategory); // Zustand에서 카테고리 가져오기
-    const voteDeadline = useVoteStore((state) => state.voteDeadline);
-    const typeNum = useVoteStore.getState().selectedVoteType
-    const authToken = localStorage.getItem("token");
-    console.log(typeNum)
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-      };
+  // 원하는 형식으로 날짜와 시간을 포맷하는 함수
+  // const formatDateTimeForServer = (dateTime) => {
+  //     return dateTime.toISOString(); // 예시: "2024-02-18T02:16:56.811Z"
+  // };
 
   // voteTitle 잘 들어가는지 확인
-  useEffect(() => {
-    console.log("voteTitle:", voteTitle);
-  }, [voteTitle]);
 
-    // voteTitle 잘 들어가는지 확인
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append(
+        "request",
+        JSON.stringify({
+          title: title,
+          content: content,
+          // ----- 하드코딩 시작 -----
+          category: selectedCategory,
+          postType: 1,
+          postVoteType: 1,
+          pollTitle: voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
+          multipleChoice: true,
+          parent_id: 0,
+          deadline: "2024-02-23T02:16:56.811Z",
+          // deadline: voteDeadline.toISOString(),
+          // deadline: formatDateTimeForServer(voteDeadline),
+          // deadline: voteDeadline ? voteDeadline.toISOString() : null,
+          point: 0,
+          // ----- 하드코딩 끝 -----
+        })
+      );
+      formData.append("file", file);
 
+      // 첫 번째 POST 요청
+      const response = await axios.post(
+        "https://dev.gomin-chingu.site/posts/",
+        formData,
+        {
+          headers: {
+            atk: authToken,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-    const handleSubmit = async () => {
-        try {
-            const formData = new FormData();
-            formData.append('request', JSON.stringify({
-                title: title,
-                content: content,
-                // ----- 하드코딩 시작 -----
-                category: selectedCategory,
-                postType: 1,
-                postVoteType: 1,
-                pollTitle : voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
-                multipleChoice: true,
-                parent_id : 0,
-                deadline: "2024-02-23T02:16:56.811Z",
-                // deadline: voteDeadline.toISOString(),
-                // deadline: formatDateTimeForServer(voteDeadline), 
-                // deadline: voteDeadline ? voteDeadline.toISOString() : null,
-                point: 0
-                // ----- 하드코딩 끝 -----
-            }));
-            formData.append('file', file);
+      console.log("첫 번째 POST 요청 성공:", response.data);
 
-            // 첫 번째 POST 요청
-            const response = await axios.post('https://dev.gomin-chingu.site/posts/', formData, {
-                headers: {
-                    atk : authToken,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            console.log('첫 번째 POST 요청 성공:', response.data);
-
+      // postId 추출
+      const postId = response.data.result.postId;
+      console.log("postId 추출 성공:", postId);
 
       // 두 번째 POST 요청 시작 => postId를 받아서 -> 후보 개수만큼 후보 생성 api POST
       const candidateCount = 3; // 후보 개수 받아오기
