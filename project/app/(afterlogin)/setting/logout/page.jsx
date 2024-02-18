@@ -5,35 +5,35 @@ import styles from "@/app/modules/settingCss/logout.module.scss";
 import Header from "@/app/components/setting/Header";
 import useAuthStore from "@/app/zustand/useAuthStore";
 export default function Logout() {
-  
-  const {setToken} = useAuthStore()
+  const { setToken } = useAuthStore();
   const router = useRouter();
-  const token = localStorage.getItem('token')
-  const Logout = async () => { 
-    try {
 
-      const response = await fetch('/user/logout', {
-        method: 'POST',
+  const Logout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("/user/logout", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'atk' :token
+          "Content-Type": "application/json",
+          atk: token,
         },
       });
 
       if (response.ok) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('rtk');
+        localStorage.removeItem("token");
+        localStorage.removeItem("rtk");
         setToken("");
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        
-        router.replace('/i/login')
-      } else {
-        console.error('Logout failed');
-        alert("이미 로그아웃되셨습니다.")
-        window.location.href='/login'
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      }
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+        router.replace("/i/login");
+      } else {
+        console.error("Logout failed");
+        alert("이미 로그아웃되셨습니다.");
+        window.location.href = "/login";
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
     } catch (error) {
       console.error("Error during logout:", error);
     }

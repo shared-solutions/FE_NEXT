@@ -1,8 +1,7 @@
-const atkToken = localStorage.getItem("token");
-
 // 저장한 게시물(내 카테고리)
 export const getMyCategory = async (categories) => {
   try {
+    const atkToken = localStorage.getItem("token");
     const promises = categories.map(async (category) => {
       const url = new URL(
         `https://dev.gomin-chingu.site/posts/poll-post/${category}`
@@ -21,7 +20,7 @@ export const getMyCategory = async (categories) => {
       if (response.ok) {
         const data = await response.json();
         console.log("Post with Categories:", data);
-        return data.result.pollPostList
+        return data.result.pollPostList;
       } else {
         console.error("Failed to get MyPage data:", response);
       }
@@ -35,11 +34,10 @@ export const getMyCategory = async (categories) => {
 // 저장한 게시물(모든게시물)
 export const getMyPost = async (sort) => {
   try {
+    const atkToken = localStorage.getItem("token");
     const page = 0;
 
-    const url = new URL(
-      "https://dev.gomin-chingu.site/user/my-page/post/all"
-    ); // API 엔드포인트 URL로 교체
+    const url = new URL("https://dev.gomin-chingu.site/user/my-page/post/all"); // API 엔드포인트 URL로 교체
     url.searchParams.append("page", page);
     url.searchParams.append("sort", sort);
 

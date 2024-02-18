@@ -1,4 +1,3 @@
-
 "use client";
 
 import axios from "axios";
@@ -13,22 +12,21 @@ export default function AllPost() {
   const [sortBy, setSortBy] = useState(0);
   const [userData, setUserData] = useState([]);
 
-
-  useEffect(() => {  
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const result =  await getMyPost(sortBy);
+        const result = await getMyPost(sortBy);
         setUserData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-
+  });
 
   const getMyPage = async () => {
     try {
-      const atkToken =localStorage.getItem("token")
+      const atkToken = localStorage.getItem("token");
       const page = 0;
       const sort = sortBy;
 
@@ -59,9 +57,7 @@ export default function AllPost() {
   };
 
   useEffect(() => {
-   
     getMyPage();
-
   }, [sortBy]);
 
   return (

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from '@/app/modules/voteCss/votemodal.module.scss';
 import Image from 'next/image'
-import useVoteStore from '@/app/zustand/voteStore';
+
 
 import VoteStyle from "./VoteStyle"
 import Category from "./Category"
@@ -15,13 +15,13 @@ import NormalVoteItem from './NormalVoteItem';
 import GaugeVoteItem from './GaugeVoteItem';
 import CardVoteItem from './CardVoteItem';
 import { useEffect } from 'react';
+import useWriteVoteStore from '@/app/zustand/voteStore';
 
 const VoteModal = ({ onClose }) => {
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
-    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType} = useVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
-    
-    const voteDeadline = useVoteStore((state) => state.voteDeadline);
-    const setVoteDeadline = useVoteStore((state) => state.setVoteDeadline);
+    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType,} = useWriteVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
+    const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
+    const setVoteDeadline = useWriteVoteStore((state) => state.setVoteDeadline);
 
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
@@ -50,7 +50,7 @@ const VoteModal = ({ onClose }) => {
         }
         else {setSelectedVoteType(3)}
     },[selectedStyle])
-    const test = useVoteStore.getState().selectedVoteType
+    const test = useWriteVoteStore.getState().selectedVoteType
     const handleClose = () => {
         setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
         setVoteDeadline(voteDeadline); // Zustand 업데이트

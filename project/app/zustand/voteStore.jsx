@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const useVoteStore = create((set) => ({
+const useWriteVoteStore = create((set) => ({
   // ----- 투표 제목 ------
   voteTitle: "", // 기본값은 빈 문자열로 설정
   setVoteTitle: (title) => set({ voteTitle: title }), // 투표 제목 설정
@@ -26,10 +26,10 @@ const useVoteStore = create((set) => ({
 
   
   // ----- 채택 포인트 -----
-  selectedPoint: null,
+  selectedPoint: 0,
   setSelectedPoint: (point) => set({ selectedPoint: point }),
 
 
 }));
 
-export default useVoteStore;
+export default useWriteVoteStore;

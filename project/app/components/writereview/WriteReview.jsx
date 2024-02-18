@@ -25,6 +25,7 @@ const WriteReview = () => {
     try {
       if (typeof window !== "undefined") {
         // 클라이언트 환경에서만 실행
+        const atkToken = localStorage.getItem("token");
         const page = 0;
         const size = 6;
 
@@ -33,8 +34,6 @@ const WriteReview = () => {
         );
         url.searchParams.append("page", page);
         url.searchParams.append("size", size);
-
-        const atkToken = localStorage.getItem("token");
 
         const response = await fetch(url, {
           method: "GET",
@@ -56,7 +55,6 @@ const WriteReview = () => {
       console.error("Error", error);
     }
   };
-
   useEffect(() => {
     // Zustand에서 가져온 데이터가 변경될 때마다 UI 업데이트
     if (selectedBoxData) {

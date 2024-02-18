@@ -13,14 +13,11 @@ import EditInfo from "@/app/components/edit/EditInfo";
 import EditPassword from "@/app/components/edit/EditPassword";
 
 export default function Edit() {
+  const [userData, setUserData] = useState([]);
 
-  const { user, isEditing, toggleEditing, updateField } = useStore();
-  const [userData, setUserData] = useState(user);
-
-  
   const getMyPage = async () => {
     try {
-       const atkToken =localStorage.getItem("token")
+      const atkToken = localStorage.getItem("token");
       const url = new URL(
         "https://dev.gomin-chingu.site/user/my-page/profile/modify"
       );
@@ -78,7 +75,7 @@ export default function Edit() {
       </div>
       <div></div>
       <div className={styles.content}>
-        <EditImage userData={userData}/>
+        <EditImage userData={userData} />
         <div className={styles.profile}>
           <h4>프로필</h4>
           <div className={styles.profile_content}>
@@ -90,7 +87,7 @@ export default function Edit() {
         <div className={styles.profile}>
           <h4>보안 설정</h4>
           <div className={styles.profile_content}>
-            <EditPassword/>
+            <EditPassword />
           </div>
         </div>
       </div>
