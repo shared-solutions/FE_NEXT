@@ -32,7 +32,7 @@
     justify-content: space-evenly;
     align-items: center; 
     p{
-        
+        text-align: center;
         font-weight: 700;
         font-size: 20px;
         text-align: left;
@@ -69,6 +69,16 @@
     background-color: white;
     &:disabled{
         color: gray;
+    }
+}
+.find_pw{
+    width: 100%;
+    p{
+        text-align: center;
+        color: #9C9C9C;
+    }
+    a{
+        text-decoration: none;
     }
 }
 .btn_container{

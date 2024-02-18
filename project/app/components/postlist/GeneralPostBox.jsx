@@ -2,6 +2,7 @@ import styles from "@/app/modules/postListCss/generalPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
+import votePostStore from "@/app/zustand/votePostStore";
 
 const GeneralPostBox = ({ 
       userimg, 
@@ -53,17 +54,21 @@ const GeneralPostBox = ({
           {pollOption &&
             pollOption.map((option, index) => {
               // 해당 옵션이 topCandidate에 있는지 확인
-              const isTopCandidate = topCandidate && topCandidate.find(candidate => candidate.optionString === option.optionString);
-              // 해당 옵션의 인덱스를 가져와서 해당하는 topCandidatePercent 값을 가져옴
-              const topCandidateIndex = isTopCandidate ? topCandidate.indexOf(isTopCandidate) : -1;
-              const topCandidatePercentage = topCandidatePercent && topCandidateIndex !== -1 ? topCandidatePercent[topCandidateIndex] : 0;
+              const isTopCandidate = topCandidate && topCandidate.find(candidate => candidate.optionId === option.optionId);
+
+              // 해당 옵션의 인덱스를 가져와서 해당하는 topCandidatePercent 값을 가져옴 -> 필요없?
+              const topCandidateIndex = isTopCandidate ? topCandidate.findIndex(candidate => candidate.optionId === option.optionId) : -1;
+
+              // 필요없?
+              // const topCandidatePercentage = topCandidatePercent && topCandidatePercent[topCandidateIndex] ? topCandidatePercent[topCandidateIndex] : 0;
 
               // 해당 옵션에 대한 전체 후보 퍼센트 가져오기
-              const optionPercentage = allCandidatePercent && allCandidatePercent[index];
+              const optionPercentage = allCandidatePercent && allCandidatePercent[index] ? allCandidatePercent[index] : 0;
 
 
               // 사용자가 투표한 후보의 퍼센트 찾기
-              const userVoteIndex = userVote.findIndex(vote => vote.optionString === option.optionString);
+              const userVoteIndex = userVote && userVote.findIndex(vote => vote.optionId === option.optionId);
+
               const userVotePercentage = userVoteIndex !== -1 ? userVotePercent[userVoteIndex] : 0;
 
 
@@ -84,7 +89,7 @@ const GeneralPostBox = ({
                   <div className={styles.optionStringBox}>
                     <div className={styles.optionString}>
                       {option.optionString}
-                      {userVote && userVote.map(vote => vote.optionString).includes(option.optionString) && ( 
+                      {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && ( 
                         // userVote에 해당 옵션이 포함되어 있는지 확인하여 체크 이미지 표시
                         <Image
                           src={likeimg}

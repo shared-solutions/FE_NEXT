@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "@/app/modules/menuCss/menu.module.scss";
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+
 
 import ProfileImage from "@/app/components/menu/ProfileImage";
 import Info from "@/app/components/menu/Info";
@@ -12,18 +10,19 @@ import Features from "@/app/components/menu/Features";
 import Close from "@/app/components/menu/Close";
 
 export default function MyPage() {
-  const router = useRouter();
-  const data = useSession;
-  const Logout = () => {
-    signOut({ redirect: false }).then(() => {
-      router.replace("/login");
-    });
-  };
+
+
+
 
   const [userData, setUserData] = useState([]);
 
+
+
+
   const getMyPage = async () => {
     try {
+
+
       const atkToken = localStorage.getItem("token");
       const url = "https://dev.gomin-chingu.site/user/my-page"; // API 엔드포인트 URL로 교체
       const response = await fetch(url, {
@@ -58,8 +57,9 @@ export default function MyPage() {
           <ProfileImage />
           <Info userData={userData} />
           <Category />
-          <Features logout={Logout} />
-          <button>Login</button>
+
+          <Features />
+
         </div>
       </div>
     </div>
