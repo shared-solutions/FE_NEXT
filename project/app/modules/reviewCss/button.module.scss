@@ -1,41 +1,44 @@
-.container{
-    position: fixed;
-    width: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    top: 50px;
-    height: 50px;
+.container {
+  position: fixed;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 50px;
+  height: 50px;
 }
-.sorting_button_container{
-    display: flex;
-    height: 100%;
-    align-items: center;
+.sorting_button_container {
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
-.submit_button_container{
-    width: 70%;
-    display: flex;
-    justify-content: space-evenly;
-    //justify-content: end;
+.submit_button_container {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  //justify-content: end;
 }
-.button{
-    background-color: #FFC700;
-    border-radius: 30px;
-    border-style: none;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 8px 11px 8px 11px;
-    width: 50px;
-    margin-left: 5px;
-    text-align: center;
+.button {
+  background-color: #ffc700;
+  border-radius: 30px;
+  border-style: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 11px 8px 11px;
+  width: 50px;
+  margin-left: 5px;
+  text-align: center;
 }
-.submit_button{
-    background-color: #FFC700;
-    border-radius: 30px;
-    border-style: none;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 8px;
-    width: 200px;
-    margin-top: 10px;
+.submit_button {
+  background-color: #ffc700;
+  border-radius: 30px;
+  border-style: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px;
+  width: 200px;
+  margin-top: 10px;
+}
+.selected {
+  background-color: #98802a;
 }

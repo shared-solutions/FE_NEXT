@@ -18,9 +18,13 @@
 }
 
 .categoryWrapper {
-  display: inline-block;
+  display: flex;
+  overflow-x: auto;
 }
 
+.categoryInner {
+  display: inline-block;
+}
 .selected {
   background-color: black;
   color: white;

@@ -109,10 +109,11 @@
 
 .pollTitleContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   width: 290px;
-  height: 26px;
+  height: 15px;
   padding-left: 12px;
   padding-right: 12px;
   font-size: 14px;
@@ -120,6 +121,13 @@
   border-radius: 9px;
   background-color: #eeeeee;
   border-radius: 40px;
+}
+
+.gaugeImageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .gaugeContainer {
