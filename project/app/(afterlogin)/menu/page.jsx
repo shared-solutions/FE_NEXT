@@ -36,6 +36,7 @@ export default function MyPage() {
     fetchData();
   }, []);
 
+
   return (
     <div className={styles.modal}>
       <div className={styles.background}>
@@ -44,7 +45,7 @@ export default function MyPage() {
           <ProfileImage image={userData.userPhoto}/>
           <Info userData={userData} />
           <Category />
-          <Features logout={Logout} />
+          <Features />
         </div>
       </div>
     </div>

@@ -18,10 +18,12 @@
         display: flex;
         font-size: 14px;
         margin-bottom: 3px;
+        justify-content: flex-end;
     }
     .after_usage_point{
         display: flex;
         font-size: 14px;
+        justify-content: flex-end;
     }
 }
 .button_container{
@@ -46,4 +48,15 @@
     ::placeholder {
         color: #CECECE;
     }
+}
+
+.error_container{
+    display: flex;
+    margin-left: 10px;
+}
+
+.error_message{
+    color: #CA0000;
+    font-size: 15px;
+    margin-left: 6px;
 }

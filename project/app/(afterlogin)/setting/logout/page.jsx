@@ -1,11 +1,12 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "@/app/modules/settingCss/logout.module.scss";
 import Header from "@/app/components/setting/Header";
-
+import useAuthStore from "@/app/zustand/useAuthStore";
 export default function Logout() {
+  
+  const {setToken} = useAuthStore()
   const router = useRouter();
   const data = useSession;
   const Logout = () => {

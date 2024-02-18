@@ -15,7 +15,7 @@ export default function Nickname() {
     const [birthYear, setBirthYear] = useState('');
     const [birthMonth, setBirthMonth] = useState('');
     const [birthDay, setBirthDay] = useState('');
-    let [isDupli, setIsDupli] = useState('');
+
     
     useEffect(() => {
         if (selectedGender === '남') {
@@ -33,30 +33,9 @@ export default function Nickname() {
         const nickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
         setIsValid(nickRegex.test(nickInput));
     };
-    const CheckDupli = () => {
-         if(isValid){
-            setIsDupli(isDupli='true')
-         }
-         else{
-            setIsDupli(isDupli='false')
-        }
-    }
-    // const CheckDupli = async () => {
-    //     if (isValid) {
-    //         try {
-    //             const response = await axios.get(`/user/checkDupli?nickname=${nick}`);
-    //             if (response.status === 200) {
-    //                 setIsDupli(response.data.isDupli);
-    //             } else {
-    //                 console.error('Failed to check nickname duplication');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error during nickname duplication check', error);
-    //         }
-    //     }
-    // };
     
-    const isRequiredChecked = isDupli;
+    
+    const isRequiredChecked = (nick!=='')&&(birthYear!=='')&&(birthMonth!=='')&&(birthDay!=='') ;
     
     const requestBody = {
         email: userInfo.email,
@@ -87,11 +66,19 @@ export default function Nickname() {
                 setIsSucceed({ ...isSucceed, nickname: true });
                 alert("회원가입 완료");
                 router.replace('/i/signin');
+            } 
+            
+        } catch (error) {
+            if(error.response.status === 406){
+                alert("이미 존재하신 이메일로 회원가입을 시도했네요.")
+                console.error('Failed to join user');
+            } else if (error.response.status === 500) {
+                alert("서버에서 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+                console.error('Server error');
             } else {
+                alert("제대로 입력해주세요..!");
                 console.error('Failed to join user');
             }
-        } catch (error) {
-            console.error('Error during API request', error);
         }
     };
     
@@ -109,17 +96,8 @@ export default function Nickname() {
                     onChange={handleNickChange}
                     value={nick}
                 />
-                <button className={styles.validKey} disabled={!isValid} onClick={CheckDupli}>중복확인</button>
             </div>
-            {isDupli === 'true' && (
-                <span style={{ color: '#40B300' }}>사용가능한 닉네임입니다!</span>
-            )}
-            {isDupli === 'false' && (
-                <span style={{ color: '#CE2323' }}>중복되는 닉네임입니다</span>
-            )}
-            {isDupli === '' && (
-                <span style={{ color: '#CE2323' }}>닉네임을 입력해주세요!</span>
-            )}
+            
 
             <div className={styles.gender_container}>
                 <strong>성별</strong>
