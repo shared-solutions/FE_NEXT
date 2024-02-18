@@ -19,27 +19,15 @@
 
 // ===== 0216 추가 시작 =====
 // Case 1: onGoing이 true이고, isVoted가 false인 경우
-.onGoingTrueIsVotedFalse {
+.IsVotedFalse {
   .optionPercentage {
     display: none;
   }
 }
 
 // Case 2: onGoing이 true이고, isVoted가 true인 경우
-.onGoingTrueIsVotedTrue {
+.IsVotedTrue {
   // userVote인 것에 체크 표시 ??
-}
-
-// Case 3: onGoing이 false이고, isVoted가 false인 경우
-.onGoingFalseIsVotedFalse {
-}
-
-// Case 4: onGoing이 false이고, isVoted가 true인 경우
-.onGoingFalseIsVotedTrue {
-  // .topCandidate .optionStringBox {
-  //   background-color: black;
-  //   color: white; // 텍스트 색상을 흰색으로 설정
-  // }
 }
 
 .userinfo {

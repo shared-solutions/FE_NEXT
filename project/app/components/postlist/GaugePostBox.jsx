@@ -31,20 +31,25 @@ const GaugePostBox = ({ userimg,
   // const gaugePercentage = gaugeValue + '%';
 
   // 유저값
-  const usergaugeValue = 30;
-  // 평균값
-  const GaugeValue = 60;
+  let GaugeValue;
+  let usergaugeValue;
+  if (userGauge === null) {
+    GaugeValue = totalGauge;
+  } else {
+    usergaugeValue = userGauge;
+    GaugeValue = totalGauge;
+  }
 
   const usergaugeValuePercent = GaugeValue + "%";
   const gaugeValuePercent = usergaugeValue + "%";
   
   // linear-gradient로 배경색을 설정
   const gradientStyle = {
-    background: `linear-gradient(to right, black ${gaugeValuePercent}, #eeeeee ${gaugeValuePercent})`
+    background: `linear-gradient(to right, black ${gaugeValuePercent}, #eeeeee ${gaugeValuePercent})`, marginTop: '5px'
   };
 
   // gaugePercentage에서 왼쪽으로 25px만큼 이동한 크기 계산
-  const leftMargin = `calc(${gaugeValuePercent} - 25px)`;
+  const leftMargin = `calc(${usergaugeValuePercent} - 25px)`;
   const leftUserMargin = `calc(${gaugeValuePercent} - 25px)`;
 
   // gaugePercentage에 따라 gaugeImageContainer의 left 값 조정
@@ -79,7 +84,7 @@ const GaugePostBox = ({ userimg,
           <div className={styles.pollTitleContainer} style={gradientStyle}>
             {/* <div className={styles.pollTitle}>{pollTitle}</div> */}
             {/* 퍼센티지 하드코딩 수정해야 함 */}
-            <Image src={total} alt="이미지" width={26} height={26} style={{ marginBottom: '8px'}} />
+            <Image src={total} alt="이미지" width={15} height={15} style={{ marginBottom: '8px'}} />
             <div>평균</div>
           </div>
         </div>

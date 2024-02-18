@@ -87,10 +87,10 @@ export const GaugeBox = ({
   let GaugeValue;
   let usergaugeValue;
   if (userGauge === 0) {
-    GaugeValue = 0;
+    GaugeValue = totalGauge;
   } else {
-    usergaugeValue = 30;
-    GaugeValue = 60;
+    usergaugeValue = userGauge;
+    GaugeValue = totalGauge;
   }
   // const usergaugeValue = 30;
   // // 평균값
@@ -133,7 +133,7 @@ export const GaugeBox = ({
           <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
             {userGauge ? (
               <>
-                <Image src={total} alt="이미지" width={20} height={20} />
+                <Image src={total} alt="이미지" width={15} height={15} style={{ marginBottom: '8px'}}/>
                 <div>평균</div>
               </>
             ) : null}
