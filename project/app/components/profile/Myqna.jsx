@@ -43,7 +43,7 @@ export default function Myqna({ questionData, answerData, adoptPost }) {
           <div className={styles.grid}>
             <p style={{ fontWeight: "900" }}>총 {questionData.length}건 </p>
             <p style={{ color: "#8E8E8E", fontWeight: "normal" }}>
-              (채택 {adoptPost}%)
+              (채택 {adoptPost === "NaN" ? 0 : adoptPost}%)
             </p>
             <p style={{ color: "#FFC600", fontWeight: "normal" }}>관리하기</p>
           </div>

@@ -45,19 +45,6 @@
   background-color: white;
   z-index: 10; 
 }
-.name {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.name h3 {
-  margin-right: 0.5rem;
-}
-.name p {
-  color: #FFC700;
-  font-weight: bold;
-}
 .profile {
   width: 83%;
   margin: 2rem 1.7rem 0.2rem;
@@ -72,18 +59,7 @@
   border-radius: 20px;
   box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.1);
 }
-.grid {
-  display: grid;
-  grid-template-columns: 13% 78% 15%;
-  margin: 1.5rem 0.5rem;
-}
-.grid p {
-  font-size: 15px;
-  font-weight: bold;
-}
-.yellow {
-  color: #FFC700;
-}
+
 .input1 {
   width: 100%;
 }

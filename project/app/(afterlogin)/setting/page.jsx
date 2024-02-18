@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "@/app/modules/settingCss/setting.module.scss";
 import Image from "next/image";
-import arrow2 from "../../public/image/arrow2.png";
+import arrow2 from "@/app/public/image/arrow2.png"
 
 export default function Setting() {
   return (
@@ -27,13 +27,14 @@ export default function Setting() {
       </div>
       <div className={styles.list} style={{ marginTop: "11.5rem" }}>
         <h3>커뮤니티</h3>
-        <Link href="setting/help">
-          <p>FAQ</p>
+        <Link href="setting/term">
+          <p>이용약관</p>
         </Link>
-        <p>이용약관</p>
-        <p>개인정보 처리방침</p>
+        <Link href="setting/term">
+          <p>개인정보 처리방침</p>
+        </Link>
       </div>
-      <div className={styles.list} style={{ marginTop: "23rem" }}>
+      <div className={styles.list} style={{ marginTop: "21rem" }}>
         <h3>기타</h3>
         <Link href="setting/logout">
           <p>로그아웃</p>

@@ -1,6 +1,11 @@
+
+"use client";
+
 import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { getMyPost } from "@/app/api/user/profile/saved-post";
 import styles from "../../modules/savedCss/allpost.module.scss";
 import Post from "../../components/saved/Post";
 
@@ -8,37 +13,22 @@ export default function AllPost() {
   const [sortBy, setSortBy] = useState(0);
   const [userData, setUserData] = useState([]);
 
-  const handleLogin = async () => {
-    try {
-      const endpoint = "https://dev.gomin-chingu.site/user/login";
-      const requestBody = {
-        email: process.env.NEXT_PUBLIC_USER_EMAIL,
-        password: process.env.NEXT_PUBLIC_USER_PASSWORD,
-      };
-      const response = await axios.post(endpoint, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data.result[0].token) {
-        // 클라이언트 측에서만 localStorage에 접근
-        if (typeof window !== "undefined") {
-          localStorage.setItem("token", response.data.result[0].token);
-        }
-        console.log("로그인 성공");
-      }
-      console.log(response.data.result);
-    } catch (error) {
-      console.log(error);
-      console.log("로그인 실패");
-    }
-  };
 
-  const atkToken =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  useEffect(() => {  
+    const fetchData = async () => {
+      try {
+        const result =  await getMyPost(sortBy);
+        setUserData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+
 
   const getMyPage = async () => {
     try {
+      const atkToken =localStorage.getItem("token")
       const page = 0;
       const sort = sortBy;
 
@@ -69,8 +59,9 @@ export default function AllPost() {
   };
 
   useEffect(() => {
-    handleLogin();
+   
     getMyPage();
+
   }, [sortBy]);
 
   return (

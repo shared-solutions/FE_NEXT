@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import star_gray from "@/app/public/image/star_gray.png";
@@ -13,7 +14,10 @@ export default function MyCategory() {
   const [shoppingClicked, setShoppingClicked] = useState(false);
   const [etcClicked, setEtcClicked] = useState(false);
   const [userData, setUserData] = useState([]);
-  const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
+  // const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
+
+  const [categoryList, setCategoryList] = useState([]);
+ 
 
   const getCategoryClicked = (index) => {
     switch (index) {
@@ -59,46 +63,116 @@ export default function MyCategory() {
     }
   };
 
-  useEffect(() => {
-    // 클라이언트 측에서만 실행되도록 보장
-    const atkToken = localStorage.getItem("token");
+  const getMyCategory = async () => {
+    try {
+       const atkToken = localStorage.getItem("token");
+      const url = new URL("https://dev.gomin-chingu.site/user/my-page/post");
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
 
-    const getMyPage = async () => {
-      try {
-        const promises = categories.map(async (category) => {
-          const url = new URL(
-            `https://dev.gomin-chingu.site/posts/poll-post/${category}`
-          );
-          url.searchParams.append("page", "0");
-          url.searchParams.append("size", "3");
-          url.searchParams.append("category", category);
-
-          const response = await fetch(url, {
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Get Category Data:", data);
+        setCategoryList(
+          data.result.postCategoryList.map((item) => item.category)
+        );
+      } else {
+        console.error("Failed to get Category data:", response);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+  const fetchDataForCategoryIds = async () => {
+    try {
+       const atkToken = localStorage.getItem("token");
+      // Array to store promises for each API call
+      const fetchPromises = Array.from({ length: 6 }, (_, index) => {
+        const categoryId = index + 1;
+        return fetch(
+          `http://dev.gomin-chingu.site/user/my-page/post/${categoryId}?page=0`,
+          {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
               atk: atkToken,
             },
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setUserData((prevUserData) => [
-              ...prevUserData,
-              data.result.pollPostList,
-            ]);
-          } else {
-            console.error("Failed to get MyPage data:", response);
           }
-        });
-        await Promise.all(promises);
-      } catch (error) {
-        console.error("Error", error);
-      }
-    };
+        );
+      });
 
-    getMyPage();
+      // Use Promise.all to wait for all promises to resolve
+      const responses = await Promise.all(fetchPromises);
+
+      // Process each response
+      responses.forEach(async (response, index) => {
+        if (response.ok) {
+          const data = await response.json();
+          setUserData((prevUserData) => [
+            ...prevUserData,
+            data.result.postList,
+          ]);
+          console.log(
+            "디테일 for categoryId",
+            index + 1,
+            ":",
+            data.result.postList
+          );
+        } else {
+          console.error(
+            "Failed to fetch data for categoryId",
+            index + 1,
+            ":",
+            response
+          );
+        }
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  useEffect(() => {
+    getMyCategory();
+    fetchDataForCategoryIds();
   }, []);
+  console.log("user", userData);
 
+  const getMyPage = async () => {
+    try {
+      const promises = categoryList.map(async (category, index) => {
+        const url = new URL(
+          `http://dev.gomin-chingu.site/user/my-page/post/${category}`
+        );
+        url.searchParams.append("page", "0");
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            atk: atkToken,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserData((prevUserData) => {
+            const updatedUserData = [...prevUserData];
+            updatedUserData[index] = data.result.pollPostList;
+            return updatedUserData;
+          });
+        } else {
+          console.error("Failed to get MyPage data:", response);
+        }
+      });
+      await Promise.all(promises);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
   return (
     <>
       <div className={styles.scrollContainer}>
@@ -121,7 +195,7 @@ export default function MyCategory() {
                 marginLeft: "83%",
               }}
             />
-            <Category posts={categoryData} name={categories[index]} />
+            <Category posts={userData} name={categoryList[index]} />
           </div>
         ))}
       </div>

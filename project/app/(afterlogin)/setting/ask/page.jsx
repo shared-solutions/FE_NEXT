@@ -39,10 +39,7 @@ export default function Ask() {
               onClick={handleModal}
             />
             <p>기술적 문제</p>
-            <p>기술적 문제</p>
-            <p>기술적 문제</p>
-            <p>기술적 문제</p>
-            <p>기술적 문제</p>
+            <p>개인정보 문제</p>
           </div>
         )}
 

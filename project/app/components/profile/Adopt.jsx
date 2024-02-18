@@ -12,7 +12,9 @@ export default function Adopt({ data }) {
       </div>
       <div className={styles.grid}>
         <p className={styles.font1}>채택률</p>
-        <p className={styles.font2}>{data.adoptCommentPercent}%</p>
+        <p className={styles.font2}>
+          {data.adoptCommentPercent === "NaN" ? 0 : data.adoptCommentPercent}%
+        </p>
       </div>
     </>
   );

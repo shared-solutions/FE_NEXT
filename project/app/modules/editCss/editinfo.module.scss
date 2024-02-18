@@ -3,6 +3,19 @@
   height: auto;
   margin-top: 0.5rem;
 }
+.name {
+  display: flex;
+  align-items: center;
+}
+.name h3 {
+  margin-right: 0.5rem;
+}
+.name p {
+  position: absolute;
+  left: 61%;
+  color: #FFC700;
+  font-weight: bold;
+}
 .input_container {
   display: flex;
   min-width: 68vw;
@@ -23,13 +36,27 @@
   font-weight: bold;
 }
 .input_nickname {
-  width: 20%;
-  margin: 0.2rem;
+  width: 65%;
+  margin: 0.5rem;
   padding: 1rem;
+  display: flex;
   border: none;
   border-radius: 25px;
   background-color: #F6F6F6;
   color: #8C8C8C;
+  font-size: 13px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+.input_nickname button {
+  width: 18vw;
+  height: 5vh;
+  padding: 0.05rem 1rem;
+  color: #8C8C8C;
+  background-color: #333333;
+  border: none;
+  border-radius: 30px;
   font-size: 13px;
   font-weight: bold;
 }
@@ -44,4 +71,19 @@
   border-radius: 30px;
   font-size: 13px;
   font-weight: bold;
+  cursor: pointer;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 13% 78% 15%;
+  margin: 1.5rem 0.5rem;
+  justify-content: center;
+  align-content: center;
+}
+.grid p {
+  font-size: 15px;
+  font-weight: bold;
+}
+.yellow {
+  color: #FFC700;
 }

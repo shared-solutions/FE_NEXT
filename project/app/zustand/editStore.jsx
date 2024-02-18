@@ -2,16 +2,16 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
   user: {
-    nickname: "",
-    name: "",
+    userImage: "",
+    nickName: "",
     email: "",
     phone: "",
     password: "",
     security: "",
   },
   isEditing: {
+    userImage: false,
     nickname: false,
-    name: false,
     email: false,
     phone: false,
     password: false,
@@ -25,6 +25,8 @@ const useStore = create((set) => ({
   // 액션: 필드 값 수정
   updateField: (field, value) =>
     set((state) => ({ user: { ...state.user, [field]: value } })),
+  setUserData: (data) =>
+    set((state) => ({ user: { ...state.user, ...data } })),
 }));
 
 export default useStore;

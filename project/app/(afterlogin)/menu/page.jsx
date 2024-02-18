@@ -54,7 +54,7 @@ export default function MyPage() {
       <div className={styles.background}>
         <Close />
         <div className={styles.container}>
-          <ProfileImage />
+          <ProfileImage image={userData.userPhoto}/>
           <Info userData={userData} />
           <Category />
 

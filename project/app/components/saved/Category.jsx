@@ -2,15 +2,18 @@ import styles from "../../modules/savedCss/mycategory.module.scss";
 import Image from "next/image";
 import like from "@/app/public/image/like.png";
 import comment from "@/app/public/image/comment.png";
+
 export default function Category({ posts, name }) {
+  //const postArray = Array.isArray(posts) ? posts : [posts];
   const len = posts.length;
-  console.log(posts);
+  console.log("post입니다", posts);
+
   return (
     <>
       {len === 0 ? (
         <p className={styles.none}>아직 저장한 게시물이 없습니다.</p>
       ) : (
-        posts.map((post, index) => {
+        posts((post, index) => {
           let topValue, leftValue;
           if (len === 3) {
             topValue = `${3 - index * 1.2}rem`;
@@ -33,13 +36,13 @@ export default function Category({ posts, name }) {
               }}
             >
               <div className={styles.rightContainer}>
-                <p>3일전</p>
+                <p>{post.ago}일전</p>
               </div>
               <h1>{post.title}</h1>
               <p>{post.content}</p>
               <div className={styles.imgContainer}>
                 <Image src={like} alt="like" width={9} height={9} />
-                <p style={{ color: "#F9C81C" }}>{post.like}</p>
+                <p style={{ color: "#F9C81C" }}>{post.postLike}</p>
                 <Image src={comment} alt="comment" width={9} height={9} />
                 <p>{post.comment}</p>
               </div>
