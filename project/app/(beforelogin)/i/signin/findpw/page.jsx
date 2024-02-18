@@ -1,6 +1,6 @@
-import Email from "@/app/(beforelogin)/_component/pwfindEmail"
+import FindPasswordEmailInput from "@/app/(beforelogin)/_component/findPasswordEmailInput"
 
 export default function Page(){
-    return(<Email/>)
-    
+    return(<FindPasswordEmailInput/>)
+
 }

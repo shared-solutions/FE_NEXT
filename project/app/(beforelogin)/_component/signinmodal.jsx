@@ -2,6 +2,7 @@
 'use client'
 import styles from '@/app/modules/signin.module.scss';
 import bglogo from '@/app/public/image/bglogo.png'
+import backImg from '@/app/public/image/backimg.png'
 import useAuthStore from '@/app/zustand/useAuthStore';
 import { Eye } from 'lucide-react';
 import Image from 'next/image';
@@ -67,13 +68,16 @@ export default function Modal() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
+        <Link href="/login">
+          <Image src={backImg} alt='뒤로가기' width={8} height={16} style={{ marginRight: '15px', marginTop: '5px' }} />
+        </Link>
         <p>로그인 </p>
-        <Image src={bglogo} alt="x" width={25} height={25} priority />
+        <Image src={bglogo} alt="x" width={25} height={25} priority style={{ marginLeft: '10px' }} />
       </h1>
       <div className={styles.main}>
         <div className={styles.emailInput}>
           <div>
-            <strong>이메일 주소를 입력해주세요.</strong>`
+            <strong>이메일 주소를 입력해주세요.</strong>
             <div className={styles.emailValid}>
               <input
                 type="text"
