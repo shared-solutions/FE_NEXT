@@ -22,8 +22,8 @@ import EditSecurityEmail from "@/app/components/edit/EditSecurityEmail";
 
 export default function Edit() {
   const { user, isEditing, toggleEditing, updateField } = useStore();
-
   const [userData, setUserData] = useState(user);
+
   const handleLogin = async () => {
     try {
       const endpoint = "https://dev.gomin-chingu.site/user/login";
@@ -37,24 +37,28 @@ export default function Edit() {
         },
       });
       if (response.data.result[0].token) {
-        localStorage.setItem("token", response.data.result[0].token);
-        console.log();
-        //alert("성공적으로 로그인했습니다!");
+        // 클라이언트 측에서만 localStorage에 접근
+        if (typeof window !== "undefined") {
+          localStorage.setItem("token", response.data.result[0].token);
+        }
+        console.log("로그인 성공");
       }
       console.log(response.data.result);
     } catch (error) {
       console.log(error);
-      //alert("ID 또는 비밀번호가 틀립니다.");
+      console.log("로그인 실패");
     }
   };
-
-  const atkToken = localStorage.getItem("token");
 
   const getMyPage = async () => {
     try {
       const url = new URL(
         "https://dev.gomin-chingu.site/user/my-page/profile/modify"
       );
+
+      // 클라이언트 측에서만 localStorage에 접근
+      const atkToken =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
       const response = await fetch(url, {
         method: "GET",
@@ -69,10 +73,10 @@ export default function Edit() {
         setUserData(data.result);
         console.log("MyPage data:", data);
       } else {
-        console.error("Failed to get MyPage data:", response);
+        console.error("MyPage 데이터를 가져오지 못했습니다:", response);
       }
     } catch (error) {
-      console.error("Error", error);
+      console.error("에러", error);
     }
   };
 
