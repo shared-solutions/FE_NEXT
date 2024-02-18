@@ -1,10 +1,14 @@
-.container{
-    display: flex;
-    height: 80vh;
-    flex-direction: column;
+.container {
+  display: flex;
+  height: 80vh;
+  flex-direction: column;
 }
-.scrollable_container{
-    overflow: auto;
-    margin-top: 6vh;
-    max-height: calc(90vh - 50px);
+.scrollable_container {
+  overflow: auto;
+  margin-top: 6vh;
+  max-height: calc(90vh - 50px);
+}
+.link {
+  text-decoration: none;
+  color: black;
 }
