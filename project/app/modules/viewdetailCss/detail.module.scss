@@ -72,6 +72,16 @@
   margin-left: 150px;
 }
 
+.point_done {
+  height: 21px;
+  border-radius: 8px;
+  font-size: 12px;
+  background-color: #ffc700;
+  color: black;
+  padding-top: 4px;
+  margin-top: -3px;
+  margin-left: 150px;
+}
 .content {
   margin-top: 30px;
   font-size: 14px;
@@ -170,4 +180,19 @@
 
 .img {
   margin-right: 4px;
+}
+
+.more_container {
+  position: absolute;
+  top: 4.8rem;
+  left: 60.7%;
+  padding: 5px;
+  background-color: #6D6D6D;
+  color: white;
+  border-radius: 20px;
+}
+.more_container p {
+  margin: 13px;
+  font-size: 13px;
+  font-weight: 500;
 }
