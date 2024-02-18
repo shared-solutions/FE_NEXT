@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "@/app/modules/profileCss/profile.module.scss";
-import { handleLogin } from "@/app/api/user/login/login";
 import { getMyQuestion } from "@/app/api/user/profile/my-profile";
 import { getMyAnswer } from "@/app/api/user/profile/my-profile";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";

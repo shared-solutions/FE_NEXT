@@ -7,7 +7,6 @@ import arrow2 from "../../public/image/arrow2.png";
 import more_button from "@/app/public/image/more_button.png";
 
 import Content from "@/app/components/notification/Content";
-import { handleLogin } from "@/app/api/user/login/login";
 import { getAlarmList } from "@/app/api/user/alarm/alarm";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await handleLogin();
         console.log("Fetching MyPage data...");
         const result = await getAlarmList();
         setAlarmList(result);

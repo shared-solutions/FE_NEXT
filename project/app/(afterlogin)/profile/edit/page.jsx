@@ -11,7 +11,6 @@ import edit from "@/app/public/image/edit.png";
 import EditImage from "@/app/components/edit/EditImage";
 import EditInfo from "@/app/components/edit/EditInfo";
 import EditPassword from "@/app/components/edit/EditPassword";
-import EditSecurityEmail from "@/app/components/edit/EditSecurityEmail";
 
 export default function Edit() {
   const [userData, setUserData] = useState([]);
@@ -75,7 +74,6 @@ export default function Edit() {
           <h4>보안 설정</h4>
           <div className={styles.profile_content}>
             <EditPassword/>
-            <EditSecurityEmail userEmail={userData.email}/>
           </div>
         </div>
       </div>

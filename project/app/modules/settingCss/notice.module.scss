@@ -17,20 +17,22 @@
   width: 100%;
   position: relative;
   display: flex;
-  padding: 10px 20px;
-  align-items: center;
+  padding: 10px 15px;
   box-shadow: 2px 2px 20px 10px rgba(211, 211, 211, 0.096);
 }
 .content_text {
   width: 80%;
+  max-height: 20%;
   margin: 0 1rem;
+  overflow-y: auto;
 }
 .content_text p {
   font-size: 13px;
   margin: 0.3rem 0;
+  line-height: 130%;
 }
 .text_container {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
