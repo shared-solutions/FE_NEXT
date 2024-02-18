@@ -7,8 +7,8 @@
 }
 
 .userimg {
-  margin-left: 30px;
-  margin-top: 17px;
+  //margin-left: 30px;
+  //margin-top: 17px;
   border-radius: 50%;
 }
 
@@ -45,10 +45,12 @@
 .userinfo {
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-top: 20px;
 }
 
 .nickname {
-  margin-top: 15px;
+  //margin-top: 15px;
   margin-left: 11px;
 }
 
@@ -133,3 +135,8 @@
 
 }
 
+.date {
+  margin-left: 200px;
+  padding-bottom: 5px;
+  font-size: 15px;
+}

@@ -22,10 +22,12 @@ export function onRequest(request) {
 export const config = {
   // 이 Middleware가 동작할 경로들을 추가해주면된다.
   matcher: [
-    "/home/:path*",
-    "/vote/:path*",
-    "/",
-    "/review/:path*",
-    "/menu/:path*",
-  ],
-};
+
+    '/home/:path*',
+    '/vote/:path*',
+    '/',
+    '/review/:path*',
+    '/menu/:path*',
+]
+}
+

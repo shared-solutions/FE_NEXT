@@ -108,7 +108,6 @@ const PostList = () => {
       comment,
       pollTitle,
       gauge,
-
       // ===== 0216 추가 시작 ====
       onGoing, // 마감 여부
       isVoted, // 사용자 투표 여부
@@ -120,6 +119,7 @@ const PostList = () => {
       userGauge, // 사용자가 투표한 항목의 퍼센트
       totalGauge, // 평균 게이지
       // ===== 0216 추가 끝 ====
+      uploadDate,
     } = userDataItem;
 
     // 기본값 설정
@@ -142,6 +142,7 @@ const PostList = () => {
       allCandidatePercent: allCandidatePercent || [],
       userGauge: userGauge || 0,
       totalGauge: totalGauge || 0,
+      date: uploadDate || 0,
       // ===== 0216 추가 끝 ====
     };
 

@@ -1,8 +1,11 @@
 import styles from "@/app/modules/postListCss/generalPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
+import checkImg from "@/app/public/image/checkGaeun.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
+import { calculateTimeDifference } from "../comment/CommentSort";
+
 
 const GeneralPostBox = ({ 
       userimg, 
@@ -12,6 +15,7 @@ const GeneralPostBox = ({
       pollOption, 
       like, 
       comment,
+      date,
       // ===== 0216 추가 시작 ====
       onGoing, // 마감 여부
       isVoted, // 사용자 투표 여부
@@ -46,6 +50,7 @@ const GeneralPostBox = ({
           height={24}
         />
         <div className={styles.nickname}>{nickname}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
       </div>
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
@@ -92,7 +97,7 @@ const GeneralPostBox = ({
                       {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && ( 
                         // userVote에 해당 옵션이 포함되어 있는지 확인하여 체크 이미지 표시
                         <Image
-                          src={likeimg}
+                          src={checkImg}
                           alt="체크"
                           width={15}
                           height={15}
