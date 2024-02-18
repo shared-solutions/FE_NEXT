@@ -18,10 +18,6 @@ import { likeComment } from "@/app/api/api/like";
 import Toast from "../toast/Toast";
 
 export const calculateTimeDifference = (createdAt) => {
-  if (!createdAt) {
-    return '작성 시간을 찾을 수 없습니다'; 
-  }
-  console.log("createdAt:", createdAt);
   const now = new Date();
   const createdDate = new Date(createdAt);
 

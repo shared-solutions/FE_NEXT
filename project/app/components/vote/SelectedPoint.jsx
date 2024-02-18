@@ -3,20 +3,22 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import styles from '@/app/modules/voteCss/selectedpoint.module.scss'
 import Image from 'next/image'
-import useVoteStore from '@/app/zustand/voteStore';
+
 
 import minusbutton from '../../public/image/delete.png'
 import plusbutton from '../../public/image/add_button.png'
 import errorImg from '../../public/image/error.png'
+import useWriteVoteStore from '@/app/zustand/voteStore'
+
 
 const SelectedPoint = () => {
     const [currentPoint, setCurrentPoint] = useState(0);
     const [afterUsagePoint, setAfterUsagePoint] = useState(0);
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('0');
     const [insufficientPoints, setInsufficientPoints] = useState(false);
-
+    const {setSelectedPoint} = useWriteVoteStore()
     const authToken = localStorage.getItem("token");
-
+    const selPoint = useWriteVoteStore.getState().selectedPoint
     const handleChange = (e) => {
         const value = e.target.value;
         // 입력 값이 숫자인지 확인
@@ -26,7 +28,7 @@ const SelectedPoint = () => {
             const newAfterUsagePoint = currentPoint - usagePoint;
             setAfterUsagePoint(newAfterUsagePoint);
             setInputValue(value);
-
+            setSelectedPoint(usagePoint);
             // 사용 후 포인트가 0 미만이면 메시지 표시
             setInsufficientPoints(newAfterUsagePoint < 0);
         }
@@ -44,14 +46,22 @@ const SelectedPoint = () => {
     };
 
     const handleMinusButtonClick = () => {
-        // 현재 입력된 값에서 5 감소
-        const newValue = parseInt(inputValue, 10) - 5;
-        setInputValue(String(newValue));
-        const newAfterUsagePoint = currentPoint - newValue;
-        setAfterUsagePoint(newAfterUsagePoint);
-
-        // 사용 후 포인트가 0 미만이면 메시지 표시
-        setInsufficientPoints(newAfterUsagePoint < 0);
+        // 입력된 값을 정수로 변환
+        const decrementValue = parseInt(inputValue, 10);
+        // 현재 보유 포인트보다 큰 값이 입력되었을 경우
+        if (decrementValue > currentPoint) {
+            // 현재 포인트를 0으로 설정
+            setInputValue('0');
+            setAfterUsagePoint(0);
+        } else {
+            // 현재 포인트에서 입력된 값만큼 뺌
+            const newAfterUsagePoint = currentPoint - 5;
+            setInputValue(String(decrementValue));
+            setAfterUsagePoint(newAfterUsagePoint);
+            // 사용 후 포인트가 0 미만이면 메시지 표
+            setInsufficientPoints(newAfterUsagePoint < 0);
+        }
+        
     };
 
     useEffect(() => {

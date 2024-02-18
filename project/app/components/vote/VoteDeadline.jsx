@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-mobile-datepicker'
+import DatePicker from 'react-datepicker'
 import styles from '@/app/modules/voteCss/votedeadline.module.scss'
 import Image from 'next/image'
 import useVoteStore from '@/app/zustand/voteStore';

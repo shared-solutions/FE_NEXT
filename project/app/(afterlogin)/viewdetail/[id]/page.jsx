@@ -9,11 +9,10 @@ import { voteDetailStore } from "@/app/zustand/voteDetailStore";
 export default function Viewdetail({ params }) {
   const voteDetail = voteDetailStore();
   const postId = params.id;
- 
+  const authToken = localStorage.getItem("token");
   const [detail, setDetail] = useState({});
   const getData = async () => {
     try {
-      const authToken = localStorage.getItem("token");
       const url = `https://dev.gomin-chingu.site/posts/${postId}`; // API 엔드포인트 URL로 교체
       const response = await axios.get(url, {
         headers: {

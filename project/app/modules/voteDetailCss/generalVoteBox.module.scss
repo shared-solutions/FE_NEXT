@@ -82,8 +82,6 @@
 
   &.topCandidate {
     border: 2px solid black; 
-    //background-color: black;
-    //color: white;
   }
 }
 
@@ -93,7 +91,7 @@
 
 .optionStringBox {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 290px;
   height: 35px;
