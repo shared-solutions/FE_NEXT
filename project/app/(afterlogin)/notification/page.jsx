@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/app/modules/notificationCss/notification.module.scss";
-import arrow2 from "@/app/public/image/arrow2.png"
+import arrow2 from "../../public/image/arrow2.png";
 import more_button from "@/app/public/image/more_button.png";
 
 import Content from "@/app/components/notification/Content";

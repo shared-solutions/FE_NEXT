@@ -59,7 +59,6 @@ const WaitingAnswer = () => {
       allCandidatePercent, // 모든 후보의 퍼센트 리스트
       userGauge, // 사용자가 투표한 항목의 퍼센트
       totalGauge, // 평균 게이지
-      uploadDate,
       // ===== 0216 추가 끝 ====
     } = userDataItem;
 
@@ -93,7 +92,6 @@ const WaitingAnswer = () => {
       allCandidatePercent: allCandidatePercent || [],
       userGauge: userGauge || 0,
       totalGauge: totalGauge || 0,
-      date: uploadDate || 0,
       // ===== 0216 추가 끝 ====
     };
 

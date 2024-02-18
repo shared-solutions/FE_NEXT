@@ -6,9 +6,6 @@ import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import { calculateTimeDifference } from "../comment/CommentSort";
 import total from "@/app/public/image/total.png";
-import { useState } from "react";
-import { useEffect } from "react";
-import check from "@/app/public/image/votecheck_ty.png";
 
 export const GeneralBox = ({
   image,
@@ -19,11 +16,9 @@ export const GeneralBox = ({
   comment_cnt,
   date,
   allCandidatePercent,
-  userVote,
 }) => {
   // 이미지 받아오는 작업 해야됌
 
-  console.log(userVote);
   return (
     <div className={styles.mainbox}>
       <div className={styles.title}>{title}</div>
@@ -43,15 +38,7 @@ export const GeneralBox = ({
                 />
               )}
               <div className={styles.optionStringBox}>
-                <div className={styles.optionString}>
-                  {option.optionString}
-                  {userVote &&
-                  userVote.some(
-                    (userVoteItem) => userVoteItem.optionId === option.optionId
-                  ) ? (
-                    <Image src={check} alt="체크" width={15} height={15} />
-                  ) : null}
-                </div>
+                <div className={styles.optionString}>{option.optionString}</div>
 
                 <div className={styles.optionPercentage}>
                   {allCandidatePercent[index]}
@@ -84,17 +71,9 @@ export const GaugeBox = ({
   userGauge,
 }) => {
   // 유저값
-  let GaugeValue;
-  let usergaugeValue;
-  if (userGauge === 0) {
-    GaugeValue = totalGauge;
-  } else {
-    usergaugeValue = userGauge;
-    GaugeValue = totalGauge;
-  }
-  // const usergaugeValue = 30;
-  // // 평균값
-  // const GaugeValue = 60;
+  const usergaugeValue = 30;
+  // 평균값
+  const GaugeValue = 60;
 
   const usergaugeValuePercent = GaugeValue + "%";
   const gaugeValuePercent = usergaugeValue + "%";
@@ -131,12 +110,8 @@ export const GaugeBox = ({
             />
           </div>
           <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
-            {userGauge ? (
-              <>
-                <Image src={total} alt="이미지" width={15} height={15} style={{ marginBottom: '8px'}}/>
-                <div>평균</div>
-              </>
-            ) : null}
+            <Image src={total} alt="이미지" width={20} height={20} />
+            <div>평균</div>
           </div>
           <div className={styles.pollTitleContainer} style={gradientStyle}>
             {/* <div className={styles.pollTitle}>{pollTitle}</div> */}
@@ -166,9 +141,7 @@ export const CardBox = ({
   comment_cnt,
   candidateList,
   date,
-  userVote,
 }) => {
-  console.log(userVote);
   return (
     <>
       <div className={styles.mainbox}>
@@ -180,15 +153,7 @@ export const CardBox = ({
           {candidateList &&
             candidateList.map((option, index) => (
               <div key={index} className={styles.optionCard}>
-                <span>
-                  {option.optionString}
-                  {userVote &&
-                  userVote.some(
-                    (userVoteItem) => userVoteItem.optionId === option.optionId
-                  ) ? (
-                    <Image src={check} alt="체크" width={15} height={15} />
-                  ) : null}
-                </span>
+                <span>{option.optionString}</span>
                 {option.optionImgUrl && (
                   <Image
                     src={option.optionImgUrl}

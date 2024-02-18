@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 // import useStore from "@/app/zustand/editStore";
 import styles from "@/app/modules/editCss/edit.module.scss";
+import { handleLogin } from "@/app/api/user/login/login";
 import { getMyInfo } from "@/app/api/user/modify/modify";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
 import Image from "next/image";
@@ -10,22 +11,36 @@ import edit from "@/app/public/image/edit.png";
 import EditImage from "@/app/components/edit/EditImage";
 import EditInfo from "@/app/components/edit/EditInfo";
 import EditPassword from "@/app/components/edit/EditPassword";
-import EditSecurityEmail from "@/app/components/edit/EditSecurityEmail";
 
 export default function Edit() {
   const [userData, setUserData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getMyInfo();
-        setUserData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  const getMyPage = async () => {
+    try {
+      const atkToken = localStorage.getItem("token");
+      const url = new URL(
+        "https://dev.gomin-chingu.site/user/my-page/profile/modify"
+      );
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.result);
+        console.log("MyPage data:", data);
+      } else {
+        console.error("MyPage 데이터를 가져오지 못했습니다:", response);
       }
-    };
-    fetchData();
-  }, [userData.userImage]);
+    } catch (error) {
+      console.error("에러", error);
+    }
+  };
 
   return (
     <>
@@ -60,7 +75,7 @@ export default function Edit() {
       </div>
       <div></div>
       <div className={styles.content}>
-        <EditImage userData={userData}/>
+        <EditImage userData={userData} />
         <div className={styles.profile}>
           <h4>프로필</h4>
           <div className={styles.profile_content}>
@@ -72,8 +87,7 @@ export default function Edit() {
         <div className={styles.profile}>
           <h4>보안 설정</h4>
           <div className={styles.profile_content}>
-            <EditPassword/>
-            <EditSecurityEmail userEmail={userData.email}/>
+            <EditPassword />
           </div>
         </div>
       </div>

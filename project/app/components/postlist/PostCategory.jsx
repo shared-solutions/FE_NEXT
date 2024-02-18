@@ -17,19 +17,17 @@ const PostCategory = ({ selectedCategory, onCategoryChange }) => {
   return (
     <div className={styles.scrollableContainer}>
       <div className={styles.categoryWrapper}>
-        <div className={styles.categoryInner}>
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className={`${styles.category} ${
-                selectedCategory === category ? styles.selected : ""
-              }`}
-              onClick={() => onCategoryChange(category)}
-            >
-              {category}
-            </div>
-          ))}
-        </div>
+        {categories.map((category, index) => (
+          <div
+            key={index}
+            className={`${styles.category} ${
+              selectedCategory === category ? styles.selected : ""
+            }`}
+            onClick={() => onCategoryChange(category)}
+          >
+            {category}
+          </div>
+        ))}
       </div>
     </div>
   );

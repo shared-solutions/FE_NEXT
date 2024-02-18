@@ -52,7 +52,7 @@ const CardVoteBox = ({ pollOption }) => {
                   userVote?.[0]?.optionId === option.optionId && (
                     <div className={styles.optionInfo}>
                       <span className={styles.userVotePercent}>
-                        {userVote?.[0]?.optionId === topCandidate?.[0]?.optionId ? "" : userVotePercent + "%"}
+                        {userVotePercent}%
                       </span>
                       <Image src={vote_check} alt="vote_check" style={{position: "absolute", right: "12%", top:"7.8%"}} /> 
                     </div>
@@ -60,17 +60,10 @@ const CardVoteBox = ({ pollOption }) => {
                 {topCandidate?.[0]?.optionId === option.optionId && (
                   <div className={styles.optionInfo}>
                     <span className={styles.topCandidatePercent}>
-                      {onGoing ? topCandidatePercent + "%" : ""}
+                      {topCandidatePercent}%
                     </span>
                   </div>
                 )}
-                <div className={styles.optionResult}>
-                    {/*topCandidate.optionString === option.optionString ? {topVoteResult} + "명 선택" : ""*/}
-                  </div>
-                  {!onGoing && (
-                    // 추가: 투표 마감 후 + 사용자 투표 O일 때 결과 표시
-                    <div className={styles.optionPercentage}>{allCandidatePercent[index]}%</div>
-                  )}
               </div>
             ))}
         </div>
