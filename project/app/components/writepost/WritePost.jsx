@@ -10,8 +10,8 @@ import WritePostFooter from "./WritePostFooter";
 import useWriteVoteStore from "@/app/zustand/voteStore";
 
 const WritePost = () => {
-  const CardItem = useVoteStore.getState().voteCardItems
-  console.log(CardItem)
+  const CardItem = useVoteStore.getState().voteCardItems;
+  console.log(CardItem);
   const [title, setTitle] = useState(""); // 제목 상태 변수
   const [content, setContent] = useState(""); // 내용 상태 변수
   const [file, setFile] = useState(null);
@@ -19,8 +19,7 @@ const WritePost = () => {
   const selectedCategory = useWriteVoteStore((state) => state.selectedCategory); // Zustand에서 카테고리 가져오기
   const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
   const typeNum = useWriteVoteStore.getState().selectedVoteType;
-  const authToken = localStorage.getItem("token");
-  
+
   console.log(typeNum);
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -35,6 +34,7 @@ const WritePost = () => {
 
   const handleSubmit = async () => {
     try {
+      const authToken = localStorage.getItem("token");
       const formData = new FormData();
       formData.append(
         "request",
@@ -59,7 +59,7 @@ const WritePost = () => {
       formData.append("file", file);
 
       // 첫 번째 POST 요청
-      console.log(formData)
+      console.log(formData);
       const response = await axios.post(
         "https://dev.gomin-chingu.site/posts/",
         formData,
@@ -79,13 +79,13 @@ const WritePost = () => {
 
       // 두 번째 POST 요청 시작 => postId를 받아서 -> 후보 개수만큼 후보 생성 api POST
       const candidateCount = CardItem?.length; // 후보 개수 받아오기
-      
+
       for (let i = 0; i < candidateCount; i++) {
-        let ImgUrl = CardItem[i].image
-        let OpString = CardItem[i].placeholder
+        let ImgUrl = CardItem[i].image;
+        let OpString = CardItem[i].placeholder;
         const candidateFormData = new FormData();
         candidateFormData.append("post-id", postId);
-        candidateFormData.append("optionString",OpString ); // optionString 받아오기
+        candidateFormData.append("optionString", OpString); // optionString 받아오기
         candidateFormData.append("optionImgUrl", ImgUrl); // optionImgUrl 받아오기
         candidateFormData.append("atk", authToken);
 

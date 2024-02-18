@@ -26,29 +26,32 @@ const WriteReview = () => {
       if (typeof window !== "undefined") {
         // 클라이언트 환경에서만 실행
         const atkToken = localStorage.getItem("token");
-        const page = 0;
-        const size = 6;
 
-        const url = new URL(
-          "https://dev.gomin-chingu.site/posts/poll-postList"
-        );
-        url.searchParams.append("page", page);
-        url.searchParams.append("size", size);
+        if (atkToken) {
+          const page = 0;
+          const size = 6;
 
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            atk: atkToken,
-          },
-        });
+          const url = new URL(
+            "https://dev.gomin-chingu.site/posts/poll-postList"
+          );
+          url.searchParams.append("page", page);
+          url.searchParams.append("size", size);
 
-        if (response.ok) {
-          const data = await response.json();
-          setVotedBoxData(data.result.candidatePostDTOList);
-          console.log("MyPage data:", data);
-        } else {
-          console.error("Failed to get MyPage data:", response);
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              atk: atkToken,
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setVotedBoxData(data.result.candidatePostDTOList);
+            console.log("MyPage data:", data);
+          } else {
+            console.error("Failed to get MyPage data:", response);
+          }
         }
       }
     } catch (error) {

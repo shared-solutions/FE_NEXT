@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const WriteReviewHeader = ({ title, content }) => {
   const router = useRouter();
-  const authToken = localStorage.getItem("token");
+
   const { selectedBoxData } = useSelectedBox();
 
   const [file, setFile] = useState(null);
@@ -24,6 +24,7 @@ const WriteReviewHeader = ({ title, content }) => {
     console.log(content);
 
     try {
+      const authToken = localStorage.getItem("token");
       const formData = new FormData();
       formData.append(
         "request",
