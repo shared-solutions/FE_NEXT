@@ -30,4 +30,3 @@ export const config = {
     '/menu/:path*',
 ]
 }
-

@@ -41,10 +41,11 @@ export default function Content({ alarm, data }) {
       <Image src={woman_image} alt="image" />
       <div className={styles.content_text}>
         <p style={{ fontWeight: "bold" }}>
-          {data.nickName}님이 회원님의 게시물에 댓글을 남겼습니다.
+          {/*data.userNickName === null ? "": data.userNickName}님이 회원님의 게시물에 댓글을 남겼습니다.*/}
+          {data.alarmType === "VOTE_FINISH" ? "투표가 마감되었습니다.": data.alarmContent}
         </p>
         <div className={styles.text_container}>
-          <p style={{ color: "#595959" }}>{data.content}</p>
+          <p style={{ color: "#595959" }}>{data.commentContent === null ? "" : data.commentContent}</p>
           <p style={{ color: "#A5A5A5" }}>{timeDifference}{timeDifferenceInHours >= 24 ? "일" : "시간"} 전</p>
         </div>
       </div>

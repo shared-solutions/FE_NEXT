@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/modules/postListCss/generalPostBox.module.scss";
+import styles from "@/app/modules/voteDetailCss/generalVoteBox.module.scss";
 import Image from "next/image";
 import vote_check from "@/app/public/image/vote_check.png"
 import voteDetailStore from "@/app/zustand/voteDetailStore";
@@ -47,16 +47,16 @@ const GeneralPostBox = ({ pollOption, postId }) => {
                   {userVote &&
                   userVote[0]?.optionId === option.optionId && (
                     <div className={styles.optionInfo}>
-                      <Image src={vote_check} alt="vote_check" style={{position: "absolute", right: "12%", top:"5%"}} /> 
+                      <Image src={vote_check} alt="vote_check" style={{position: "absolute", right: "12%"}} /> 
                       <span className={styles.userVotePercent}>
-                        {userVotePercent}%
+                      {userVote?.[0]?.optionId === topCandidate?.[0]?.optionId || !onGoing? "" : userVotePercent + "%"}
                       </span>
                     </div>
                   )}
                 {(topCandidate || [])[0]?.optionId === option.optionId && (
                   <div className={styles.optionInfo}>
                     <span className={styles.topCandidatePercent}>
-                      {topCandidatePercent}%
+                      {onGoing || topCandidatePercent !== userVotePercent ? topCandidatePercent + "%": ""}
                     </span>
                   </div>
                 )}
