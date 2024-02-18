@@ -77,7 +77,7 @@ const Hot = () => {
 
   const renderBox = (userDataItem, index) => {
     const {
-      post_id,
+      postId,
       postVoteType,
       user,
       title,
@@ -92,6 +92,7 @@ const Hot = () => {
       allCandidatePercent,
       totalGauge,
       userGauge,
+      userVote,
     } = userDataItem;
 
     const generalProps = {
@@ -102,6 +103,7 @@ const Hot = () => {
       comment_cnt: comment || 0,
       date: uploadDate || 0,
       allCandidatePercent: allCandidatePercent || [],
+      userVote: userVote || [],
     };
     const cardProps = {
       title: title || "",
@@ -110,6 +112,7 @@ const Hot = () => {
       like: like || 0,
       comment_cnt: comment || 0,
       date: uploadDate || 0,
+      userVote: userVote || [],
     };
 
     const gaugeProps = {
@@ -130,7 +133,7 @@ const Hot = () => {
           <Link
             className={styles.link}
             key={index}
-            href={`/viewdetail/${post_id}`}
+            href={`/viewdetail/${postId}`}
           >
             {postVoteType === "GENERAL" ? (
               <GeneralBox {...generalProps} />
