@@ -49,6 +49,8 @@ export default function Detail({
 }) {
   const [setting, setSetting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [isScrap, setIsScrap] = useState(false);
   const {
     allCandidatePercent,
     topCandidatePercent,
@@ -72,11 +74,20 @@ export default function Detail({
     setIsLiked((prevIsLiked) => !prevIsLiked);
 
     if (isLiked) {
-      deleteLike();
+      handleDeleteLike();
     } else {
-      postLike();
+      handlePostLike();
     }
   };
+  const handleScrapClick = () => {
+    setIsScrap((prevIsScrap) => !prevIsScrap);
+
+    if (isScrap) {
+      delScrapHandler();
+    } else {
+      scrapHandler();
+    }
+  }
   const dateObject = new Date(date);
   const year = dateObject.getFullYear();
   const month = String(dateObject.getMonth() + 1).padStart(2, "0");
@@ -105,13 +116,22 @@ export default function Detail({
   console.log(postVoteType);
 
   const { selectList } = useSelectVoteStore();
-  const authToken = localStorage.getItem("token");
+  let type;
+  if (postVoteType === "CARD") {
+    type = "cardVote";
+  } else if (postVoteType === "GENERAL") {
+    type = "generalVote";
+  } else {
+    type = "gaugeVote";
+  }
  
   // 투표하기 api selectedList 저장 필요
   const handleVote = async () => {
     try {
+      const authToken = localStorage.getItem("token");
+
       const response = await fetch(
-        `https://dev.gomin-chingu.site/posts/${postId}/generalVote`,
+        `https://dev.gomin-chingu.site/posts/${postId}/${type}`,
         {
           method: "POST",
           headers: {
@@ -127,6 +147,8 @@ export default function Detail({
       if (response.ok) {
         const result = await response.json();
         console.log("Voting success:", result);
+        alert("투표했습니다!");
+        window.location.reload();
       } else {
         console.error("Voting failed:", response);
       }
@@ -134,6 +156,118 @@ export default function Detail({
       console.error("Error:", error);
     }
   };
+
+  const handlePostLike = async () => {
+    console.log("좋아요 누름");
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/like`,
+        {
+          method: "POST",
+          headers: {
+            accept: "*/*",
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Voting success:", result);
+        alert("게시글을 좋아요했습니다!");
+      } else {
+        console.error("Voting failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  const handleDeleteLike = async () => {
+    console.log("좋아요 누름");
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/like/del`,
+        {
+          method: "DELETE",
+          headers: {
+            accept: "*/*",
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Delete success:", result);
+        alert("좋아요 해제했습니다.");
+      } else {
+        console.error("Voting failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  const clickHandler = () => {
+    setIsButtonClicked(!isButtonClicked);
+  };
+  const scrapHandler = async () => {
+    console.log(" 누름");
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/scrap`,
+        {
+          method: "POST",
+          headers: {
+            accept: "*/*",
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("success:", result);
+        //setIsScrap((prevscrap) => !prevscrap);
+        alert("스크랩했습니다.");
+      } else {
+        console.error("Voting failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const delScrapHandler = async () => {
+    console.log(" 누름");
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/scrap/del`,
+        {
+          method: "DELETE",
+          headers: {
+            accept: "*/*",
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        //setIsScrap((prevscrap) => !prevscrap);
+        const result = await response.json();
+        console.log("success:", result);
+        alert("스크랩 해제했습니다.");
+      } else {
+        console.error("Voting failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -153,6 +287,34 @@ export default function Detail({
         <br />
 
         <div className={styles.morebtn}>
+        {isButtonClicked ? (
+            <div className={styles.more_container}>
+              <p onClick={() => clickHandler()}>수정</p>
+              <p onClick={() => clickHandler()}>알림 끄기</p>
+              {isScrap ? (
+                <p
+                  onClick={() => {
+                    clickHandler();
+                    handleScrapClick();
+                  }}
+                >
+                  스크랩 해제
+                </p>
+              ) : (
+                <p
+                  onClick={() => {
+                    clickHandler();
+                    handleScrapClick(); 
+                  }}
+                >
+                  스크랩
+                </p>
+              )}
+              <p onClick={() => clickHandler()}>신고하기</p>
+            </div>
+          ) : (
+            ""
+          )}
           <Image
             className={styles.rerender}
             src={rerenderimg}
@@ -160,7 +322,7 @@ export default function Detail({
             width={12}
             height={12}
           />
-          <Image src={moreimg} alt="더보기" width={3} height={13} />
+          <Image src={moreimg} alt="더보기" width={3} height={13} onClick={() => clickHandler}/>
         </div>
       </div>
       <div className={styles.usertext}>
@@ -174,13 +336,23 @@ export default function Detail({
       <div className={styles.vote}>
         <div className={styles.minititle}>
           <div className={styles.mini}>{pollTitle}</div>
-          <div
-            className={styles.point}
-            disabled={timeDifference <= 0}
-            onClick={() => timeDifference > 0 && handleVote()}
-          >
-            투표하기
-          </div>
+          {isVoted ? (
+            <div
+              className={styles.point_done}
+              disabled={!onGoing || timeDifference <= 0}
+            >
+              투표완료
+            </div>
+          ) : (
+            <div
+              className={styles.point}
+              disabled={isVoted || !onGoing || timeDifference <= 0}
+              onClick={() => timeDifference > 0 && handleVote()}
+              style={onGoing ? "" : { display: "none" }}
+            >
+              투표하기
+            </div>
+          )}
         </div>
         <div className={styles.timer}>
           <div className={styles.pointnum}>채택 포인트: {point}</div>
@@ -223,8 +395,8 @@ export default function Detail({
             <GaugeVoteBox
               {...defaultPostProps}
               pollTitle={pollTitle || ""}
-              gauge={gauge || 0}
-              postId={postId}
+              totalGauge={totalGauge || 0}
+              userGauge={userGauge || 0}
               topCandidate={topCandidate}
               topCandidatePercent={topCandidatePercent}
               userVote={userVote}
