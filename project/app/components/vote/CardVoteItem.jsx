@@ -30,10 +30,23 @@ const CardVoteItem = () => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      const updatedItem = { id: id, placeholder: placeholder, image: reader.result };
+        let dataURL = reader.result
+        const enCoding = dataURL.split(',');
+        
+        if (enCoding.length === 2) {
+        // Extract the base64 part
+        dataURL = enCoding[1];
+
+        // Now you can use the dataURL without the prefix
+        console.log(dataURL);
+    } else {
+        console.error('Invalid data URL format');
+    }
+      const updatedItem = { id: id, placeholder: placeholder, image: dataURL};
       updateVoteItem(id, updatedItem);
     };
-    console.log(file)
+    
+    
     reader.readAsDataURL(file);
   };
 
@@ -82,7 +95,7 @@ const CardVoteItem = () => {
                             <label htmlFor={`file-upload-${item.id}`}>
                                 {item.image ? (
                                     <img
-                                        src={item.image}
+                                        src={"data:image/png;base64,"+item.image}
                                         alt="preview"
                                         style={{
                                             width: "100px",
