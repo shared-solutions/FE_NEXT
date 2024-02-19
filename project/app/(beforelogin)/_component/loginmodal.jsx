@@ -3,38 +3,12 @@ import Image from "next/image"
 import Link from "next/link"
 import styles from '@/app/modules/login.module.scss'
 import smile from "@/app/public/image/smile.png"
-import axios from "axios"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+
 
 const RestApi = '74a6375e4d5e498e04211309f83a2ec5'
-const Redirect = 'http://localhost:3000/api/auth/callback/kakao'
+const Redirect = 'https://gominchinguteam.vercel.app/i/login/kakao'
 
 export default function Modal() {
-    const router = useRouter();
-    
-    useEffect(() => {
-        const handleKakaoLogin = async () => {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
-                console.log(code); // 코드가 잘 가져와지는지 확인하기 위해 콘솔에 출력
-    
-                if (code) {
-                    const response = await axios.get(`http://dev.gomin-chingu.site/api/auth/callback/kakao?code=${code}`);
-                    console.log('Kakao OAuth response:', response.data);
-                    // 여기서 서버로부터 받은 토큰을 이용하여 로그인 등의 추가 작업을 수행할 수 있음
-                    const token = response.data.token;
-                    window.localStorage.setItem('token', token);
-                    router.push('/home');
-                }
-            } catch (error) {
-                console.error('Kakao OAuth error:', error);
-            }
-        };
-    
-        handleKakaoLogin();
-    }, [router]);
     
     return (
         <div className={styles.container}>

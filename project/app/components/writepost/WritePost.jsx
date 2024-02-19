@@ -94,7 +94,7 @@ const WritePost = () => {
           candidateFormData,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
               atk: authToken,
             },
           }
