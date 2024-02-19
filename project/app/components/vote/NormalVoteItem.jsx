@@ -55,6 +55,8 @@ const VoteItem = ({ id, placeholder, onDelete }) => {
                     src={deleteimg}
                     alt='Delete'
                     onClick={onDelete}
+                    width={30}
+                    height={30}
                 />
             </div>
         </div>
