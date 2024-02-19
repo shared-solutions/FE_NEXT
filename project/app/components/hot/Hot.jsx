@@ -92,6 +92,7 @@ const Hot = () => {
       allCandidatePercent,
       totalGauge,
       userGauge,
+      postId,
     } = userDataItem;
 
     const generalProps = {
@@ -130,7 +131,7 @@ const Hot = () => {
           <Link
             className={styles.link}
             key={index}
-            href={`/viewdetail/${post_id}`}
+            href={`/viewdetail/${postId}`}
           >
             {postVoteType === "GENERAL" ? (
               <GeneralBox {...generalProps} />
