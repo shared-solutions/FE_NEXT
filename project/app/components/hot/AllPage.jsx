@@ -23,10 +23,11 @@ const AllPage = () => {
   const [page, setPage] = useState(0); // 현재 페이지
   const [loading, setLoading] = useState(false); // 데이터를 불러오는 중인지 여부
 
-  const authToken = localStorage.getItem("token");
+  
 
   const getData = async () => {
     try {
+      const authToken = localStorage.getItem("token");
       setLoading(true); // 데이터를 불러오는 중임을 표시
       let url;
 

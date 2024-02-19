@@ -13,21 +13,22 @@ const PostCategory = ({ selectedCategory, onCategoryChange }) => {
     "기타",
   ];
 
- 
   return (
     <div className={styles.scrollableContainer}>
       <div className={styles.categoryWrapper}>
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className={`${styles.category} ${
-              selectedCategory === category ? styles.selected : ""
-            }`}
-            onClick={() => onCategoryChange(category)}
-          >
-            {category}
-          </div>
-        ))}
+        <div className={styles.categoryInner}>
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className={`${styles.category} ${
+                selectedCategory === category ? styles.selected : ""
+              }`}
+              onClick={() => onCategoryChange(category)}
+            >
+              {category}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
