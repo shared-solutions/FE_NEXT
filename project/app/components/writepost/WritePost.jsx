@@ -4,10 +4,10 @@ import axios from "axios";
 import Image from "next/image";
 import styles from "@/app/modules/writepostCss/writepost.module.scss";
 import useVoteStore from "@/app/zustand/normalVoteStore";
-
 import WritePostHeader from "./WritePostHeader";
 import WritePostFooter from "./WritePostFooter";
 import useWriteVoteStore from "@/app/zustand/voteStore";
+import { useRouter } from "next/navigation";
 
 const WritePost = () => {
   const CardItem = useVoteStore.getState().voteCardItems;
@@ -19,18 +19,7 @@ const WritePost = () => {
   const selectedCategory = useWriteVoteStore((state) => state.selectedCategory); // Zustand에서 카테고리 가져오기
   const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
   const typeNum = useWriteVoteStore.getState().selectedVoteType;
-
-  console.log(typeNum);
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
-  // 원하는 형식으로 날짜와 시간을 포맷하는 함수
-  // const formatDateTimeForServer = (dateTime) => {
-  //     return dateTime.toISOString(); // 예시: "2024-02-18T02:16:56.811Z"
-  // };
-
-  // voteTitle 잘 들어가는지 확인
+  const router = useRouter()
 
   const handleSubmit = async () => {
     try {
@@ -86,7 +75,7 @@ const WritePost = () => {
         const candidateFormData = new FormData();
         candidateFormData.append("post-id", postId);
         candidateFormData.append("optionString", OpString); // optionString 받아오기
-        candidateFormData.append("optionImgUrl", ImgUrl); // optionImgUrl 받아오기
+        candidateFormData.append("optionImg", ImgUrl); // optionImgUrl 받아오기
         candidateFormData.append("atk", authToken);
 
         const candidateResponse = await axios.post(
@@ -99,9 +88,16 @@ const WritePost = () => {
             },
           }
         );
-        console.log(`후보 ${i + 1} 생성 요청 성공:`, candidateResponse.data);
-        console.log("voteTitle: ", voteTitle);
-        console.log("title:", title);
+        if(response.status ===200){
+          console.log(`후보 ${i + 1} 생성 요청 성공:`, candidateResponse.data);
+          console.log("voteTitle: ", voteTitle);
+          console.log("title:", title);
+          router.replace('/vote')
+        }
+        else{
+          alert("잠시만 기다려주세요..!")
+        }
+        
       }
     } catch (error) {
       console.error("요청 실패:", error);
