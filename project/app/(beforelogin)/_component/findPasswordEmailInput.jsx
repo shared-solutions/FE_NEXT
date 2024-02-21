@@ -3,10 +3,26 @@
 import styles from '@/app/modules/passwordCss/findPasswordEmailInput.module.scss'; 
 import backImg from '@/app/public/image/backimg.png'
 import gominImg from '@/app/public/image/gominImg.png'
+import useFindPwStore from '@/app/zustand/findPwStore';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function FindPasswordEmailInput() {
+    const [email, setEmail] = useState('');
+    const {isSucceed,setIsSucceed,setCurrentStage, setEmailStore} = useFindPwStore();
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const handleEmailChange = (e) => {
+        const emailInput = e.target.value;
+        setEmail(emailInput);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsEmailValid(emailRegex.test(emailInput));
+    } 
+    const handleNext = () => {
+        setIsSucceed({ ...isSucceed, EmailInput: true });
+        setEmailStore(email);
+        setCurrentStage('Verify');
+      };
     return(
         <div className={styles.container}>
             <h1 className={styles.title}>
@@ -33,11 +49,11 @@ export default function FindPasswordEmailInput() {
                     <div style={{ marginBottom: '35px'}}></div>
                     <div className={styles.emailValid}>
                         {/* <input type="text" placeholder='필수 입력' onChange={handleEmailChange} value={email}/> */}
-                        <input type="text" placeholder='필수 입력' />
+                        <input type="text" placeholder='필수 입력' onChange={handleEmailChange} value={email} />
                     </div>
                     <div className={styles.btn_container}>
                         {/* <button disabled={!isRequiredChecked} onClick={handleNext}><p>다음</p></button> */}
-                        <button><p>다음</p></button>
+                        <button onClick={handleNext} disabled ={!isEmailValid}><p>다음</p></button>
                     </div>
                 </div>
             </div>
