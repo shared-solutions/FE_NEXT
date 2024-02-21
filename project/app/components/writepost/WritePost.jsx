@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Image from "next/image";
 import styles from "@/app/modules/writepostCss/writepost.module.scss";
 import useVoteStore from "@/app/zustand/normalVoteStore";
 import WritePostHeader from "./WritePostHeader";
@@ -20,7 +19,15 @@ const WritePost = () => {
   const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
   const typeNum = useWriteVoteStore.getState().selectedVoteType;
   const router = useRouter()
-
+  const [isWrote, setIsWrote] = useState(false);
+  useEffect(()=>{
+    if (title.length >= 5 && content.length >=5) {
+      setIsWrote(true);
+    }
+    else{
+      setIsWrote(false)
+    }
+  },[title,content])
   const handleSubmit = async () => {
     try {
       const authToken = localStorage.getItem("token");
@@ -65,9 +72,9 @@ const WritePost = () => {
       // postId 추출
       const postId = response.data.result.postId;
       console.log("postId 추출 성공:", postId);
-
-      // 두 번째 POST 요청 시작 => postId를 받아서 -> 후보 개수만큼 후보 생성 api POST
-      const candidateCount = CardItem?.length; // 후보 개수 받아오기
+      if( typeNum ===1||typeNum===3)
+      {
+         const candidateCount = CardItem?.length; // 후보 개수 받아오기
 
       for (let i = 0; i < candidateCount; i++) {
         let ImgUrl = CardItem[i].image;
@@ -99,10 +106,18 @@ const WritePost = () => {
         }
         
       }
+      }
+      else{
+        console.log("게이지투표작성성공")
+        router.replace('/vote')
+      }
+      // 두 번째 POST 요청 시작 => postId를 받아서 -> 후보 개수만큼 후보 생성 api POST
+     
     } catch (error) {
       console.error("요청 실패:", error);
     }
   };
+  console.log(isWrote)
   return (
     <div>
       <div className={styles.container} style={{ background: "white" }}>
@@ -128,7 +143,7 @@ const WritePost = () => {
             onChange={(e) => setContent(e.target.value)} // 상태 업데이트 함수
           />
         </div>
-        <WritePostFooter />
+        <WritePostFooter isWrote={isWrote} />
       </div>
     </div>
   );

@@ -58,6 +58,7 @@ export default function Modal() {
         document.cookie = `token=${token}; path=/; expires=${expirationDate.toUTCString()}`;
         router.push('/home')
       } else {
+        alert("비밀번호가 일치하지않습니다.")
         console.error('Login failed');
       }
 
