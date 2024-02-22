@@ -8,6 +8,7 @@ import close_round from "@/app/public/image/close_round.png";
 import styles from "../../modules/savedCss/mycategory.module.scss";
 import Category from "./Category";
 import Post from "./Post";
+import Link from "next/link";
 
 export default function MyCategory() {
   const { categories, setCategoryClicked } = categoryStore();
@@ -135,8 +136,12 @@ export default function MyCategory() {
               className={styles.close}
               onClick={closeModal}
             />
-            {selectedPostList.map((post) => {
-              return (
+            {selectedPostList.map((post) => (
+              <Link
+                key={post.postId}
+                href={`/viewdetail/${post.postId}`}
+                style={{ textDecoration: "none", color: "black", margin: 0 }}
+              >
                 <Post
                   key={post.title}
                   day={post.ago}
@@ -145,8 +150,8 @@ export default function MyCategory() {
                   like_num={post.postLike}
                   comment_num={post.comment}
                 />
-              );
-            })}
+              </Link>
+            ))}
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Form from "./Form";
 
 export default function Answer({ data }) {
@@ -11,8 +12,12 @@ export default function Answer({ data }) {
   };
   return (
     <div>
-      {data.map((item) => {
-        return (
+      {data.map((item) => (
+        <Link
+          key={item.postId}
+          href={`/viewdetail/${item.postId}`}
+          style={{ textDecoration: "none", color: "black", margin: 0 }}
+        >
           <Form
             key={item.createdAt}
             name={item.nickName}
@@ -21,8 +26,8 @@ export default function Answer({ data }) {
             like_num={item.commentLike}
             comment_num={item.reComment}
           />
-        );
-      })}
+        </Link>
+      ))}
     </div>
   );
 }

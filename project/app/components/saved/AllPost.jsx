@@ -1,7 +1,5 @@
 "use client";
-
-import axios from "axios";
-
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { getMyPost } from "@/app/api/user/profile/saved-post";
@@ -89,8 +87,12 @@ export default function AllPost() {
         </motion.button>
       </div>
       <div className={styles.post_container}>
-        {userData.map((post) => {
-          return (
+        {userData.map((post) => (
+          <Link
+            key={post.postId}
+            href={`/viewdetail/${post.postId}`}
+            style={{ textDecoration: "none", color: "black", margin: 0 }}
+          >
             <Post
               key={post.title}
               day={post.ago}
@@ -99,8 +101,8 @@ export default function AllPost() {
               like_num={post.postLike}
               comment_num={post.comment}
             />
-          );
-        })}
+          </Link>
+        ))}
       </div>
     </>
   );
