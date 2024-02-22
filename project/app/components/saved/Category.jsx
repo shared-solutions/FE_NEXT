@@ -4,18 +4,17 @@ import like from "@/app/public/image/like.png";
 import comment from "@/app/public/image/comment.png";
 
 export default function Category({ posts, name }) {
-  //const postArray = Array.isArray(posts) ? posts : [posts];
   const len = posts.length;
-  console.log("post입니다", posts);
+  const slicedPostList = posts.slice(0, 3); 
 
   return (
     <>
       {len === 0 ? (
         <p className={styles.none}>아직 저장한 게시물이 없습니다.</p>
       ) : (
-        posts((post, index) => {
+        slicedPostList.map((post, index) => {
           let topValue, leftValue;
-          if (len === 3) {
+          if (len >= 3) {
             topValue = `${3 - index * 1.2}rem`;
             leftValue = `${3 - index * 1}rem`;
           } else if (len === 2) {
@@ -28,7 +27,7 @@ export default function Category({ posts, name }) {
           return (
             <div
               className={styles.post}
-              key={post.uploadDate}
+              key={post.title}
               style={{
                 top: topValue,
                 left: leftValue,

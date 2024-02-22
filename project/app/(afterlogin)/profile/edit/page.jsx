@@ -2,8 +2,6 @@
 import { useEffect, useState } from "react";
 // import useStore from "@/app/zustand/editStore";
 import styles from "@/app/modules/editCss/edit.module.scss";
-import { handleLogin } from "@/app/api/user/login/login";
-import { getMyInfo } from "@/app/api/user/modify/modify";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
 import Image from "next/image";
 import default_image from "@/app/public/image/default_image.png";
@@ -42,6 +40,9 @@ export default function Edit() {
     }
   };
 
+  useEffect(() => {
+    getMyPage();
+  }, []);
   return (
     <>
       <div className={styles.container}>

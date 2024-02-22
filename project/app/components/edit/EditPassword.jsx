@@ -12,14 +12,6 @@ export default function EditPassword() {
   const [checkPassword, SetCheckPassword] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const checkCurPassword = (password) => {
-    if (password == process.env.NEXT_PUBLIC_USER_PASSWORD) {
-      alert("비밀번호가 일치합니다.");
-    } else {
-      alert("비밀번호가 일치하지 않습니다.");
-    }
-  };
-
   const handleModification = async () => {
     try {
       await modifyPassword(curPassword, changePassword, checkPassword);
@@ -48,7 +40,6 @@ export default function EditPassword() {
               placeholder="현재 비밀번호 입력"
               onChange={(e) => SetCurPassword(e.target.value)}
             />
-            <button onClick={() => checkCurPassword(curPassword)}>인증</button>
           </div>
           <div className={styles.input_container}>
             <input
