@@ -5,19 +5,15 @@ import Image from "next/image";
 import styles from "@/app/modules/notificationCss/notification.module.scss";
 import arrow2 from "../../public/image/arrow2.png";
 import more_button from "@/app/public/image/more_button.png";
-
 import Content from "@/app/components/notification/Content";
 
 import { getAlarmList } from "@/app/api/user/alarm/alarm";
-
 
 export default function Home() {
   const [alarmList, setAlarmList] = useState([]);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [readAllAlarm, setReadAllAlarm] = useState(false);
 
-
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +27,35 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
+  const readAlarmList = async (alarmId) => {
+    try {
+      const atkToken = localStorage.getItem("token");
+      const page = 0;
+
+      const url = new URL(
+        `https://dev.gomin-chingu.site/user/alarm/${alarmId}`
+      );
+      url.searchParams.append("page", page);
+
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          atk: atkToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("알림 읽기 성공", data);
+      } else {
+        console.error("알림 읽기 실패", response);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
 
   const clickHandler = () => {
     setIsButtonClicked(!isButtonClicked);
@@ -73,9 +98,20 @@ export default function Home() {
       )}
       <div className={styles.contentContainer}>
         {alarmList &&
-          alarmList.map((data, index) => (
-            <Content key={index} alarm={readAllAlarm} data={data} />
-          ))}
+          alarmList
+            .slice()
+            .reverse()
+            .map((data, index) => (
+              <Link
+                key={data.alarmId}
+                href={`/viewdetail/${data.postId}`}
+                onClick={() => {
+                  readAlarmList(data.alarmId);
+                }}
+              >
+                <Content key={data.postId} alarm={readAllAlarm} data={data} />
+              </Link>
+            ))}
       </div>
     </div>
   );
