@@ -22,7 +22,7 @@ export default function AllPost() {
       }
     };
     fetchData();
-  });
+  }, []);
 
   const getMyPage = async () => {
     try {

@@ -28,12 +28,9 @@ export default function EditNickName({ userData, type }) {
   };
 
   const handleSendEmail = () => {
-    if (!email || email !== userData.email) {
-      alert("올바른 이메일을 입력해 주세요.");
-    } else {
-      mailSend(email);
-      setIsSendCode(true);
-    }
+    
+    mailSend(email);
+    setIsSendCode(true);
   };
   const handleModification = async () => {
     if (type === "닉네임") {
@@ -57,7 +54,7 @@ export default function EditNickName({ userData, type }) {
     }
     setIsEditing(false);
   };
-
+  console.log(email);
   return (
     <div className={styles.grid}>
       {isNickname() ? (
@@ -94,7 +91,9 @@ export default function EditNickName({ userData, type }) {
               <button onClick={handleSendEmail}>인증</button>
             </div>
             {isSendCode ? (
-              <p style={{ color: "green", marginLeft: "0.5rem", width:" 100%" }}>
+              <p
+                style={{ color: "green", marginLeft: "0.5rem", width: " 100%" }}
+              >
                 인증번호를 전송했습니다.
               </p>
             ) : (
