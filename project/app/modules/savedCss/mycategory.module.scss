@@ -13,9 +13,9 @@
   justify-self: center;
   border-radius: 25px;
   margin: 0 1rem;
-}y
+}
 .list:nth-child(1) {
-  margin-left: 2rem;
+  //margin-left: 2rem;
 }
 .list:nth-child(2) {
   margin-left: 52%;
@@ -94,11 +94,58 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  top: 22.6vh;
+  top: 22vh;
   font-size: 14px;
   font-weight: bold;
   color: #454545;
 }
 .name:nth-child(n+5) {
   margin-bottom: "65px",
+}
+
+.header {
+  width: 60%;
+  top: 3%;
+  position: absolute;
+  text-align: center;
+  background-color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 8.5px 0;
+  font-size: 13.5px;
+  margin-left: 20%;
+}
+.modal {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black overlay */
+}
+
+.modalContent {
+  background-color: #F4F4F4;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 60px 5px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 89%;
+  min-height: 10%;
+  max-height: 60%;
+  overflow-y: auto;
+  position: relative;
+  top: 22%;
+  left: 4.7%
+}
+
+.close {
+  position: absolute;
+  top: 5%;
+  right: 18px;
+  font-size: 20px;
+  cursor: pointer;
 }

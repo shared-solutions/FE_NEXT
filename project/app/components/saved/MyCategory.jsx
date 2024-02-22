@@ -1,77 +1,44 @@
 "use client";
 import { useEffect, useState } from "react";
+import { categoryStore } from "@/app/zustand/categoryStore";
 import Image from "next/image";
 import star_gray from "@/app/public/image/star_gray.png";
 import star_yellow from "@/app/public/image/star_yellow.png";
+import close_round from "@/app/public/image/close_round.png";
 import styles from "../../modules/savedCss/mycategory.module.scss";
 import Category from "./Category";
+import Post from "./Post";
 
 export default function MyCategory() {
-  const [educationClicked, setEducationClicked] = useState(false);
-  const [entertainmentClicked, setEntertainmentClicked] = useState(false);
-  const [lifeClicked, setLifeClicked] = useState(false);
-  const [economyClicked, setEconomyClicked] = useState(false);
-  const [shoppingClicked, setShoppingClicked] = useState(false);
-  const [etcClicked, setEtcClicked] = useState(false);
+  const { categories, setCategoryClicked } = categoryStore();
+
   const [userData, setUserData] = useState([]);
-  // const categories = ["교육", "엔터테인먼트", "생활", "경제", "쇼핑", "기타"];
   const categoryNum = [1, 2, 3, 4, 5, 6];
   const [isLoading, setLoading] = useState(true);
+  const [selectedPostList, setSelectedPostList] = useState([]);
+  const [selectedName, setSelectedName] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const getCategoryClicked = (index) => {
-    switch (index) {
-      case 0:
-        return educationClicked;
-      case 1:
-        return entertainmentClicked;
-      case 2:
-        return lifeClicked;
-      case 3:
-        return economyClicked;
-      case 4:
-        return shoppingClicked;
-      case 5:
-        return etcClicked;
-      default:
-        return false;
-    }
+  const openModal = (category, postList) => {
+    setSelectedName(category);
+    setSelectedPostList(postList);
+    setIsModalOpen(true);
+    console.log(selectedPostList);
   };
 
-  const handleCategoryClick = (index) => {
-    switch (index) {
-      case 0:
-        setEducationClicked(!educationClicked);
-        break;
-      case 1:
-        setEntertainmentClicked(!entertainmentClicked);
-        break;
-      case 2:
-        setLifeClicked(!lifeClicked);
-        break;
-      case 3:
-        setEconomyClicked(!economyClicked);
-        break;
-      case 4:
-        setShoppingClicked(!shoppingClicked);
-        break;
-      case 5:
-        setEtcClicked(!etcClicked);
-        break;
-      default:
-        break;
-    }
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
     const getMyCategory = async () => {
       try {
         const atkToken = localStorage.getItem("token");
-        // ... (existing code)
-
-        // Fetch API data
         const fetchData = async () => {
           for (const category of categoryNum) {
-            const url = new URL(`https://dev.gomin-chingu.site/user/my-page/post/${category}`);
+            const url = new URL(
+              `https://dev.gomin-chingu.site/user/my-page/post/${category}`
+            );
             url.searchParams.append("page", "0");
 
             const response = await fetch(url, {
@@ -93,15 +60,13 @@ export default function MyCategory() {
               console.error("카테고리 상세보기 실패", response);
             }
           }
-
-          // After fetching data, set loading to false after 5 seconds
+          // 데이터 가져올 때까지 기다리기
           setTimeout(() => {
             setLoading(false);
           }, 1000);
         };
 
         fetchData();
-
       } catch (error) {
         console.error("Error", error);
       }
@@ -109,35 +74,80 @@ export default function MyCategory() {
 
     getMyCategory();
   }, []);
-  
+
+  const handleCategoryClick = (category) => {
+    setCategoryClicked(category, !categories[category]);
+  };
+
   return (
     <>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <div className={styles.scrollContainer}>
-          {userData.map((data, index) => (
+          {userData.map((data) => (
             <div
               key={data.postList.title}
               className={styles.list}
               style={{
-                backgroundColor: getCategoryClicked(index)
-                  ? "#FFF9BF"
+                backgroundColor: categories[data.category]
+                  ? "#FFF7A5"
                   : "#F4F4F4",
               }}
+              onClick={() => openModal(data.category, data.postList)}
             >
               <Image
-                src={getCategoryClicked(index) ? star_yellow : star_gray}
+                src={categories[data.category] ? star_yellow : star_gray}
                 alt="star"
-                onClick={() => handleCategoryClick(index)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleCategoryClick(data.category);
+                }}
                 style={{
                   marginBottom: "80%",
                   marginLeft: "83%",
                 }}
               />
-              <Category posts={data.postList} name={data.category} />
+              {!isModalOpen && (
+                <Category posts={data.postList} name={data.category} />
+              )}
             </div>
           ))}
+        </div>
+      )}
+      {/*Modal*/}
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div
+            className={styles.modalContent}
+            style={{
+              backgroundColor: categories[selectedName] ? "#FFF7A5" : "#F4F4F4",
+            }}
+          >
+            <div className={styles.header}>
+              <h3>{selectedName}</h3>
+            </div>
+            <Image
+              src={close_round}
+              alt="close"
+              width={19}
+              height={19}
+              className={styles.close}
+              onClick={closeModal}
+            />
+            {selectedPostList.map((post) => {
+              return (
+                <Post
+                  key={post.title}
+                  day={post.ago}
+                  header={post.title}
+                  text={post.content}
+                  like_num={post.postLike}
+                  comment_num={post.comment}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </>
