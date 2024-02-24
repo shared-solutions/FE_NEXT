@@ -44,7 +44,7 @@ const WritePost = () => {
           pollTitle: voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
           multipleChoice: true,
           parent_id: 0,
-          deadline: "2024-02-23T02:16:56.811Z",
+          deadline: "2024-02-28T02:16:56.811Z",
           // deadline: voteDeadline.toISOString(),
           // deadline: formatDateTimeForServer(voteDeadline),
           // deadline: voteDeadline ? voteDeadline.toISOString() : null,
