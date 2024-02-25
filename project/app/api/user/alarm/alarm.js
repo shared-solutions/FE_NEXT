@@ -1,8 +1,8 @@
 // 알림
-export const getAlarmList = async () => {
+export const getAlarmList = async (page) => {
   try {
     const atkToken = localStorage.getItem("token");
-    const page = 0;
+    //const page = 0;
 
     const url = new URL("https://dev.gomin-chingu.site/user/alarm");
     url.searchParams.append("page", page);
