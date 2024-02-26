@@ -1,26 +1,14 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
 import AlarmToast from "./AlarmToast";
 
 const SSESubscriber = () => {
   const [showToast, setShowToast] = useState(false);
   const [receivedData, setReceivedData] = useState("");
-  //const [atkToken, setAtkToken] = useState(null);
-
+ 
   const EventSource = EventSourcePolyfill || NativeEventSource;
 
-  /*
-  useEffect(() => {
-    const checkAndFetchSSE = () => {
-      if (token) {
-        fetchSSE();
-      } else {
-        checkAndFetchSSE();
-      }
-    };
-  }, [token]);
-*/
   useEffect(() => {
     const fetchSSE = (token) => {
       // SSE 연결되었을 때
