@@ -14,7 +14,7 @@ export default function Answer({ data }) {
     <div>
       {data.map((item) => (
         <Link
-          key={item.postId}
+          key={item.createdAt}
           href={`/viewdetail/${item.postId}`}
           style={{ textDecoration: "none", color: "black", margin: 0 }}
         >

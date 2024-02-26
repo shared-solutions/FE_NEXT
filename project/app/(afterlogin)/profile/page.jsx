@@ -16,26 +16,36 @@ export default function Profile() {
   const [userData, setUserData] = useState([]);
   const [myQuestion, setMyQuestion] = useState([]);
   const [myAnswer, setMyAnswer] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const handleRankButton = () => {
-    console.log(rank);
     setRank(true);
+  };
+
+  const handlePageChange = async (page) => {
+    try {
+      setCurrentPage(page);
+      // 데이터 초기화
+      setMyQuestion([]);
+      setMyAnswer([]);
+      
+      const question = await getMyQuestion(page);
+      setUserData(question);
+      setMyQuestion(question.postList);
+      const answer = await getMyAnswer(page);
+      setMyAnswer(answer);
+      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const question = await getMyQuestion();
-        setUserData(question);
-        setMyQuestion(question.postList);
-        const answer = await getMyAnswer();
-        setMyAnswer(answer);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      await handlePageChange(currentPage);
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={!rank ? styles.background : styles.rank_image}>
@@ -58,6 +68,7 @@ export default function Profile() {
           adoptPost={userData.adoptPostPercent}
           questionData={myQuestion}
           answerData={myAnswer}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>

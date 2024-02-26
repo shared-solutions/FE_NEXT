@@ -32,10 +32,9 @@ export const getMyCategory = async (categories) => {
 };
 
 // 저장한 게시물(모든게시물)
-export const getMyPost = async (sort) => {
+export const getMyPost = async (sort, page) => {
   try {
     const atkToken = localStorage.getItem("token");
-    const page = 0;
 
     const url = new URL("https://dev.gomin-chingu.site/user/my-page/post/all"); // API 엔드포인트 URL로 교체
     url.searchParams.append("page", page);

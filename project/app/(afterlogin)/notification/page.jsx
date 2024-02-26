@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/app/modules/notificationCss/notification.module.scss";
@@ -12,31 +12,57 @@ import { getAlarmList } from "@/app/api/user/alarm/alarm";
 export default function Home() {
   const [alarmList, setAlarmList] = useState([]);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [readAllAlarm, setReadAllAlarm] = useState(false);
+  const [alarmIdList, setAlarmIdList] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMoreData, setHasMoreData] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    try {
+      console.log("Fetching AlarmList...");
+      const result = await getAlarmList(page);
+      if (result.length === 0) {
+        setHasMoreData(false);
+      } else {
+        setAlarmList((prevList) => [...prevList, ...result]);
+
+        const unreadAlarms = result.filter((alarm) => !alarm.read);
+        const extractedAlarmIds = unreadAlarms.map((alarm) => alarm.alarmId);
+        unreadAlarms && setAlarmIdList((prevAlarm) => [...prevAlarm, ...extractedAlarmIds]);
+        setPage((prevPage) => prevPage + 1);
+      }
+    } catch (error) {
+      console.error("Error fetching AlarmList data:", error);
+    }
+  }, [page, alarmIdList]);
+
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.scrollHeight;
+
+    if (scrollY + windowHeight >= bodyHeight - 200) {
+      fetchData();
+    }
+  }, [fetchData]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("Fetching MyPage data...");
-        const result = await getAlarmList();
-        setAlarmList(result);
-        console.log("MyPage data fetched successfully!");
-      } catch (error) {
-        console.error("Error fetching MyPage data:", error);
-      }
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
+  }, [handleScroll]);
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const readAlarmList = async (alarmId) => {
     try {
       const atkToken = localStorage.getItem("token");
-      const page = 0;
 
       const url = new URL(
         `https://dev.gomin-chingu.site/user/alarm/${alarmId}`
       );
-      url.searchParams.append("page", page);
 
       const response = await fetch(url, {
         method: "PATCH",
@@ -57,10 +83,25 @@ export default function Home() {
     }
   };
 
+  const readAllAlarmList = () => {
+    if (alarmIdList.length > 0) {
+      alarmIdList.forEach(async (alarmId) => {
+        await readAlarmList(alarmId);
+      });
+      readAlarmList().then(() => {
+        alert("모두 읽음 처리에 성공했습니다.");
+        window.location.reload();
+      });
+    } else {
+      alert("읽을 알림이 없습니다.");
+    }
+  };
+
   const clickHandler = () => {
     setIsButtonClicked(!isButtonClicked);
   };
 
+  console.log("최종", alarmIdList);
   return (
     <div className={styles.container}>
       {alarmList.length > 0 ? (
@@ -85,7 +126,7 @@ export default function Home() {
         <div className={styles.more_container}>
           <p
             onClick={() => {
-              setReadAllAlarm(true);
+              readAllAlarmList();
               clickHandler();
             }}
           >
@@ -109,7 +150,7 @@ export default function Home() {
                   readAlarmList(data.alarmId);
                 }}
               >
-                <Content key={data.postId} alarm={readAllAlarm} data={data} />
+                <Content key={data.alarmId} data={data} />
               </Link>
             ))}
       </div>

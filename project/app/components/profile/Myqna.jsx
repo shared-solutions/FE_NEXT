@@ -1,19 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Answer from "@/app/components/profile/Answer";
 import Question from "@/app/components/profile/Question";
 import styles from "../../modules/profileCss/myqna.module.scss";
 
-export default function Myqna({ questionData, answerData, adoptPost }) {
+export default function Myqna({
+  questionData,
+  answerData,
+  adoptPost,
+  onPageChange,
+}) {
   const [content, setContent] = useState("question");
+  const [currentPage, setCurrentPage] = useState(0);
 
   const handleClickButton = (value) => {
     setContent(value);
+    setCurrentPage(0);
   };
+
+  const handlePageChange = async (page) => {
+    setCurrentPage(page);
+    await onPageChange(page);
+  };
+
   const selectComponent = {
     question: <Question data={questionData} />,
     answer: <Answer data={answerData} />,
   };
+
+  useEffect(() => {
+
+  }, [questionData, answerData])
+
   return (
     <>
       <div className={styles.rowContainer}>
@@ -52,6 +70,18 @@ export default function Myqna({ questionData, answerData, adoptPost }) {
         )}
       </div>
       {content && selectComponent[content]}
+      {/* 페이지네이션 */}
+      <div className={styles.paginationContainer}>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+          이전
+        </button>
+        <span>{currentPage + 1}</span>
+        <button onClick={() => handlePageChange(currentPage + 1)}
+        disabled={content === "question" ? !questionData.length : !answerData.length}>다음</button>
+      </div>
     </>
   );
 }

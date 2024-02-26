@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { getMyPost } from "@/app/api/user/profile/saved-post";
 import styles from "../../modules/savedCss/allpost.module.scss";
@@ -9,54 +9,49 @@ import Post from "../../components/saved/Post";
 export default function AllPost() {
   const [sortBy, setSortBy] = useState(0);
   const [userData, setUserData] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMoreData, setHasMoreData] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getMyPost(sortBy);
-        setUserData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const getMyPage = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const atkToken = localStorage.getItem("token");
-      const page = 0;
-      const sort = sortBy;
-
-      const url = new URL(
-        "https://dev.gomin-chingu.site/user/my-page/post/all"
-      );
-      url.searchParams.append("page", page);
-      url.searchParams.append("sort", sort);
-
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          atk: atkToken,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data.result.postList);
-        console.log("MyPage data:", data);
+      const result = await getMyPost(sortBy, page);
+      if (result.length === 0) {
+        setHasMoreData(false);
       } else {
-        console.error("Failed to get MyPage data:", response);
+        setUserData((prevData) => [...prevData, ...result]);
+        setPage((prevPage) => prevPage + 1);
       }
     } catch (error) {
-      console.error("Error", error);
+      console.error("Error fetching data:", error);
     }
-  };
+  }, [sortBy, page]);
+
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.scrollHeight;
+
+    if (scrollY + windowHeight >= bodyHeight - 200 && hasMoreData) {
+      fetchData();
+    }
+  }, [fetchData]);
 
   useEffect(() => {
-    getMyPage();
-  }, [sortBy]);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  
+  const resetAndFetchData = (sortOption) => {
+    setSortBy(sortOption);
+    setPage(0); // 페이지 리셋
+    setUserData([]); // 데이터 초기화
+  };
 
   return (
     <>
@@ -65,7 +60,9 @@ export default function AllPost() {
           className={`${styles.select_button} ${
             sortBy === 0 ? "" : styles.disabled
           }`}
-          onClick={() => setSortBy(0)}
+          onClick={() => {
+            resetAndFetchData(0);
+          }}
           whileTap={{
             scale: 0.5,
             opacity: 0.6,
@@ -77,7 +74,9 @@ export default function AllPost() {
           className={`${styles.select_button} ${
             sortBy === 1 ? "" : styles.disabled
           }`}
-          onClick={() => setSortBy(1)}
+          onClick={() => {
+            resetAndFetchData(1);
+          }}
           whileTap={{
             scale: 0.5,
             opacity: 0.6,
@@ -94,7 +93,7 @@ export default function AllPost() {
             style={{ textDecoration: "none", color: "black", margin: 0 }}
           >
             <Post
-              key={post.title}
+              key={post.postId}
               day={post.ago}
               header={post.title}
               text={post.content}

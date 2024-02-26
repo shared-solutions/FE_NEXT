@@ -24,10 +24,9 @@ export const getMyPage = async () => {
 };
 
 // 나의프로필(Q&A 질문)
-export const getMyQuestion = async () => {
+export const getMyQuestion = async (page) => {
   try {
     const atkToken = localStorage.getItem("token");
-    const page = 0;
 
     const url = new URL(
       "https://dev.gomin-chingu.site/user/my-page/profile/question"
@@ -55,10 +54,9 @@ export const getMyQuestion = async () => {
 };
 
 // 나의프로필(Q&A 답변)
-export const getMyAnswer = async () => {
+export const getMyAnswer = async (page) => {
   try {
     const atkToken = localStorage.getItem("token");
-    const page = 0;
 
     const url = new URL(
       "https://dev.gomin-chingu.site/user/my-page/profile/answer"
