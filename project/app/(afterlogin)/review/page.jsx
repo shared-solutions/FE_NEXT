@@ -6,6 +6,7 @@ import axios from "axios";
 import styles from "@/app/modules/reviewCss/review.module.scss";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useCallback } from "react";
 import deuserimg from "@/app/public/image/defaultUserImg.png";
 import Link from "next/link";
 
@@ -13,15 +14,16 @@ export default function Review() {
   const [userData, setUserData] = useState([]);
   const [page, setPage] = useState(0); // 현재 페이지
   const [loading, setLoading] = useState(false); // 데이터를 불러오는 중인지 여부
-  const [state, setState] = useState("");
+  const [sortBy, setSortBy] = useState(0);
+  const [hasMoreData, setHasMoreData] = useState(true);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
       const authToken = localStorage.getItem("token");
       setLoading(true); // 데이터를 불러오는 중임을 표시
       let url;
 
-      if (state === "최신순") {
+      if (sortBy === 1) {
         url = "https://dev.gomin-chingu.site/posts/review-post?arrange=1";
       } else {
         url = "https://dev.gomin-chingu.site/posts/review-post?arrange=0";
@@ -42,15 +44,15 @@ export default function Review() {
 
       if (response.status === 200) {
         const data = response.data;
-        if (page === 0) {
-          // 페이지가 0이면 새로운 데이터로 대체
-          setUserData(data.result.reviewPostList);
+        if (data.result.reviewPostList.length === 0) {
+          setHasMoreData(false);
         } else {
-          // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
+          // 가져올 데이터가 더 있으면 기존 데이터에 새로운 데이터를 추가
           setUserData((prevData) => [
             ...prevData,
             ...data.result.reviewPostList,
           ]);
+          setPage((prevPage) => prevPage + 1);
         }
         console.log("글 전체보기 데이터:", data);
       } else {
@@ -61,35 +63,33 @@ export default function Review() {
     } finally {
       setLoading(false); // 데이터 불러오기가 완료되면 로딩 플래그를 해제
     }
-  };
-  useEffect(() => {
-    getData();
-  }, [page]);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!loading) {
-        // 로딩 중이 아닐 때만 스크롤 이벤트 핸들러를 실행
-        if (
-          window.innerHeight + document.documentElement.scrollTop ===
-          document.documentElement.offsetHeight
-        ) {
-          // userData의 길이가 0이 아니고 loading이 false일 때만 데이터를 가져옴
-          if (userData.length > 0 && !loading) {
-            setPage((prevPage) => prevPage + 1);
-          }
-        }
-      }
-    };
+  }, [sortBy, page]);
 
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.scrollHeight;
+
+    if (scrollY + windowHeight >= bodyHeight - 200 && hasMoreData) {
+      getData();
+    }
+  }, [getData]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [userData, loading]);
+  }, [handleScroll]);
 
-  const handleButtonClick = (clickedValue) => {
-    console.log(`Clicked: ${clickedValue}`);
-    setState(clickedValue);
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const handleButtonClick = (sortOption) => {
+    setSortBy(sortOption);
+    setPage(0); // 페이지 리셋
+    setUserData([]); // 데이터 초기화
   };
 
   const renderPostBox = (userDataItem, index) => {
@@ -100,7 +100,6 @@ export default function Review() {
       uploadDate,
       like,
       comment,
-      reviewPic,
       userImg,
       postId,
     } = userDataItem;
@@ -110,8 +109,8 @@ export default function Review() {
       date: uploadDate || "",
       title: title || "",
       content: content || "",
-      like: like || "",
-      comment: comment || "",
+      like: like || "0",
+      comment: comment || "0",
       userImg: userImg || deuserimg,
     };
 
@@ -120,7 +119,7 @@ export default function Review() {
         <Link
           className={styles.link}
           key={index}
-          href={`/viewdetail/${postId}`}
+          href={`/reviewdetail/${postId}`}
         >
           <ReviewBox {...reviewProps} />
         </Link>
@@ -130,7 +129,7 @@ export default function Review() {
 
   return (
     <div className={styles.container}>
-      <Header onButtonClick={handleButtonClick} />
+      <Header onButtonClick={handleButtonClick} sortBy={sortBy} />
       <div className={styles.scrollable_container}>
         {userData.map(renderPostBox)}
         {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}

@@ -19,7 +19,8 @@
     //justify-content: end;
 }
 .button{
-    background-color: #FFC700;
+    background-color: #000000;
+    color: #FFFFFF;
     border-radius: 30px;
     border-style: none;
     font-size: 12px;
@@ -28,6 +29,10 @@
     width: 50px;
     margin-left: 5px;
     text-align: center;
+    width: 4.5rem;
+}
+.disabled {
+    background-color: #FFC045;
 }
 .submit_button{
     background-color: #FFC700;
