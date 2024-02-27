@@ -8,17 +8,11 @@ import close from "@/app/public/image/close.ico";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const WriteReviewHeader = ({ title, content }) => {
+const WriteReviewHeader = ({ title, content, handleClear }) => {
   const router = useRouter();
 
   const { selectedBoxData } = useSelectedBox();
 
-  const [file, setFile] = useState(null);
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-  //console.log(selectedBoxData.postId);
-  //console.log(selectedBoxData.createdAt);
   const handleSubmit = async () => {
     console.log(title);
     console.log(content);
@@ -40,17 +34,17 @@ const WriteReviewHeader = ({ title, content }) => {
           parent_id: selectedBoxData.postId,
           deadline: null,
           point: 0,
+          fileBase64List: [],
         })
       );
-      formData.append("file", file);
 
       const response = await axios.post(
         "https://dev.gomin-chingu.site/posts/",
         formData,
         {
           headers: {
+            Accept: "*/*",
             atk: authToken,
-            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -73,7 +67,13 @@ const WriteReviewHeader = ({ title, content }) => {
         />
       </Link>
       <h4>고민 후기 작성하기</h4>
-      <button className={styles.complete_button} onClick={handleSubmit}>
+      <button
+        className={styles.complete_button}
+        onClick={() => {
+          handleClear();
+          handleSubmit();
+        }}
+      >
         완료
       </button>
     </div>

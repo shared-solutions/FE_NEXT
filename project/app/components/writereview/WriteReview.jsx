@@ -70,7 +70,7 @@ const WriteReview = () => {
   return (
     <div>
       <div className={styles.container} style={{ background: "white" }}>
-        <WriteReviewHeader title={title} content={content} />
+        <WriteReviewHeader title={title} content={content} handleClear={clearSelectedBox}/>
         <div className={styles.content_footer_container}>
           <div className={styles.content_container}>
             <input
