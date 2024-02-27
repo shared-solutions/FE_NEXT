@@ -1,9 +1,60 @@
 .container {
-  height: 80%;
-  border-radius: 20px;
-  padding: 40px;
+  height: 100vh;
+  // width: 86vw;
+  // padding-left: 30px;
+  // padding-right: 30px;
   background-color: white;
-  padding-bottom: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header_container{
+  width: 100%;
+  display:flex;
+  height:55px;
+  align-items: center;
+  position: sticky;
+  justify-content: center;
+  top: 0;
+  text-align: center;
+  padding-top: 3px;
+}
+
+.logo{
+  padding-left: 25px;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.menu_container{
+  width: 60%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+  padding-right:15px;
+}
+
+.menu{
+  display: flex;
+  width: 60%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.content_container {
+  height: calc(100vh - 50px);
+  width: 86vw;
+  padding-right: 70px;
+  background-color: white;
+}
+
+.without_vote_container {
+  margin-left: 30px;
 }
 
 .userimg {
@@ -60,6 +111,18 @@
   color: black;
 }
 
+.point_done {
+  width: 76px;
+  height: 21px;
+  border-radius: 8px;
+  font-size: 12px;
+  background-color: #ffc700;
+  color: black;
+  padding-top: 4px;
+  margin-top: -3px;
+  margin-left: 150px;
+}
+
 .point {
   width: 76px;
   height: 21px;
@@ -114,7 +177,6 @@
   text-align: center;
   font-size: 15px;
   font-weight: 200;
-  margin-top: 54px;
   white-space: nowrap;
 }
 
@@ -125,8 +187,12 @@
   padding-right: 5px;
 }
 
-.vote {
+.vote_container {
   background-color: #fffbeb;
+  width: 100vw;
+  padding-left: 30px;
+  padding-top: 30px;
+  margin-top: 25px;
 }
 .pointnum {
   padding-right: 5px;
