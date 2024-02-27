@@ -22,11 +22,7 @@ const AlarmToast = ({ content, show }) => {
             />
             <div className={styles.toastContent}>
               <h4>{content.alarmContent}</h4>
-              <p>
-                {content.commentContent === null
-                  ? "해당 투표가 마감되었습니다."
-                  : content.commentContent}
-              </p>
+              <p>{content.commentContent || "해당 투표가 마감되었습니다."}</p>
             </div>
           </div>
         </Link>

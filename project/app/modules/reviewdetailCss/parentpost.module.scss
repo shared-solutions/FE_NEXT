@@ -1,0 +1,91 @@
+.post {
+  width: 90%;
+  height: 37vh;
+  margin: 1.5rem 1.6rem;
+  padding: 1.2rem 1.2rem 0;
+  border-radius: 20px;
+  box-shadow: 3px 3px 25px 2px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+.post h1 {
+  height: 3.5vh;
+  font-size: 17px;
+  margin: 0.2rem 0;
+}
+.content {
+  min-height: 8.5vh;
+  font-size: 14px;
+  color: #6D6D6D;
+  line-height: 150%
+}
+.rightContainer{
+  width: 33%;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-left: 69%
+}
+.imgContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2.6rem;
+}
+.imgContainer p {
+  font-size: 13px;
+  margin: 0 0.6rem;
+}
+.voteContainer {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.pollContentContainer {
+  width: 88%;
+  border: 2.9px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  margin: 0.2rem 0;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.pollOptionContainer {
+  width: 88%;
+  border: 2.9px solid black;
+  border-radius: 10px;
+  margin:0.2rem 0;
+  padding: 10px;
+}
+.gaugeContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.gaugeImageContainer {
+  position: absolute;
+  top: -12px;
+}
+.pollTitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 290px;
+  height: 26px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 9px;
+  background-color: #eeeeee;
+  border-radius: 40px;
+}
+.pollTitlePercentage {
+  color: black;
+  margin-left: 1rem;
+}
