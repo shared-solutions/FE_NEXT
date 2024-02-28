@@ -20,6 +20,7 @@ import ParentPost from "@/app/components/reviewdetail/ParentPost";
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
+import CloseImg from "../edit/CloseImg";
 
 export default function ReviewDetail({
   userImg,
@@ -36,7 +37,7 @@ export default function ReviewDetail({
   deadline,
   pollContent,
   pollOption,
-  gauge
+  gauge,
 }) {
   const [setting, setSetting] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -255,7 +256,11 @@ export default function ReviewDetail({
         </div>
       </div>
       {/* ===== 상단바 끝 ==== */}
-      <div className={styles.content_container}>
+      <div
+        className={
+          setting ? styles.content_container_blur : styles.content_container
+        }
+      >
         <div className={styles.without_vote_container}>
           <div className={styles.userlay}>
             <Image
@@ -269,7 +274,7 @@ export default function ReviewDetail({
             <div className={styles.username}>{username}</div>
             <br />
 
-            <div className={styles.morebtn} onClick={()=>clickHandler()}>
+            <div className={styles.morebtn} onClick={() => clickHandler()}>
               {isButtonClicked ? (
                 <div className={styles.more_container}>
                   <p onClick={() => clickHandler()}>수정</p>
@@ -380,7 +385,10 @@ export default function ReviewDetail({
             <Image
               onClick={() => {
                 setSetting(!setting);
+                console.log(setting);
                 console.log("클릭");
+                console.log(setting);
+                console.log("cd");
               }}
               src={chatclickimg}
               alt="채팅 클릭"

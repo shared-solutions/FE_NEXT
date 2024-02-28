@@ -5,8 +5,8 @@
   border-top-right-radius: var(--rsbs-overlay-rounded, 16px);
   display: flex;
   background: black;
-  background: black !important;
-  opacity: 0.8;
+  background: #151515 !important;
+  opacity: 0.61;
   flex-direction: column;
   height: 0px;
   height: var(--rsbs-overlay-h, 0px);
