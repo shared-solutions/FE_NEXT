@@ -3,6 +3,7 @@ import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
+import { calculateTimeDifference } from "../comment/CommentSort";
 
 const CardPostBox = ({ 
   userimg, 
@@ -12,6 +13,7 @@ const CardPostBox = ({
   pollOption, 
   like, 
   comment,
+  date,
   // ===== 0216 추가 시작 ====
   onGoing, // 마감 여부
   isVoted, // 사용자 투표 여부
@@ -26,13 +28,7 @@ const CardPostBox = ({
 }) => {
 
   return (
-    <div className={
-      `${styles.box} ${onGoing && !isVoted ? styles.onGoingTrueIsVotedFalse : ""} 
-    ${onGoing && isVoted ? styles.onGoingTrueIsVoted : ""} 
-    ${!onGoing && !isVoted ? styles.onGoingFalseIsVotedFalse : ""} 
-    ${!onGoing && isVoted ? styles.onGoingFalseIsVoted : ""}`
-    } 
-    >
+    <div className={styles.box}>
       <div className={styles.userinfo}>
         <Image
           src={userimg}
@@ -42,25 +38,42 @@ const CardPostBox = ({
           height={24}
         />
         <div className={styles.nickname}>{nickname}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
       </div>
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
         <div className={styles.imgSlide}>
-          {pollOption &&
-              pollOption.map((option, index) => (
-                <div key={index} className={styles.option}>
-                  <span>{option.optionString}</span>  
-                  {option.optionImgUrl && (
+        {pollOption &&
+          pollOption.map((option, index) => {
+            const isTopCandidate = topCandidate && topCandidate.length > 0 && topCandidate.some(candidate => candidate.optionId === option.optionId);
+            return (
+              <div
+                key={index}
+                className={`${styles.option} ${userVote && userVote.map(vote => vote.optionId).includes(option.optionId) ? styles.userVoted : ''} ${isTopCandidate ? styles.topCandidate : ''}`}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
+                  {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
                     <Image
-                      src={option.optionImgUrl}
-                      alt={`선택지 ${index + 1}`}
-                      width={98}
-                      height={124}
+                      src={checkImg}
+                      alt="체크"
+                      width={25}
+                      height={25}
+                      className={styles.checkImage}
                     />
                   )}
                 </div>
-              ))}
+                {option.optionImgUrl && (
+                  <Image
+                    src={option.optionImgUrl}
+                    alt={`선택지 ${index + 1}`}
+                    width={98}
+                    height={124}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className={styles.footer}>
