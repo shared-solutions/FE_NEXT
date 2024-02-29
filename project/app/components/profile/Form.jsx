@@ -1,5 +1,5 @@
 import Image from "next/image";
-import user_image from "../../public/image/user_image.png";
+import defaultUserImg from "../../public/image/defaultUserImg.png";
 import like from "../../public/image/like.png";
 import comment from "../../public/image/comment.png";
 import styles from "../../modules/profileCss/form.module.scss";
@@ -8,7 +8,7 @@ export default function Form({ name, time, text, like_num, comment_num }) {
   return (
     <div className={`${styles.container} ${styles.shadow}`}>
       <div className={styles.rowContainer}>
-        <Image src={user_image} alt="image" />
+        <Image src={defaultUserImg} alt="image" width={23} height={23} />
         <p>{name}</p>
         <p>{time}</p>
       </div>

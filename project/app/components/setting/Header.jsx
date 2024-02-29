@@ -7,7 +7,7 @@ export default function Header({ text }) {
   return (
     <div className={styles.prev}>
       <h3>{text}</h3>
-      <Link href="/setting">
+      <Link href="/home">
         <Image src={close} alt="close" />
       </Link>
     </div>
