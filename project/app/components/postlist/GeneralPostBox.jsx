@@ -3,6 +3,7 @@ import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
+import { calculateTimeDifference } from "../comment/CommentSort";
 
 const GeneralPostBox = ({ 
       userimg, 
@@ -12,6 +13,7 @@ const GeneralPostBox = ({
       pollOption, 
       like, 
       comment,
+      date,
       // ===== 0216 추가 시작 ====
       onGoing, // 마감 여부
       isVoted, // 사용자 투표 여부
@@ -46,6 +48,7 @@ const GeneralPostBox = ({
           height={24}
         />
         <div className={styles.nickname}>{nickname}</div>
+        <div className={styles.date}>{calculateTimeDifference(date)}</div>
       </div>
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
@@ -58,9 +61,6 @@ const GeneralPostBox = ({
 
               // 해당 옵션의 인덱스를 가져와서 해당하는 topCandidatePercent 값을 가져옴 -> 필요없?
               const topCandidateIndex = isTopCandidate ? topCandidate.findIndex(candidate => candidate.optionId === option.optionId) : -1;
-
-              // 필요없?
-              // const topCandidatePercentage = topCandidatePercent && topCandidatePercent[topCandidateIndex] ? topCandidatePercent[topCandidateIndex] : 0;
 
               // 해당 옵션에 대한 전체 후보 퍼센트 가져오기
               const optionPercentage = allCandidatePercent && allCandidatePercent[index] ? allCandidatePercent[index] : 0;
@@ -86,7 +86,7 @@ const GeneralPostBox = ({
                     />
                   )}
                   
-                  <div className={styles.optionStringBox}>
+                  <div className={styles.optionStringBox} style={{ backgroundColor: `rgba(0, 0, 0, ${optionPercentage[index]})` }}>
                     <div className={styles.optionString}>
                       {option.optionString}
                       {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && ( 
@@ -101,9 +101,6 @@ const GeneralPostBox = ({
                       )}
                     </div>
                     <div className={styles.optionPercentage}>
-                      {/* {`${userVotePercent[index]}%`} */}
-                      {/* {`${topCandidatePercentage}%`} */}
-                      {/* {`${userVotePercentage}%`} */}
                       {`${optionPercentage}%`}
                     </div>
                   </div>

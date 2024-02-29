@@ -395,7 +395,7 @@ export default function Detail({
                   className={styles.point}
                   disabled={isVoted || !onGoing || timeDifference <= 0}
                   onClick={() => timeDifference > 0 && handleVote()}
-                  style={onGoing ? "" : { display: "none" }}
+                  //style={onGoing ? "" : { display: "none" }}
                 >
                   투표하기
                 </div>
