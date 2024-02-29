@@ -5,7 +5,7 @@ import VoteStyleButton from './VoteStyleButton';
 import useVoteStore from '@/app/zustand/voteStore';
 
 const VoteStyle = ({ onSelectedStyle }) => {
-    const {setSelectedVoteType} = useVoteStore()
+    const {selectedVoteType, setSelectedVoteType} = useVoteStore()
     const [selectedButton, setSelectedButton] = useState('일반');
     const convertType = () => {
         if(selectedButton==='일반'){
@@ -26,6 +26,7 @@ const VoteStyle = ({ onSelectedStyle }) => {
         // } else if (text === '카드') {
         //     convertedStyle = 3;
         // }
+        console.log("투표타입", selectedVoteType);
     };
 
     return(

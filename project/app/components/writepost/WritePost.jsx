@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "@/app/modules/writepostCss/writepost.module.scss";
 import useVoteStore from "@/app/zustand/normalVoteStore";
+import useGeneralVoteStore from "@/app/zustand/generalVoteStore";
 import WritePostHeader from "./WritePostHeader";
 import WritePostFooter from "./WritePostFooter";
 import useWriteVoteStore from "@/app/zustand/voteStore";
@@ -10,7 +11,9 @@ import { useRouter } from "next/navigation";
 
 const WritePost = () => {
   const CardItem = useVoteStore.getState().voteCardItems;
-  console.log(CardItem);
+  const GeneralItem = useGeneralVoteStore.getState().voteGeneralItems;
+  console.log("카드", CardItem);
+  console.log("일반", GeneralItem);
   const [title, setTitle] = useState(""); // 제목 상태 변수
   const [content, setContent] = useState(""); // 내용 상태 변수
   const [file, setFile] = useState(null);
@@ -40,7 +43,7 @@ const WritePost = () => {
           // ----- 하드코딩 시작 -----
           category: selectedCategory,
           postType: 1,
-          postVoteType: 2, // 게이지로 하드코딩
+          postVoteType: typeNum, // 게이지로 하드코딩
           pollTitle: voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
           multipleChoice: false,
           parent_id: null,
@@ -54,6 +57,7 @@ const WritePost = () => {
         })
       );
 
+      console.log("투표타입", typeNum);
       // 첫 번째 POST 요청
       console.log(formData);
       const response = await axios.post(
@@ -74,11 +78,11 @@ const WritePost = () => {
       console.log("postId 추출 성공:", postId);
       if( typeNum ===1||typeNum===3)
       {
-         const candidateCount = CardItem?.length; // 후보 개수 받아오기
+         const candidateCount = typeNum === 3 ? CardItem?.length : GeneralItem.length; // 후보 개수 받아오기
 
       for (let i = 0; i < candidateCount; i++) {
-        let ImgUrl = CardItem[i].image;
-        let OpString = CardItem[i].placeholder;
+        let ImgUrl = typeNum === 3 ? CardItem[i].image : GeneralItem[i].image;
+        let OpString = typeNum === 3 ? CardItem[i].placeholder : GeneralItem[i].placeholder;
         const candidateFormData = new FormData();
         candidateFormData.append("post-id", postId);
         candidateFormData.append("optionString", OpString); // optionString 받아오기

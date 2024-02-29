@@ -54,7 +54,7 @@ const VoteModal = ({ onClose }) => {
     const handleClose = () => {
         setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
         setVoteDeadline(voteDeadline); // Zustand 업데이트
-        setSelectedVoteType(selectedStyle);
+        //setSelectedVoteType(selectedStyle);
         console.log(test)
         onClose(); // 닫기 함수 호출
     };
