@@ -16,7 +16,7 @@ const WritePost = () => {
   const [file, setFile] = useState(null);
   const voteTitle = useWriteVoteStore((state) => state.voteTitle); // Zustand에서 투표 제목 가져오기
   const selectedCategory = useWriteVoteStore((state) => state.selectedCategory); // Zustand에서 카테고리 가져오기
-  const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
+  const { voteDeadline, } = useWriteVoteStore();
   const typeNum = useWriteVoteStore.getState().selectedVoteType;
   const router = useRouter()
   const [isWrote, setIsWrote] = useState(false);
@@ -40,19 +40,19 @@ const WritePost = () => {
           // ----- 하드코딩 시작 -----
           category: selectedCategory,
           postType: 1,
-          postVoteType: typeNum,
+          postVoteType: 2, // 게이지로 하드코딩
           pollTitle: voteTitle, // postVoteType: 2(Gauge) 인 경우에만 전체보기에 GET
-          multipleChoice: true,
-          parent_id: 0,
-          deadline: "2024-02-28T02:16:56.811Z",
+          multipleChoice: false,
+          parent_id: null,
+          deadline: voteDeadline,
           // deadline: voteDeadline.toISOString(),
           // deadline: formatDateTimeForServer(voteDeadline),
           // deadline: voteDeadline ? voteDeadline.toISOString() : null,
           point: useWriteVoteStore.getState().selectedPoint,
           // ----- 하드코딩 끝 -----
+          filBase64List: [],
         })
       );
-      formData.append("file", file);
 
       // 첫 번째 POST 요청
       console.log(formData);
