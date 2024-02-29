@@ -60,6 +60,7 @@ const WaitingAnswer = () => {
       userGauge, // 사용자가 투표한 항목의 퍼센트
       totalGauge, // 평균 게이지
       // ===== 0216 추가 끝 ====
+      uploadDate,
     } = userDataItem;
 
     // 기본값 설정
@@ -93,6 +94,7 @@ const WaitingAnswer = () => {
       userGauge: userGauge || 0,
       totalGauge: totalGauge || 0,
       // ===== 0216 추가 끝 ====
+      date: uploadDate || 0,
     };
 
     // const waitingProps = {
