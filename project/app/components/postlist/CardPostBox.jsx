@@ -1,6 +1,7 @@
 import styles from "@/app/modules/postListCss/cardPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
+import vote_check from "@/app/public/image/vote_check.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
 import { calculateTimeDifference } from "../comment/CommentSort";
@@ -55,7 +56,7 @@ const CardPostBox = ({
                 <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
                   {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
                     <Image
-                      src={checkImg}
+                      src={vote_check}
                       alt="체크"
                       width={25}
                       height={25}

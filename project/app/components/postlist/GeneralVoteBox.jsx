@@ -1,42 +1,61 @@
 "use client";
-import styles from "@/app/modules/postListCss/generalVoteBox.module.scss";
+import styles from "@/app/modules/voteDetailCss/generalVoteBox.module.scss";
 import Image from "next/image";
-import vote_check from "@/app/public/image/vote_check.png"
+import vote_check from "@/app/public/image/vote_check.png";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
-const GeneralPostBox = ({ pollOption, postId }) => {
+import useSelectVoteStore from "@/app/zustand/selectVote";
+
+const GeneralVoteBox = ({ pollOption }) => {
   // 옵션의 개수에 따라서 box의 height를 동적으로 계산
-  const boxHeight = 170 + (pollOption.length - 2) * 50;
+  //const boxHeight = 170 + (pollOption.length - 2) * 50;
   const {
     allCandidatePercent,
     topCandidatePercent,
     topCandidate,
+    topVoteResult,
     userVote,
     userVotePercent,
+    userVoteResult,
     isVoted,
     onGoing,
-    topVoteResult
   } = voteDetailStore();
 
   // 해당 옵션에 대한 전체 후보 퍼센트 가져오기
-  const optionPercentage = allCandidatePercent && allCandidatePercent[index] ? allCandidatePercent[index] : 0;
+  //const optionPercentage = allCandidatePercent && allCandidatePercent[index] ? allCandidatePercent[index] : 0;
+
+  const { selectList, updateSelectList } = useSelectVoteStore();
+
+  console.log(pollOption);
+  console.log("선택", selectList);
+  const handleOptionClick = (option) => {
+    // 이미 투표한 경우 또는 투표가 종료된 경우 처리
+    if (isVoted || !onGoing) {
+      return;
+    }
+    // 선택한 OptionStringBox의 정보를 selectList에 추가
+    updateSelectList(option.optionId);
+    console.log("선택", selectList);
+  };
 
   return (
-    <div className={`${styles.box}`} style={{ height: `${boxHeight}px` }}>
+    <div className={styles.box}>
       <div className={styles.container}>
         <div className={styles.options}>
-          {pollOption && 
+          {pollOption &&
             pollOption.map((option, index) => (
-              <div key={index} className={`${styles.option} ${
-                (topCandidate || [])[0]?.optionId === option.optionId
-                  ? styles.topCandidate
-                  : ""
-              }`}
-              style={{
-                // 조건이 true일 때 테두리 스타일을 추가
-                border: (topCandidate || [])[0]?.optionId === option.optionId ? "2px solid black" : "none",
-                borderRadius: '9px'
-              }}
-            >
+              <div
+                key={index}
+                className={`${styles.option} ${
+                  selectList.includes(option.optionId)
+                    ? styles.selectedOption
+                    : ""
+                } ${
+                  topCandidate?.[0]?.optionId === option.optionId
+                    ? styles.topCandidate
+                    : ""
+                }`}
+                onClick={!isVoted ? () => updateSelectList(option.optionId) : null}
+              >
                 {option.optionImgUrl && (
                   <Image
                     src={option.optionImgUrl}
@@ -49,11 +68,10 @@ const GeneralPostBox = ({ pollOption, postId }) => {
                   <div className={styles.optionString}>
                     {option.optionString}
                   </div>
-                  {userVote &&
-                  userVote[0]?.optionId === option.optionId && (
+                  {userVote && userVote[0]?.optionId === option.optionId && (
                     <div className={styles.optionInfo}>
                       {/* 사용자 투표 O -> 체크표시, 투표한 항목 퍼센티지 */}
-                      <Image src={vote_check} alt="vote_check" /> 
+                      <Image src={vote_check} alt="vote_check" />
                       <div className={styles.userVotePercent}>
                         {userVotePercent}%
                       </div>
@@ -69,8 +87,8 @@ const GeneralPostBox = ({ pollOption, postId }) => {
                     </div>
                   )} */}
 
-                    {/* 마감 전 -> allCandidatePercent 볼 수 있도록 변경한다면 아래 코드로! */}
-                    {/* <div className={styles.optionPercentage}>
+                  {/* 마감 전 -> allCandidatePercent 볼 수 있도록 변경한다면 아래 코드로! */}
+                  {/* <div className={styles.optionPercentage}>
                       {`${optionPercentage}%`}
                     </div> */}
 
@@ -80,7 +98,9 @@ const GeneralPostBox = ({ pollOption, postId }) => {
 
                   {!onGoing && (
                     // 추가: 투표 마감 후 + 사용자 투표 O일 때 결과 표시
-                    <div className={styles.optionPercentage}>{allCandidatePercent[index]}%</div>
+                    <div className={styles.optionPercentage}>
+                      {allCandidatePercent[index]}%
+                    </div>
                   )}
                 </div>
               </div>
@@ -91,4 +111,4 @@ const GeneralPostBox = ({ pollOption, postId }) => {
   );
 };
 
-export default GeneralPostBox;
+export default GeneralVoteBox;

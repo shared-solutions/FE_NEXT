@@ -77,6 +77,7 @@
   color: black;
   font-weight: 600;
   margin-top: -10px;
+  margin-left: 3px;
   width: 200px;
 }
 
@@ -97,6 +98,22 @@
   display: flex;
   align-items: center;
 }
+
+.more_container {
+  position: absolute;
+  top: 4.8rem;
+  left: 60.7%;
+  padding: 5px;
+  background-color: #6d6d6d;
+  color: white;
+  border-radius: 20px;
+}
+.more_container p {
+  margin: 13px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .rerender {
   padding-right: 15px;
 }
@@ -117,9 +134,9 @@
   font-size: 12px;
   background-color: #ffc700;
   color: black;
-  padding-top: 4px;
+  padding-top: 8px;
   margin-top: -3px;
-  margin-left: 150px;
+  margin-left: 200px;
 }
 
 .point {
@@ -129,9 +146,9 @@
   font-size: 12px;
   background-color: black;
   color: #ffc700;
-  padding-top: 4px;
+  padding-top: 8px;
   margin-top: -3px;
-  margin-left: 150px;
+  margin-left: 200px;
 }
 
 .content {
@@ -143,7 +160,7 @@
 }
 
 .imgSlide {
-  margin-top: 38px;
+  //margin-top: 38px;
   display: flex;
   overflow-x: auto;
   white-space: nowrap;

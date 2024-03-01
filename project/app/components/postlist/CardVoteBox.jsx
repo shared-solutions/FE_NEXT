@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import styles from "@/app/modules/voteDetailCss/cardVoteBox.module.scss";
 import Image from "next/image";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
@@ -11,19 +10,16 @@ const CardVoteBox = ({ pollOption }) => {
     allCandidatePercent,
     topCandidatePercent,
     topCandidate,
+    topVoteResult,
     userVote,
     userVotePercent,
+    userVoteResult,
     isVoted,
     onGoing,
-    topVoteResult,
   } = voteDetailStore();
 
-  const handleOptionClick = (optionId) => {
-    // Zustand 상태 업데이트
-    updateSelectList(optionId);
-  };
+  const { selectList, updateSelectList } = useSelectVoteStore();
 
-  const { updateSelectList } = useSelectVoteStore();
   return (
     <div className={styles.box}>
       <div className={styles.container}>
@@ -33,11 +29,15 @@ const CardVoteBox = ({ pollOption }) => {
               <div
                 key={index}
                 className={`${styles.option} ${
+                  selectList.includes(option.optionId)
+                    ? styles.selectedOption // 선택된 옵션에 대한 클래스 추가
+                    : ""
+                } ${
                   topCandidate?.[0]?.optionId === option.optionId
                     ? styles.topCandidate
                     : ""
                 }`}
-                onClick={() => updateSelectList(option.optionId)}
+                onClick={!isVoted ? () => updateSelectList(option.optionId) : null}
               >
                 <span>{option.optionString}</span>
                 {option.optionImgUrl && (

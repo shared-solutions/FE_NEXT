@@ -26,34 +26,32 @@ import GaugeVoteBox from "@/app/components/postlist/GaugeVoteBox";
 import defaultUserImg from "@/app/public/image/userimg.png";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
 import useSelectVoteStore from "@/app/zustand/selectVote";
-
+import MenuPage from "@/app/components/menu/MenuPage";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
 
 export default function Detail({
-  userImg,
+  postId,
   username,
+  userImg,
   date,
-  time,
+  deadline,
   title,
   content,
-  minititle,
+  pollTitle,
   point,
-  selectImgList,
+  postVoteType,
   viewCount,
   likeCount,
   commentCount,
-  deadline,
-  pollTitle,
-  postVoteType,
-  pollOption,
-  gauge,
-  postId,
+  isLike,
+  myPost,
+  selectImgList,
 }) {
   const [setting, setSetting] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isScrap, setIsScrap] = useState(false);
+
   const {
     allCandidatePercent,
     topCandidatePercent,
@@ -61,22 +59,26 @@ export default function Detail({
     topVoteResult,
     userVote,
     userVotePercent,
+    userVoteResult,
+    pollOption,
+    totalGauge,
+    userGauge,
     isVoted,
     onGoing,
   } = voteDetailStore();
+
+  console.log(voteDetailStore());
   const defaultPostProps = {
     userimg: userImg || defaultUserImg,
     nickname: username || "",
     title: title || "",
     content: content || "",
-    pollOption: pollOption || [],
+    //pollOption: pollOption || [],
     like: likeCount || 0,
     comment: commentCount || 0,
   };
   const handleLikeClick = () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked);
-
-    if (isLiked) {
+    if (isLike) {
       handleDeleteLike();
     } else {
       handlePostLike();
@@ -118,7 +120,7 @@ export default function Detail({
   }
   console.log(postVoteType);
 
-  const { selectList } = useSelectVoteStore();
+  const { selectList, position } = useSelectVoteStore();
   let type;
   if (postVoteType === "CARD") {
     type = "cardVote";
@@ -132,20 +134,17 @@ export default function Detail({
   const handleVote = async () => {
     try {
       const authToken = localStorage.getItem("token");
-
-      const response = await fetch(
-        `https://dev.gomin-chingu.site/posts/${postId}/${type}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            atk: authToken,
-          },
-          body: JSON.stringify({
-            selectList: selectList,
-          }),
-        }
-      );
+      const url = `https://dev.gomin-chingu.site/posts/${postId}/${type}`;
+      const requestBody =
+        postVoteType === "GAUGE" ? { value: position } : { selectList };
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          atk: authToken,
+        },
+        body: JSON.stringify(requestBody),
+      });
 
       if (response.ok) {
         const result = await response.json();
@@ -179,8 +178,9 @@ export default function Detail({
         const result = await response.json();
         console.log("Voting success:", result);
         alert("게시글을 좋아요했습니다!");
+        window.location.reload();
       } else {
-        console.error("Voting failed:", response);
+        console.error("failed:", response);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -205,6 +205,7 @@ export default function Detail({
         const result = await response.json();
         console.log("Delete success:", result);
         alert("좋아요 해제했습니다.");
+        window.location.reload();
       } else {
         console.error("Voting failed:", response);
       }
@@ -273,6 +274,16 @@ export default function Detail({
 
   const segment = useSelectedLayoutSegments();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -307,7 +318,7 @@ export default function Detail({
                 </>
               )}
             </Link>
-            <Link href="/menu">
+            <div onClick={toggleMenu}>
               {segment[1] === "menu" ? (
                 <>
                   <Menu />
@@ -317,10 +328,11 @@ export default function Detail({
                   <Menu />
                 </>
               )}
-            </Link>
+            </div>
           </div>
         </div>
       </div>
+      {isMenuOpen && <MenuPage isOpen={isMenuOpen} onClose={closeMenu} />}
       {/* ===== 상단바 끝 ==== */}
       <div
         className={
@@ -340,7 +352,7 @@ export default function Detail({
             <div className={styles.username}>{username}</div>
             <br />
 
-            <div className={styles.morebtn}>
+            <div className={styles.morebtn} onClick={() => clickHandler()}>
               {isButtonClicked ? (
                 <div className={styles.more_container}>
                   <p onClick={() => clickHandler()}>수정</p>
@@ -367,14 +379,7 @@ export default function Detail({
                   <p onClick={() => clickHandler()}>신고하기</p>
                 </div>
               ) : (
-                <div
-                  className={styles.point}
-                  disabled={isVoted || !onGoing || timeDifference <= 0}
-                  onClick={() => timeDifference > 0 && handleVote()}
-                  //style={onGoing ? "" : { display: "none" }}
-                >
-                  투표하기
-                </div>
+                ""
               )}
               <Image
                 className={styles.rerender}
@@ -405,23 +410,25 @@ export default function Detail({
         <div className={styles.vote_container}>
           <div className={styles.minititle}>
             <div className={styles.mini}>{pollTitle}</div>
-            {isVoted ? (
-              <div
-                className={styles.point_done}
-                disabled={!onGoing || timeDifference <= 0}
-              >
-                투표완료
-              </div>
-            ) : (
-              <div
-                className={styles.point}
-                disabled={isVoted || !onGoing || timeDifference <= 0}
-                onClick={() => timeDifference > 0 && handleVote()}
-                style={onGoing ? null : { display: "none" }}
-              >
-                투표하기
-              </div>
-            )}
+            {onGoing &&
+              !myPost &&
+              (isVoted ? (
+                <div
+                  className={styles.point_done}
+                  /*disabled={!onGoing || timeDifference <= 0}*/
+                >
+                  투표완료
+                </div>
+              ) : (
+                <div
+                  className={styles.point}
+                  //disabled={isVoted || !onGoing || timeDifference <= 0}
+                  onClick={() => timeDifference > 0 && handleVote()}
+                  style={onGoing ? null : { display: "none" }}
+                >
+                  투표하기
+                </div>
+              ))}
           </div>
           <div className={styles.timer}>
             <div className={styles.pointnum}>채택 포인트: {point}</div>
@@ -443,35 +450,34 @@ export default function Detail({
               <GeneralVoteBox
                 {...defaultPostProps}
                 postId={postId}
+                allCandidatePercent={allCandidatePercent}
                 topCandidate={topCandidate}
                 topCandidatePercent={topCandidatePercent}
+                topVoteResult={topVoteResult}
                 userVote={userVote}
                 userVotePercent={userVotePercent}
+                userVoteResult={userVoteResult}
+                pollOption={pollOption}
+                isVoted={isVoted}
                 onGoing={onGoing}
-                topVoteResult={topVoteResult}
               />
             ) : postVoteType === "CARD" ? (
               <CardVoteBox
                 {...defaultPostProps}
                 postId={postId}
+                allCandidatePercent={allCandidatePercent}
                 topCandidate={topCandidate}
                 topCandidatePercent={topCandidatePercent}
+                topVoteResult={topVoteResult}
                 userVote={userVote}
                 userVotePercent={userVotePercent}
+                userVoteResult={userVoteResult}
+                pollOption={pollOption}
+                isVoted={isVoted}
                 onGoing={onGoing}
               />
             ) : postVoteType === "GAUGE" ? (
-              <GaugeVoteBox
-                {...defaultPostProps}
-                pollTitle={pollTitle || ""}
-                totalGauge={totalGauge || 0}
-                userGauge={userGauge || 0}
-                topCandidate={topCandidate}
-                topCandidatePercent={topCandidatePercent}
-                userVote={userVote}
-                userVotePercent={userVotePercent}
-                onGoing={onGoing}
-              />
+              <GaugeVoteBox {...defaultPostProps} />
             ) : null}
             {/*pollOption &&
                 pollOption.map((optionImgUrl, optionString, index) => (
@@ -525,10 +531,10 @@ export default function Detail({
           </div>
 
           <div className={styles.underlay}>
-            <div key={isLiked ? "like" : "unlike"}>
+            <div key={isLike ? "like" : "unlike"}>
               <Image
-                src={isLiked ? good : likeunclickimg}
-                alt={isLiked ? "좋아요누름" : "좋아요 취소"}
+                src={isLike ? good : likeunclickimg}
+                alt={isLike ? "좋아요누름" : "좋아요 취소"}
                 width={37}
                 height={35}
                 onClick={handleLikeClick}
