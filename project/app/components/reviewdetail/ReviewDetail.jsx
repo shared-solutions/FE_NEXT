@@ -9,7 +9,7 @@ import rerenderimg from "@/app/public/image/rerender.png";
 import likeunclickimg from "@/app/public/image/likeunclick.png";
 import chatclickimg from "@/app/public/image/chatclick.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import { CommentSort } from "../comment/CommentSort";
 import backimg from "@/app/public/image/arrow3.png";
@@ -205,6 +205,13 @@ export default function ReviewDetail({
     }
   };
 
+  // useEffect(() => {
+  //   setSetting();
+  // }, [setting]);
+
+  useEffect(() => {
+    console.log(setting);
+  }, [setting]);
   const segment = useSelectedLayoutSegments();
 
   return (
@@ -384,22 +391,22 @@ export default function ReviewDetail({
             </div>
             <Image
               onClick={() => {
-                setSetting(!setting);
-                console.log(setting);
-                console.log("클릭");
-                console.log(setting);
-                console.log("cd");
+                setSetting((prevSetting) => !prevSetting);
+                console.log(!setting); // 현재 상태의 반대 값
               }}
               src={chatclickimg}
               alt="채팅 클릭"
               width={35}
               height={35}
             />
+
             {setting && (
               <CommentSort
                 postId={postId}
                 onClose={() => {
-                  setSetting(false);
+                  setSetting(false); // 닫을 때는 항상 false로 설정
+
+                  console.log(false); // 닫혔을 때의 값
                 }}
               />
             )}
