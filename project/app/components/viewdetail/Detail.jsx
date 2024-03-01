@@ -367,7 +367,16 @@ export default function Detail({
                   <p onClick={() => clickHandler()}>신고하기</p>
                 </div>
               ) : (
-                ""
+
+                <div
+                  className={styles.point}
+                  disabled={isVoted || !onGoing || timeDifference <= 0}
+                  onClick={() => timeDifference > 0 && handleVote()}
+                  //style={onGoing ? "" : { display: "none" }}
+                >
+                  투표하기
+                </div>
+
               )}
               <Image
                 className={styles.rerender}

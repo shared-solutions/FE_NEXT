@@ -47,15 +47,15 @@ const SelectedPoint = () => {
 
     const handleMinusButtonClick = () => {
         // 입력된 값을 정수로 변환
-        const decrementValue = parseInt(inputValue, 10);
+        const decrementValue = parseInt(inputValue, 10) - 5;
         // 현재 보유 포인트보다 큰 값이 입력되었을 경우
         if (decrementValue > currentPoint) {
             // 현재 포인트를 0으로 설정
             setInputValue('0');
-            setAfterUsagePoint(0);
+            setAfterUsagePoint(currentPoint);
         } else {
             // 현재 포인트에서 입력된 값만큼 뺌
-            const newAfterUsagePoint = currentPoint - 5;
+            const newAfterUsagePoint = currentPoint - decrementValue;
             setInputValue(String(decrementValue));
             setAfterUsagePoint(newAfterUsagePoint);
             // 사용 후 포인트가 0 미만이면 메시지 표
@@ -106,7 +106,7 @@ const SelectedPoint = () => {
                 </div>
             </div>
             <div className={styles.button_container}>
-            <button onClick={handleMinusButtonClick}>
+            <button onClick={handleMinusButtonClick} disabled={afterUsagePoint === currentPoint}>
                 <Image
                     src={minusbutton}
                     style={{
@@ -123,7 +123,7 @@ const SelectedPoint = () => {
                 value={inputValue}
                 onChange={handleChange}
             />
-            <button onClick={handlePlusButtonClick}>
+            <button onClick={handlePlusButtonClick} disabled={currentPoint === 0}>
                 <Image
                     src={plusbutton}
                     style={{

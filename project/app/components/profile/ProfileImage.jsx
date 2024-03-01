@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/app/modules/profileCss/profileImage.module.scss";
-import default_image from "../../public/image/default_image.png";
+import defaultUserImg from "../../public/image/defaultUserImg.png";
 import edit from "../../public/image/edit.png";
 
 export default function Profile({image}) {
@@ -15,7 +15,7 @@ export default function Profile({image}) {
         width={105}
         height={105}
       />:<Image
-        src={default_image}
+        src={defaultUserImg}
         alt="default image"
         className={styles.imageShadow}
         width={105}

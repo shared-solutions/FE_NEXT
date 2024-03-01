@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "@/app/modules/profileCss/profileImage.module.scss";
-import default_image from "../../public/image/default_image.png";
+import defaultUserImg from "../../public/image/defaultUserImg.png";
 
 export default function Profile({ data }) {
   return (
@@ -9,7 +9,7 @@ export default function Profile({ data }) {
         Lv.{data.nextGrade + 1} {data.grade}
       </div>
       <Image
-        src={default_image}
+        src={defaultUserImg}
         alt="default image"
         className={styles.imageShadow}
         width={68}
