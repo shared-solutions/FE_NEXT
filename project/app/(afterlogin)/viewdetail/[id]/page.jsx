@@ -29,12 +29,16 @@ export default function Viewdetail({ params }) {
         voteDetail.setAllCandidatePercent(data.result.allCandidatePercent);
         voteDetail.setTopCandidatePercent(data.result.topCandidatePercent);
         voteDetail.setTopCandidate(data.result.topCandidate);
+        voteDetail.setTopVoteResult(data.result.topVoteResult);
         voteDetail.setUserVote(data.result.userVote);
         voteDetail.setUserVotePercent(data.result.userVotePercent);
+        voteDetail.setUserVoteResult(data.result.userVoteResult);
+        voteDetail.setPollOption(data.result.pollOption);
+        voteDetail.setTotalGauge(data.result.totalGauge);
+        voteDetail.setUserGauge(data.result.userGauge);
         voteDetail.setIsVoted(data.result.isVoted);
         voteDetail.setOnGoing(data.result.onGoing);
-        voteDetail.setTopVoteResult(data.result.topVoteResult);
-        console.log(voteDetail);
+        //console.log("votedDetail", voteDetail);
       } else {
         console.error("Failed to get data:", response);
       }
@@ -81,14 +85,9 @@ export default function Viewdetail({ params }) {
         viewCount={detail.view}
         likeCount={detail.like}
         commentCount={detail.comment}
-        pollOption={detail.pollOption}
-        gauge={detail.userGauge}
         postId={postId}
-        topCandidate={detail.topCandidate}
-        topCandidatePercent={detail.topCandidatePercent}
-        userVote={detail.userVote}
-        userVotePercent={detail.userVotePercent}
-        onGoing={detail.onGoing}
+        isLike={detail.isLike}
+        myPost={detail.myPost}
       />
     </div>
   );

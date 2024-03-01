@@ -17,6 +17,7 @@ import Link from "next/link";
 import good from "@/app/public/image/finger.png";
 import defaultUserImg from "@/app/public/image/userimg.png";
 import ParentPost from "@/app/components/reviewdetail/ParentPost";
+import MenuPage from "@/app/components/menu/MenuPage";
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
@@ -214,6 +215,16 @@ export default function ReviewDetail({
   }, [setting]);
   const segment = useSelectedLayoutSegments();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -248,7 +259,7 @@ export default function ReviewDetail({
                 </>
               )}
             </Link>
-            <Link href="/menu">
+            <div onClick={toggleMenu}>
               {segment[1] === "menu" ? (
                 <>
                   <Menu />
@@ -258,10 +269,16 @@ export default function ReviewDetail({
                   <Menu />
                 </>
               )}
-            </Link>
+            </div>
           </div>
         </div>
       </div>
+      {isMenuOpen && (
+        <MenuPage
+          isOpen={isMenuOpen}
+          onClose={closeMenu}
+        />
+      )}
       {/* ===== 상단바 끝 ==== */}
       <div
         className={

@@ -1,75 +1,25 @@
 .box {
   position: relative; 
-  height: 340px;
+  //height: 340px;
   border-radius: 20px;
   //background-color: white;
-  margin-top: 20px;
-}
-
-.userimg {
-  margin-left: 30px;
-  margin-top: 17px;
-  border-radius: 50%; 
-}
-
-.userinfo {
-  display: flex;
-  align-items: center;
-}
-
-.nickname {
-  margin-top: 15px;
-  margin-left: 11px;
-}
-
-.title {
-  font-size: 17px;
-  font-weight: 700;
-  color: black;
+  margin: 25px 0 30px;
 }
 
 .container {
-  padding-left: 30px;
-  padding-right: 30px;
-  margin-top: 16px;
-}
-
-.content {
-  font-size: 14px;
-  font-weight: 500;
-  color: #6f6f6f;
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
-.footer {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 12px;
-  right: 30px;
-}
-
-.like {
-  font-size: 13px;
-  font-weight: 600;
-  color: #f9c81c;
-}
-
-.comment {
-  font-size: 13px;
-  font-weight: 600;
-  color: #343434;
-  margin-left: 9px;
-
+  //padding-left: 30px;
+  //padding-right: 30px;
+  margin: 15px 0;
+  padding: 5px 0;
 }
 
 .imgSlide {
   display: flex;
+  height: 10.5rem;
   overflow-x: auto;
   white-space: nowrap;
   margin-bottom: 7px;
-  padding: 5px;
+  padding-right: 30px;
 }
 
 .option {
@@ -78,7 +28,7 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 20px;
+  margin: 2px 13px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 12px rgb(0 0 0 / 13%);
@@ -94,7 +44,10 @@
     border: 2px solid black; 
   }
 
-  
+  &.selectedOption {
+    // 스타일을 여기에 추가하세요
+    box-shadow: 0px 0px 10px 2px #FF8600; // 회색 그림자 예시
+  }
 }
 
 .option img {
