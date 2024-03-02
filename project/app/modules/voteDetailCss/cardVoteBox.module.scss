@@ -15,16 +15,20 @@
 
 .imgSlide {
   display: flex;
-  height: 10.5rem;
+  // height: 10.5rem;
   overflow-x: auto;
   white-space: nowrap;
   margin-bottom: 7px;
   padding-right: 30px;
 }
 
+// .topVoteResult{
+//   display: none;
+// }
+
 .option {
   width: 7rem;
-  height: 9rem;
+  height: 157px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +38,7 @@
   box-shadow: 0 0 12px rgb(0 0 0 / 13%);
   padding: 7px;
   position: relative;
+  z-index: 1;
 
   span {
     display: block;
@@ -42,6 +47,22 @@
 
   &.topCandidate {
     border: 2px solid black; 
+    overflow: hidden;
+
+    &.topVoteResult {
+      display: block;
+    }
+  }
+
+  &.topCandidate::before {
+    content: "";
+    position: absolute;
+    z-index: 2; /* 이미지 앞에 위치하도록 함 */
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(to top, rgb(0 0 0 / 50%), rgba(255, 255, 255, 0));
   }
 
   &.selectedOption {
@@ -57,4 +78,28 @@
 .option span {
   margin-bottom: 5px;
   font-weight: 700;
+}
+
+.percent {
+  position: absolute;
+  z-index: 3;
+  top: 40%;
+  left: 30%;
+  color: white;
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.topVoteResult {
+  position: absolute;
+  z-index: 3;
+  top: 60%;
+  left: 35%;
+  color: white;
+  font-size: 18px;
+}
+
+.topVoteResultString {
+  margin-top: 3px;
+  font-size: 15px;
 }

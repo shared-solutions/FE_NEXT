@@ -94,6 +94,16 @@
   display: inline-flex;
   align-items: center;
   margin-bottom: 15px; // 각 옵션 사이의 간격
+
+  &.topCandidate {
+    border: 2px solid black; 
+    overflow: hidden;
+  }
+
+  &.userVoted {
+    border: 3px solid #FFD662;
+    border-radius: 9px;
+  }
 }
 
 .option img {
