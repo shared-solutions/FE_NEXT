@@ -41,14 +41,40 @@ const GaugePostBox = ({
     GaugeValue = totalGauge;
   }
 
-  const usergaugeValuePercent = GaugeValue + "%";
-  const gaugeValuePercent = usergaugeValue + "%";
+  const gaugeValuePercent = GaugeValue + "%";
+  const usergaugeValuePercent = usergaugeValue + "%";
 
   // linear-gradient로 배경색을 설정
   const gradientStyle = {
-    background: `linear-gradient(to right, black ${gaugeValuePercent}, #eeeeee ${gaugeValuePercent})`, marginTop: '5px'
+    background: `linear-gradient(to right, black ${usergaugeValuePercent}, #eeeeee ${usergaugeValuePercent})`, marginTop: '5px'
   };
 
+  // total 이미지의 스타일 설정
+  const totalImageStyle = {
+    position: 'absolute',
+    left: gaugeValuePercent, // gaugeValuePercent에 따라 이미지 위치 설정
+    marginBottom: '8px',
+    transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
+    // zIndex: 0,
+  };
+
+  // '평균값' 글씨의 스타일 설정
+  const averageTextStyle = {
+    position: 'absolute',
+    left: gaugeValuePercent, // gaugeValuePercent에 따라 이미지 위치 설정
+    top: '25px',
+    transform: 'translateX(-50%)', // 글씨를 가운데 정렬하기 위한 스타일
+  };
+
+  // '게이지 이미지' 스타일 설정
+  const gaugeImageStyle = {
+    position: 'absolute',
+    left: usergaugeValuePercent,
+    bottom: '0',
+    transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
+    // zIndex: 1,
+  };
+  
   // gaugePercentage에서 왼쪽으로 25px만큼 이동한 크기 계산
   const leftMargin = `calc(${usergaugeValuePercent} - 25px)`;
   const leftUserMargin = `calc(${gaugeValuePercent} - 25px)`;
@@ -57,9 +83,9 @@ const GaugePostBox = ({
   const userGaugeStyle = {
     left: leftUserMargin,
   };
-  const gaugeImageStyle = {
-    left: leftMargin,
-  };
+
+  // total 이미지와 '평균값'을 보여줄지 여부 결정
+  const showAverageInfo = !(isVoted === false && onGoing === true);
 
   return (
     <div className={styles.box}>
@@ -82,10 +108,13 @@ const GaugePostBox = ({
             <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
           </div>
           <div className={styles.pollTitleContainer} style={gradientStyle}>
-            {/* <div className={styles.pollTitle}>{pollTitle}</div> */}
-            {/* 퍼센티지 하드코딩 수정해야 함 */}
-            <Image src={total} alt="이미지" width={15} height={15} style={{ marginBottom: '8px'}} />
-            <div>평균</div>
+            {/* 조건부 렌더링 */}
+            {showAverageInfo && (
+              <>
+                <Image src={total} alt="이미지" width={15} height={15} style={totalImageStyle} />
+                <div style={{ ...averageTextStyle, display: showAverageInfo ? 'block' : 'none' }}>평균값</div>
+              </>
+            )}
           </div>
         </div>
         <div className={styles.footer}>
