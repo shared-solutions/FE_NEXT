@@ -1,5 +1,6 @@
 import styles from "@/app/modules/postListCss/generalPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
+import check from "@/app/public/image/generalCheck.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
@@ -30,15 +31,7 @@ const GeneralPostBox = ({
   const boxHeight = 270 + (pollOption.length - 2) * 50;
 
   return (
-    <div 
-      className={
-        `${styles.box} ${onGoing && !isVoted ? styles.onGoingTrueIsVotedFalse : ""} 
-      ${onGoing && isVoted ? styles.onGoingTrueIsVoted : ""} 
-      ${!onGoing && !isVoted ? styles.onGoingFalseIsVotedFalse : ""} 
-      ${!onGoing && isVoted ? styles.onGoingFalseIsVoted : ""}`
-      } 
-      style={{height: `${boxHeight}px`}}
-    >
+    <div className={styles.box} style={{height: `${boxHeight}px`}}>
       <div className={styles.userinfo}>
         <Image
           src={userimg}
@@ -71,11 +64,17 @@ const GeneralPostBox = ({
 
               const userVotePercentage = userVoteIndex !== -1 ? userVotePercent[userVoteIndex] : 0;
 
+              // topCandidate의 optionId 배열 생성
+              const topCandidateIds = topCandidate ? topCandidate.map(candidate => candidate.optionId) : [];
 
               return (
                 <div
                   key={index}
-                  className={`${styles.option} ${isTopCandidate ? styles.topCandidate : ''}`}
+                  className={`${styles.option} ${
+                    topCandidateIds.includes(option.optionId)
+                      ? styles.topCandidate
+                      : ""
+                  } ${userVote && userVote.map(vote => vote.optionId).includes(option.optionId) ? styles.userVoted : ""}`}
                 >
                   {option.optionImgUrl && (
                     <Image
@@ -92,7 +91,7 @@ const GeneralPostBox = ({
                       {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && ( 
                         // userVote에 해당 옵션이 포함되어 있는지 확인하여 체크 이미지 표시
                         <Image
-                          src={likeimg}
+                          src={check}
                           alt="체크"
                           width={15}
                           height={15}

@@ -22,22 +22,22 @@
     }
   }
   
-  // Case 2: onGoing이 true이고, isVoted가 true인 경우
-  .onGoingTrueIsVotedTrue {
-    // userVote인 것에 체크 표시 ??
-  }
+  // // Case 2: onGoing이 true이고, isVoted가 true인 경우
+  // .onGoingTrueIsVotedTrue {
+  //   // userVote인 것에 체크 표시 ??
+  // }
   
-  // Case 3: onGoing이 false이고, isVoted가 false인 경우
-  .onGoingFalseIsVotedFalse {
-  }
+  // // Case 3: onGoing이 false이고, isVoted가 false인 경우
+  // .onGoingFalseIsVotedFalse {
+  // }
   
-  // Case 4: onGoing이 false이고, isVoted가 true인 경우
-  .onGoingFalseIsVotedTrue {
-    // .topCandidate .optionStringBox {
-    //   background-color: black;
-    //   color: white; // 텍스트 색상을 흰색으로 설정
-    // }
-  }
+  // // Case 4: onGoing이 false이고, isVoted가 true인 경우
+  // .onGoingFalseIsVotedTrue {
+  //   // .topCandidate .optionStringBox {
+  //   //   background-color: black;
+  //   //   color: white; // 텍스트 색상을 흰색으로 설정
+  //   // }
+  // }
   
   .userinfo {
     display: flex;
@@ -101,6 +101,12 @@
     display: inline-flex;
     align-items: center;
     margin-bottom: 15px; // 각 옵션 사이의 간격
+
+    &.topCandidate {
+      border: 2px solid black; 
+      overflow: hidden;
+    }
+
   }
   
   .optionInfo {
