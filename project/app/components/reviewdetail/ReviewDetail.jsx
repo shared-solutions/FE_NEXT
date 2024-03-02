@@ -273,12 +273,7 @@ export default function ReviewDetail({
           </div>
         </div>
       </div>
-      {isMenuOpen && (
-        <MenuPage
-          isOpen={isMenuOpen}
-          onClose={closeMenu}
-        />
-      )}
+      {isMenuOpen && <MenuPage isOpen={isMenuOpen} onClose={closeMenu} />}
       {/* ===== 상단바 끝 ==== */}
       <div
         className={
@@ -354,12 +349,22 @@ export default function ReviewDetail({
         <div className={styles.post_container}>
           {/**내 투표글 */}
           {
-            <ParentPost
-              postData={postData}
-              pollContent={pollContent}
-              pollOption={pollOption}
-              gauge={gauge}
-            />
+            <Link
+              href={`/viewdetail/${postId}`}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                margin: 0,
+                cursor: "pointer",
+              }}
+            >
+              <ParentPost
+                postData={postData}
+                pollContent={pollContent}
+                pollOption={pollOption}
+                gauge={gauge}
+              />
+            </Link>
           }
         </div>
         <div className={styles.without_vote_container}>

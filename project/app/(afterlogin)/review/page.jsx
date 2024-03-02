@@ -8,7 +8,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import deuserimg from "@/app/public/image/defaultUserImg.png";
+import Post from "@/app/components/saved/Post";
 import Link from "next/link";
+import { calculateTimeDifference } from "@/app/components/comment/CommentSort";
 
 export default function Review() {
   const [userData, setUserData] = useState([]);
@@ -16,6 +18,7 @@ export default function Review() {
   const [loading, setLoading] = useState(false); // 데이터를 불러오는 중인지 여부
   const [sortBy, setSortBy] = useState(0);
   const [hasMoreData, setHasMoreData] = useState(true);
+  const [parentPost, setParentPost] = useState([]);
 
   const getData = useCallback(async () => {
     try {
@@ -52,6 +55,10 @@ export default function Review() {
             ...prevData,
             ...data.result.reviewPostList,
           ]);
+          setParentPost((prevParent) => [
+            ...prevParent,
+            ...(data.result.reviewPostList.map(post => post.parentPostDTO) || []),
+          ])
           setPage((prevPage) => prevPage + 1);
         }
         console.log("글 전체보기 데이터:", data);
@@ -102,6 +109,7 @@ export default function Review() {
       comment,
       userImg,
       postId,
+      parentPostDTO
     } = userDataItem;
 
     const reviewProps = {
@@ -121,7 +129,8 @@ export default function Review() {
           key={index}
           href={`/reviewdetail/${postId}`}
         >
-          <ReviewBox {...reviewProps} />
+          <ReviewBox {...reviewProps} parentPost={parentPostDTO}/>
+          
         </Link>
       </div>
     );
