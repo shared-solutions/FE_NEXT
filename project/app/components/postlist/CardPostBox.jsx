@@ -5,6 +5,7 @@ import vote_check from "@/app/public/image/vote_check.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
 import { calculateTimeDifference } from "../comment/CommentSort";
+import { useState, useEffect } from 'react';
 
 const CardPostBox = ({ 
   userimg, 
@@ -26,7 +27,18 @@ const CardPostBox = ({
   userGauge, // 사용자가 투표한 항목의 퍼센트
   totalGauge, // 평균 게이지
   // ===== 0216 추가 끝 ==== 
+  topVoteResult,
 }) => {
+
+  const [showAllCandidatePercent, setShowAllCandidatePercent] = useState(false);
+  const [showTopVoteResult, setShowTopVoteResult] = useState(false);
+
+  useEffect(() => {
+    if (isVoted) {
+      setShowAllCandidatePercent(true);
+      setShowTopVoteResult(true);
+    }
+  }, [isVoted]);
 
   return (
     <div className={styles.box}>
@@ -44,15 +56,22 @@ const CardPostBox = ({
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
+
+        {/* === 옵션 박스 시작 === */}
         <div className={styles.imgSlide}>
         {pollOption &&
           pollOption.map((option, index) => {
-            const isTopCandidate = topCandidate && topCandidate.length > 0 && topCandidate.some(candidate => candidate.optionId === option.optionId);
+            // topCandidate의 optionId 배열 생성
+            const topCandidateIds = topCandidate ? topCandidate.map(candidate => candidate.optionId) : [];
             return (
               <div
                 key={index}
-                className={`${styles.option} ${userVote && userVote.map(vote => vote.optionId).includes(option.optionId) ? styles.userVoted : ''} ${isTopCandidate ? styles.topCandidate : ''}`}
-              >
+                className={`${styles.option} ${
+                  topCandidateIds.includes(option.optionId)
+                    ? styles.topCandidate
+                    : ""
+                }`}
+              > 
                 <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
                   {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
                     <Image
@@ -72,6 +91,15 @@ const CardPostBox = ({
                     height={124}
                   />
                 )}
+                {/* isVoted가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
+                {isVoted && showAllCandidatePercent && (
+                    <div className={styles.percent}>{allCandidatePercent[index]}%</div>
+                  )}
+                  {isVoted && showTopVoteResult && (
+                    <div className={styles.topVoteResult}>{topVoteResult && topVoteResult[index] ? `${topVoteResult[index]}명` : ''}
+                    <div className={styles.topVoteResultString}>투표</div>
+                    </div>
+                  )}
               </div>
             );
           })}
