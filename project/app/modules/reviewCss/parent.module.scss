@@ -1,0 +1,33 @@
+.post {
+  width: 40%;
+  //max-height: 15.3vh;
+  margin: 1rem 0 0 30px;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 3px 3px 25px 2px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+.post h1 {
+  height: 3vh;
+  font-size: 13px;
+}
+.post p {
+  font-size: 12px;
+  color: #6D6D6D;
+  line-height: 150%
+}
+.rightContainer{
+  width: 33%;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-left: 69%
+}
+.imgContainer {
+  width: 78%;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-top: 1rem;
+  margin-left: 27%
+}

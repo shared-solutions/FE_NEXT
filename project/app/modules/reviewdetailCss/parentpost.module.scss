@@ -1,8 +1,8 @@
 .post {
-  width: 90%;
-  // height: 37vh;
-  margin: 2rem 1.6rem;
-  padding: 2rem 1.2rem;
+  width: 88%;
+  //height: 320px;
+  margin: 20px 1.7rem;
+  padding: 20px 1.2rem;
   border-radius: 20px;
   box-shadow: 3px 3px 25px 2px rgba(0, 0, 0, 0.1);
   background-color: white;
@@ -13,23 +13,26 @@
   margin: 0.2rem 0;
 }
 .content {
-  margin: 0.3rem 0 2rem;
+  //margin: 0.3rem 0 2rem;
   font-size: 14px;
   color: #6D6D6D;
   line-height: 150%
 }
-.rightContainer{
-  width: 33%;
+.profileContainer{
+  width: 100%;
   display: flex;
-  justify-content:space-evenly;
   align-items: center;
-  margin-left: 69%
+  margin-bottom: 10px;
+}
+.profileContainer p{
+  font-size: 13px;
+  margin-left: 4px;
 }
 .imgContainer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 5px;
 }
 .imgContainer p {
   font-size: 13px;
@@ -88,4 +91,10 @@
 .pollTitlePercentage {
   color: black;
   margin-left: 1rem;
+}
+.imgSlide {
+  //margin-top: 38px;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
 }

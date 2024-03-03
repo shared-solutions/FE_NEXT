@@ -1,17 +1,18 @@
 .review_box {
-  height: 300px;
-  width: 77vw;
-  margin: 10px 5px 10px 5px;
+  width: 340px;
+  margin: 10px 5px 20px 5px;
 
   background-color: white;
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px 0 40px;
+  //box-shadow: 2px 2px 20px #FF8C39;
+  box-shadow: 2px 2px 18px rgba(255, 140, 57, 0.5);;
 }
 
 .userinfo {
   display: flex;
   align-items: center;
-
+  font-size: 13.5px;
   padding-top: 20px;
   margin-left: 30px;
 }
@@ -34,7 +35,7 @@
   align-items: center;
   float: right;
   margin-right: 30px;
-  margin-top: 70px;
+  margin-top: 10px;
 }
 
 .like {
@@ -55,14 +56,14 @@
 }
 .date {
   color: rgb(108, 93, 93);
-  font-size: 15px;
-  margin-left: 50px;
+  font-size: 12px;
+  margin-left: 80px;
 }
 .content {
   font-size: 14px;
   font-weight: 500;
-  color: #6f6f6f;
-  margin-top: 50px;
+  color: #363636;
+  margin-top: 20px;
   margin-bottom: 16px;
   margin-left: 30px;
 }
