@@ -29,6 +29,7 @@ import useSelectVoteStore from "@/app/zustand/selectVote";
 import MenuPage from "@/app/components/menu/MenuPage";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Detail({
   postId,
@@ -48,6 +49,8 @@ export default function Detail({
   myPost,
   selectImgList,
 }) {
+  const router = useRouter();
+
   const [setting, setSetting] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isScrap, setIsScrap] = useState(false);
@@ -92,6 +95,9 @@ export default function Detail({
     } else {
       scrapHandler();
     }
+  };
+  const handleDeleteClick = () => {
+    deletePostHandler();
   };
   const dateObject = new Date(date);
   const year = dateObject.getFullYear();
@@ -272,6 +278,33 @@ export default function Detail({
     }
   };
 
+  // 글 삭제
+  const deletePostHandler = async () => {
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/del`,
+        {
+          method: "PATCH",
+          headers: {
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("success:", result);
+        alert("글을 삭제했습니다.");
+        router.replace("/vote");
+      } else {
+        console.error("Delete failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const segment = useSelectedLayoutSegments();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -285,201 +318,213 @@ export default function Detail({
   };
 
   return (
-    <div className={styles.container}>
-      {/* 추후에 경로 수정 필요 */}
-      {/* ===== 상단바 시작 ==== */}
-      <div className={styles.header_container}>
-        <div className={styles.logo}>
-          <Link href="/vote">
-            <Image src={backimg} alt="back" width={18} height={18} />
-          </Link>
-        </div>
-        <div className={styles.menu_container}>
-          <div className={styles.menu}>
-            <Link href="/notification">
-              {segment[1] === "notification" ? (
-                <>
-                  <Bell />
-                </>
-              ) : (
-                <>
-                  <Bell />
-                </>
-              )}
-            </Link>
-            <Link href="/search">
-              {segment[1] === "search" ? (
-                <>
-                  <Search />
-                </>
-              ) : (
-                <>
-                  <Search />
-                </>
-              )}
-            </Link>
-            <div onClick={toggleMenu}>
-              {segment[1] === "menu" ? (
-                <>
-                  <Menu />
-                </>
-              ) : (
-                <>
-                  <Menu />
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
       {isMenuOpen && <MenuPage isOpen={isMenuOpen} onClose={closeMenu} />}
-      {/* ===== 상단바 끝 ==== */}
-      <div
-        className={
-          setting ? styles.content_container_blur : styles.content_container
-        }
-      >
-        <div className={styles.without_vote_container}>
-          <div className={styles.userlay}>
-            <Image
-              className={styles.userimg}
-              src={userImg == null ? userimg : userImg}
-              alt="유저 이미지"
-              width={34}
-              height={34}
-              style={{ borderRadius: "50%" }}
-            />
-            <div className={styles.username}>{username}</div>
-            <br />
-
-            <div className={styles.morebtn} onClick={() => clickHandler()}>
-              {isButtonClicked ? (
-                <div className={styles.more_container}>
-                  <p onClick={() => clickHandler()}>수정</p>
-                  <p onClick={() => clickHandler()}>알림 끄기</p>
-                  {isScrap ? (
-                    <p
-                      onClick={() => {
-                        clickHandler();
-                        handleScrapClick();
-                      }}
-                    >
-                      스크랩 해제
-                    </p>
-                  ) : (
-                    <p
-                      onClick={() => {
-                        clickHandler();
-                        handleScrapClick();
-                      }}
-                    >
-                      스크랩
-                    </p>
-                  )}
-                  <p onClick={() => clickHandler()}>신고하기</p>
-                </div>
-              ) : (
-                ""
-              )}
-              <Image
-                className={styles.rerender}
-                src={rerenderimg}
-                alt="렌더링"
-                width={12}
-                height={12}
-              />
-              <Image
-                src={moreimg}
-                alt="더보기"
-                width={3}
-                height={13}
-                onClick={() => clickHandler}
-              />
+      <div className={styles.container}>
+        {/* 추후에 경로 수정 필요 */}
+        {/* ===== 상단바 시작 ==== */}
+        <div className={styles.header_container}>
+          <div className={styles.logo}>
+            <Link href="/vote">
+              <Image src={backimg} alt="back" width={18} height={18} />
+            </Link>
+          </div>
+          <div className={styles.menu_container}>
+            <div className={styles.menu}>
+              <Link href="/notification">
+                {segment[1] === "notification" ? (
+                  <>
+                    <Bell />
+                  </>
+                ) : (
+                  <>
+                    <Bell />
+                  </>
+                )}
+              </Link>
+              <Link href="/search">
+                {segment[1] === "search" ? (
+                  <>
+                    <Search />
+                  </>
+                ) : (
+                  <>
+                    <Search />
+                  </>
+                )}
+              </Link>
+              <div onClick={toggleMenu}>
+                {segment[1] === "menu" ? (
+                  <>
+                    <Menu />
+                  </>
+                ) : (
+                  <>
+                    <Menu />
+                  </>
+                )}
+              </div>
             </div>
           </div>
-          <div className={styles.usertext}>
-            <div className={styles.date}>{datePart}</div>
-            <div className={styles.line}> | </div>
-            <div className={styles.time}>{timeePart}</div>
-          </div>
-          <div className={styles.title}>{title}</div>
-          <div className={styles.content}>{content}</div>
         </div>
+        {/* ===== 상단바 끝 ==== */}
 
-        {/* ==== 투표창 시작 ==== */}
-        <div className={styles.vote_container}>
-          <div className={styles.minititle}>
-            <div className={styles.mini}>{pollTitle}</div>
-            {onGoing &&
-              !myPost &&
-              (isVoted ? (
-                <div
-                  className={styles.point_done}
-                  /*disabled={!onGoing || timeDifference <= 0}*/
-                >
-                  투표완료
-                </div>
-              ) : (
-                <div
-                  className={styles.point}
-                  //disabled={isVoted || !onGoing || timeDifference <= 0}
-                  onClick={() => timeDifference > 0 && handleVote()}
-                  style={onGoing ? null : { display: "none" }}
-                >
-                  투표하기
-                </div>
-              ))}
-          </div>
-          <div className={styles.timer}>
-            <div className={styles.pointnum}>채택 포인트: {point}</div>
-            <div>|</div>
-            <Image
-              className={styles.timeimg}
-              src={timerimg}
-              alt="타이머 이미지"
-              width={13}
-              height={13}
-            />
-            <div>
-              {timeDifference <= 0 ? "마감되었습니다" : `마감 ${lefttime}전`}
+        <div
+          className={
+            setting ? styles.content_container_blur : styles.content_container
+          }
+        >
+          <div className={styles.without_vote_container}>
+            <div className={styles.userlay}>
+              <Image
+                className={styles.userimg}
+                src={userImg == null ? userimg : userImg}
+                alt="유저 이미지"
+                width={34}
+                height={34}
+                style={{ borderRadius: "50%" }}
+              />
+              <div className={styles.username}>{username}</div>
+              <br />
+
+              <div className={styles.morebtn} onClick={() => clickHandler()}>
+                {isButtonClicked ? (
+                  <div className={styles.more_container}>
+                    <p onClick={() => clickHandler()}>수정</p>
+                    <p onClick={() => clickHandler()}>알림 끄기</p>
+                    {isScrap ? (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleScrapClick();
+                        }}
+                      >
+                        스크랩 해제
+                      </p>
+                    ) : (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleScrapClick();
+                        }}
+                      >
+                        스크랩
+                      </p>
+                    )}
+                    <p onClick={() => clickHandler()}>신고하기</p>
+                    {myPost && (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleDeleteClick();
+                        }}
+                      >
+                        삭제하기
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+                <Image
+                  className={styles.rerender}
+                  src={rerenderimg}
+                  alt="렌더링"
+                  width={12}
+                  height={12}
+                />
+                <Image
+                  src={moreimg}
+                  alt="더보기"
+                  width={3}
+                  height={13}
+                  onClick={() => clickHandler}
+                />
+              </div>
             </div>
+            <div className={styles.usertext}>
+              <div className={styles.date}>{datePart}</div>
+              <div className={styles.line}> | </div>
+              <div className={styles.time}>{timeePart}</div>
+            </div>
+            <div className={styles.title}>{title}</div>
+            <div className={styles.content}>{content}</div>
           </div>
 
-          <div className={styles.imgSlide}>
-            {postVoteType === "GENERAL" ? (
-              <GeneralVoteBox
-                {...defaultPostProps}
-                postId={postId}
-                allCandidatePercent={allCandidatePercent}
-                topCandidate={topCandidate}
-                topCandidatePercent={topCandidatePercent}
-                topVoteResult={topVoteResult}
-                userVote={userVote}
-                userVotePercent={userVotePercent}
-                userVoteResult={userVoteResult}
-                pollOption={pollOption}
-                isVoted={isVoted}
-                onGoing={onGoing}
+          {/* ==== 투표창 시작 ==== */}
+          <div className={styles.vote_container}>
+            <div className={styles.minititle}>
+              <div className={styles.mini}>{pollTitle}</div>
+              {onGoing &&
+                !myPost &&
+                (isVoted ? (
+                  <div
+                    className={styles.point_done}
+                    /*disabled={!onGoing || timeDifference <= 0}*/
+                  >
+                    투표완료
+                  </div>
+                ) : (
+                  <div
+                    className={styles.point}
+                    //disabled={isVoted || !onGoing || timeDifference <= 0}
+                    onClick={() => timeDifference > 0 && handleVote()}
+                    style={onGoing ? null : { display: "none" }}
+                  >
+                    투표하기
+                  </div>
+                ))}
+            </div>
+            <div className={styles.timer}>
+              <div className={styles.pointnum}>채택 포인트: {point}</div>
+              <div>|</div>
+              <Image
+                className={styles.timeimg}
+                src={timerimg}
+                alt="타이머 이미지"
+                width={13}
+                height={13}
               />
-            ) : postVoteType === "CARD" ? (
-              <CardVoteBox
-                {...defaultPostProps}
-                postId={postId}
-                allCandidatePercent={allCandidatePercent}
-                topCandidate={topCandidate}
-                topCandidatePercent={topCandidatePercent}
-                topVoteResult={topVoteResult}
-                userVote={userVote}
-                userVotePercent={userVotePercent}
-                userVoteResult={userVoteResult}
-                pollOption={pollOption}
-                isVoted={isVoted}
-                onGoing={onGoing}
-              />
-            ) : postVoteType === "GAUGE" ? (
-              <GaugeVoteBox {...defaultPostProps} />
-            ) : null}
-            {/*pollOption &&
+              <div>
+                {timeDifference <= 0 ? "마감되었습니다" : `마감 ${lefttime}전`}
+              </div>
+            </div>
+
+            <div className={styles.imgSlide}>
+              {postVoteType === "GENERAL" ? (
+                <GeneralVoteBox
+                  {...defaultPostProps}
+                  postId={postId}
+                  allCandidatePercent={allCandidatePercent}
+                  topCandidate={topCandidate}
+                  topCandidatePercent={topCandidatePercent}
+                  topVoteResult={topVoteResult}
+                  userVote={userVote}
+                  userVotePercent={userVotePercent}
+                  userVoteResult={userVoteResult}
+                  pollOption={pollOption}
+                  isVoted={isVoted}
+                  onGoing={onGoing}
+                />
+              ) : postVoteType === "CARD" ? (
+                <CardVoteBox
+                  {...defaultPostProps}
+                  postId={postId}
+                  allCandidatePercent={allCandidatePercent}
+                  topCandidate={topCandidate}
+                  topCandidatePercent={topCandidatePercent}
+                  topVoteResult={topVoteResult}
+                  userVote={userVote}
+                  userVotePercent={userVotePercent}
+                  userVoteResult={userVoteResult}
+                  pollOption={pollOption}
+                  isVoted={isVoted}
+                  onGoing={onGoing}
+                />
+              ) : postVoteType === "GAUGE" ? (
+                <GaugeVoteBox {...defaultPostProps} />
+              ) : null}
+              {/*pollOption &&
                 pollOption.map((optionImgUrl, optionString, index) => (
                   <>
                     <Image
@@ -492,75 +537,76 @@ export default function Detail({
                     <p>{optionString}</p>
                   </>
                 ))*/}
-          </div>
-        </div>
-        {/* ==== 투표창 끝 ==== */}
-
-        <div className={styles.without_vote_container}>
-          <div className={styles.footer}>
-            <div className={styles.countview}>
-              <Image
-                className={styles.img}
-                src={countview}
-                alt="조회수"
-                width={14}
-                height={10}
-              />
-              {viewCount}
-            </div>
-            <div className={styles.like}>
-              <Image
-                className={styles.img}
-                src={likeimg}
-                alt="좋아요수"
-                width={14}
-                height={10}
-              />
-              {likeCount}
-            </div>
-            <div className={styles.comment}>
-              <Image
-                className={styles.img}
-                src={commentimg}
-                alt="댓글수"
-                width={14}
-                height={10}
-              />
-              {commentCount}
             </div>
           </div>
+          {/* ==== 투표창 끝 ==== */}
 
-          <div className={styles.underlay}>
-            <div key={isLike ? "like" : "unlike"}>
-              <Image
-                src={isLike ? good : likeunclickimg}
-                alt={isLike ? "좋아요누름" : "좋아요 취소"}
-                width={37}
-                height={35}
-                onClick={handleLikeClick}
-              />
+          <div className={styles.without_vote_container}>
+            <div className={styles.footer}>
+              <div className={styles.countview}>
+                <Image
+                  className={styles.img}
+                  src={countview}
+                  alt="조회수"
+                  width={14}
+                  height={10}
+                />
+                {viewCount}
+              </div>
+              <div className={styles.like}>
+                <Image
+                  className={styles.img}
+                  src={likeimg}
+                  alt="좋아요수"
+                  width={14}
+                  height={10}
+                />
+                {likeCount}
+              </div>
+              <div className={styles.comment}>
+                <Image
+                  className={styles.img}
+                  src={commentimg}
+                  alt="댓글수"
+                  width={14}
+                  height={10}
+                />
+                {commentCount}
+              </div>
             </div>
-            <Image
-              onClick={() => {
-                setSetting(!setting);
-                console.log("클릭");
-              }}
-              src={chatclickimg}
-              alt="채팅 클릭"
-              width={35}
-              height={35}
-            />
-            {setting && (
-              <CommentSort
-                postId={postId}
-                onClose={() => {
-                  setSetting(false);
+
+            <div className={styles.underlay}>
+              <div key={isLike ? "like" : "unlike"}>
+                <Image
+                  src={isLike ? good : likeunclickimg}
+                  alt={isLike ? "좋아요누름" : "좋아요 취소"}
+                  width={37}
+                  height={35}
+                  onClick={handleLikeClick}
+                />
+              </div>
+              <Image
+                onClick={() => {
+                  setSetting(!setting);
+                  console.log("클릭");
                 }}
+                src={chatclickimg}
+                alt="채팅 클릭"
+                width={35}
+                height={35}
               />
-            )}
+              {setting && (
+                <CommentSort
+                  postId={postId}
+                  onClose={() => {
+                    setSetting(false);
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

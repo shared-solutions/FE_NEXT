@@ -85,10 +85,10 @@ const CardVoteBox = ({ pollOption }) => {
                   )} */}
 
                   {/* isVoted가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
-                  {isVoted && showAllCandidatePercent && isTopCandidate && (
+                  {(!onGoing || isVoted) && isTopCandidate && (
                     <div className={styles.percent}>{allCandidatePercent[index]}%</div>
                   )}
-                  {isVoted && showTopVoteResult && isTopCandidate && (
+                  {(!onGoing || isVoted) && isTopCandidate && (
                     <div className={styles.topVoteResult}>{topVoteResult[0]}명
                     <div className={styles.topVoteResultString}>투표</div>
                     </div>
