@@ -18,12 +18,14 @@ import good from "@/app/public/image/finger.png";
 import defaultUserImg from "@/app/public/image/userimg.png";
 import ParentPost from "@/app/components/reviewdetail/ParentPost";
 import MenuPage from "@/app/components/menu/MenuPage";
+import voteDetailStore from "@/app/zustand/voteDetailStore";
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
 import CloseImg from "../edit/CloseImg";
 
 export default function ReviewDetail({
+  detail,
   userImg,
   username,
   date,
@@ -37,21 +39,36 @@ export default function ReviewDetail({
   postId,
   deadline,
   pollContent,
-  pollOption,
-  gauge,
 }) {
   const [setting, setSetting] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isScrap, setIsScrap] = useState(false);
+  console.log("디테일", detail);
+  console.log(userImg);
+  console.log(username);
+  console.log(date);
+  console.log(title);
+  console.log(content);
+  console.log(viewCount);
+  console.log(likeCount);
+  console.log(isLike);
+  console.log(commentCount);
+  console.log(deadline);
+  const {
+    allCandidatePercent,
+    topCandidatePercent,
+    topCandidate,
+    topVoteResult,
+    userVote,
+    userVotePercent,
+    userVoteResult,
+    pollOption,
+    totalGauge,
+    userGauge,
+    isVoted,
+    onGoing,
+  } = voteDetailStore();
 
-  const defaultPostProps = {
-    userimg: userImg || defaultUserImg,
-    nickname: username || "",
-    title: title || "",
-    content: content || "",
-    like: likeCount || 0,
-    comment: commentCount || 0,
-  };
   const handleLikeClick = () => {
     if (isLike) {
       handleDeleteLike();
@@ -225,6 +242,7 @@ export default function ReviewDetail({
     setIsMenuOpen(false);
   };
 
+  console.log("원래투표글" , voteDetailStore());
   return (
     <div className={styles.container}>
       {/* 추후에 경로 수정 필요 */}
@@ -350,7 +368,7 @@ export default function ReviewDetail({
           {/**내 투표글 */}
           {
             <Link
-              href={`/viewdetail/${postId}`}
+              href={`/viewdetail/${postData.postId}`}
               style={{
                 textDecoration: "none",
                 color: "black",
@@ -359,10 +377,20 @@ export default function ReviewDetail({
               }}
             >
               <ParentPost
-                postData={postData}
-                pollContent={pollContent}
+                postId={postId}
+                allCandidatePercent={allCandidatePercent}
+                topCandidate={topCandidate}
+                topCandidatePercent={topCandidatePercent}
+                topVoteResult={topVoteResult}
+                userVote={userVote}
+                userVotePercent={userVotePercent}
+                userVoteResult={userVoteResult}
+                totalGauge={totalGauge}
+                userGauge={userGauge}
                 pollOption={pollOption}
-                gauge={gauge}
+                isVoted={isVoted}
+                onGoing={onGoing}
+                postData={postData}
               />
             </Link>
           }
