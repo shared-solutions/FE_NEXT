@@ -136,7 +136,7 @@
   color: black;
   padding-top: 8px;
   margin-top: -3px;
-  margin-left: 150px;
+  //margin-left: 210px;
 }
 
 .point {
@@ -148,7 +148,7 @@
   color: #ffc700;
   padding-top: 8px;
   margin-top: -3px;
-  margin-left: 150px;
+  //margin-left: 210px;
 }
 
 .content {
@@ -189,11 +189,14 @@
 }
 
 .minititle {
+  width: 320px;
   display: flex;
   text-align: center;
   font-size: 15px;
   font-weight: 200;
   white-space: nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .line {
