@@ -36,7 +36,11 @@ const GaugePostBox = ({
   let usergaugeValue;
   if (userGauge === null) {
     GaugeValue = totalGauge;
-  } else {
+  } else if(!isVoted) {
+    usergaugeValue = totalGauge;
+    GaugeValue = totalGauge;
+  }
+  else {
     usergaugeValue = userGauge;
     GaugeValue = totalGauge;
   }
@@ -46,7 +50,7 @@ const GaugePostBox = ({
 
   // linear-gradient로 배경색을 설정
   const gradientStyle = {
-    background: `linear-gradient(to right, black ${usergaugeValuePercent}, #eeeeee ${usergaugeValuePercent})`, marginTop: '5px'
+    background: `linear-gradient(to right, black ${!onGoing ? gaugeValuePercent : usergaugeValuePercent}, #eeeeee ${!onGoing ? gaugeValuePercent : usergaugeValuePercent})`, marginTop: '5px'
   };
 
   // total 이미지의 스타일 설정
@@ -56,6 +60,7 @@ const GaugePostBox = ({
     marginBottom: '8px',
     transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 0,
+    opacity: usergaugeValue === totalGauge ? "0.1" : "1.0"
   };
 
   // '평균값' 글씨의 스타일 설정
@@ -69,7 +74,7 @@ const GaugePostBox = ({
   // '게이지 이미지' 스타일 설정
   const gaugeImageStyle = {
     position: 'absolute',
-    left: usergaugeValuePercent,
+    left: !onGoing ? gaugeValuePercent : usergaugeValuePercent,
     bottom: '0',
     transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 1,
@@ -109,12 +114,12 @@ const GaugePostBox = ({
           </div>
           <div className={styles.pollTitleContainer} style={gradientStyle}>
             {/* 조건부 렌더링 */}
-            {showAverageInfo && (
+            {
               <>
                 <Image src={total} alt="이미지" width={15} height={15} style={totalImageStyle} />
                 <div style={{ ...averageTextStyle, display: showAverageInfo ? 'block' : 'none' }}>평균값</div>
               </>
-            )}
+            }
           </div>
         </div>
         <div className={styles.footer}>

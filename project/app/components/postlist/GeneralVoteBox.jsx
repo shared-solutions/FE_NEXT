@@ -125,7 +125,7 @@ const GeneralVoteBox = ({ pollOption }) => {
                             className={styles.checkImage}
                           />
                         )}
-                      <div className={styles.optionPercentage}>
+                      <div className={styles.optionPercentage} style={{color: allCandidatePercent[index] === 100 ? "white" : "black" }}>
                         {allCandidatePercent[index]}%
                       </div>
                     </div>

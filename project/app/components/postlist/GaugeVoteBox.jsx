@@ -69,12 +69,11 @@ const GaugeVoteBox = ({
     GaugeValue = totalGauge;
   }
 
-  console.log("내투표", myPost);
   const gaugeValuePercent = GaugeValue + "%";
   const usergaugeValuePercent = usergaugeValue + "%";
   // linear-gradient로 배경색을 설정
   const gradientStyle = {
-    background: `linear-gradient(to right, black ${myPost ? gaugeValuePercent : usergaugeValuePercent}, #eeeeee ${myPost ? gaugeValuePercent : usergaugeValuePercent})`,
+    background: `linear-gradient(to right, black ${(myPost || !isVoted) ? gaugeValuePercent : usergaugeValuePercent}, #eeeeee ${(myPost || !isVoted) ? gaugeValuePercent : usergaugeValuePercent})`,
     marginTop: "5px",
   };
 
@@ -85,7 +84,7 @@ const GaugeVoteBox = ({
     marginBottom: "8px",
     transform: "translateX(-50%)", // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 0,
-    opacity: myPost ? "0.1" : "1.0"
+    opacity: (myPost || !isVoted) ? "0.1" : "1.0"
   };
 
   // '평균값' 글씨의 스타일 설정
@@ -99,7 +98,7 @@ const GaugeVoteBox = ({
   // '게이지 이미지' 스타일 설정
   const gaugeImageStyle = {
     position: "absolute",
-    left: myPost ? gaugeValuePercent : usergaugeValuePercent,
+    left: (myPost || !isVoted) ? gaugeValuePercent : usergaugeValuePercent,
     bottom: "0",
     transform: "translateX(-50%)", // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 1,
@@ -119,7 +118,7 @@ const GaugeVoteBox = ({
 
   return (
     <>
-      {(myPost || isVoted) ? (
+      {(myPost || isVoted || !onGoing) ? (
         <div className={styles.wrap}>
           <div className={styles.gaugeContainer}>
             <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>

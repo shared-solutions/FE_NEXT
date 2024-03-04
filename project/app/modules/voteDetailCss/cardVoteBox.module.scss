@@ -108,6 +108,9 @@
   border: 3px solid rgba(0, 0, 0, 0.16);
   overflow: hidden;
 }
+.border_none {
+  overflow: hidden;
+}
 .userVote::before {
   content: "";
   position: absolute;

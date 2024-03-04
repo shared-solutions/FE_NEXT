@@ -124,10 +124,10 @@
 .percent {
   position: absolute;
   //z-index: 3;
-  top: 40%;
-  left: 30%;
+  top: 55%;
+  left: 40%;
   color: white;
-  font-size: 30px;
+  font-size: 17px;
   font-weight: bolder;
 }
 
@@ -137,12 +137,13 @@
   top: 60%;
   left: 35%;
   color: white;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .topVoteResultString {
-  margin-top: 3px;
-  font-size: 15px;
+  margin-top: 30px;
+  margin-left: 8px;
+  font-size: 14px;
 }
 
 .date {

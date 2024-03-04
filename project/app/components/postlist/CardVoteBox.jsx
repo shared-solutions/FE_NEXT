@@ -72,8 +72,8 @@ const CardVoteBox = ({ pollOption }) => {
                     />
                   )}
 
-                  {userVote?.[0]?.optionId === option.optionId && 
-                    <div className={styles.userVote}>
+                  {userVote?.[0]?.optionId === option.optionId &&  
+                    <div className={userVote?.[0]?.optionId !== topCandidate?.[0]?.optionId ? styles.userVote : styles.border_none}>
                       <div className={styles.optionInfo}>
                         <Image src={vote_check} alt="vote_check" style={{ position: "absolute", right: "8%", top: "3.8%", }} />
                       </div>

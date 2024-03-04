@@ -162,7 +162,8 @@ const PostList = () => {
             <GaugePostBox
               {...defaultPostProps}
               pollTitle={pollTitle || ""}
-              gauge={gauge || 0}
+              userGauge={userGauge || 0}
+              totalGauge={totalGauge || 0}
             />
           ) : null}
         </Link>
