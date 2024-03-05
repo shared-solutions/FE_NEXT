@@ -23,7 +23,7 @@ import { deleteLike } from "@/app/api/api/like";
 import GeneralVoteBox from "@/app/components/postlist/GeneralVoteBox";
 import CardVoteBox from "@/app/components/postlist/CardVoteBox";
 import GaugeVoteBox from "@/app/components/postlist/GaugeVoteBox";
-import defaultUserImg from "@/app/public/image/userimg.png";
+import defaultUserImg from "@/app/public/image/defaultUserImg.png";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
 import useSelectVoteStore from "@/app/zustand/selectVote";
 import MenuPage from "@/app/components/menu/MenuPage";
@@ -378,10 +378,10 @@ export default function Detail({
             <div className={styles.userlay}>
               <Image
                 className={styles.userimg}
-                src={userImg == null ? userimg : userImg}
+                src={userImg !== null ? userImg : defaultUserImg}
                 alt="유저 이미지"
-                width={34}
-                height={34}
+                width={32}
+                height={32}
                 style={{ borderRadius: "50%" }}
               />
               <div className={styles.username}>{username}</div>

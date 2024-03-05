@@ -117,7 +117,7 @@ const GaugePostBox = ({
             {
               <>
                 <Image src={total} alt="이미지" width={15} height={15} style={totalImageStyle} />
-                <div style={{ ...averageTextStyle, display: showAverageInfo ? 'block' : 'none' }}>평균값</div>
+                <div style={{ ...averageTextStyle }}>평균값</div>
               </>
             }
           </div>

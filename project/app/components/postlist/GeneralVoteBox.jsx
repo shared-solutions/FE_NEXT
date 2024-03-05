@@ -64,13 +64,12 @@ const GeneralVoteBox = ({ pollOption }) => {
                   />
                 )}
                 <div className={styles.optionStringBox}>
-                  {/* 사용자가 투표 안 했을 때 */}
-                  {!isVoted && (
+                  {/* 투표 진행 중인데 사용자가 투표 안 했을 때만 보임*/}
+                  {(onGoing && !isVoted) && (
                     <div className={styles.optionString}>
                       {option.optionString}
                     </div>
                   )}
-
                   {/* 최상위 항목 퍼센티지 */}
                   {/* {(topCandidate || [])[0]?.optionId === option.optionId && (
                     <div className={styles.optionInfo}>

@@ -15,7 +15,7 @@ import { CommentSort } from "../comment/CommentSort";
 import backimg from "@/app/public/image/arrow3.png";
 import Link from "next/link";
 import good from "@/app/public/image/finger.png";
-import defaultUserImg from "@/app/public/image/userimg.png";
+import defaultUserImg from "@/app/public/image/defaultUserImg.png";
 import ParentPost from "@/app/components/reviewdetail/ParentPost";
 import MenuPage from "@/app/components/menu/MenuPage";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
@@ -325,10 +325,10 @@ export default function ReviewDetail({
             <div className={styles.userlay}>
               <Image
                 className={styles.userimg}
-                src={userImg == null ? userimg : userImg}
+                src={userImg !== null ? userImg : defaultUserImg}
                 alt="유저 이미지"
-                width={34}
-                height={34}
+                width={32}
+                height={32}
                 style={{ borderRadius: "50%" }}
               />
               <div className={styles.username}>{username}</div>
