@@ -18,15 +18,17 @@ const ReviewBox = ({
 }) => {
   return (
     <div className={styles.review_box}>
-      <div className={styles.userinfo}>
-        <Image
-          src={userImg}
-          className={styles.userimg}
-          alt="유저 이미지"
-          width={24}
-          height={24}
-        />
-        <div className={styles.nickname}>{nickname}</div>
+      <div className={styles.post_top}>
+        <div className={styles.userinfo}>
+          <Image
+            src={userImg}
+            className={styles.userimg}
+            alt="유저 이미지"
+            width={24}
+            height={24}
+          />
+          <div className={styles.nickname}>{nickname}</div>
+        </div>
         <div className={styles.date}>{calculateTimeDifference(date)}</div>
       </div>
 
