@@ -1,20 +1,32 @@
 .review_box {
-  width: 340px;
+  // width: 340px;
   margin: 10px 5px 20px 5px;
 
-  background-color: white;
+  // background-color: white;
   border-radius: 20px;
-  padding: 10px 0 40px;
-  //box-shadow: 2px 2px 20px #FF8C39;
-  box-shadow: 2px 2px 18px rgba(255, 140, 57, 0.5);;
+  padding: 10px 0 10px;
+  // //box-shadow: 2px 2px 20px #FF8C39;
+  box-shadow: 2px 2px 18px rgba(255, 140, 57, 0.5);
+
+  position: relative;
+  height: 340px;
+  border-radius: 20px;
+  background-color: white;
+  margin-top: 20px;
 }
 
-.userinfo {
+.post_top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: 13.5px;
   padding-top: 20px;
   margin-left: 30px;
+  margin-right: 30px;
+  .userinfo {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .nickname {

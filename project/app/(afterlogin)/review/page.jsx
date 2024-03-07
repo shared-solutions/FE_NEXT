@@ -11,6 +11,8 @@ import deuserimg from "@/app/public/image/defaultUserImg.png";
 import Post from "@/app/components/saved/Post";
 import Link from "next/link";
 import { calculateTimeDifference } from "@/app/components/comment/CommentSort";
+import Image from "next/image";
+import pencilImg from "@/app/public/image/pencil.png";
 
 export default function Review() {
   const [userData, setUserData] = useState([]);
@@ -143,7 +145,13 @@ export default function Review() {
         {userData.map(renderPostBox)}
         {loading && <div>Loading...</div>} {/* 로딩 중인 경우 표시될 내용 */}
       </div>
-      <WriteButton />
+      {/* <WriteButton /> */}
+      <Link className={styles.link} href="/writereview">
+        <button className={styles.writebtn}>
+          <div>후기 작성</div>
+          <Image src={pencilImg} className={styles.pencil_img} alt="이미지" />
+        </button>
+      </Link>
     </div>
   );
 }
