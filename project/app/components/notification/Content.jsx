@@ -2,6 +2,7 @@
 import styles from "@/app/modules/notificationCss/content.module.scss";
 import Image from "next/image";
 import defaultUserImg from "@/app/public/image/defaultUserImg.png";
+import info from "@/app/public/image/info.png";
 
 export default function Content({ data }) {
   const createdAtDate = new Date(data.createdAt);
@@ -22,10 +23,10 @@ export default function Content({ data }) {
       className={`${styles.content} ${data.read === true ? styles.white : ""}`}
     >
       <Image
-        src={data.userPhoto ?? defaultUserImg}
+        src={data.userPhoto ? data.userPhoto: (data.commentContent === null ? info : defaultUserImg)}
         alt="image"
-        width={34}
-        height={34}
+        width={32}
+        height={32}
         style={{ borderRadius: "50%" }}
       />
       <div className={styles.content_text}>

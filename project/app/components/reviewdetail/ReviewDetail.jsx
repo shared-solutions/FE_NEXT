@@ -15,11 +15,11 @@ import { CommentSort } from "../comment/CommentSort";
 import backimg from "@/app/public/image/arrow3.png";
 import Link from "next/link";
 import good from "@/app/public/image/finger.png";
-import defaultUserImg from "@/app/public/image/userimg.png";
+import defaultUserImg from "@/app/public/image/defaultUserImg.png";
 import ParentPost from "@/app/components/reviewdetail/ParentPost";
 import MenuPage from "@/app/components/menu/MenuPage";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
-
+import { useRouter } from "next/navigation";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
 import CloseImg from "../edit/CloseImg";
@@ -38,22 +38,14 @@ export default function ReviewDetail({
   postData,
   postId,
   deadline,
+  myPost,
   pollContent,
 }) {
+  const router = useRouter();
   const [setting, setSetting] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isScrap, setIsScrap] = useState(false);
-  console.log("디테일", detail);
-  console.log(userImg);
-  console.log(username);
-  console.log(date);
-  console.log(title);
-  console.log(content);
-  console.log(viewCount);
-  console.log(likeCount);
-  console.log(isLike);
-  console.log(commentCount);
-  console.log(deadline);
+
   const {
     allCandidatePercent,
     topCandidatePercent,
@@ -84,6 +76,9 @@ export default function ReviewDetail({
     } else {
       scrapHandler();
     }
+  };
+  const handleDeleteClick = () => {
+    deletePostHandler();
   };
   const dateObject = new Date(date);
   const year = dateObject.getFullYear();
@@ -223,6 +218,33 @@ export default function ReviewDetail({
     }
   };
 
+  // 글 삭제
+  const deletePostHandler = async () => {
+    try {
+      const atkToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://dev.gomin-chingu.site/posts/${postId}/del`,
+        {
+          method: "PATCH",
+          headers: {
+            atk: atkToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("success:", result);
+        alert("글을 삭제했습니다.");
+        router.replace("/review");
+      } else {
+        console.error("Delete failed:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   // useEffect(() => {
   //   setSetting();
   // }, [setting]);
@@ -242,227 +264,239 @@ export default function ReviewDetail({
     setIsMenuOpen(false);
   };
 
-  console.log("원래투표글" , voteDetailStore());
   return (
-    <div className={styles.container}>
-      {/* 추후에 경로 수정 필요 */}
-      {/* ===== 상단바 시작 ==== */}
-      <div className={styles.header_container}>
-        <div className={styles.logo}>
-          <Link href="/review">
-            <Image src={backimg} alt="back" width={18} height={18} />
-          </Link>
-        </div>
-        <div className={styles.menu_container}>
-          <div className={styles.menu}>
-            <Link href="/notification">
-              {segment[1] === "notification" ? (
-                <>
-                  <Bell />
-                </>
-              ) : (
-                <>
-                  <Bell />
-                </>
-              )}
-            </Link>
-            <Link href="/search">
-              {segment[1] === "search" ? (
-                <>
-                  <Search />
-                </>
-              ) : (
-                <>
-                  <Search />
-                </>
-              )}
-            </Link>
-            <div onClick={toggleMenu}>
-              {segment[1] === "menu" ? (
-                <>
-                  <Menu />
-                </>
-              ) : (
-                <>
-                  <Menu />
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
       {isMenuOpen && <MenuPage isOpen={isMenuOpen} onClose={closeMenu} />}
-      {/* ===== 상단바 끝 ==== */}
-      <div
-        className={
-          setting ? styles.content_container_blur : styles.content_container
-        }
-      >
-        <div className={styles.without_vote_container}>
-          <div className={styles.userlay}>
-            <Image
-              className={styles.userimg}
-              src={userImg == null ? userimg : userImg}
-              alt="유저 이미지"
-              width={34}
-              height={34}
-              style={{ borderRadius: "50%" }}
-            />
-            <div className={styles.username}>{username}</div>
-            <br />
-
-            <div className={styles.morebtn} onClick={() => clickHandler()}>
-              {isButtonClicked ? (
-                <div className={styles.more_container}>
-                  <p onClick={() => clickHandler()}>수정</p>
-                  <p onClick={() => clickHandler()}>알림 끄기</p>
-                  {isScrap ? (
-                    <p
-                      onClick={() => {
-                        clickHandler();
-                        handleScrapClick();
-                      }}
-                    >
-                      스크랩 해제
-                    </p>
-                  ) : (
-                    <p
-                      onClick={() => {
-                        clickHandler();
-                        handleScrapClick();
-                      }}
-                    >
-                      스크랩
-                    </p>
-                  )}
-                  <p onClick={() => clickHandler()}>신고하기</p>
-                </div>
-              ) : (
-                ""
-              )}
-              <Image
-                className={styles.rerender}
-                src={rerenderimg}
-                alt="렌더링"
-                width={12}
-                height={12}
-              />
-              <Image
-                src={moreimg}
-                alt="더보기"
-                width={3}
-                height={13}
-                onClick={() => clickHandler}
-              />
-            </div>
-          </div>
-          <div className={styles.usertext}>
-            <div className={styles.date}>{datePart}</div>
-            <div className={styles.line}> | </div>
-            <div className={styles.time}>{timeePart}</div>
-          </div>
-          <div className={styles.title}>{title}</div>
-          <div className={styles.content}>{content}</div>
-        </div>
-        <div className={styles.post_container}>
-          {/**내 투표글 */}
-          {
-            <Link
-              href={`/viewdetail/${postData.postId}`}
-              style={{
-                textDecoration: "none",
-                color: "black",
-                margin: 0,
-                cursor: "pointer",
-              }}
-            >
-              <ParentPost
-                postId={postId}
-                allCandidatePercent={allCandidatePercent}
-                topCandidate={topCandidate}
-                topCandidatePercent={topCandidatePercent}
-                topVoteResult={topVoteResult}
-                userVote={userVote}
-                userVotePercent={userVotePercent}
-                userVoteResult={userVoteResult}
-                totalGauge={totalGauge}
-                userGauge={userGauge}
-                pollOption={pollOption}
-                isVoted={isVoted}
-                onGoing={onGoing}
-                postData={postData}
-              />
+      <div className={styles.container}>
+        {/* 추후에 경로 수정 필요 */}
+        {/* ===== 상단바 시작 ==== */}
+        <div className={styles.header_container}>
+          <div className={styles.logo}>
+            <Link href="/review">
+              <Image src={backimg} alt="back" width={18} height={18} />
             </Link>
-          }
-        </div>
-        <div className={styles.without_vote_container}>
-          <div className={styles.footer}>
-            <div className={styles.countview}>
-              <Image
-                className={styles.img}
-                src={countview}
-                alt="조회수"
-                width={14}
-                height={10}
-              />
-              {viewCount}
-            </div>
-            <div className={styles.like}>
-              <Image
-                className={styles.img}
-                src={likeimg}
-                alt="좋아요수"
-                width={14}
-                height={10}
-              />
-              {likeCount}
-            </div>
-            <div className={styles.comment}>
-              <Image
-                className={styles.img}
-                src={commentimg}
-                alt="댓글수"
-                width={14}
-                height={10}
-              />
-              {commentCount}
+          </div>
+          <div className={styles.menu_container}>
+            <div className={styles.menu}>
+              <Link href="/notification">
+                {segment[1] === "notification" ? (
+                  <>
+                    <Bell />
+                  </>
+                ) : (
+                  <>
+                    <Bell />
+                  </>
+                )}
+              </Link>
+              <Link href="/search">
+                {segment[1] === "search" ? (
+                  <>
+                    <Search />
+                  </>
+                ) : (
+                  <>
+                    <Search />
+                  </>
+                )}
+              </Link>
+              <div onClick={toggleMenu}>
+                {segment[1] === "menu" ? (
+                  <>
+                    <Menu />
+                  </>
+                ) : (
+                  <>
+                    <Menu />
+                  </>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+        {/* ===== 상단바 끝 ==== */}
 
-          <div className={styles.underlay}>
-            <div key={isLike ? "like" : "unlike"}>
+        <div
+          className={
+            setting ? styles.content_container_blur : styles.content_container
+          }
+        >
+          <div className={styles.without_vote_container}>
+            <div className={styles.userlay}>
               <Image
-                src={isLike ? good : likeunclickimg}
-                alt={isLike ? "좋아요누름" : "좋아요 취소"}
-                width={37}
-                height={35}
-                onClick={handleLikeClick}
+                className={styles.userimg}
+                src={userImg !== null ? userImg : defaultUserImg}
+                alt="유저 이미지"
+                width={32}
+                height={32}
+                style={{ borderRadius: "50%" }}
               />
+              <div className={styles.username}>{username}</div>
+              <br />
+
+              <div className={styles.morebtn} onClick={() => clickHandler()}>
+                {isButtonClicked ? (
+                  <div className={styles.more_container}>
+                    <p onClick={() => clickHandler()}>수정</p>
+                    <p onClick={() => clickHandler()}>알림 끄기</p>
+                    {isScrap ? (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleScrapClick();
+                        }}
+                      >
+                        스크랩 해제
+                      </p>
+                    ) : (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleScrapClick();
+                        }}
+                      >
+                        스크랩
+                      </p>
+                    )}
+                    <p onClick={() => clickHandler()}>신고하기</p>
+                    {myPost && (
+                      <p
+                        onClick={() => {
+                          clickHandler();
+                          handleDeleteClick();
+                        }}
+                      >
+                        삭제하기
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+                <Image
+                  className={styles.rerender}
+                  src={rerenderimg}
+                  alt="렌더링"
+                  width={12}
+                  height={12}
+                />
+                <Image
+                  src={moreimg}
+                  alt="더보기"
+                  width={3}
+                  height={13}
+                  onClick={() => clickHandler}
+                />
+              </div>
             </div>
-            <Image
-              onClick={() => {
-                setSetting((prevSetting) => !prevSetting);
-                console.log(!setting); // 현재 상태의 반대 값
-              }}
-              src={chatclickimg}
-              alt="채팅 클릭"
-              width={35}
-              height={35}
-            />
-
-            {setting && (
-              <CommentSort
-                postId={postId}
-                onClose={() => {
-                  setSetting(false); // 닫을 때는 항상 false로 설정
-
-                  console.log(false); // 닫혔을 때의 값
+            <div className={styles.usertext}>
+              <div className={styles.date}>{datePart}</div>
+              <div className={styles.line}> | </div>
+              <div className={styles.time}>{timeePart}</div>
+            </div>
+            <div className={styles.title}>{title}</div>
+            <div className={styles.content}>{content}</div>
+          </div>
+          <div className={styles.post_container}>
+            {/**내 투표글 */}
+            {
+              <Link
+                href={`/viewdetail/${postData.postId}`}
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  margin: 0,
+                  cursor: "pointer",
                 }}
+              >
+                <ParentPost
+                  postId={postId}
+                  allCandidatePercent={allCandidatePercent}
+                  topCandidate={topCandidate}
+                  topCandidatePercent={topCandidatePercent}
+                  topVoteResult={topVoteResult}
+                  userVote={userVote}
+                  userVotePercent={userVotePercent}
+                  userVoteResult={userVoteResult}
+                  totalGauge={totalGauge}
+                  userGauge={userGauge}
+                  pollOption={pollOption}
+                  isVoted={isVoted}
+                  onGoing={onGoing}
+                  postData={postData}
+                />
+              </Link>
+            }
+          </div>
+          <div className={styles.without_vote_container}>
+            <div className={styles.footer}>
+              <div className={styles.countview}>
+                <Image
+                  className={styles.img}
+                  src={countview}
+                  alt="조회수"
+                  width={14}
+                  height={10}
+                />
+                {viewCount}
+              </div>
+              <div className={styles.like}>
+                <Image
+                  className={styles.img}
+                  src={likeimg}
+                  alt="좋아요수"
+                  width={14}
+                  height={10}
+                />
+                {likeCount}
+              </div>
+              <div className={styles.comment}>
+                <Image
+                  className={styles.img}
+                  src={commentimg}
+                  alt="댓글수"
+                  width={14}
+                  height={10}
+                />
+                {commentCount}
+              </div>
+            </div>
+
+            <div className={styles.underlay}>
+              <div key={isLike ? "like" : "unlike"}>
+                <Image
+                  src={isLike ? good : likeunclickimg}
+                  alt={isLike ? "좋아요누름" : "좋아요 취소"}
+                  width={37}
+                  height={35}
+                  onClick={handleLikeClick}
+                />
+              </div>
+              <Image
+                onClick={() => {
+                  setSetting((prevSetting) => !prevSetting);
+                  console.log(!setting); // 현재 상태의 반대 값
+                }}
+                src={chatclickimg}
+                alt="채팅 클릭"
+                width={35}
+                height={35}
               />
-            )}
+
+              {setting && (
+                <CommentSort
+                  postId={postId}
+                  onClose={() => {
+                    setSetting(false); // 닫을 때는 항상 false로 설정
+
+                    console.log(false); // 닫혔을 때의 값
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

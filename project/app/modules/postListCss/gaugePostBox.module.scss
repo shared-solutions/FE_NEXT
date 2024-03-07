@@ -3,7 +3,8 @@
   height: 210px;
   border-radius: 20px;
   background-color: white;
-  margin-top: 20px;
+  margin-top: 30px;
+  box-shadow: 2px 2px 18px rgba(255, 140, 57, 0.5);
 }
 
 .userimg {
@@ -13,14 +14,17 @@
 }
 
 .userinfo {
+  width: 85%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 20px;
+  margin: 0 25px;
 }
 
 .nickname {
   //margin-top: 15px;
+  width: 100%;
   margin-left: 11px;
 }
 
@@ -93,15 +97,16 @@
 }
 
 .date {
-  margin-left: 240px;
-  margin-top: -10px;
-  padding-bottom: 10px;
   color: rgb(108, 93, 93);
   font-size: 15px;
+  width: 30%;
+  text-align: right;
 }
 
-.date {
-  margin-left: 200px;
-  padding-bottom: 5px;
-  font-size: 15px;
+.text {
+  width: 130px;
+  margin-top: 23px;
+  font-size: 11px;
+  color: #bebebe;
+  border-radius: 15px;
 }

@@ -1,18 +1,18 @@
 import styles from "@/app/modules/postListCss/gaugePostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
-import gaugeImg from '@/app/public/image/gauge_img.png';
+import gaugeImg from "@/app/public/image/gauge_img.png";
 import Image from "next/image";
 import { calculateTimeDifference } from "../comment/CommentSort";
 import total from "@/app/public/image/total.png";
 
-const GaugePostBox = ({ 
-  userimg, 
-  nickname, 
-  title, 
-  content, 
-  pollOption, 
-  like, 
+const GaugePostBox = ({
+  userimg,
+  nickname,
+  title,
+  content,
+  pollOption,
+  like,
   comment,
   gauge,
   date,
@@ -26,7 +26,7 @@ const GaugePostBox = ({
   allCandidatePercent, // 모든 후보의 퍼센트 리스트
   userGauge, // 사용자가 투표한 항목의 퍼센트
   totalGauge, // 평균 게이지
-  // ===== 0216 추가 끝 ====  
+  // ===== 0216 추가 끝 ====
 }) => {
   // const gaugeValue = gauge === null ? 0 : gauge;
   // const gaugePercentage = gaugeValue + '%';
@@ -46,35 +46,39 @@ const GaugePostBox = ({
 
   // linear-gradient로 배경색을 설정
   const gradientStyle = {
-    background: `linear-gradient(to right, black ${usergaugeValuePercent}, #eeeeee ${usergaugeValuePercent})`, marginTop: '5px'
+    background: `linear-gradient(to right, black ${
+      !isVoted ? gaugeValuePercent : usergaugeValuePercent
+    }, #eeeeee ${usergaugeValuePercent})`,
+    marginTop: "5px",
   };
 
   // total 이미지의 스타일 설정
   const totalImageStyle = {
-    position: 'absolute',
+    position: "absolute",
     left: gaugeValuePercent, // gaugeValuePercent에 따라 이미지 위치 설정
-    marginBottom: '8px',
-    transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
+    marginBottom: "8px",
+    transform: "translateX(-50%)", // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 0,
+    opacity: !isVoted ? "0.1" : "1.0",
   };
 
   // '평균값' 글씨의 스타일 설정
   const averageTextStyle = {
-    position: 'absolute',
+    position: "absolute",
     left: gaugeValuePercent, // gaugeValuePercent에 따라 이미지 위치 설정
-    top: '25px',
-    transform: 'translateX(-50%)', // 글씨를 가운데 정렬하기 위한 스타일
+    top: "25px",
+    transform: "translateX(-50%)", // 글씨를 가운데 정렬하기 위한 스타일
   };
 
   // '게이지 이미지' 스타일 설정
   const gaugeImageStyle = {
-    position: 'absolute',
-    left: usergaugeValuePercent,
-    bottom: '0',
-    transform: 'translateX(-50%)', // 이미지 중앙 정렬을 위해 필요한 스타일
+    position: "absolute",
+    left: !isVoted ? gaugeValuePercent : usergaugeValuePercent,
+    bottom: "0",
+    transform: "translateX(-50%)", // 이미지 중앙 정렬을 위해 필요한 스타일
     // zIndex: 1,
   };
-  
+
   // gaugePercentage에서 왼쪽으로 25px만큼 이동한 크기 계산
   const leftMargin = `calc(${usergaugeValuePercent} - 25px)`;
   const leftUserMargin = `calc(${gaugeValuePercent} - 25px)`;
@@ -103,26 +107,58 @@ const GaugePostBox = ({
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
-        <div className={styles.gaugeContainer}>
-          <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
-            <Image src={gaugeImg} alt="게이지 이미지" width={50} height={50} />
+        {!onGoing || isVoted ? (
+          <div className={styles.gaugeContainer}>
+            <div className={styles.gaugeImageContainer} style={gaugeImageStyle}>
+              <Image
+                src={gaugeImg}
+                alt="게이지 이미지"
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.pollTitleContainer} style={gradientStyle}>
+              {/* 조건부 렌더링 */}
+
+              <Image
+                src={total}
+                alt="이미지"
+                width={15}
+                height={15}
+                style={totalImageStyle}
+              />
+              <div
+                style={{
+                  ...averageTextStyle,
+                  display: showAverageInfo ? "block" : "none",
+                }}
+              >
+                평균값
+              </div>
+            </div>
           </div>
-          <div className={styles.pollTitleContainer} style={gradientStyle}>
-            {/* 조건부 렌더링 */}
-            {showAverageInfo && (
-              <>
-                <Image src={total} alt="이미지" width={15} height={15} style={totalImageStyle} />
-                <div style={{ ...averageTextStyle, display: showAverageInfo ? 'block' : 'none' }}>평균값</div>
-              </>
-            )}
+        ) : (
+          <div className={styles.gaugeContainer}>
+            <div className={styles.gaugeImageContainer}>
+              <Image
+                src={gaugeImg}
+                alt="게이지 이미지"
+                width={45}
+                height={45}
+              />
+            </div>
+            <div className={styles.pollTitleContainer}>
+              <div>투표하고 결과를 확인해보세요!</div>
+            </div>
           </div>
-        </div>
+        )}
         <div className={styles.footer}>
           <div className={styles.like}>
             <Image src={likeimg} alt="좋아요" width={15} height={13} /> {like}
           </div>
           <div className={styles.comment}>
-            <Image src={commentimg} alt="댓글" width={15} height={13} /> {comment}
+            <Image src={commentimg} alt="댓글" width={15} height={13} />{" "}
+            {comment}
           </div>
         </div>
       </div>
