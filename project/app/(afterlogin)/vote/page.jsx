@@ -28,37 +28,72 @@ const PostList = () => {
     try {
       if (typeof window !== "undefined") {
         // 클라이언트 환경에서만 실행
-        setLoading(true); // 데이터를 불러오는 중임을 표시
-        const url = `https://dev.gomin-chingu.site/posts/poll-post/${selectedCategory}`;
-        const params = {
-          page: page,
-          size: 7,
-          category: selectedCategory,
-        };
+        if (selectedCategory === "가장 핫한 🔥") {
+          setLoading(true); // 데이터를 불러오는 중임을 표시
+          let url = "https://dev.gomin-chingu.site/posts/best";
 
-        const response = await axios.get(url, {
-          params: params,
-          headers: {
-            "Content-Type": "application/json",
-            atk: localStorage.getItem("token"), // localStorage에서 직접 가져옴
-          },
-        });
+          const params = {
+            page: page,
+            size: 7,
+          };
 
-        if (response.status === 200) {
-          const data = response.data;
-          if (page === 0) {
-            // 페이지가 0이면 새로운 데이터로 대체
-            setUserData(data.result.pollPostList);
+          const response = await axios.get(url, {
+            params: params,
+            headers: {
+              "Content-Type": "application/json",
+              atk: localStorage.getItem("token"),
+            },
+          });
+
+          if (response.status === 200) {
+            const data = response.data;
+            if (page === 0) {
+              // 페이지가 0이면 새로운 데이터로 대체
+              setUserData(data.result.pollPostList);
+            } else {
+              // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
+              setUserData((prevData) => [
+                ...prevData,
+                ...data.result.pollPostList,
+              ]);
+            }
+            console.log("글 전체보기 데이터:", data);
           } else {
-            // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
-            setUserData((prevData) => [
-              ...prevData,
-              ...data.result.pollPostList,
-            ]);
+            console.error("Failed to get data:", response);
           }
-          console.log("글 전체보기 데이터:", data);
         } else {
-          console.error("Failed to get data:", response);
+          setLoading(true); // 데이터를 불러오는 중임을 표시
+          const url = `https://dev.gomin-chingu.site/posts/poll-post/${selectedCategory}`;
+          const params = {
+            page: page,
+            size: 7,
+            category: selectedCategory,
+          };
+
+          const response = await axios.get(url, {
+            params: params,
+            headers: {
+              "Content-Type": "application/json",
+              atk: localStorage.getItem("token"), // localStorage에서 직접 가져옴
+            },
+          });
+
+          if (response.status === 200) {
+            const data = response.data;
+            if (page === 0) {
+              // 페이지가 0이면 새로운 데이터로 대체
+              setUserData(data.result.pollPostList);
+            } else {
+              // 페이지가 0이 아니면 기존 데이터에 새로운 데이터를 추가
+              setUserData((prevData) => [
+                ...prevData,
+                ...data.result.pollPostList,
+              ]);
+            }
+            console.log("글 전체보기 데이터:", data);
+          } else {
+            console.error("Failed to get data:", response);
+          }
         }
       }
     } catch (error) {
@@ -112,7 +147,7 @@ const PostList = () => {
       // ===== 0216 추가 시작 ====
       onGoing, // 마감 여부
       isVoted, // 사용자 투표 여부
-      topCanditate, // 1등인 후보 리스트
+      topCandidate, // 1등인 후보 리스트
       topCandidatePercent, // 1등 후보 퍼센트 리스트
       userVote, // 사용자가 투표한 후보 리스트,
       userVotePercent, // 사용자가 투표한 후보 퍼센트 리스트
@@ -134,9 +169,9 @@ const PostList = () => {
       comment: comment || 0,
 
       // ===== 0216 추가 시작 ====
-      onGoing: onGoing || true, // 기본값 : 마감 X
-      isVoted: isVoted || false, // 기본값 : 사용자 투표 X
-      topCanditate: topCanditate || [],
+      onGoing: onGoing, // 기본값 : 마감 X
+      isVoted: isVoted, // 기본값 : 사용자 투표 X
+      topCandidate: topCandidate || [],
       userVote: userVote || [],
       userVotePercent: userVotePercent || [],
       topCandidatePercent: topCandidatePercent || [],
@@ -157,12 +192,17 @@ const PostList = () => {
           {postVoteType === "GENERAL" ? (
             <GeneralPostBox {...defaultPostProps} />
           ) : postVoteType === "CARD" ? (
-            <CardPostBox {...defaultPostProps} />
+            <CardPostBox
+              {...defaultPostProps}
+              topCandidate={topCandidate}
+              userVote={userVote}
+            />
           ) : postVoteType === "GAUGE" ? (
             <GaugePostBox
               {...defaultPostProps}
               pollTitle={pollTitle || ""}
-              gauge={gauge || 0}
+              userGauge={userGauge || 0}
+              totalGauge={totalGauge || 0}
             />
           ) : null}
         </Link>

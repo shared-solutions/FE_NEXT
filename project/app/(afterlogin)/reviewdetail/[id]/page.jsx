@@ -31,7 +31,6 @@ export default function Viewdetail({ params }) {
       if (response.status === 200) {
         const data = response.data;
         console.log("Detail data:", data);
-        console.log("Post data", data.result.parentPost);
         setDetail(data.result);
         setPostData(data.result.parentPost);
         setPollContent(data.result.parentPost.pollContent ?? null);
@@ -58,7 +57,6 @@ export default function Viewdetail({ params }) {
 
       if (response.status === 200) {
         const data = response.data;
-        console.log("투표 원글", data);
         setParentData(data.result);
         voteDetail.setAllCandidatePercent(data.result.allCandidatePercent);
         voteDetail.setTopCandidatePercent(data.result.topCandidatePercent);
@@ -81,7 +79,6 @@ export default function Viewdetail({ params }) {
     }
   };
 
-  console.log("원래투표id", detail.title);
   useEffect(() => {
     getData();
     getParentData();
@@ -104,6 +101,7 @@ export default function Viewdetail({ params }) {
         postData={postData}
         postId={postId}
         pollContent={pollContent}
+        myPost={detail.myPost}
       />
     </div>
   );

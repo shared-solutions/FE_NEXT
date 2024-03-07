@@ -4,6 +4,7 @@ import Image from "next/image";
 import vote_check from "@/app/public/image/vote_check.png";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
 import useSelectVoteStore from "@/app/zustand/selectVote";
+import check from "@/app/public/image/generalCheck.png";
 
 const GeneralVoteBox = ({ pollOption }) => {
   // 옵션의 개수에 따라서 box의 height를 동적으로 계산
@@ -49,12 +50,10 @@ const GeneralVoteBox = ({ pollOption }) => {
                   selectList.includes(option.optionId)
                     ? styles.selectedOption
                     : ""
-                } ${
-                  topCandidate?.[0]?.optionId === option.optionId
-                    ? styles.topCandidate
-                    : ""
                 }`}
-                onClick={!isVoted ? () => updateSelectList(option.optionId) : null}
+                onClick={
+                  !isVoted ? () => updateSelectList(option.optionId) : null
+                }
               >
                 {option.optionImgUrl && (
                   <Image
@@ -65,19 +64,12 @@ const GeneralVoteBox = ({ pollOption }) => {
                   />
                 )}
                 <div className={styles.optionStringBox}>
-                  <div className={styles.optionString}>
-                    {option.optionString}
-                  </div>
-                  {userVote && userVote[0]?.optionId === option.optionId && (
-                    <div className={styles.optionInfo}>
-                      {/* 사용자 투표 O -> 체크표시, 투표한 항목 퍼센티지 */}
-                      <Image src={vote_check} alt="vote_check" />
-                      <div className={styles.userVotePercent}>
-                        {userVotePercent}%
-                      </div>
+                  {/* 투표 진행 중인데 사용자가 투표 안 했을 때만 보임*/}
+                  {(onGoing && !isVoted) && (
+                    <div className={styles.optionString}>
+                      {option.optionString}
                     </div>
                   )}
-
                   {/* 최상위 항목 퍼센티지 */}
                   {/* {(topCandidate || [])[0]?.optionId === option.optionId && (
                     <div className={styles.optionInfo}>
@@ -96,10 +88,45 @@ const GeneralVoteBox = ({ pollOption }) => {
                     {/*topCandidate.optionString === option.optionString ? {topVoteResult} + "명 선택" : ""*/}
                   </div>
 
-                  {!onGoing && (
-                    // 추가: 투표 마감 후 + 사용자 투표 O일 때 결과 표시
-                    <div className={styles.optionPercentage}>
-                      {allCandidatePercent[index]}%
+                  {(!onGoing || isVoted) && allCandidatePercent && (
+                    // 추가: 투표 마감 후 & 사용자 투표 했을 때 결과 표시
+                    <div
+                      className={`${styles.allCandidate} ${
+                        userVote?.[0]?.optionId === option.optionId
+                          ? styles.userVote
+                          : ""
+                      }`}
+                      style={{ width: `${allCandidatePercent[index]}%` }}
+                    >
+                      {/* 투표 후보 리스트 */}
+                      <div
+                        className={styles.optionString}
+                        style={{
+                          color:
+                            allCandidatePercent[index] === 0
+                              ? "black"
+                              : "white",
+                        }}
+                      >
+                        {option.optionString}
+                      </div>
+                      {/* 사용자가 투표한 항목 */}
+                      {userVote &&
+                        userVote
+                          .map((vote) => vote.optionId)
+                          .includes(option.optionId) && (
+                          // userVote에 해당 옵션이 포함되어 있는지 확인하여 체크 이미지 표시
+                          <Image
+                            src={check}
+                            alt="체크"
+                            width={15}
+                            height={15}
+                            className={styles.checkImage}
+                          />
+                        )}
+                      <div className={styles.optionPercentage} style={{color: allCandidatePercent[index] === 100 ? "white" : "black" }}>
+                        {allCandidatePercent[index]}%
+                      </div>
                     </div>
                   )}
                 </div>

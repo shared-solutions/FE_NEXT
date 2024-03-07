@@ -120,7 +120,7 @@ export default function Home() {
           />
         </>
       ) : (
-        <h3 style={{ marginTop: "25%", marginLeft: "10%" }}>Loading...</h3>
+        <h3 style={{ marginTop: "25%", marginLeft: "10%" }}>알림이 없습니다.</h3>
       )}
       {isButtonClicked ? (
         <div className={styles.more_container}>
@@ -138,7 +138,7 @@ export default function Home() {
         ""
       )}
       <div className={styles.contentContainer}>
-        {alarmList &&
+        {alarmList.length === 0 ? <p></p> :
           alarmList
             .slice()
             .reverse()
