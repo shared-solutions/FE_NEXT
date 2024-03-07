@@ -169,8 +169,8 @@ const PostList = () => {
       comment: comment || 0,
 
       // ===== 0216 추가 시작 ====
-      onGoing: onGoing || true, // 기본값 : 마감 X
-      isVoted: isVoted || false, // 기본값 : 사용자 투표 X
+      onGoing: onGoing, // 기본값 : 마감 X
+      isVoted: isVoted, // 기본값 : 사용자 투표 X
       topCandidate: topCandidate || [],
       userVote: userVote || [],
       userVotePercent: userVotePercent || [],

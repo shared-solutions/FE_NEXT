@@ -378,7 +378,7 @@ export default function Detail({
             <div className={styles.userlay}>
               <Image
                 className={styles.userimg}
-                src={userImg !== null ? userImg : defaultUserImg}
+                src={userImg === null ? defaultUserImg : userImg}
                 alt="유저 이미지"
                 width={32}
                 height={32}

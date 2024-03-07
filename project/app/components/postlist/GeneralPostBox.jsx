@@ -94,7 +94,13 @@ const GeneralPostBox = ({
                     />
                   )}
                   <div className={styles.optionStringBox}>
-                    {allCandidatePercent && (
+                    {/* 투표 진행 중인데 사용자가 투표 안 했을 때만 보임*/}
+                    {onGoing && !isVoted && (
+                      <div className={styles.optionString}>
+                        {option.optionString}
+                      </div>
+                    )}
+                    {(!onGoing || isVoted) && allCandidatePercent && (
                       // 추가: 투표 마감 후 & 사용자 투표 했을 때 결과 표시
                       <div
                         className={`${styles.allCandidate} ${
@@ -107,9 +113,8 @@ const GeneralPostBox = ({
                             allCandidatePercent[index] === 0
                               ? "100%"
                               : `${allCandidatePercent[index]}%`,
-                          backgroundColor: allCandidatePercent[index] === 0
-                          ? ""
-                          : "black",
+                          backgroundColor:
+                            allCandidatePercent[index] === 0 ? "" : "black",
                         }}
                       >
                         {/* 투표 후보 리스트 */}
