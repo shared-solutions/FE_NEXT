@@ -37,12 +37,12 @@ const CardPostBox = ({
   const [showTopVoteResult, setShowTopVoteResult] = useState(false);
 
   useEffect(() => {
-    if (isVoted || myPost) {
+    if (isVoted || myPost || !onGoing) {
       setShowAllCandidatePercent(true);
       setShowAllCandidateResult(true);
       setShowTopVoteResult(true);
     }
-  }, [isVoted, myPost]);
+  }, [isVoted, myPost, onGoing]);
 
   return (
     <div className={styles.box}>
@@ -107,10 +107,10 @@ const CardPostBox = ({
                   />
                 )}
                 {/* isVoted가 true이거나 myPost가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
-                {(isVoted || myPost) && showAllCandidatePercent && (
+                {(isVoted || myPost || !onGoing) && showAllCandidatePercent && (
                     <div className={styles.percent} style={{ color: textColor }}>{allCandidatePercent[index]}%</div>
                 )}
-                {(isVoted || myPost) && showAllCandidateResult && allCandidateResult && (
+                {(isVoted || myPost || !onGoing) && showAllCandidateResult && allCandidateResult && (
                   <div className={styles.allCandidateResult} style={{ color: textColor }}>
                     <div>{allCandidateResult[index]}명</div>
                     <div className={styles.allCandidateResultString}>투표</div>
