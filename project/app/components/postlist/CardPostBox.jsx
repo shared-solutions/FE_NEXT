@@ -66,23 +66,33 @@ const CardPostBox = ({
           pollOption.map((option, index) => {
             // topCandidate의 optionId 배열 생성
             const topCandidateIds = topCandidate ? topCandidate.map(candidate => candidate.optionId) : [];
+            const userVoteIds = userVote ? userVote.map(candidate => candidate.optionId) : [];
+            const isUserVoted = userVoteIds.includes(option.optionId);
+            const textColor = isUserVoted ? 'black' : 'white'; // 투표 여부에 따라 텍스트 색상 결정
             return (
               <div
                 key={index}
                 className={`${styles.option} ${
-                  topCandidateIds.includes(option.optionId)
-                    ? styles.topCandidate
-                    : ""
+                  userVoteIds.includes(option.optionId)
+                    ? styles.userVote
+                    : styles.notUserVote
                 }`}
               > 
-                <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
-                  {option.optionString} {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
-                    <Image
-                      src={vote_check}
-                      alt="체크"
-                      width={20}
-                      height={20}
-                      className={styles.checkImage}
+                <div className={styles.boxTop}>
+                  <div style={{ position: "absolute", top: "7px", left: "10px", fontWeight: "bold", }}>
+                      {option.optionString}
+                  </div>
+                  {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
+                    <Image 
+                    src={vote_check} 
+                    alt="체크" 
+                    style={{ 
+                      position: "absolute", 
+                      right: "8%", 
+                      top: "3.8%", 
+                      width: "20px",
+                      height: "20px"
+                      }} 
                     />
                   )}
                 </div>
@@ -90,16 +100,17 @@ const CardPostBox = ({
                   <Image
                     src={option.optionImgUrl}
                     alt={`선택지 ${index + 1}`}
+                    style={{ position: "relative", top: "23px" }}
                     width={98}
                     height={124}
                   />
                 )}
                 {/* isVoted가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
                 {isVoted && showAllCandidatePercent && (
-                    <div className={styles.percent}>{allCandidatePercent[index]}%</div>
+                    <div className={styles.percent} style={{ color: textColor }}>{allCandidatePercent[index]}%</div>
                 )}
                 {isVoted && showAllCandidateResult && (
-                  <div className={styles.allCandidateResult}>
+                  <div className={styles.allCandidateResult} style={{ color: textColor }}>
                     <div>{allCandidateResult[index]}명</div>
                     <div className={styles.allCandidateResultString}>투표</div>
                   </div>
