@@ -55,7 +55,7 @@ const CardVoteBox = ({ pollOption }) => {
                   key={index}
                   className={`${styles.option} ${
                     selectList.includes(option.optionId)
-                      ? isVoted && styles.selectedOption // 선택된 옵션에 대한 클래스 추가
+                      ? styles.selectedOption // 선택된 옵션에 대한 클래스 추가
                       : ""
                   } ${
                     // topCandidateIds.includes(option.optionId)
