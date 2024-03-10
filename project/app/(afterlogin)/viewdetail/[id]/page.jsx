@@ -27,6 +27,7 @@ export default function Viewdetail({ params }) {
         console.log("Detail data:", data);
         setDetail(data.result);
         voteDetail.setAllCandidatePercent(data.result.allCandidatePercent);
+        voteDetail.setAllCandidateResult(data.result.allCandidateResult);
         voteDetail.setTopCandidatePercent(data.result.topCandidatePercent);
         voteDetail.setTopCandidate(data.result.topCandidate);
         voteDetail.setTopVoteResult(data.result.topVoteResult);
