@@ -74,10 +74,12 @@ const CardPostBox = ({
               <div
                 key={index}
                 className={`${styles.option} ${
-                  userVoteIds.includes(option.optionId)
-                    ? styles.userVote
-                    : styles.notUserVote
-                }`}
+                  isVoted
+                      ? isUserVoted
+                        ? styles.userVote
+                        : styles.notUserVote
+                      : "" // isVoted가 false이면 아무 스타일도 적용하지 않음
+                  }`}
               > 
                 <div className={styles.boxTop}>
                   <div style={{ position: "absolute", top: "7px", left: "10px", fontWeight: "bold", }}>
