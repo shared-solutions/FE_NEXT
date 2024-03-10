@@ -58,8 +58,11 @@ const CardVoteBox = ({ pollOption }) => {
                       ? styles.selectedOption // 선택된 옵션에 대한 클래스 추가
                       : ""
                   } ${
-                    // topCandidateIds.includes(option.optionId)
-                    isUserVoted ? styles.topCandidate : styles.notUserVote
+                    isVoted
+                      ? isUserVoted
+                        ? styles.topCandidate
+                        : styles.notUserVote
+                      : "" // isVoted가 false이면 아무 스타일도 적용하지 않음
                   }`}
                   onClick={
                     !isVoted ? () => updateSelectList(option.optionId) : null
