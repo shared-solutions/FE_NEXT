@@ -109,7 +109,7 @@ const CardPostBox = ({
                 {isVoted && showAllCandidatePercent && (
                     <div className={styles.percent} style={{ color: textColor }}>{allCandidatePercent[index]}%</div>
                 )}
-                {isVoted && showAllCandidateResult && (
+                {isVoted && showAllCandidateResult && allCandidateResult && (
                   <div className={styles.allCandidateResult} style={{ color: textColor }}>
                     <div>{allCandidateResult[index]}명</div>
                     <div className={styles.allCandidateResultString}>투표</div>
