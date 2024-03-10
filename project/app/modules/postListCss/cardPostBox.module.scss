@@ -92,6 +92,7 @@
 
   span {
     display: block;
+    margin-left: 20%;
   }
 
   // &.userVoted {
@@ -99,8 +100,7 @@
   // }
 
   &.topCandidate {
-    border: 2px solid black; 
-    overflow: hidden;
+    border: 2px solid black;
   }
 
   &.topCandidate::before {
@@ -111,7 +111,8 @@
     left: 0;
     width: 100%; 
     height: 100%;
-    background: linear-gradient(to top, rgb(0 0 0 / 50%), rgba(255, 255, 255, 0));
+    // background: linear-gradient(to top, rgb(0 0 0 / 50%), rgba(255, 255, 255, 0));
+    background: linear-gradient(to top, #FDC322, rgba(255, 255, 255, 0.1));
   }
 
 }
@@ -127,26 +128,28 @@
 
 .percent {
   position: absolute;
-  //z-index: 3;
-  top: 55%;
-  left: 40%;
-  color: white;
-  font-size: 17px;
+  top: 48%;
+  left: 33%;
+  color: black;
+  font-size: 24px;
   font-weight: bolder;
 }
 
-.topVoteResult {
+.allCandidateResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
-  z-index: 3;
-  top: 60%;
-  left: 35%;
-  color: white;
+  top: 66%;
+  left: 36%;
+  color: black;
   font-size: 14px;
+  font-weight: bolder;
+  margin-top: 3px;
 }
 
-.topVoteResultString {
-  margin-top: 30px;
-  margin-left: 8px;
+.allCandidateResultString {
+  margin-top: 3px;
   font-size: 14px;
 }
 

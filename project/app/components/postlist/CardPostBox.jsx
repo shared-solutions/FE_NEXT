@@ -1,7 +1,7 @@
 import styles from "@/app/modules/postListCss/cardPostBox.module.scss";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
-import vote_check from "@/app/public/image/vote_check.png";
+import vote_check from "@/app/public/image/yellow_check.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
 import { calculateTimeDifference } from "../comment/CommentSort";
@@ -28,14 +28,17 @@ const CardPostBox = ({
   totalGauge, // 평균 게이지
   // ===== 0216 추가 끝 ==== 
   topVoteResult,
+  allCandidateResult,
 }) => {
 
   const [showAllCandidatePercent, setShowAllCandidatePercent] = useState(false);
+  const [showAllCandidateResult, setShowAllCandidateResult] = useState(false);
   const [showTopVoteResult, setShowTopVoteResult] = useState(false);
 
   useEffect(() => {
     if (isVoted) {
       setShowAllCandidatePercent(true);
+      setShowAllCandidateResult(true);
       setShowTopVoteResult(true);
     }
   }, [isVoted]);
@@ -77,8 +80,8 @@ const CardPostBox = ({
                     <Image
                       src={vote_check}
                       alt="체크"
-                      width={25}
-                      height={25}
+                      width={20}
+                      height={20}
                       className={styles.checkImage}
                     />
                   )}
@@ -94,12 +97,13 @@ const CardPostBox = ({
                 {/* isVoted가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
                 {isVoted && showAllCandidatePercent && (
                     <div className={styles.percent}>{allCandidatePercent[index]}%</div>
-                  )}
-                  {isVoted && showTopVoteResult && (
-                    <div className={styles.topVoteResult}>{topVoteResult && topVoteResult[index] ? `${topVoteResult[index]}명` : ''}
-                    <div className={styles.topVoteResultString}>투표</div>
-                    </div>
-                  )}
+                )}
+                {isVoted && showAllCandidateResult && (
+                  <div className={styles.allCandidateResult}>
+                    <div>{allCandidateResult[index]}명</div>
+                    <div className={styles.allCandidateResultString}>투표</div>
+                  </div>
+                )}
               </div>
             );
           })}
