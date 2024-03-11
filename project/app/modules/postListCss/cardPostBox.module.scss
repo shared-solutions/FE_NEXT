@@ -78,6 +78,7 @@
 }
 
 .option {
+  height: 150px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -92,25 +93,38 @@
 
   span {
     display: block;
+    margin-left: 20%;
   }
 
   // &.userVoted {
   //   border: 2px solid blue; 
   // }
 
-  &.topCandidate {
-    border: 2px solid black; 
-    overflow: hidden;
+  &.userVote {
+    border: 2px solid black;
   }
 
-  &.topCandidate::before {
+  &.userVote::before {
     content: "";
     position: absolute;
-    //z-index: 2; /* 이미지 앞에 위치하도록 함 */
+    z-index: 1; /* 이미지 앞에 위치하도록 함 */
     top: 0;
     left: 0;
     width: 100%; 
     height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(to top, #FDC322, rgba(255, 255, 255, 0.1));
+  }
+
+  &.notUserVote::before {
+    content: "";
+    position: absolute;
+    z-index: 1; /* 이미지 앞에 위치하도록 함 */
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    border-radius: 10px;
     background: linear-gradient(to top, rgb(0 0 0 / 50%), rgba(255, 255, 255, 0));
   }
 
@@ -125,28 +139,37 @@
   font-weight: 700;
 }
 
+.optionString {
+  margin-right: auto;
+  font-weight: bold;
+}
+
 .percent {
   position: absolute;
-  //z-index: 3;
-  top: 55%;
-  left: 40%;
-  color: white;
-  font-size: 17px;
+  z-index: 3;
+  top: 40%;
+  left: 33%;
+  color: black;
+  font-size: 24px;
   font-weight: bolder;
 }
 
-.topVoteResult {
-  position: absolute;
+.allCandidateResult {
+  display: flex;
   z-index: 3;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
   top: 60%;
-  left: 35%;
-  color: white;
+  left: 36%;
+  color: black;
   font-size: 14px;
+  font-weight: 600;
+  margin-top: 3px;
 }
 
-.topVoteResultString {
-  margin-top: 30px;
-  margin-left: 8px;
+.allCandidateResultString {
+  margin-top: 3px;
   font-size: 14px;
 }
 

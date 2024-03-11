@@ -156,6 +156,8 @@ const PostList = () => {
       totalGauge, // 평균 게이지
       // ===== 0216 추가 끝 ====
       uploadDate,
+      allCandidateResult,
+      myPost,
     } = userDataItem;
 
     // 기본값 설정
@@ -180,6 +182,8 @@ const PostList = () => {
       totalGauge: totalGauge || 0,
       // ===== 0216 추가 끝 ====
       date: uploadDate || 0,
+      allCandidateResult: allCandidateResult || [],
+      myPost: myPost, // 기본값 : 사용자 작성 X
     };
 
     return (

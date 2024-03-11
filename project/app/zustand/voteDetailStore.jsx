@@ -2,6 +2,7 @@ import {create} from 'zustand';
 
 export const voteDetailStore = create((set) => ({
   allCandidatePercent: [],
+  allCandidateResult: [],
   topCandidatePercent: [],
   topCandidate: [],
   topVoteResult: [],
@@ -15,6 +16,8 @@ export const voteDetailStore = create((set) => ({
   onGoing: false,
 
   setAllCandidatePercent: (allCandidatePercent) => set({ allCandidatePercent }),
+  setAllCandidateResult: (allCandidateResult) => set({ 
+  allCandidateResult }),
   setTopCandidatePercent: (topCandidatePercent) => set({ topCandidatePercent }),
   setTopCandidate: (topCandidate) => set({ topCandidate }),
   setTopVoteResult: (topVoteResult) => set({ topVoteResult }),

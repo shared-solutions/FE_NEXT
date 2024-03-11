@@ -2,12 +2,13 @@ import styles from "@/app/modules/voteDetailCss/cardVoteBox.module.scss";
 import Image from "next/image";
 import voteDetailStore from "@/app/zustand/voteDetailStore";
 import useSelectVoteStore from "@/app/zustand/selectVote";
-import vote_check from "@/app/public/image/vote_check.png";
+import vote_check from "@/app/public/image/yellow_check.png";
 import { useState, useEffect } from "react";
 
 const CardVoteBox = ({ pollOption }) => {
   const {
     allCandidatePercent,
+    allCandidateResult,
     topCandidatePercent,
     topCandidate,
     topVoteResult,
@@ -21,11 +22,13 @@ const CardVoteBox = ({ pollOption }) => {
   const { selectList, updateSelectList } = useSelectVoteStore();
 
   const [showAllCandidatePercent, setShowAllCandidatePercent] = useState(false);
+  const [showAllCandidateResult, setShowAllCandidateResult] = useState(false);
   const [showTopVoteResult, setShowTopVoteResult] = useState(false);
 
   useEffect(() => {
     if (isVoted) {
       setShowAllCandidatePercent(true);
+      setShowAllCandidateResult(true);
       setShowTopVoteResult(true);
     }
   }, [isVoted]);
@@ -40,20 +43,26 @@ const CardVoteBox = ({ pollOption }) => {
               const topCandidateIds = topCandidate.map(
                 (candidate) => candidate.optionId
               );
+              const userVoteIds = userVote ? userVote.map(candidate => candidate.optionId) : [];
 
               // pollOption의 optionId가 topCandidateIds에 포함되어 있는지 확인
               const isTopCandidate = topCandidateIds.includes(option.optionId);
+              const isUserVoted = userVoteIds.includes(option.optionId);
+              const textColor = isUserVoted ? 'black' : 'white';
 
               return (
                 <div
                   key={index}
                   className={`${styles.option} ${
                     selectList.includes(option.optionId)
-                      ? isVoted && styles.selectedOption // 선택된 옵션에 대한 클래스 추가
+                      ? styles.selectedOption // 선택된 옵션에 대한 클래스 추가
                       : ""
                   } ${
-                    // topCandidateIds.includes(option.optionId)
-                    isTopCandidate ? styles.topCandidate : ""
+                    isVoted
+                      ? isUserVoted
+                        ? styles.topCandidate
+                        : styles.notUserVote
+                      : "" // isVoted가 false이면 아무 스타일도 적용하지 않음
                   }`}
                   onClick={
                     !isVoted ? () => updateSelectList(option.optionId) : null
@@ -75,15 +84,25 @@ const CardVoteBox = ({ pollOption }) => {
                   {userVote?.[0]?.optionId === option.optionId &&  
                     <div className={userVote?.[0]?.optionId !== topCandidate?.[0]?.optionId ? styles.userVote : styles.border_none}>
                       <div className={styles.optionInfo}>
-                        <Image src={vote_check} alt="vote_check" style={{ position: "absolute", right: "8%", top: "3.8%", }} />
+                        <Image 
+                        src={vote_check} 
+                        alt="vote_check" 
+                        style={{ 
+                          position: "absolute", 
+                          right: "8%", 
+                          top: "3.8%", 
+                          width: "20px",
+                          height: "20px"
+                          }} 
+                        />
                       </div>
-                      <div className={styles.percent} style={{opacity: "0.95"}}>
-                        {userVotePercent[0]}%
+                      {/* <div className={styles.percent} style={{opacity: "0.95", color: textColor}}>
+                        {allCandidatePercent[index]}%
                       </div>
-                      <div className={styles.topVoteResult} style={{opacity: "0.95"}}>
-                        {userVoteResult[0]}명
+                      <div className={styles.topVoteResult} style={{opacity: "0.95", color: textColor}}>
+                        {allCandidateResult[index]}명
                         <div className={styles.topVoteResultString}>투표</div>
-                      </div>
+                      </div> */}
                     </div>
                   }
 
@@ -96,14 +115,14 @@ const CardVoteBox = ({ pollOption }) => {
                   )} */}
 
                   {/* isVoted가 true이고 showAllCandidatePercent가 true일 때만 표시 */}
-                  {(!onGoing || isVoted) && isTopCandidate && (
-                    <div className={styles.percent}>
+                  {isVoted && showAllCandidatePercent && (
+                    <div className={styles.percent} style={{ color: textColor }}>
                       {allCandidatePercent[index]}%
                     </div>
                   )}
-                  {(!onGoing || isVoted) && isTopCandidate && (
-                    <div className={styles.topVoteResult}>
-                      {topVoteResult[0]}명
+                  {isVoted && showAllCandidateResult && (
+                    <div className={styles.topVoteResult} style={{ color: textColor }}>
+                      <div>{allCandidateResult[index]}명</div>
                       <div className={styles.topVoteResultString}>투표</div>
                     </div>
                   )}
