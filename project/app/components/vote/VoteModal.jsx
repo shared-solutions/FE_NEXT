@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from '@/app/modules/voteCss/votemodal.module.scss';
 import Image from 'next/image'
-
+import useVoteStore from "@/app/zustand/normalVoteStore";
 
 import VoteStyle from "./VoteStyle"
 import Category from "./Category"
@@ -22,7 +22,8 @@ const VoteModal = ({ onClose }) => {
     const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType,} = useWriteVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
     const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
     const setVoteDeadline = useWriteVoteStore((state) => state.setVoteDeadline);
-
+    const voteItems = useVoteStore.getState().voteCardItems
+    let isEmpty = (voteItems.image ===undefined || voteItems.placeholder==='') && selectedStyle==='카드'
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
     };
@@ -51,7 +52,12 @@ const VoteModal = ({ onClose }) => {
         else {setSelectedVoteType(3)}
     },[selectedStyle])
     const test = useWriteVoteStore.getState().selectedVoteType
+    console.log('비었니', isEmpty)
     const handleClose = () => {
+        if(isEmpty){
+            alert('카드에는 공백이 없어야합니다!')
+            return;
+        }
         setVoteTitle(voteTitle); // 투표 제목 input 창에 입력한 내용을 Zustand에 저장
         setVoteDeadline(voteDeadline); // Zustand 업데이트
         //setSelectedVoteType(selectedStyle);

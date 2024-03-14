@@ -9,7 +9,7 @@ import check from "../../public/image/check.png";
 import { FileImage } from "lucide-react";
 
 const CardVoteItem = () => {
-  const { voteCardItems, setVoteItems, addVoteItem, deleteVoteItem, updateVoteItem } = useVoteStore(); // voteItems와 setVoteItems를 가져옵니다.
+  const { addVoteItem, deleteVoteItem, updateVoteItem } = useVoteStore(); // voteItems와 setVoteItems를 가져옵니다.
 
   const voteItems = useVoteStore.getState().voteCardItems
   const handleAddItem = () => {
@@ -22,11 +22,11 @@ const CardVoteItem = () => {
     deleteVoteItem(id);
   };
   const handleStringChange = (e,id,image) => {
-    const updatedItem = { id: id, placeholder: e.target.value, image: image };
+    const updatedItem = { id: id, placeholder: e.target.value.trim() === "" ? e.target.value : "", image: image };
       updateVoteItem(id, updatedItem);
   };
  
-  const handleFileChange = (e, id,placeholder) => {
+  const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -42,7 +42,7 @@ const CardVoteItem = () => {
     } else {
         console.error('Invalid data URL format');
     }
-      const updatedItem = { id: id, placeholder: placeholder, image: dataURL};
+      const updatedItem = { id: id, placeholder: '', image: dataURL};
       updateVoteItem(id, updatedItem);
     };
     

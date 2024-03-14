@@ -82,7 +82,7 @@ const WritePost = () => {
 
       for (let i = 0; i < candidateCount; i++) {
         let ImgUrl = typeNum === 3 ? CardItem[i].image : GeneralItem[i].image;
-        let OpString = typeNum === 3 ? CardItem[i].placeholder : GeneralItem[i].placeholder;
+        let OpString = typeNum === 3 ? CardItem[i].placeholder : GeneralItem[i].placeholder || ''; 
         const candidateFormData = new FormData();
         candidateFormData.append("post-id", postId);
         candidateFormData.append("optionString", OpString); // optionString 받아오기
