@@ -24,12 +24,12 @@ const GaugeVoteItem = () => {
         if (dragging) {
             const newPositionX = event.touches[0].clientX;
             const barWidth = barRef.current.offsetWidth;
-            const newPositionWithinBar = Math.max(0.05, Math.min(newPositionX / barWidth, 0.95));
+            const newPositionWithinBar = Math.max(0.05, Math.min(newPositionX / barWidth, 1));
             setPositionX(newPositionWithinBar);
         }
     };
 
-
+    console.log(positionX)
     const getBarColor = useMemo(() => {
         return positionX <= 1 ? '#575757' : '#A1A1A1';
     }, [positionX]);
