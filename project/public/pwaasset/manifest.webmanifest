@@ -1,0 +1,32 @@
+{
+    "theme_color": "#ffeb86",
+    "background_color": "#ffeb86",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/",
+    "name": "\uace0\ubbfc\uce5c\uad6c",
+    "short_name": "\uace0\ubbfc",
+    "description": "\uace0\ubbfc\uce5c\uad6c \ubb50\uc2dc\uae30",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
