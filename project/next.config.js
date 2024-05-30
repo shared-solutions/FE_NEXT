@@ -1,15 +1,23 @@
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require('next-pwa')({
+  dest: 'public', 
+  register: true,
+  skipWaiting: true,
+  runtimeCaching
+ })
+const { withPlausibleProxy } = require('next-plausible');
 
-// next.config.js
 const nextConfig = {
   reactStrictMode: false,
 };
 
-module.exports = {
-  images: {
-    domains: ['solution-friend-bucket.s3.ap-northeast-2.amazonaws.com'],
-  },
-  ...nextConfig,
-  async rewrites() {
+module.exports = withPlausibleProxy(
+  withPWA({
+    ...nextConfig,
+    images: {
+      domains: ['solution-friend-bucket.s3.ap-northeast-2.amazonaws.com'],
+    },
+    async rewrites() {
       return [
         {
           source: '/user/:path*',
@@ -17,5 +25,5 @@ module.exports = {
         },
       ];
     },
-};
-
+  })
+);

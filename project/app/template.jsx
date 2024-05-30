@@ -4,7 +4,8 @@ import { usePathname } from "next/navigation";
 
 export default function Transition({ children }) {
   const path = usePathname();
-
+  
+  
   return (
     <motion.div
       key={path}

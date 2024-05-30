@@ -3,13 +3,27 @@ import Image from "next/image"
 import Link from "next/link"
 import styles from '@/app/modules/login.module.scss'
 import smile from "@/app/public/image/smile.png"
+import { useEffect } from "react"
 
 
 const RestApi = '74a6375e4d5e498e04211309f83a2ec5'
 const Redirect = 'https://gominchinguteam.vercel.app/i/login/kakao'
 
 export default function Modal() {
-    
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+           
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+              .then(registration => { 
+                console.log('Success');
+              })
+              .catch(error => {
+                console.log('ServiceWorker registration failed: ', error);
+              });
+          });
+        }
+      }, []);
     return (
         <div className={styles.container}>
             <div className={styles.blank}/>

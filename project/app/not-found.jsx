@@ -1,9 +1,10 @@
-
+'use client'
 import Image from 'next/image'
 import logo from './public/image/bglogo.png'
 import Link from 'next/link'
 
 export default function Custom404() {
+    
     return (
         <div className="bg-amber-300 w-full h-screen flex flex-col justify-center items-center font-bold">
             <Image 
