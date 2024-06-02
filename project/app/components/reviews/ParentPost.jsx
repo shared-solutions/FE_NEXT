@@ -11,7 +11,7 @@ export default function Form({ day, header, text, like_num, comment_num }) {
         <p>{day}</p>
       </div>
       <h1>{header}</h1>
-      <p style={{ minHeight: "7vh" }}>{text}</p>
+      <p style={{ minHeight: "7vh", display: "flex" }}>{text}</p>
       <div className={styles.imgContainer}>
         <Image src={like} alt="like" width={16} height={16} />
         <p style={{ color: "#F9C81C" }}>{like_num}</p>
