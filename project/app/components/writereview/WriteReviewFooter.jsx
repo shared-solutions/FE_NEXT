@@ -8,7 +8,7 @@ import imageicon from "@/app/public/image/imageicon.png";
 import barimg from "@/app/public/image/bar.png";
 import VotedModal from "../votedList/VotedModal";
 
-const WriteReviewFooter = () => {
+const WriteReviewFooter = ({ onUpload }) => {
   const [isVotedModalOpen, setVotedModalOpen] = useState(false);
 
   const openVotedModal = () => {
@@ -17,6 +17,10 @@ const WriteReviewFooter = () => {
 
   const closeVotedModal = () => {
     setVotedModalOpen(false);
+  };
+
+  const handleUpload = () => {
+    onUpload();
   };
 
   return (
@@ -42,6 +46,7 @@ const WriteReviewFooter = () => {
             height: 25,
             margin: 20,
           }}
+          onClick={handleUpload}
           alt="이미지"
         />
         <Image

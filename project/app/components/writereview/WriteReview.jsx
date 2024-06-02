@@ -20,6 +20,7 @@ const WriteReview = () => {
   const [content, setContent] = useState("");
   const { selectedBoxData, clearSelectedBox } = useSelectedBox();
   const { setVotedBoxData } = useVotedListBox();
+  const [file, setFile] = useState(null);
 
   const getMyPost = async () => {
     try {
@@ -58,6 +59,21 @@ const WriteReview = () => {
       console.error("Error", error);
     }
   };
+
+  //이미지 업로드 함수
+
+  const handleFileChange = (event) => {
+    const selectFile = event.target.files[0];
+    setFile(selectFile);
+  };
+
+  const uploadImage = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+    }
+  };
+
   useEffect(() => {
     // Zustand에서 가져온 데이터가 변경될 때마다 UI 업데이트
     if (selectedBoxData) {
@@ -70,7 +86,11 @@ const WriteReview = () => {
   return (
     <div>
       <div className={styles.container} style={{ background: "white" }}>
-        <WriteReviewHeader title={title} content={content} handleClear={clearSelectedBox}/>
+        <WriteReviewHeader
+          title={title}
+          content={content}
+          handleClear={clearSelectedBox}
+        />
         <div className={styles.content_footer_container}>
           <div className={styles.content_container}>
             <input
@@ -85,6 +105,9 @@ const WriteReview = () => {
                 placeholder="함께 공유하고 싶은 내용을 남겨보세요."
                 onChange={(e) => setContent(e.target.value)}
               />
+
+              {/* 선택된 이미지 표출 */}
+              <div></div>
               <div className={styles.pull_review}>
                 {/* ---- 여기서 Zustand에서 가져온 데이터를 UI에 표시 시작 ---- */}
                 {selectedBoxData && (
@@ -151,7 +174,7 @@ const WriteReview = () => {
             </div>
           </div>
           <div className={styles.write_review_footer_container}>
-            <WriteReviewFooter />
+            <WriteReviewFooter onUpload={handleFileChange} />
           </div>
         </div>
       </div>
