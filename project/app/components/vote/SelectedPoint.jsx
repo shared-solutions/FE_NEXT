@@ -12,13 +12,14 @@ import useWriteVoteStore from '@/app/zustand/voteStore'
 
 
 const SelectedPoint = () => {
+    const authToken = localStorage.getItem("token");
+    const {setSelectedPoint} = useWriteVoteStore()
+
     const [currentPoint, setCurrentPoint] = useState(0);
     const [afterUsagePoint, setAfterUsagePoint] = useState(0);
     const [inputValue, setInputValue] = useState('0');
     const [insufficientPoints, setInsufficientPoints] = useState(false);
-    const {setSelectedPoint} = useWriteVoteStore()
-    const authToken = localStorage.getItem("token");
-    const selPoint = useWriteVoteStore.getState().selectedPoint
+
     const handleChange = (e) => {
         const value = e.target.value;
         // 입력 값이 숫자인지 확인
@@ -40,7 +41,6 @@ const SelectedPoint = () => {
         setInputValue(String(newValue));
         const newAfterUsagePoint = currentPoint - newValue;
         setAfterUsagePoint(newAfterUsagePoint);
-
         // 사용 후 포인트가 0 미만이면 메시지 표시
         setInsufficientPoints(newAfterUsagePoint < 0);
     };
@@ -53,7 +53,8 @@ const SelectedPoint = () => {
             // 현재 포인트를 0으로 설정
             setInputValue('0');
             setAfterUsagePoint(currentPoint);
-        } else {
+        } 
+        else {
             // 현재 포인트에서 입력된 값만큼 뺌
             const newAfterUsagePoint = currentPoint - decrementValue;
             setInputValue(String(decrementValue));

@@ -1,9 +1,10 @@
 'use client'
 import React, { useState } from 'react' 
 import styles from '@/app/modules/voteCss/votestyle.module.scss';
-import VoteStyleButton from './VoteStyleButton';
+
 import useVoteStore from '@/app/zustand/voteStore';
 
+import VoteStyleButton from './VoteStyleButton';
 const VoteStyle = ({ onSelectedStyle }) => {
     const {selectedVoteType, setSelectedVoteType} = useVoteStore()
     const [selectedButton, setSelectedButton] = useState('일반');
@@ -20,13 +21,6 @@ const VoteStyle = ({ onSelectedStyle }) => {
         setSelectedButton(text);
         onSelectedStyle(text);
         convertType() // 상위 컴포넌트로 선택된 스타일 전달
-        // let convertedStyle = 1;
-        // if (text === '게이지') {
-        //     convertedStyle = 2;
-        // } else if (text === '카드') {
-        //     convertedStyle = 3;
-        // }
-        console.log("투표타입", selectedVoteType);
     };
 
     return(

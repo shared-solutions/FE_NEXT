@@ -1,12 +1,14 @@
 import React from "react";
 import styles from "@/app/modules/voteCss/cardvoteitem.module.scss";
 import Image from "next/image";
+import { FileImage } from "lucide-react";
+
 import useVoteStore from "@/app/zustand/normalVoteStore"; // 새로 만든 zustand 파일을 가져옵니다.
 
 import deleteimg from "../../public/image/delete.png";
 import addbutton from "../../public/image/add_button.png";
 import check from "../../public/image/check.png";
-import { FileImage } from "lucide-react";
+
 
 const CardVoteItem = () => {
   const { addVoteItem, deleteVoteItem, updateVoteItem } = useVoteStore(); // voteItems와 setVoteItems를 가져옵니다.
