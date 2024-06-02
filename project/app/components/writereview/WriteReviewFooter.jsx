@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "@/app/modules/writepostCss/writepostfooter.module.scss";
 import Image from "next/image";
 
@@ -9,6 +9,7 @@ import barimg from "@/app/public/image/bar.png";
 import VotedModal from "../votedList/VotedModal";
 
 const WriteReviewFooter = ({ onUpload }) => {
+  const fileInputRef = useRef(null);
   const [isVotedModalOpen, setVotedModalOpen] = useState(false);
 
   const openVotedModal = () => {
@@ -19,8 +20,8 @@ const WriteReviewFooter = ({ onUpload }) => {
     setVotedModalOpen(false);
   };
 
-  const handleUpload = () => {
-    onUpload();
+  const handleImageClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -28,10 +29,7 @@ const WriteReviewFooter = ({ onUpload }) => {
       <div className={styles.footer_add_vote}>
         <Image
           src={add_button}
-          style={{
-            width: 25,
-            height: 25,
-          }}
+          style={{ width: 25, height: 25 }}
           alt="이미지"
         />
         <button onClick={openVotedModal} className={styles.add_vote_button}>
@@ -39,28 +37,26 @@ const WriteReviewFooter = ({ onUpload }) => {
         </button>
       </div>
       <div className={styles.footer_menu}>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={onUpload}
+          multiple
+        />
         <Image
           src={imageicon}
-          style={{
-            width: 25,
-            height: 25,
-            margin: 20,
-          }}
-          onClick={handleUpload}
+          style={{ width: 25, height: 25, margin: 20 }}
+          onClick={handleImageClick}
           alt="이미지"
         />
         <Image
           src={barimg}
-          style={{
-            width: 2,
-            height: 23,
-            margin: 7,
-          }}
+          style={{ width: 2, height: 23, margin: 7 }}
           alt="이미지"
         />
         <button className={styles.save_button}>임시저장</button>
       </div>
-      {/* 모달이 열려있을 때 VoteModal 컴포넌트를 렌더링 */}
       {isVotedModalOpen && <VotedModal onClose={closeVotedModal} />}
     </div>
   );
