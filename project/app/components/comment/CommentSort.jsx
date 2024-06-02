@@ -32,26 +32,27 @@ export const calculateTimeDifference = (createdAt) => {
   const hoursAgo = Math.floor(minutesAgo / 60);
   const daysAgo = Math.floor(hoursAgo / 24);
 
-  if (secondsAgo < 60) {
-    return `${secondsAgo}초 전`;
-  } else if (minutesAgo < 60) {
-    return `${minutesAgo}분 전`;
-  } else if (hoursAgo < 24) {
-    return `${hoursAgo}시간 전`;
-  } else if (daysAgo < 30) {
+  if (daysAgo >= 2) {
+    // 2일 이상 전
+    return `${createdDate.getFullYear()}/${
+      createdDate.getMonth() + 1
+    }/${createdDate.getDate()}`;
+  } else if (daysAgo >= 1) {
+    // 1일 이상 전
     return `${daysAgo}일 전`;
+  } else if (hoursAgo >= 1) {
+    // 1시간 이상 전
+    return `${hoursAgo}시간 전`;
+  } else if (minutesAgo >= 1) {
+    // 1분 이상 전
+    return `${minutesAgo}분 전`;
   } else {
-    const formatter = new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    });
-    return formatter.format(createdDate);
+    // 1분 미만 전
+    return `${secondsAgo}초 전`;
   }
 };
-export const CommentSort = (postId) => {
+
+export const CommentSort = ({ postId, onClose }) => {
   const [bottom, setBottom] = useState(true);
   const [replyToComment, setReplyToComment] = useState(null);
   const [isReComment, setIsReComment] = useState(false);
@@ -61,6 +62,7 @@ export const CommentSort = (postId) => {
 
   const fetchData = async () => {
     try {
+      console.log(postId);
       const response = await lookupComment(postId);
       console.log(response);
 
@@ -76,10 +78,9 @@ export const CommentSort = (postId) => {
   }, []);
 
   const handleCommentClick = async (inputValue) => {
-    console.log(postId.postId);
     try {
       // 댓글 등록 api
-      const response = await postComment(inputValue, null, postId.postId);
+      const response = await postComment(inputValue, null, { postId }.postId);
       console.log(response);
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
@@ -96,7 +97,7 @@ export const CommentSort = (postId) => {
       const response = await postComment(
         inputValue,
         replyToComment,
-        postId.postId
+        { postId }.postId
       );
       console.log(response);
 
@@ -114,9 +115,8 @@ export const CommentSort = (postId) => {
   };
 
   const handleDelete = async (commentid) => {
-    console.log(postId.postId);
     try {
-      const response = await deleteComment(commentid, postId.postId);
+      const response = await deleteComment(commentid, { postId }.postId);
       console.log(response);
 
       fetchData();
@@ -129,7 +129,7 @@ export const CommentSort = (postId) => {
 
   const handleDeleteLike = async (commentId) => {
     try {
-      const response = await deleteCommentLike(commentId, postId.postId);
+      const response = await deleteCommentLike(commentId, { postId }.postId);
       console.log(response);
 
       fetchData();
@@ -140,7 +140,7 @@ export const CommentSort = (postId) => {
 
   const handleLike = async (commentId) => {
     try {
-      const response = await likeComment(commentId, postId.postId);
+      const response = await likeComment(commentId, { postId }.postId);
       console.log(response);
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
@@ -163,6 +163,7 @@ export const CommentSort = (postId) => {
               setBottom(false);
               setReplyToComment(null);
               setIsReComment(false);
+              onClose();
             }}
             component={
               <div className={styles.all}>
@@ -181,7 +182,7 @@ export const CommentSort = (postId) => {
                       isMyComment={comment.isMyComment}
                       isOwnerOfPost={comment.isOwnerOfPost}
                       isSelected={comment.isSelected}
-                      postId={postId.postId}
+                      postId={{ postId }.postId}
                       onDDDClick={fetchData}
                     />
 

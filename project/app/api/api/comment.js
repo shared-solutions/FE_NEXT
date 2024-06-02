@@ -24,10 +24,11 @@ export const postComment = async (content, parentId, postId) => {
 };
 
 // 댓글 전체조회 api(완료)
-export const lookupComment = async ({ postId }) => {
+export const lookupComment = async (postId) => {
   console.log("댓글 전체조회");
 
   try {
+    console.log(postId);
     const atkToken = localStorage.getItem("token");
     const response = await api.get(`/posts/${postId}/comments`, {
       headers: {
@@ -62,6 +63,7 @@ export const lookupComment = async ({ postId }) => {
 // 댓글 삭제 api
 export const deleteComment = async (commentid, postId) => {
   console.log("댓글 삭제");
+  console.log(postId);
   try {
     const atkToken = localStorage.getItem("token");
     const response = await api.patch(

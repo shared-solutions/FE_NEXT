@@ -1,19 +1,18 @@
-
-'use client'
-import styles from '@/app/modules/signin.module.scss';
-import bglogo from '@/app/public/image/bglogo.png'
-import backImg from '@/app/public/image/backimg.png'
-import useAuthStore from '@/app/zustand/useAuthStore';
-import { Eye } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+"use client";
+import styles from "@/app/modules/signin.module.scss";
+import bglogo from "@/app/public/image/bglogo.png";
+import backImg from "@/app/public/image/backimg.png";
+import useAuthStore from "@/app/zustand/useAuthStore";
+import { Eye } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 export default function Modal() {
-  const {setToken}=  useAuthStore()
-  const router = useRouter()
-  const [email, setEmail] = useState('');
-  const [pw, setPw] = useState('');
+  const { setToken } = useAuthStore();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
 
   const handleEmailChange = (e) => {
     const emailInput = e.target.value;
@@ -34,13 +33,13 @@ export default function Modal() {
   const isRequiredChecked = email !== "" && pw !== "";
 
   const loginUser = async () => {
-
     try {
 
-      const response = await fetch('https://dev.gomin-chingu.site/user/login', {
-        method: 'POST',
+      const response = await fetch("https://dev.gomin-chingu.site/user/login", {
+        method: "POST",
+
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password: pw }),
       });
@@ -50,18 +49,17 @@ export default function Modal() {
         const token = data.result[0].token;
         const expire = data.result[0].tokenExpriresTime;
         const expirationDate = new Date(expire);
-        const rtk =  data.result[1].token;
-        
-        setToken(token);
-        localStorage.setItem('token',token)
-        localStorage.setItem('rtk',rtk)
-        document.cookie = `token=${token}; path=/; expires=${expirationDate.toUTCString()}`;
-        router.push('/home')
-      } else {
-        alert("비밀번호가 일치하지않습니다.")
-        console.error('Login failed');
-      }
+        const rtk = data.result[1].token;
 
+        setToken(token);
+        localStorage.setItem("token", token);
+        localStorage.setItem("rtk", rtk);
+        document.cookie = `token=${token}; path=/; expires=${expirationDate.toUTCString()}`;
+        router.push("/home");
+      } else {
+        alert("비밀번호가 일치하지않습니다.");
+        console.error("Login failed");
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -70,10 +68,23 @@ export default function Modal() {
     <div className={styles.container}>
       <h1 className={styles.title}>
         <Link href="/login">
-          <Image src={backImg} alt='뒤로가기' width={8} height={16} style={{ marginRight: '15px', marginTop: '5px' }} />
+          <Image
+            src={backImg}
+            alt="뒤로가기"
+            width={8}
+            height={16}
+            style={{ marginRight: "15px", marginTop: "5px" }}
+          />
         </Link>
         <p>로그인 </p>
-        <Image src={bglogo} alt="x" width={25} height={25} priority style={{ marginLeft: '10px' }} />
+        <Image
+          src={bglogo}
+          alt="x"
+          width={25}
+          height={25}
+          priority
+          style={{ marginLeft: "10px" }}
+        />
       </h1>
       <div className={styles.main}>
         <div className={styles.emailInput}>
@@ -120,11 +131,11 @@ export default function Modal() {
             </button>
           </div>
           <div className={styles.find_pw}>
-            <Link href = '/i/signin/findpw'><p>비밀번호가 생각나지 않으신가요?</p></Link>
+            <Link href="/i/signin/findpw">
+              <p>비밀번호가 생각나지 않으신가요?</p>
+            </Link>
           </div>
-          
         </div>
-        
       </div>
     </div>
   );
