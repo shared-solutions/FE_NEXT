@@ -17,15 +17,16 @@ const CardVoteItem = () => {
     const newItemText = `항목 ${newItemNumber}`;
     addVoteItem({ id: newItemNumber, placeholder: newItemText, image: null });
   };
-  console.log(voteItems)
   const handleDeleteItem = (id) => {
     deleteVoteItem(id);
   };
   const handleStringChange = (e,id,image) => {
-    const updatedItem = { id: id, placeholder: e.target.value.trim() === "" ? e.target.value : "", image: image };
-      updateVoteItem(id, updatedItem);
+
+    const updatedItem = { id: id, placeholder: e.target.value.trim(), image: image };
+    updateVoteItem(id, updatedItem);
+
   };
- 
+
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -38,12 +39,11 @@ const CardVoteItem = () => {
         dataURL = enCoding[1];
 
         // Now you can use the dataURL without the prefix
-        console.log(dataURL);
     } else {
         console.error('Invalid data URL format');
     }
-      const updatedItem = { id: id, placeholder: '', image: dataURL};
-      updateVoteItem(id, updatedItem);
+      const updatedItem = { id: id, placeholder: e.target.value.trim(), image: dataURL};
+      updateVoteItem(id,updatedItem);
     };
     
     
@@ -78,7 +78,7 @@ const CardVoteItem = () => {
                         <input
                             className={styles.write_item}
                             type="text"
-                            placeholder={item.placeholder}
+                            placeholder={"사진 설명"}
                             onChange={(e) => handleStringChange(e, item.id, item.image)}
                         />
                             <Image

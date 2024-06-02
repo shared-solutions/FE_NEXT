@@ -22,8 +22,9 @@ const VoteModal = ({ onClose }) => {
     const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType,} = useWriteVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
     const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
     const setVoteDeadline = useWriteVoteStore((state) => state.setVoteDeadline);
-    const voteItems = useVoteStore.getState().voteCardItems
-    let isEmpty = (voteItems.image ===undefined || voteItems.placeholder==='') && selectedStyle==='카드'
+    const voteItems = useVoteStore.getState().voteCardItems;
+    let isEmpty = selectedStyle === '카드' && voteItems.some(item => item.image === null || item.placeholder === '');
+    console.log(voteItems)
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
     };

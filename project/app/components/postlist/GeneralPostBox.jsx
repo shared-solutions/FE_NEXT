@@ -4,6 +4,7 @@ import check from "@/app/public/image/generalCheck.png";
 import commentimg from "@/app/public/image/comment.png";
 import Image from "next/image";
 import votePostStore from "@/app/zustand/votePostStore";
+import { FileImage } from "lucide-react";
 import { calculateTimeDifference } from "../comment/CommentSort";
 
 const GeneralPostBox = ({
@@ -85,14 +86,17 @@ const GeneralPostBox = ({
               */
               return (
                 <div key={index} className={styles.option}>
-                  {option.optionImgUrl && (
+                 {option.optionImgUrl ? (
                     <Image
                       src={option.optionImgUrl}
-                      alt={`선택지 ${index + 1}`}
+                      alt=""
                       width={35}
                       height={35}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
                     />
-                  )}
+                  ) : null}
                   <div className={styles.optionStringBox}>
                     {/* 투표 진행 중인데 사용자가 투표 안 했을 때만 보임*/}
                     {onGoing && !isVoted && (
