@@ -1,36 +1,38 @@
 'user clinet'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/app/modules/voteCss/votemodal.module.scss';
 import Image from 'next/image'
+
 import useVoteStore from "@/app/zustand/normalVoteStore";
+import useWriteVoteStore from '@/app/zustand/voteStore';
 
 import VoteStyle from "./VoteStyle"
 import Category from "./Category"
 import VoteDeadline from "./VoteDeadline"
 import SelectedPoint from "./SelectedPoint"
-
-import downimg from '../../public/image/down.png'
-import addbutton from '../../public/image/add_button.png'
 import NormalVoteItem from './NormalVoteItem';
 import GaugeVoteItem from './GaugeVoteItem';
 import CardVoteItem from './CardVoteItem';
-import { useEffect } from 'react';
-import useWriteVoteStore from '@/app/zustand/voteStore';
+
+import downimg from '../../public/image/down.png'
 
 const VoteModal = ({ onClose }) => {
-    const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
-    const {voteTitle, setVoteTitle, selectedCategory, setSelectedCategory,setSelectedVoteType,} = useWriteVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
+    //zustand
+    const {voteTitle, setVoteTitle, selectedCategory, setSelectedVoteType,} = useWriteVoteStore(); // Zustand에서 상태 및 업데이트 함수 가져오기
     const voteDeadline = useWriteVoteStore((state) => state.voteDeadline);
     const setVoteDeadline = useWriteVoteStore((state) => state.setVoteDeadline);
     const voteItems = useVoteStore.getState().voteCardItems;
+    const test = useWriteVoteStore.getState().selectedVoteType;
+    //private variable
     let isEmpty = selectedStyle === '카드' && voteItems.some(item => item.image === null || item.placeholder === '');
-    console.log(voteItems)
+    const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
+    //functions
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
     };
 
     const handleTitleChange = (e) => {
-        setVoteTitle(e.target.value); // 투표 제목 변경 시 Zustand 업데이트
+        setVoteTitle(e.target.value); 
     };
 
     const renderVoteItem = () => {
@@ -43,17 +45,6 @@ const VoteModal = ({ onClose }) => {
                 return <NormalVoteItem />;
         }
     };
-    useEffect (() => {
-        if(selectedStyle ==='일반'){
-            setSelectedVoteType(1)
-        }
-        else if(selectedStyle ==='게이지'){
-            setSelectedVoteType(2)
-        }
-        else {setSelectedVoteType(3)}
-    },[selectedStyle])
-    const test = useWriteVoteStore.getState().selectedVoteType
-    console.log('비었니', isEmpty)
     const handleClose = () => {
         if(isEmpty){
             alert('카드에는 공백이 없어야합니다!')
@@ -65,12 +56,21 @@ const VoteModal = ({ onClose }) => {
         console.log(test)
         onClose(); // 닫기 함수 호출
     };
+    //hooks
+    useEffect (() => {
+        if(selectedStyle ==='일반'){
+            setSelectedVoteType(1)
+        }
+        else if(selectedStyle ==='게이지'){
+            setSelectedVoteType(2)
+        }
+        else {setSelectedVoteType(3)}
+    },[selectedStyle])
 
     return (
         <div className={styles.modal_Overlay}>
             <div className={styles.modal_container}>
                 <div className={styles.modal_content}>
-                    {/* 상단 바 고정 */}
                     <button onClick={handleClose} className={styles.closeButton}>
                         <Image
                             src={downimg}
