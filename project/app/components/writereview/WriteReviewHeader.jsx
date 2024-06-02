@@ -13,6 +13,15 @@ const WriteReviewHeader = ({ title, content, handleClear, files }) => {
 
   const { selectedBoxData } = useSelectedBox();
 
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(",")[1]); // Base64 데이터에서 데이터 부분만 추출
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file); // Base64로 인코딩합니다.
+    });
+  };
+
   const handleSubmit = async () => {
     console.log(title);
     console.log(content);
@@ -29,7 +38,7 @@ const WriteReviewHeader = ({ title, content, handleClear, files }) => {
           //----- 후기는 아래값 고정 -----
           category: null,
           postType: 2,
-          postVoteType: 0,
+          postVoteType: null,
           pollTitle: null,
           multipleChoice: false,
           parent_id: selectedBoxData.postId,
