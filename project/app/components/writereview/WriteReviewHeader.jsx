@@ -8,7 +8,7 @@ import close from "@/app/public/image/close.ico";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const WriteReviewHeader = ({ title, content, handleClear }) => {
+const WriteReviewHeader = ({ title, content, handleClear, files }) => {
   const router = useRouter();
 
   const { selectedBoxData } = useSelectedBox();
@@ -25,6 +25,7 @@ const WriteReviewHeader = ({ title, content, handleClear }) => {
         JSON.stringify({
           title: title,
           content: content,
+          fileBase64List: files,
           //----- 후기는 아래값 고정 -----
           category: null,
           postType: 2,
@@ -34,7 +35,6 @@ const WriteReviewHeader = ({ title, content, handleClear }) => {
           parent_id: selectedBoxData.postId,
           deadline: null,
           point: 0,
-          fileBase64List: [],
         })
       );
 

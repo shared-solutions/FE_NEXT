@@ -14,17 +14,22 @@ import selectimg1 from "@/app/public/image/select1.png";
 import selectimg2 from "@/app/public/image/select2.png";
 import likeimg from "@/app/public/image/like.png";
 import commentimg from "@/app/public/image/comment.png";
+import deleteimg from "@/app/public/image/delete.png";
+import Toast from "../toast/Toast";
 
 const WriteReview = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { selectedBoxData, clearSelectedBox } = useSelectedBox();
   const { setVotedBoxData } = useVotedListBox();
+  const [file, setFile] = useState([]);
+
+  // const [showToast, setShowToast] = useState(false);
+  // const [toastMessage, setToastMessage] = useState("");
 
   const getMyPost = async () => {
     try {
       if (typeof window !== "undefined") {
-        // 클라이언트 환경에서만 실행
         const atkToken = localStorage.getItem("token");
 
         if (atkToken) {
@@ -58,10 +63,48 @@ const WriteReview = () => {
       console.error("Error", error);
     }
   };
+
+  //이미지 업로드 함수
+  const handleUpload = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    if (file.length + selectedFiles.length > 4) {
+      console.log("최대 4개의 이미지까지만 업로드할 수 있습니다.");
+      setToastMessage("최대 이미지 4개");
+      setShowToast(true);
+      return;
+    }
+
+    const readers = selectedFiles.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file); // Base64로 인코딩합니다.
+      });
+    });
+
+    Promise.all(readers)
+      .then((results) => {
+        setFile((prevFiles) => [...prevFiles, ...results]); // 파일 배열에 추가합니다.
+      })
+      .catch((error) => {
+        console.error("Error reading files:", error);
+      });
+  };
+
+  //이미지 삭제함수
+  const removeImage = (index) => {
+    setFile((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  //토스트 메세지 표출
+
+  const handleToastClose = () => {
+    setShowToast(false);
+  };
+
   useEffect(() => {
-    // Zustand에서 가져온 데이터가 변경될 때마다 UI 업데이트
     if (selectedBoxData) {
-      // 여기서 가져온 데이터를 UI에 적용하거나 로직을 수행할 수 있습니다.
       console.log("Selected Box Data:", selectedBoxData);
     }
     getMyPost();
@@ -70,7 +113,12 @@ const WriteReview = () => {
   return (
     <div>
       <div className={styles.container} style={{ background: "white" }}>
-        <WriteReviewHeader title={title} content={content} handleClear={clearSelectedBox}/>
+        <WriteReviewHeader
+          title={title}
+          content={content}
+          handleClear={clearSelectedBox}
+          files={file}
+        />
         <div className={styles.content_footer_container}>
           <div className={styles.content_container}>
             <input
@@ -85,8 +133,32 @@ const WriteReview = () => {
                 placeholder="함께 공유하고 싶은 내용을 남겨보세요."
                 onChange={(e) => setContent(e.target.value)}
               />
+
+              {/* 선택된 이미지 표출 */}
+              <div className={styles.all_img_wrapper}>
+                {file.map((file, index) => (
+                  <div key={index}>
+                    <img
+                      src={file}
+                      className={styles.image_wrapper}
+                      alt={`Uploaded File ${index + 1}`}
+                    />
+                    <Image
+                      src={deleteimg}
+                      alt="삭제"
+                      width={24}
+                      height={24}
+                      onClick={() => removeImage(index)}
+                    />
+                  </div>
+                ))}
+                {/* 토스트메세지 왜안나옴 ㅠ */}
+                {/* {showToast && (
+                  <Toast message={toastMessage} onClose={handleToastClose} />
+                )} */}
+              </div>
+
               <div className={styles.pull_review}>
-                {/* ---- 여기서 Zustand에서 가져온 데이터를 UI에 표시 시작 ---- */}
                 {selectedBoxData && (
                   <div className={styles.box}>
                     <div className={styles.pull_review_header}>
@@ -118,11 +190,7 @@ const WriteReview = () => {
                       <div className={styles.pull_review_content}>
                         {selectedBoxData.content}
                       </div>
-                      <div className={styles.pull_reivew_select}>
-                        {/*<Image src={selectimg1} alt="선택지 1" width={98} height={124} />
-                                                <Image src={selectimg2} alt="선택지 2" width={98} height={124} />*/}
-                      </div>
-
+                      <div className={styles.pull_reivew_select}></div>
                       <div className={styles.footer}>
                         <div className={styles.like}>
                           <Image
@@ -146,12 +214,11 @@ const WriteReview = () => {
                     </div>
                   </div>
                 )}
-                {/* ---- 여기서 Zustand에서 가져온 데이터를 UI에 표시 끝 ---- */}
               </div>
             </div>
           </div>
           <div className={styles.write_review_footer_container}>
-            <WriteReviewFooter />
+            <WriteReviewFooter onUpload={handleUpload} />
           </div>
         </div>
       </div>
