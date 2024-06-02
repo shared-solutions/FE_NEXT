@@ -77,7 +77,11 @@ const WriteReview = () => {
     const readers = selectedFiles.map((file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => {
+          const dataURL = reader.result;
+          const base64String = dataURL.split(",")[1]; // Extract the base64 part
+          resolve(base64String);
+        };
         reader.onerror = (error) => reject(error);
         reader.readAsDataURL(file); // Base64로 인코딩합니다.
       });
@@ -99,9 +103,9 @@ const WriteReview = () => {
 
   //토스트 메세지 표출
 
-  const handleToastClose = () => {
-    setShowToast(false);
-  };
+  // const handleToastClose = () => {
+  //   setShowToast(false);
+  // };
 
   useEffect(() => {
     if (selectedBoxData) {
@@ -139,7 +143,7 @@ const WriteReview = () => {
                 {file.map((file, index) => (
                   <div key={index}>
                     <img
-                      src={file}
+                      src={"data:image/png;base64," + file}
                       className={styles.image_wrapper}
                       alt={`Uploaded File ${index + 1}`}
                     />
