@@ -29,7 +29,7 @@ const WritePostFooter = ({ isWrote }) => { // 객체 구조 분해를 통해 isW
                 />
                 <button
                     className={styles.add_vote_button}
-                    disabled={!isWrote}> {/* !isWrote로 수정 */}
+                    disabled={!isWrote}>
                     투표 추가
                 </button>
             </div>
@@ -45,7 +45,6 @@ const WritePostFooter = ({ isWrote }) => { // 객체 구조 분해를 통해 isW
                 <div>|</div>
                 <button className={styles.save_button}>임시저장</button>
             </div>
-            {/* 모달이 열려있을 때 VoteModal 컴포넌트를 렌더링 */}
             {isVoteModalOpen && <VoteModal onClose={closeVoteModal} />}
         </div>
     );
