@@ -420,7 +420,6 @@ export default function Detail({
                     </>
                     )}
                 </div>
-
                 <div className={styles.vote_container}>
                     <div className={styles.minititle}>
                     <div className={styles.mini}>{pollTitle}</div>
