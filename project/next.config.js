@@ -4,6 +4,7 @@ const nextConfig = {
 
 module.exports = {
   images: {
+
     domains: ["solution-friend-bucket.s3.ap-northeast-2.amazonaws.com"],
   },
   ...nextConfig,
@@ -16,3 +17,4 @@ module.exports = {
     ];
   },
 };
+
