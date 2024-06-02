@@ -32,25 +32,26 @@ export const calculateTimeDifference = (createdAt) => {
   const hoursAgo = Math.floor(minutesAgo / 60);
   const daysAgo = Math.floor(hoursAgo / 24);
 
-  if (secondsAgo < 60) {
-    return `${secondsAgo}초 전`;
-  } else if (minutesAgo < 60) {
-    return `${minutesAgo}분 전`;
-  } else if (hoursAgo < 24) {
-    return `${hoursAgo}시간 전`;
-  } else if (daysAgo < 30) {
+  if (daysAgo >= 2) {
+    // 2일 이상 전
+    return `${createdDate.getFullYear()}/${
+      createdDate.getMonth() + 1
+    }/${createdDate.getDate()}`;
+  } else if (daysAgo >= 1) {
+    // 1일 이상 전
     return `${daysAgo}일 전`;
+  } else if (hoursAgo >= 1) {
+    // 1시간 이상 전
+    return `${hoursAgo}시간 전`;
+  } else if (minutesAgo >= 1) {
+    // 1분 이상 전
+    return `${minutesAgo}분 전`;
   } else {
-    const formatter = new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    });
-    return formatter.format(createdDate);
+    // 1분 미만 전
+    return `${secondsAgo}초 전`;
   }
 };
+
 export const CommentSort = ({ postId, onClose }) => {
   const [bottom, setBottom] = useState(true);
   const [replyToComment, setReplyToComment] = useState(null);
