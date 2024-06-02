@@ -19,7 +19,7 @@ const WritePostFooter = ({ isWrote }) => { // 객체 구조 분해를 통해 isW
 
     return (
         <div className={styles.footer_container}>
-            <div className={styles.footer_add_vote}>
+            <div className={styles.footer_add_vote} onClick={openVoteModal} >
                 <Image
                     src={add_button}
                     style={{
@@ -28,7 +28,6 @@ const WritePostFooter = ({ isWrote }) => { // 객체 구조 분해를 통해 isW
                     }}
                 />
                 <button
-                    onClick={openVoteModal} 
                     className={styles.add_vote_button}
                     disabled={!isWrote}> {/* !isWrote로 수정 */}
                     투표 추가

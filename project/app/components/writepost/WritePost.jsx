@@ -136,13 +136,13 @@ const WritePost = () => {
           <input
             className={styles.title}
             type="text"
-            placeholder="제목"
+            placeholder="제목(5자 이상)"
             value={title} // 제목 상태 변수와 연결
             onChange={(e) => setTitle(e.target.value)} // 상태 업데이트 함수
           />
           <textarea
             className={styles.content}
-            placeholder="함께 공유하고 싶은 내용을 남겨보세요."
+            placeholder="함께 공유하고 싶은 내용을 남겨보세요.(5자 이상)"
             value={content} // 내용 상태 변수와 연결
             onChange={(e) => setContent(e.target.value)} // 상태 업데이트 함수
           />

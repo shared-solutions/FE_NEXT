@@ -82,7 +82,7 @@ const CardPostBox = ({
                   }`}
               > 
                 <div className={styles.boxTop}>
-                  <div style={{ position: "absolute", top: "7px", left: "10px", fontWeight: "bold", }}>
+                  <div style={{ position: "absolute", top: "7px", left: "10px", fontWeight: "bold" }}>
                       {option.optionString}
                   </div>
                   {userVote && userVote.map(vote => vote.optionId).includes(option.optionId) && (
