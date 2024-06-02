@@ -317,6 +317,13 @@ export default function Detail({
     setIsMenuOpen(false);
   };
 
+  //댓글 디자인 수정 함수
+  const handleClose = () => {
+    setSetting(false);
+    // setStyle({ display: 'none' }); // 스타일을 변경하는 예시
+    setCount((prevCount) => prevCount + 1);
+  };
+
   return (
     <>
       {isMenuOpen && <MenuPage isOpen={isMenuOpen} onClose={closeMenu} />}
@@ -522,7 +529,7 @@ export default function Detail({
                   onGoing={onGoing}
                 />
               ) : postVoteType === "GAUGE" ? (
-                <GaugeVoteBox {...defaultPostProps} myPost={myPost}/>
+                <GaugeVoteBox {...defaultPostProps} myPost={myPost} />
               ) : null}
               {/*pollOption &&
                 pollOption.map((optionImgUrl, optionString, index) => (

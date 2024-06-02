@@ -163,6 +163,7 @@ export const CommentSort = (postId) => {
               setBottom(false);
               setReplyToComment(null);
               setIsReComment(false);
+              window.location.reload();
             }}
             component={
               <div className={styles.all}>
