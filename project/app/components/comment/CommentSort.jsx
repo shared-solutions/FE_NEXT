@@ -51,7 +51,7 @@ export const calculateTimeDifference = (createdAt) => {
     return formatter.format(createdDate);
   }
 };
-export const CommentSort = (postId) => {
+export const CommentSort = ({ postId, onClose }) => {
   const [bottom, setBottom] = useState(true);
   const [replyToComment, setReplyToComment] = useState(null);
   const [isReComment, setIsReComment] = useState(false);
@@ -61,6 +61,7 @@ export const CommentSort = (postId) => {
 
   const fetchData = async () => {
     try {
+      console.log(postId);
       const response = await lookupComment(postId);
       console.log(response);
 
@@ -76,10 +77,9 @@ export const CommentSort = (postId) => {
   }, []);
 
   const handleCommentClick = async (inputValue) => {
-    console.log(postId.postId);
     try {
       // 댓글 등록 api
-      const response = await postComment(inputValue, null, postId.postId);
+      const response = await postComment(inputValue, null, { postId }.postId);
       console.log(response);
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
@@ -96,7 +96,7 @@ export const CommentSort = (postId) => {
       const response = await postComment(
         inputValue,
         replyToComment,
-        postId.postId
+        { postId }.postId
       );
       console.log(response);
 
@@ -114,9 +114,8 @@ export const CommentSort = (postId) => {
   };
 
   const handleDelete = async (commentid) => {
-    console.log(postId.postId);
     try {
-      const response = await deleteComment(commentid, postId.postId);
+      const response = await deleteComment(commentid, { postId }.postId);
       console.log(response);
 
       fetchData();
@@ -129,7 +128,7 @@ export const CommentSort = (postId) => {
 
   const handleDeleteLike = async (commentId) => {
     try {
-      const response = await deleteCommentLike(commentId, postId.postId);
+      const response = await deleteCommentLike(commentId, { postId }.postId);
       console.log(response);
 
       fetchData();
@@ -140,7 +139,7 @@ export const CommentSort = (postId) => {
 
   const handleLike = async (commentId) => {
     try {
-      const response = await likeComment(commentId, postId.postId);
+      const response = await likeComment(commentId, { postId }.postId);
       console.log(response);
 
       // 댓글 등록 후 최신 데이터 다시 가져오기
@@ -163,6 +162,7 @@ export const CommentSort = (postId) => {
               setBottom(false);
               setReplyToComment(null);
               setIsReComment(false);
+              onClose();
             }}
             component={
               <div className={styles.all}>
@@ -181,7 +181,7 @@ export const CommentSort = (postId) => {
                       isMyComment={comment.isMyComment}
                       isOwnerOfPost={comment.isOwnerOfPost}
                       isSelected={comment.isSelected}
-                      postId={postId.postId}
+                      postId={{ postId }.postId}
                       onDDDClick={fetchData}
                     />
 

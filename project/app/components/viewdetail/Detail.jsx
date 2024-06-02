@@ -522,7 +522,7 @@ export default function Detail({
                   onGoing={onGoing}
                 />
               ) : postVoteType === "GAUGE" ? (
-                <GaugeVoteBox {...defaultPostProps} myPost={myPost}/>
+                <GaugeVoteBox {...defaultPostProps} myPost={myPost} />
               ) : null}
               {/*pollOption &&
                 pollOption.map((optionImgUrl, optionString, index) => (
