@@ -20,8 +20,12 @@ body {
   font-style: normal;
 }
 
-.container{
-  width:90%;
+.container {
+  width: 90vw;
 }
 
-
+@media (min-width: 800px) {
+  .container {
+    width: 30%;
+  }
+}

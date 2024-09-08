@@ -2,13 +2,25 @@
     height: 80px;
     background-color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     position: fixed;
     width: 100vw;
     bottom: 0px;
     left: 0;
     z-index: 10;
+    @media (min-width: 800px) {
+        height: 80px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        width: 40vw;
+        bottom: 0px;
+        left: 30%;
+        z-index: 10;
+    }
 }
 .footer_add_vote{
     display: flex;
@@ -16,6 +28,7 @@
     align-items: center;
     padding-left: 20px;
     cursor: pointer;
+    height: 50%;
 }
 .footer_menu{
     display: flex;
@@ -28,11 +41,8 @@
     font-weight: 800;
     margin-left: 10px;
     cursor: pointer;
+    align-content: center;
+    display: flex;
+    height: 100%;
 }
-.save_button{
-    background-color: white;
-    border: none;
-    font-weight: 700;
-    margin-left: 20px;
-    margin-right: 20px;
-}
+
