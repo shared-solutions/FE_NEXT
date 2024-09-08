@@ -19,32 +19,21 @@ const WritePostFooter = ({ isWrote }) => { // 객체 구조 분해를 통해 isW
 
     return (
         <div className={styles.footer_container}>
-            <div className={styles.footer_add_vote} onClick={openVoteModal} >
-                <Image
+            <div className={styles.footer_add_vote}>
+                <button
+                    className={styles.add_vote_button}
+                    disabled={!isWrote}
+                    onClick={openVoteModal}>
+                    <Image
                     src={add_button}
                     style={{
                         width: 25,
                         height: 25,
                     }}
-                />
-                <button
-                    className={styles.add_vote_button}
-                    disabled={!isWrote}>
-                    투표 추가
+                />투표추가
                 </button>
             </div>
-            <div className={styles.footer_menu}>
-                <Image
-                    src={imageicon}
-                    style={{
-                        width: 25,
-                        height: 25,
-                        margin: 20
-                    }}
-                />
-                <div>|</div>
-                <button className={styles.save_button}>임시저장</button>
-            </div>
+            
             {isVoteModalOpen && <VoteModal onClose={closeVoteModal} />}
         </div>
     );

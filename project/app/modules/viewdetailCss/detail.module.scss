@@ -1,24 +1,43 @@
 .container {
-  height: 100vh;
-  // width: 86vw;
-  // padding-left: 30px;
-  // padding-right: 30px;
+  height: calc(100vh - 80px);
+  width: 100%;
   background-color: white;
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
+  @media (min-width: 800px) {
+    height: calc(100vh - 80px);
+    position: relative;
+    width: 100%;
+    background-color: white;
+    top: -50px;
+    left: 0;
+  }
 }
 
 .header_container {
   width: 100%;
   display: flex;
-  height: 55px;
+  height: 50px;
   align-items: center;
-  position: sticky;
   justify-content: center;
+  position: sticky;
   top: 0;
   text-align: center;
   padding-top: 3px;
+  background-color: white;
+  @media (min-width: 800px) {
+    width: 30%;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    text-align: center;
+    padding-top: 3px;
+    background-color: white;
+  }
 }
 
 .logo {
@@ -46,10 +65,16 @@
 }
 
 .content_container {
-  height: calc(100vh - 50px);
-  width: 86vw;
-  padding-right: 70px;
+  height: calc(100vh - 140px);
+  overflow-y: scroll;
+  padding-right: 40px;
   background-color: white;
+  @media (min-width: 800px) {
+    height: calc(100vh - 80px);
+    padding-right: 40px;
+    overflow: hidden;
+    background-color: white;
+  }
 }
 
 .without_vote_container {
@@ -189,7 +214,7 @@
 }
 
 .minititle {
-  width: 320px;
+  width: 90%;
   display: flex;
   text-align: center;
   font-size: 15px;
@@ -208,10 +233,10 @@
 
 .vote_container {
   background-color: #fffbeb;
-  width: 100vw;
-  padding-left: 30px;
+  margin-left: 30px;
   padding-top: 30px;
   margin-top: 25px;
+  padding-left: 10px;
 }
 .pointnum {
   padding-right: 5px;

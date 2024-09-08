@@ -7,6 +7,16 @@
   z-index: 100;
   //position: absolute;
   position: fixed;
+  @media (min-width: 800px) {
+    top: 0;
+    left: 30%;
+    bottom: 0;
+    width: 40%;
+    //min-height: calc(90vh - 120px);
+    z-index: 100;
+    //position: absolute;
+    position: fixed;
+  }
 }
 .content_footer_container {
   //height: 85vh;
