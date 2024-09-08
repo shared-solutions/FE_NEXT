@@ -14,14 +14,14 @@ import downimg from '../../public/image/down.png'
 
 const VoteDeadline = () => {
     const { setVoteDeadline} = useWriteVoteStore();
-    
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentMinute = currentDate.getMinutes();
     const [startDate, setStartDate] = useState(
         setHours(setMinutes(new Date(), currentMinute), currentHour),
       );
     const [selectedDate, setSelectedDate] = useState(""); 
-    const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-    const currentMinute = currentDate.getMinutes();
+    
     const nextDay = new Date();
     nextDay.setDate(currentDate.getDate() + 1);
 

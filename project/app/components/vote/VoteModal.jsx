@@ -24,8 +24,9 @@ const VoteModal = ({ onClose }) => {
     const voteItems = useVoteStore.getState().voteCardItems;
     const test = useWriteVoteStore.getState().selectedVoteType;
     //private variable
-    let isEmpty = selectedStyle === '카드' && voteItems.some(item => item.image === null || item.placeholder === '');
     const [selectedStyle, setSelectedStyle] = useState('일반'); // 기본값은 '일반'
+    let isEmpty = selectedStyle === '카드' && voteItems.some(item => item.image === null || item.placeholder === '');
+    
     //functions
     const handleStyleSelect = (style) => {
         setSelectedStyle(style);
@@ -75,7 +76,7 @@ const VoteModal = ({ onClose }) => {
                         <Image
                             src={downimg}
                             style={{
-                                width: 23,
+                                width: 10,
                                 height: 10
                             }}
                             alt='down/'
@@ -87,7 +88,7 @@ const VoteModal = ({ onClose }) => {
                         <input 
                             className={styles.write_title} 
                             type='text' 
-                            placeholder='내용을 입력하세요'
+                            placeholder='내용을 입력하세요(5자 이상)'
                             value={voteTitle} // Zustand에 저장된 투표 제목 사용
                             onChange={handleTitleChange} // 사용자가 입력한 내용으로 투표 제목 업데이트
                         />
