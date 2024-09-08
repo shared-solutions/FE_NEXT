@@ -6,9 +6,6 @@ import smile from "@/app/public/image/smile.png"
 import { useEffect } from "react"
 
 
-const RestApi = '74a6375e4d5e498e04211309f83a2ec5'
-const Redirect = 'https://gominchinguteam.vercel.app/i/login/kakao'
-
 export default function Modal() {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
