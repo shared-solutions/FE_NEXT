@@ -57,17 +57,7 @@ const NormalVoteItem = () => {
         <div className={styles.container}>
         <div className={styles.top}>
             <span>항목</span>
-            <div className={styles.check_container}>
-            <Image
-                src={check}
-                style={{
-                width: 18,
-                height: 18,
-                }}
-                alt="check/"
-            />
-            <div>복수 선택</div>
-            </div>
+
         </div>
         <div>
             {voteItems &&

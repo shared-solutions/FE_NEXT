@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <link rel="manifest" href="/manifest.json" />
       <meta name="theme-color" content="#ffeb86"/>
       <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-      <link rel="apple-touch-startup-image" href="/launch.png"></link>
+      <link rel="apple-touch-startup-image" href="/splashscreens/ipad_splash.png"></link>
       <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/apple-launch-1125x2436.png"/>
       <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/apple-launch-750x1334.png"/>
       <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="/apple-launch-1242x2208.png"/>

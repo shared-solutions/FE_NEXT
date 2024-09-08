@@ -11,7 +11,7 @@ const config = {
     return [
       {
         source: "/user/:path*",
-        destination: "http://dev.gomin-chingu.site/user/:path*", // 프록시할 서버 주소
+        destination: "https://dev.gomin-chingu.site/user/:path*", // 프록시할 서버 주소
       },
     ];
   },

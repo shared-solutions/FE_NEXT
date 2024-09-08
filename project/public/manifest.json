@@ -6,8 +6,8 @@
     "scope": "/",
     "start_url": "/",
     "name": "고민친구",
-    "short_name": "고민 상담 플랫폼",
-    "description": "고민친구",
+    "short_name": "고민친구",
+    "description": "고민상담 플랫폼",
     "icons": [
         {
             "src": "/pwaasset/icon-192x192.png",
