@@ -42,11 +42,9 @@ export default function Modal() {
                 <p>간편하게 로그인하고</p>
                 <p>나의 고민을 공유해보세요.</p>
             </div>
-            <button className={styles.btn} onClick={() => window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${RestApi}&redirect_uri=${Redirect}&response_type=code`}
-            ><h2>카카오로 3초만에 시작하기</h2></button>
+            <Link href='/i/signin' className={styles.btn} scroll={false}><h2>이메일로 로그인하기</h2></Link>
             <div className={styles.option}>
-                <Link href='/i/signin' scroll={false}>이메일로 로그인</Link>
-                <p>|</p>
+                
                 <Link href='/i/signup' scroll={false}>회원가입</Link>
             </div>
         </div>
